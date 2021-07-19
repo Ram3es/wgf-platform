@@ -1,56 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
 import { TextBlockStyles } from '@styles/components/text-block';
-import { Banner } from '../result-page/components/banner-result';
 import { NextSteps } from '../result-page/components/next-steps';
 import { ResultSummary } from '../result-page/components/result-summary';
+import { HeaderPdf } from './components/header-pdf';
 
 import { images } from '@constants/images';
 import { STRINGS } from '@constants/strings';
+import { initialState } from './pdf-page.constants';
 
 import { TitleStyles } from '@styles/components/title-styles';
 
-interface IInitalState {
-  name: string;
-  results: IResults;
-}
-
-const initialState: IInitalState = {
-  name: '',
-  results: {
-    concern: {
-      level: 'Low',
-      score: 0,
-    },
-    confidence: {
-      level: 'Low',
-      score: 0,
-    },
-    control: {
-      level: 'Low',
-      score: 0,
-    },
-    curiosity: {
-      level: 'Low',
-      score: 0,
-    },
-    cooperation: {
-      level: 'Low',
-      score: 0,
-    },
-  },
-};
-
 export const PdfPage: React.FC = () => {
   const [state, setState] = useState(initialState);
+
+  const { replace } = useHistory();
+
   const query = new URLSearchParams(useLocation().search);
 
+  useEffect(() => {
+    if (!query.get('firstName')) {
+      return replace('/');
+    }
+
+    getQueryParams();
+  }, []);
+
   const getQueryParams = () => {
-    const name = query.get('name') || '';
+    const firstName = query.get('firstName') || '';
+    const lastName = query.get('lastName') || '';
     const concern = {
       level: query.get('concern_level') || 'Low',
       score: +(query.get('concern_score') || 0),
@@ -73,7 +55,8 @@ export const PdfPage: React.FC = () => {
     };
 
     setState({
-      name,
+      firstName,
+      lastName,
       results: {
         concern,
         confidence,
@@ -84,20 +67,16 @@ export const PdfPage: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    getQueryParams();
-  }, []);
-
   return (
     <>
+      <HeaderPdf />
       <Container>
-        <Banner />
-        <TitleStyles.h3 paddingY="20px">{state.name}</TitleStyles.h3>
+        <TitleStyles.h3 paddingY="-10px">{`${state.firstName}  ${state.lastName}`}</TitleStyles.h3>
         <ResultSummary results={state.results} />
         <NextSteps results={state.results} />
         {STRINGS.resultPage.resultTextBlocks.map(({ title, text }, i) => (
           <div key={i}>
-            <TitleStyles.h2 paddingY="20px" color={COLORS.grey}>
+            <TitleStyles.h2 paddingY="5px" color={COLORS.grey}>
               {title}
             </TitleStyles.h2>
             <TextBlockStyles>{text}</TextBlockStyles>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { BannerImage } from '@components/banner-image';
 import { Button } from '@components/button';
+import { Header } from '@components/header';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
@@ -44,18 +46,28 @@ export const ResultPage: React.FC = () => {
   const generatePdf = (id: string) => async () => {
     setLoading(true);
 
-    const { data } = await getPdf(id);
+    const {
+      data: { file },
+    } = await getPdf(id);
 
-    window.open(`${BASE_URL}/static/?file=${data.file}`, '_blank');
+    if (!file) {
+      return;
+    }
+
+    window.open(`${BASE_URL}/static/${file}`, '_blank');
 
     setLoading(false);
   };
 
   return (
     <>
+      <Header />
+      <BannerImage />
       <Container>
         <Banner />
-        <TitleStyles.h3 paddingY="20px">{user.firstName}</TitleStyles.h3>
+        <TitleStyles.h3 paddingY="20px">
+          {`${user.firstName}  ${user.lastName}`}
+        </TitleStyles.h3>
         <ResultSummary results={results} />
         <NextSteps results={results} />
         {STRINGS.resultPage.resultTextBlocks.map(({ title, text }, i) => (

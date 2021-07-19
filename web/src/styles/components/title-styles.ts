@@ -28,7 +28,7 @@ export const TitleStyles = {
 
     @media print {
       -webkit-print-color-adjust: exact !important;
-      color-adjust: exact !important; /* Non-Webkit Browsers */
+      color-adjust: exact !important;
     }
   `,
   h2: styled.h2<TitleProps>`
@@ -41,7 +41,7 @@ export const TitleStyles = {
 
     @media print {
       -webkit-print-color-adjust: exact !important;
-      color-adjust: exact !important; /* Non-Webkit Browsers */
+      color-adjust: exact !important;
     }
 
     ${Media.mobile`
@@ -62,7 +62,7 @@ export const TitleStyles = {
 
     @media print {
       -webkit-print-color-adjust: exact !important;
-      color-adjust: exact !important; /* Non-Webkit Browsers */
+      color-adjust: exact !important;
     }
   `,
 };

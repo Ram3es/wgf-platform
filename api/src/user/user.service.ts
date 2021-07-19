@@ -1,6 +1,7 @@
-import { unlinkSync } from 'fs';
+import { existsSync, unlinkSync } from 'fs';
 import { createTransport } from 'nodemailer';
 import { join } from 'path';
+import { env } from 'process';
 import { launch } from 'puppeteer';
 import { Repository } from 'typeorm';
 
@@ -127,8 +128,8 @@ export class UserService {
   async getPdf(id: string) {
     try {
       const user = await this.getUserById(id);
+      const file = `${user.firstName}-${user.lastName}-quiz-results.pdf`;
 
-      const file = `results-${id}-${Date.now()}.pdf`;
       const browser = await launch({
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -141,26 +142,29 @@ export class UserService {
         waitUntil: 'networkidle2',
         timeout: 5000,
       });
+
       const pdf = await page.pdf({
         printBackground: true,
-        path: `pdf/${file}`,
+        path: `${file}`,
         format: 'a4',
         scale: 0.5,
       });
+
       const base64 = pdf.toString('base64');
 
       await browser.close();
 
       setTimeout(() => {
-        unlinkSync(join(process.cwd(), 'pdf', file));
+        if (existsSync(join(process.cwd(), file))) {
+          return unlinkSync(join(process.cwd(), file));
+        }
       }, 20000);
 
-      await this.sendMail(user, base64);
+      this.sendMail(user, base64);
 
       return { file };
     } catch (e) {
-      console.log(e);
-      throw new HttpException('Can not create Pdf', HttpStatus.BAD_REQUEST);
+      return new HttpException(e.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -174,27 +178,34 @@ export class UserService {
     });
 
     const message = {
-      from: 'Avid Quiz <mzorin@codempire.team>',
+      from: `Avid Adventures <${env.EMAIL_ADRESS_FROM}>`,
 
       to: `${user.firstName} ${user.lastName}<${user.email}>`,
       bcc: user.email,
 
-      subject: 'Avid Quiz result',
+      subject: 'Quiz Completion',
 
-      text: 'Hello to myself!',
-
-      html: '<p><b>Hello</b> to myself</p>',
+      html: `
+        <p>Hi <b>${user.firstName},</b></p>
+        <p>Thanks for completing The Career Adapt-Abilities + Cooperation Assessment.</p>
+        <p>You’re all set! Please refer to the attachment to view your results.</p>
+        <p>Bests,<br/>Jac at Avid Adventures</p>
+      `,
 
       attachments: [
         {
-          filename: `results.pdf`,
+          filename: `${user.firstName}-${user.lastName}-quiz-results.pdf`,
           content: pdf,
           encoding: 'base64',
         },
       ],
     };
 
-    await transporter.sendMail(message);
+    try {
+      await transporter.sendMail(message);
+    } catch (e) {
+      return new HttpException(e.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   getPdfPageUrl(user: UserEntity) {
@@ -205,7 +216,8 @@ export class UserService {
       this.getResultCalculationAtributes(sortedUserAnswers);
 
     const QUERIES = [
-      `name=${user.firstName}`,
+      `fistName=${user.firstName}`,
+      `lastName=${user.lastName}`,
       `concern_level=${concern.level}`,
       `concern_score=${concern.score}`,
       `confidence_level=${confidence.level}`,
@@ -218,6 +230,6 @@ export class UserService {
       `cooperation_score=${cooperation.score}`,
     ];
 
-    return `http://18.118.40.166/pdf?${QUERIES.join('&')}`;
+    return `${env.WEB_BASE_URL}pdf?${QUERIES.join('&')}`;
   }
 }

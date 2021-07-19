@@ -79,7 +79,7 @@ export const Form: React.FC = () => {
               <>
                 {currentPage > 1 ? (
                   <TitleStyles.h2>
-                    {STRINGS.form.title} {user.firstName}
+                    {STRINGS.form.title} {user.firstName} {user.lastName}
                   </TitleStyles.h2>
                 ) : (
                   <FormStyles.Form>

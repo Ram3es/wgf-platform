@@ -8,7 +8,7 @@ export const ResultSummaryStyles = {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
     margin: 0 -10px;
 
@@ -17,6 +17,8 @@ export const ResultSummaryStyles = {
     @media print {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+
+      margin: 0 -25px;
     }
 
     ${Media.desktop`
@@ -30,22 +32,12 @@ export const ResultSummaryStyles = {
     ${Media.mobile`
       margin: 0 -3px;
     `}
-
-    div:last-child div:nth-child(2) {
-      ${Media.landscape`
-      margin-top: -6%;
-    `}
-    }
   `,
 
   CardItem: styled.div`
     position: relative;
     flex: 0 1 20%;
     padding: 10px;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
     page-break-inside: avoid;
 
@@ -54,7 +46,7 @@ export const ResultSummaryStyles = {
       print-color-adjust: exact;
 
       flex: 0 1 20%;
-      padding: 10px;
+      padding: 20px;
     }
 
     ${Media.desktop`
@@ -69,26 +61,32 @@ export const ResultSummaryStyles = {
     `}
   `,
   CardHeading: styled.div`
+    position: relative;
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: center;
-    position: relative;
     padding: 0 -10px;
 
+    @media print {
+      padding: 0 20px;
+    }
+
     img {
-      width: 110%;
-      max-width: none;
-      vertical-align: bottom;
+      width: 180px;
+      height: 120px;
 
       ${Media.landscape`
-        width: 100%;
-        max-width: 100%;
+        width: 220px;
+        height: 150px;
       `}
-      ${Media.desktop`
-        width: 100%;
-        max-width: 100%;
-        min-height: 130px;
+      ${Media.mobile`
+        width: 150px;
+        height: 100px;
+      `}
+      ${Media.xsMobile`
+        width: 140px;
+        height: 100px;
       `}
     }
 
@@ -110,12 +108,12 @@ export const ResultSummaryStyles = {
   CardBody: styled.div`
     background: ${COLORS.bgGrey};
     border-radius: 10px;
-    margin-top: -25%;
+    margin-top: -10%;
     padding: 25px 10px;
     margin-bottom: 15px;
 
-    &:last-child {
-      margin-top: -6%;
+    @media print {
+      padding: 25px 20px;
     }
 
     ${Media.desktop`
@@ -124,10 +122,6 @@ export const ResultSummaryStyles = {
 
     ${Media.landscape`
       padding: 25px 30px;
-      margin-top: -20%;
-
-      &:last-child {
-      margin-top: -6% !important;
     }
     `}
     ${Media.mobile`
@@ -165,8 +159,13 @@ export const ResultSummaryStyles = {
         min-height: 180px;
       `}
 
+      ${Media.mobile`
+        min-height: auto;
+      `}
+
       @media print {
-        min-height: 170px;
+        margin-top: -50px;
+        min-height: 185px;
       }
     }
   `,
@@ -183,18 +182,22 @@ export const ResultSummaryStyles = {
       ${Media.mobile`
         font-size: 20px;
       `}
+
+      ${Media.xsMobile`
+        font-size: 16px;
+      `}
     }
 
     img {
       ${Media.mobile`
-      width: 20px;
-      height: 20px;
-    `}
+        width: 20px;
+        height: 20px;
+      `}
 
-      ${Media.xsMobile`
-      width: 15px;
-      height: 15px;
-    `}
+      ${Media.sMobile`
+        width: 15px;
+        height: 15px;
+      `}
     }
   `,
   CardDescriprion: styled.div`

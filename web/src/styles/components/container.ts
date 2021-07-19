@@ -16,7 +16,8 @@ export const Container = styled.div`
   `}
 
   @media print {
-    max-width: 1290px;
+    max-width: none;
+    padding: 0 50px;
   }
 
   ${Media.smallLandscape`

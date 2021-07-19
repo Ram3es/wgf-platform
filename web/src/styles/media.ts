@@ -4,6 +4,7 @@ import { CSS } from 'typings/css';
 
 export const SIZE = {
   xsMobile: '374px',
+  sMobile: '400px',
   mobile: '600px',
   tablet: '768px',
   smallLandscape: '940px',
@@ -17,6 +18,12 @@ export const Media = {
   xsMobile: (payload: CSS) =>
     css`
       @media (max-width: ${SIZE.xsMobile}) {
+        ${payload};
+      }
+    `,
+  sMobile: (payload: CSS) =>
+    css`
+      @media (max-width: ${SIZE.sMobile}) {
         ${payload};
       }
     `,

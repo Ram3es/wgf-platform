@@ -25,7 +25,8 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
       imageBody: images.concernBodyImage,
       level: results.concern.level,
       starIcon: images.starConcern,
-      description: '[List of descriptions for Attributes A].',
+      description:
+        'Concern represents an optimistic future orientation and being planful',
     },
     {
       title: 'CONTROL',
@@ -34,7 +35,8 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
       imageBody: images.controlBodyImage,
       level: results.control.level,
       starIcon: images.starControl,
-      description: '[List of descriptions for Attributes B].',
+      description:
+        'Control is associated with decision making and an internal locus of control',
     },
     {
       title: 'CURIOSITY',
@@ -43,7 +45,8 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
       imageBody: images.curiosityBodyImage,
       level: results.curiosity.level,
       starIcon: images.starCuriosity,
-      description: '[List of descriptions for Attributes C].',
+      description:
+        "Curiosity stands for the ability to explore one's own strengths and preferences as well as the requirements and benefits of different vocational environments",
     },
     {
       title: 'CONFIDENCE',
@@ -52,7 +55,8 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
       imageBody: images.confidenceBodyImage,
       level: results.confidence.level,
       starIcon: images.starConfidence,
-      description: '[List of descriptions for Attributes D].',
+      description:
+        "Confidence covers self-efficacy expectations with regard to one's vocational development",
     },
     {
       title: 'COOPERATION',
@@ -61,7 +65,8 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
       imageBody: images.cooperationBodyImage,
       level: results.cooperation.level,
       starIcon: images.starCooperation,
-      description: '[List of descriptions for Attributes E].',
+      description:
+        'Cooperation is a cultural construct which impacts how one benefits from social interactions in a career.',
     },
   ];
 

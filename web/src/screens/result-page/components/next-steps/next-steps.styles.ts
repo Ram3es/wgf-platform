@@ -14,6 +14,8 @@ export const NextStepsStyles = {
     @media print {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+
+      padding: 0;
     }
   `,
   CardWrapper: styled.div`
@@ -22,6 +24,10 @@ export const NextStepsStyles = {
     ${Media.mobile`
         padding: 20px 0 0;
       `}
+
+    @media print {
+      padding: 0;
+    }
   `,
   CardItem: styled.div`
     position: relative;
@@ -54,6 +60,12 @@ export const NextStepsStyles = {
         flex-direction: row;
         align-items: baseline;
       `}
+
+      @media print {
+        flex-direction: row;
+        align-items: baseline;
+        min-width: 260px;
+      }
     }
 
     span {
@@ -63,6 +75,10 @@ export const NextStepsStyles = {
       ${Media.mobile`
         font-size: 13px;
       `}
+
+      @media print {
+        margin-right: 15px;
+      }
     }
 
     strong {
