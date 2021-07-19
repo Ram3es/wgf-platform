@@ -129,8 +129,9 @@ export class UserService {
       const user = await this.getUserById(id);
 
       const file = `results-${id}-${Date.now()}.pdf`;
-
       const browser = await launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
         defaultViewport: { width: 1600, height: 1500 },
       });
 
@@ -140,14 +141,12 @@ export class UserService {
         waitUntil: 'networkidle2',
         timeout: 5000,
       });
-
       const pdf = await page.pdf({
         printBackground: true,
         path: `pdf/${file}`,
         format: 'a4',
         scale: 0.5,
       });
-
       const base64 = pdf.toString('base64');
 
       await browser.close();
@@ -159,7 +158,8 @@ export class UserService {
       await this.sendMail(user, base64);
 
       return { file };
-    } catch {
+    } catch (e) {
+      console.log(e);
       throw new HttpException('Can not create Pdf', HttpStatus.BAD_REQUEST);
     }
   }

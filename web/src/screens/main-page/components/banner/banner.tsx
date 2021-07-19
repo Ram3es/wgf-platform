@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { STRINGS } from '@constants/strings';
-
 import { BannerStyles } from './banner.styles';
 
 export const Banner: React.FC = () => (
   <BannerStyles.Wrapper>
-    <BannerStyles.Title>{STRINGS.banner.title}</BannerStyles.Title>
+    <BannerStyles.Title>My Career Adaptation</BannerStyles.Title>
     <BannerStyles.Text>
-      <p>{STRINGS.banner.text}</p>
+      <p>
+        Different people use different strengths to build their careers. No one
+        is good at everything, each of us emphasizes some strengths more than
+        others.
+      </p>
     </BannerStyles.Text>
   </BannerStyles.Wrapper>
 );
