@@ -71,7 +71,6 @@ export const Pdf: React.FC = () => {
       level: query.get('cooperation_level') || 'Low',
       score: +(query.get('cooperation_score') || 0),
     };
-
     setState({
       name,
       results: {
