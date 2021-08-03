@@ -23,6 +23,7 @@ import { UserModule } from './user/user.module';
     UserModule,
   ],
 })
+
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
