@@ -7,49 +7,47 @@ import { Media } from '@styles/media';
 import { ITextFieldStylesProps } from './text-field.typings';
 
 export const TextFieldStyled = {
-  Wrapper: styled.div<ITextFieldStylesProps>`
+  Wrapper: styled.div`
     position: relative;
     margin-bottom: 30px;
+  `,
+
+  Input: styled.input<ITextFieldStylesProps>`
+    padding: 9.5px 20px;
+    background: ${COLORS.greyLite};
+    border: 1px solid ${COLORS.white};
+    border-radius: 40px;
+    font-size: ${FONT_SIZES.medium};
+    font-family: inherit;
+    font-weight: 700;
+    width: ${({ isFullWidth, width }) =>
+      isFullWidth ? '100%' : width || 'auto'};
+    height: ${({ height }) => height || 'auto'};
+    color: ${COLORS.default};
+    transition: 0.3s;
 
     ${Media.mobile`
-      & > input {
-        font-size: 16px;
-      }
-    `}
+      font-size: 16px;
+    `};
 
-    input {
-      padding: 9.5px 20px;
-      background: ${COLORS.greyLite};
+    :hover,
+    :focus,
+    :focus-visible {
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+      -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
       border: 1px solid ${COLORS.white};
-      border-radius: 40px;
-      font-size: ${FONT_SIZES.medium};
-      font-family: inherit;
-      font-weight: 700;
-      width: ${({ isFullWidth, width }) =>
-        isFullWidth ? '100%' : width || 'auto'};
-      height: ${({ height }) => height || 'auto'};
-      color: ${COLORS.default};
-      transition: 0.3s;
-
-      :hover,
-      :focus,
-      :focus-visible {
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-        -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-        border: 1px solid ${COLORS.white};
-        outline: none;
-        -webkit-outline: none;
-        ${({ error }) =>
-          error &&
-          `
+      outline: none;
+      -webkit-outline: none;
+      ${({ error }) =>
+        error &&
+        `
             box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2);
             -webkit-box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2);
           `}
-      }
+    }
 
-      ::placeholder {
-        color: ${COLORS.grey};
-      }
+    ::placeholder {
+      color: ${COLORS.grey};
     }
   `,
 
