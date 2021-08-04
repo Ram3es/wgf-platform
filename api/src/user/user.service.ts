@@ -24,6 +24,11 @@ export class UserService {
 
   async createUser(createUserDto: CreateUserDto): Promise<any> {
     try {
+      createUserDto = {
+        ...createUserDto,
+        email: createUserDto.email.toLowerCase(),
+      };
+
       const user = await this.userRepository.findOne({
         where: {
           email: createUserDto.email,
