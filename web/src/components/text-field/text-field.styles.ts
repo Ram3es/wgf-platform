@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { Media } from '@styles/media';
 
 import { ITextFieldStylesProps } from './text-field.typings';
 
@@ -9,6 +10,12 @@ export const TextFieldStyled = {
   Wrapper: styled.div<ITextFieldStylesProps>`
     position: relative;
     margin-bottom: 30px;
+
+    ${Media.mobile`
+      input {
+        font-size: 16px;
+      }
+    `}
 
     input {
       padding: 9.5px 20px;
@@ -22,16 +29,22 @@ export const TextFieldStyled = {
         isFullWidth ? '100%' : width || 'auto'};
       height: ${({ height }) => height || 'auto'};
       color: ${COLORS.default};
-      transition: 0.3;
+      transition: 0.3s;
 
       :hover,
       :focus,
       :focus-visible {
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-        border: 1px solid ${COLORS.white};
-        outline: none;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15) !important;
+        -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15) !important;
+        border: 1px solid ${COLORS.white} !important;
+        outline: none !important;
+        -webkit-outline: none !important;
         ${({ error }) =>
-          error && `box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2)`}
+          error &&
+          `
+            box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2);
+            -webkit-box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2);
+          `}
       }
 
       ::placeholder {

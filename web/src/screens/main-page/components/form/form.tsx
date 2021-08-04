@@ -92,6 +92,7 @@ export const Form: React.FC = () => {
                         onChange={handleUserChange}
                         onBlur={handleBlur}
                         value={user.firstName}
+                        tabIndex={1}
                         error={
                           touched.firstName && errors.firstName
                             ? errors.firstName
@@ -108,6 +109,7 @@ export const Form: React.FC = () => {
                         onChange={handleUserChange}
                         onBlur={handleBlur}
                         value={user.lastName}
+                        tabIndex={2}
                         error={
                           touched.lastName && errors.lastName
                             ? errors.lastName
@@ -123,7 +125,8 @@ export const Form: React.FC = () => {
                         placeholder={'Email'}
                         onChange={handleUserChange}
                         onBlur={handleBlur}
-                        value={user.email}
+                        value={user.email.trim()}
+                        tabIndex={3}
                         error={
                           touched.email && errors.email ? errors.email : ''
                         }

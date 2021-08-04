@@ -21,6 +21,17 @@ export const useFormState = () => {
   }, [state.currentPage, state.questionList]);
 
   useEffect(() => {
+    if (state.currentPage === 2) {
+      updateState({
+        user: {
+          ...state.user,
+          email: state.user.email.trim(),
+          firstName: state.user.firstName.trim(),
+          lastName: state.user.lastName.trim(),
+        },
+      });
+    }
+
     sessionStorage.setItem(
       SESSION_STORAGE.questionList,
       JSON.stringify(state.questionList)
