@@ -83,8 +83,6 @@ export const Pdf: React.FC = () => {
     });
   }, []);
 
-  console.log(state);
-
   return (
     <>
       <Container>

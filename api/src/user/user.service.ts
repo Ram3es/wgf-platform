@@ -138,8 +138,6 @@ export class UserService {
 
       const page = await browser.newPage();
 
-      console.log(this.getPdfPageUrl(user));
-
       await page.goto(this.getPdfPageUrl(user), {
         waitUntil: 'networkidle2',
         timeout: 5000,
@@ -218,7 +216,7 @@ export class UserService {
       this.getResultCalculationAtributes(sortedUserAnswers);
 
     const QUERIES = [
-      `fistName=${user.firstName}`,
+      `firstName=${user.firstName}`,
       `lastName=${user.lastName}`,
       `concern_level=${concern.level}`,
       `concern_score=${concern.score}`,
@@ -231,8 +229,6 @@ export class UserService {
       `cooperation_level=${cooperation.level}`,
       `cooperation_score=${cooperation.score}`,
     ];
-
-    console.log(`${env.WEB_BASE_URL}pdf?${QUERIES.join('&')}`);
 
     return `${env.WEB_BASE_URL}pdf?${QUERIES.join('&')}`;
   }
