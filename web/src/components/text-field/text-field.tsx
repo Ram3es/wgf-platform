@@ -19,14 +19,12 @@ export const TextField: React.FC<ITextFieldProps> = ({
   tabIndex,
 }) => (
   <div>
-    <TextFieldStyled.Wrapper
-      width={width}
-      isFullWidth={isFullWidth}
-      error={error}
-      height={height}
-      placeholder={placeholder}
-    >
-      <input
+    <TextFieldStyled.Wrapper>
+      <TextFieldStyled.Input
+        width={width}
+        isFullWidth={isFullWidth}
+        error={error}
+        height={height}
         type={type}
         value={value}
         onChange={onChange}
