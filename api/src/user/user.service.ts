@@ -138,6 +138,8 @@ export class UserService {
 
       const page = await browser.newPage();
 
+      console.log(this.getPdfPageUrl(user));
+
       await page.goto(this.getPdfPageUrl(user), {
         waitUntil: 'networkidle2',
         timeout: 5000,
@@ -229,6 +231,8 @@ export class UserService {
       `cooperation_level=${cooperation.level}`,
       `cooperation_score=${cooperation.score}`,
     ];
+
+    console.log(`${env.WEB_BASE_URL}pdf?${QUERIES.join('&')}`);
 
     return `${env.WEB_BASE_URL}pdf?${QUERIES.join('&')}`;
   }
