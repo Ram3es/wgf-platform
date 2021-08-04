@@ -24,11 +24,6 @@ export class UserService {
 
   async createUser(createUserDto: CreateUserDto): Promise<any> {
     try {
-      createUserDto = {
-        ...createUserDto,
-        email: createUserDto.email.toLowerCase(),
-      };
-
       const user = await this.userRepository.findOne({
         where: {
           email: createUserDto.email,
@@ -145,7 +140,7 @@ export class UserService {
 
       await page.goto(this.getPdfPageUrl(user), {
         waitUntil: 'networkidle2',
-        timeout: 5000,
+        timeout: 15000,
       });
 
       const pdf = await page.pdf({

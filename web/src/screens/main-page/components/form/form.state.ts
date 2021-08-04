@@ -50,8 +50,6 @@ export const useFormState = () => {
     updateState((prev) => ({
       user: { ...prev.user, [e.target.name]: e.target.value },
     }));
-
-    console.log(state.user);
   };
 
   const isLastPage =
