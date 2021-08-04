@@ -1,4 +1,4 @@
 # Digilooms
-![API DEPLOY](https://github.com/Digilooms/digilooms-api/actions/workflows/api-deploy.yml/badge.svg)
-![CLIENT DEPLOY](https://github.com/Digilooms/digilooms-api/actions/workflows/api-deploy.yml/badge.svg)
+![API DEPLOY](https://github.com/jacphua/wgf-platform/actions/workflows/api-deploy.yml/badge.svg)
+![CLIENT DEPLOY](https://github.com/jacphua/wgf-platform/actions/workflows/client-deploy.yml/badge.svg)
 
