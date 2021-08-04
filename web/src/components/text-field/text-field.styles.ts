@@ -12,7 +12,7 @@ export const TextFieldStyled = {
     margin-bottom: 30px;
 
     ${Media.mobile`
-      input {
+      & > input {
         font-size: 16px;
       }
     `}
@@ -34,11 +34,11 @@ export const TextFieldStyled = {
       :hover,
       :focus,
       :focus-visible {
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15) !important;
-        -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15) !important;
-        border: 1px solid ${COLORS.white} !important;
-        outline: none !important;
-        -webkit-outline: none !important;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+        -webkit-box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+        border: 1px solid ${COLORS.white};
+        outline: none;
+        -webkit-outline: none;
         ${({ error }) =>
           error &&
           `
