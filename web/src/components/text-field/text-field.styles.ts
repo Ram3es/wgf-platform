@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { Media } from '@styles/media';
 
 import { ITextFieldStylesProps } from './text-field.typings';
 
@@ -9,6 +10,12 @@ export const TextFieldStyled = {
   Wrapper: styled.div<ITextFieldStylesProps>`
     position: relative;
     margin-bottom: 30px;
+
+    ${Media.mobile`
+      input {
+        font-size: 16px;
+      }
+    `}
 
     input {
       padding: 9.5px 20px;
