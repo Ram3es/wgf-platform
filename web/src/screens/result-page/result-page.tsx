@@ -43,8 +43,6 @@ export const ResultPage: React.FC = () => {
     return <div />;
   }
 
-  const pdfButton = document.createElement('a');
-
   const generatePdf = (id: string) => async () => {
     setLoading(true);
 
@@ -56,9 +54,7 @@ export const ResultPage: React.FC = () => {
       return;
     }
 
-    pdfButton.href = `${BASE_URL}/static/${file}`;
-    pdfButton.target = '_blank';
-    pdfButton.click();
+    window.open(`${BASE_URL}/static/${file}`, '_self');
 
     setLoading(false);
   };
