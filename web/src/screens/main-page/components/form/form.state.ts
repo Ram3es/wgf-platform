@@ -31,7 +31,9 @@ export const useFormState = () => {
         },
       });
     }
+  }, [state.currentPage]);
 
+  useEffect(() => {
     sessionStorage.setItem(
       SESSION_STORAGE.questionList,
       JSON.stringify(state.questionList)
@@ -91,11 +93,12 @@ export const useFormState = () => {
 
     const errorElem = currentList.findIndex((elem) => elem.isError);
 
-    const documentHeight = window.document.body.offsetHeight;
     window.scrollTo({
-      top: errorRef.current[errorElem].current!.offsetTop - documentHeight / 5,
+      top: errorRef.current[errorElem].current!.offsetTop - 50,
       behavior: 'smooth',
     });
+
+    console.log(errorRef.current[errorElem].current);
 
     return true;
   };
