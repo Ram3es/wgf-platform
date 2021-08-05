@@ -127,6 +127,7 @@ export const Form: React.FC = () => {
                         onBlur={handleBlur}
                         value={user.email.trim()}
                         tabIndex={3}
+                        autoCapitalize="none"
                         error={
                           touched.email && errors.email ? errors.email : ''
                         }

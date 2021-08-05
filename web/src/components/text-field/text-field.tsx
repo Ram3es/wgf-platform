@@ -17,6 +17,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
   onBlur,
   readOnly,
   tabIndex,
+  autoCapitalize,
 }) => (
   <div>
     <TextFieldStyled.Wrapper>
@@ -33,6 +34,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
         placeholder={placeholder}
         readOnly={readOnly}
         tabIndex={tabIndex}
+        autoCapitalize={autoCapitalize}
       />
       {error && (
         <TextFieldStyled.ErrorBlock>{error}</TextFieldStyled.ErrorBlock>
