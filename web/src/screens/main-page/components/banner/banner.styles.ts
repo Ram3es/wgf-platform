@@ -38,7 +38,7 @@ export const BannerStyles = {
     ${Media.mobile(css`
       font-size: ${FONT_SIZES.title1Mobile};
     `)}
-    ${Media.mobile(css`
+    ${Media.xsMobile(css`
       font-size: ${FONT_SIZES.title1XsMobile};
     `)}
   `,
