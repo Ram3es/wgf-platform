@@ -24,7 +24,7 @@ export const initialState: IFormState = {
 };
 
 export const UserFormSchema = yup.object().shape({
-  firstName: yup.string().max(25).required('This field cannot be empty'),
+  firstName: yup.string().max(25).trim().required('This field cannot be empty'),
   lastName: yup.string().max(25).trim().required('This field cannot be empty'),
   email: yup
     .string()
