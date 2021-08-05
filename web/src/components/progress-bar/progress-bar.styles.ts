@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
+import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
 import { IProgressBarProps } from './progress-bar.typings';
@@ -78,12 +79,12 @@ export const ProgressBarStyles = {
 
     span {
       color: ${COLORS.white};
-      font-size: 14px;
+      font-size: ${FONT_SIZES.medium};
       font-weight: 900;
 
-      ${Media.mobile`
-      font-size: 12px;
-    `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.small};
+      `)}
     }
   `,
 };

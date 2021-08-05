@@ -32,7 +32,7 @@ export const BannerStyles = {
   Title: styled.h1`
     position: relative;
     z-index: 1;
-    font-size: ${FONT_SIZES.h1};
+    font-size: ${FONT_SIZES.title1};
     font-weight: 700;
     color: ${COLORS.greyLite};
     margin-bottom: 150px;
@@ -53,13 +53,14 @@ export const BannerStyles = {
       margin-bottom: 100px;
     `}
 
-    ${Media.mobile`
-      font-size: 30px;
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title1Mobile};
       margin-bottom: 80px;
-    `}
-    ${Media.xsMobile`
-      font-size: 25px;
-    `}
+    `)}
+
+    ${Media.xsMobile(css`
+      font-size: ${FONT_SIZES.title1XsMobile};
+    `)}
   `,
 
   Body: styled.div`
@@ -125,20 +126,20 @@ export const BannerStyles = {
     `}
 
     h1 {
-      font-size: ${FONT_SIZES.h1};
+      font-size: ${FONT_SIZES.title1};
       color: ${COLORS.grey};
       font-weight: 700;
       margin-bottom: 20px;
 
-      ${Media.mobile`
-      font-size: 30px;
-    `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.title1Mobile};
+      `)}
     }
 
     p {
-      ${Media.mobile`
-      font-size: 15px;
-    `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.defaultMobile};
+      `)}
     }
   `,
 };

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
@@ -23,7 +23,7 @@ export const BannerStyles = {
   Title: styled.h1`
     position: relative;
     z-index: 1;
-    font-size: ${FONT_SIZES.h1};
+    font-size: ${FONT_SIZES.title1};
     font-weight: 700;
     color: ${COLORS.greyLite};
 
@@ -35,12 +35,12 @@ export const BannerStyles = {
       padding-left: 150px;
     `}
 
-    ${Media.mobile`
-      font-size: 30px;
-    `}
-    ${Media.xsMobile`
-      font-size: 25px;
-    `}
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title1Mobile};
+    `)}
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title1XsMobile};
+    `)}
   `,
 
   Text: styled.div`
@@ -54,9 +54,9 @@ export const BannerStyles = {
     `}
 
     p {
-      ${Media.mobile`
-      font-size: 15px;
-    `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.defaultMobile};
+      `)}
     }
   `,
 };

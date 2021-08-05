@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
@@ -26,9 +26,9 @@ export const TextFieldStyled = {
     color: ${COLORS.default};
     transition: 0.3s;
 
-    ${Media.mobile`
-      font-size: 16px;
-    `};
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.inputMobile};
+    `)};
 
     :hover,
     :focus,

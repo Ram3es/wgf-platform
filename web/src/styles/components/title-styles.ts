@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Media } from '@styles/media';
 import { COLORS } from '../colors';
@@ -17,14 +17,14 @@ export const TitleStyles = {
   h1: styled.h1<TitleProps>`
     font-weight: 700;
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
-    font-size: ${FONT_SIZES.h1};
+    font-size: ${FONT_SIZES.title1};
     padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 40px')};
     padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '40px 0')};
     color: ${({ color }) => (color ? color : COLORS.default)};
 
-    ${Media.mobile`
-    font-size: 30px;
-  `}
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title1Mobile};
+    `)}
 
     @media print {
       -webkit-print-color-adjust: exact !important;
@@ -34,7 +34,7 @@ export const TitleStyles = {
   h2: styled.h2<TitleProps>`
     font-weight: 700;
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
-    font-size: ${FONT_SIZES.h2};
+    font-size: ${FONT_SIZES.title2};
     padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 40px')};
     padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '40px 0')};
     color: ${({ color }) => (color ? color : COLORS.default)};
@@ -44,21 +44,21 @@ export const TitleStyles = {
       color-adjust: exact !important;
     }
 
-    ${Media.mobile`
-    font-size: 24px;
-  `}
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title2Mobile};
+    `)}
   `,
   h3: styled.h3<TitleProps>`
     font-weight: 700;
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
-    font-size: ${FONT_SIZES.h3};
+    font-size: ${FONT_SIZES.title3};
     padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 40px')};
     padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '40px 0')};
     color: ${({ color }) => (color ? color : COLORS.default)};
 
-    ${Media.mobile`
-    font-size: 20px;
-  `}
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title3Mobile};
+    `)}
 
     @media print {
       -webkit-print-color-adjust: exact !important;

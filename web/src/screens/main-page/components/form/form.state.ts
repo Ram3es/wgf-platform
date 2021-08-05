@@ -98,8 +98,6 @@ export const useFormState = () => {
       behavior: 'smooth',
     });
 
-    console.log(errorRef.current[errorElem].current);
-
     return true;
   };
 

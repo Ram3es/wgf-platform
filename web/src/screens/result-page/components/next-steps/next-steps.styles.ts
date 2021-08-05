@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
+import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
 export const NextStepsStyles = {
@@ -70,11 +71,11 @@ export const NextStepsStyles = {
 
     span {
       margin-right: 5px;
-      font-size: 16px;
+      font-size: ${FONT_SIZES.defaultMobile};
 
-      ${Media.mobile`
-        font-size: 13px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.small};
+      `)}
 
       @media print {
         margin-right: 15px;
@@ -82,24 +83,24 @@ export const NextStepsStyles = {
     }
 
     strong {
-      font-size: 26px;
+      font-size: ${FONT_SIZES.title2};
       padding: 5px 0;
       color: ${COLORS.grey};
 
-      ${Media.mobile`
-        font-size: 20px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.title2XsMobile};
+      `)}
     }
   `,
   CardText: styled.div`
     padding: 25px;
 
     p {
-      font-size: 16px;
+      font-size: ${FONT_SIZES.defaultMobile};
 
-      ${Media.mobile`
-        font-size: 14px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.medium};
+      `)}
     }
   `,
 };
