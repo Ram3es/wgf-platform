@@ -47,8 +47,8 @@ export const RadioButtonGroupStyles = {
     ${({ isVariantQuiz, color }) =>
       isVariantQuiz ? `color: ${color};` : `color: ${COLORS.default}`}
 
-    ${Media.mobile(css<IRadioButtonPropsStyles>`
-      font-size: 10px;
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.smallest};
     `)}
   `,
 };

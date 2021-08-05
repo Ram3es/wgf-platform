@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
 export const TextBlockStyles = styled.div`
@@ -8,10 +9,10 @@ export const TextBlockStyles = styled.div`
   border-radius: 10px;
   min-height: 150px;
   margin-bottom: 40px;
-  font-size: 16px;
+  font-size: ${FONT_SIZES.defaultMobile};
 
-  ${Media.mobile`
-    font-size: 13px;
+  ${Media.mobile(css`
+    font-size: ${FONT_SIZES.small};
     margin-bottom: 20px;
-  `}
+  `)}
 `;

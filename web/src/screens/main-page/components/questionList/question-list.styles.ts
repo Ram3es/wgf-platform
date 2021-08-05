@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
@@ -17,10 +17,10 @@ export const QuestionListStyles = {
     text-align: center;
     margin-bottom: 80px;
 
-    ${Media.mobile`
-      font-size: 15px;
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.defaultMobile};
       margin-bottom: 20px;
-    `}
+    `)}
   `,
 
   Item: styled.div`
@@ -33,9 +33,9 @@ export const QuestionListStyles = {
     font-weight: 700;
     color: ${({ isError }) => (isError ? COLORS.red : COLORS.black)};
 
-    ${Media.mobile`
-      font-size: 15px;
-    `}
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.defaultMobile};
+    `)}
   `,
 
   ItemRadioWrapper: styled.div`

@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
+import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
 export const ResultSummaryStyles = {
@@ -97,12 +98,12 @@ export const ResultSummaryStyles = {
       transform: translate(-50%, -50%);
       letter-spacing: -1px;
 
-      ${Media.mobile`
-        font-size: 22px;
-      `}
-      ${Media.xsMobile`
-        font-size: 20px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.title2Mobile};
+      `)}
+      ${Media.xsMobile(css`
+        font-size: ${FONT_SIZES.title2XsMobile};
+      `)}
     }
   `,
   CardBody: styled.div`
@@ -129,11 +130,11 @@ export const ResultSummaryStyles = {
     `}
 
     span {
-      font-size: 16px;
+      font-size: ${FONT_SIZES.defaultMobile};
 
-      ${Media.mobile`
-        font-size: 13px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.small};
+      `)}
     }
 
     img {
@@ -141,13 +142,13 @@ export const ResultSummaryStyles = {
     }
 
     & > strong {
-      font-size: 50px;
+      font-size: ${FONT_SIZES.scoreStrong};
       color: ${COLORS.grey};
       display: block;
 
-      ${Media.mobile`
-        font-size: 40px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.scoreStrongMobile};
+      `)}
     }
 
     & > img {
@@ -176,16 +177,16 @@ export const ResultSummaryStyles = {
     align-items: center;
 
     strong {
-      font-size: 26px;
+      font-size: ${FONT_SIZES.title2};
       color: ${COLORS.grey};
 
-      ${Media.mobile`
-        font-size: 20px;
-      `}
+      ${Media.mobile(css`
+        font-size: ${FONT_SIZES.title2XsMobile};
+      `)}
 
-      ${Media.xsMobile`
-        font-size: 16px;
-      `}
+      ${Media.xsMobile(css`
+        font-size: ${FONT_SIZES.defaultMobile};
+      `)}
     }
 
     img {
@@ -201,7 +202,7 @@ export const ResultSummaryStyles = {
     }
   `,
   CardDescriprion: styled.div`
-    font-size: 16px;
+    font-size: ${FONT_SIZES.defaultMobile};
   `,
   StarWrapper: styled.div`
     display: flex;
