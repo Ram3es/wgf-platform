@@ -116,10 +116,14 @@ export const useFormState = () => {
     if (isLastPage) {
       const { data } = await createUser(getUserRequestBody());
 
-      updateState({ user: { ...state.user, id: data.user.id } });
       sessionStorage.setItem(
         SESSION_STORAGE.results,
         JSON.stringify(data.results)
+      );
+
+      sessionStorage.setItem(
+        SESSION_STORAGE.userId,
+        JSON.stringify(data.user.id)
       );
 
       updateState({

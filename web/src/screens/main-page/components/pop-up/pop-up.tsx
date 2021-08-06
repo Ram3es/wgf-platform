@@ -10,6 +10,7 @@ import { Container } from '@styles/components/container';
 import { updateUser } from '@services/user.service';
 
 import { ROUTES } from '@constants/routes';
+import { SESSION_STORAGE } from '@constants/storage';
 import { STRINGS } from '@constants/strings';
 
 import { IPopUpProps, IUserRadioList } from './pop-up.typings';
@@ -27,7 +28,7 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
   };
 
   const onClick = () => {
-    updateUser(user.id!, {
+    updateUser(SESSION_STORAGE.userId, {
       role: user.role || 'Student',
       isSubscriber: user.isSubscriber,
     });
