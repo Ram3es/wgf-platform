@@ -121,10 +121,7 @@ export const useFormState = () => {
         JSON.stringify(data.results)
       );
 
-      sessionStorage.setItem(
-        SESSION_STORAGE.userId,
-        JSON.stringify(data.user.id)
-      );
+      sessionStorage.setItem(SESSION_STORAGE.userId, data.user.id);
 
       updateState({
         isShowModal: true,

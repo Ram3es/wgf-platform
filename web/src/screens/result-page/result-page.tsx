@@ -24,6 +24,8 @@ import { TitleStyles } from '@styles/components/title-styles';
 export const ResultPage: React.FC = () => {
   const user: IUser = JSON.parse(sessionStorage.getItem(SESSION_STORAGE.user)!);
 
+  const userId = sessionStorage.getItem(SESSION_STORAGE.userId)!;
+
   const [loading, setLoading] = useState(false);
 
   const { replace } = useHistory();
@@ -82,7 +84,7 @@ export const ResultPage: React.FC = () => {
           <Button
             title={STRINGS.button.print}
             color={COLORS.black}
-            onClick={generatePdf(user.id)}
+            onClick={generatePdf(userId)}
             isDisabled={loading}
             image="next"
           />
