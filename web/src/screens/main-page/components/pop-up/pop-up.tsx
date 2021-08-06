@@ -28,7 +28,7 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
   };
 
   const onClick = () => {
-    updateUser(SESSION_STORAGE.userId, {
+    updateUser(sessionStorage.getItem(SESSION_STORAGE.userId)!, {
       role: user.role || 'Student',
       isSubscriber: user.isSubscriber,
     });
