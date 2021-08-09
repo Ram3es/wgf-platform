@@ -1,7 +1,7 @@
 export const FONT_SIZES = {
   default: '18px',
   scoreStrong: '50px',
-  scoreStrongMobile: '50px',
+  scoreStrongMobile: '40px',
   title1: '36px',
   title1Mobile: '30px',
   title1XsMobile: '26px',

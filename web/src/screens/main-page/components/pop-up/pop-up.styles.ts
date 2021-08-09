@@ -16,6 +16,7 @@ export const PopUpStyles = {
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     width: 100%;
+    max-width: 1240px;
 
     p:first-child {
       margin-bottom: 20px;
@@ -33,11 +34,22 @@ export const PopUpStyles = {
       top: -350px;
       padding: 55px 25px;
     `}
+
+    ${Media.sMobile`
+      top: -400px;
+    `}
+    ${Media.xsMobile`
+      padding: 20px 15px;
+    `}
   `,
   Title: styled.div`
     border-top: 2px solid ${COLORS.greenLite};
     border-bottom: 2px solid ${COLORS.greenLite};
     margin: 40px 0 30px;
+
+    ${Media.xsMobile`
+      margin: 10px 0 10px;
+    `}
 
     h2 {
       ${Media.mobile`
