@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { MainPage } from '../main-page';
 import { PdfPage } from '../pdf-page';
@@ -18,5 +18,6 @@ export const Router: React.FC = () => (
     <Route exact path={ROUTES.pdf}>
       <PdfPage />
     </Route>
+    <Redirect to={ROUTES.main} />
   </Switch>
 );
