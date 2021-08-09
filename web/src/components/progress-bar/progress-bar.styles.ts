@@ -12,6 +12,10 @@ export const ProgressBarStyles = {
     position: sticky;
     top: 0;
     background-color: ${COLORS.white};
+
+    ${Media.mobile`
+      padding: 20px 0;
+    `}
   `,
   Range: styled.div`
     position: relative;
