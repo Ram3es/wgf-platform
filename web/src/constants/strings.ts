@@ -74,5 +74,13 @@ export const STRINGS = {
     submit: 'Submit',
     print: 'Print',
     result: 'See Results',
+    quiz: 'Go to Guiz',
+  },
+  mainPage: {
+    title: 'WIT GRIT FIT is a new way of approaching careers.',
+    bannerText: [
+      'We curate an ever-expanding suite of career tools, workshops and resources to help students and working professionals discover their life purpose and build career resilience. In an approachable, gamified way.',
+      'Working with governments, businesses and schools, we leverage the power of design and technology to bring the best in career development practice to all. At scale.',
+    ],
   },
 };
