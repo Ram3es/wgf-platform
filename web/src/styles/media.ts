@@ -51,11 +51,6 @@ export const Media = {
         ${payload};
       }
     `,
-  iPadPro: (payload: CSS) => css`
-    @media (max-width: 1024px) {
-      ${payload};
-    }
-  `,
   smallLandscape: (payload: CSS) =>
     css`
       @media (max-width: ${SIZE.smallLandscape}) {
