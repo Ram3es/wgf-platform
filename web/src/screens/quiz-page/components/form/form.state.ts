@@ -9,6 +9,8 @@ import { initialState } from './form.constants';
 export const useFormState = () => {
   const { state, updateState } = useUpdateState(initialState);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   useEffect(() => {
     const { firstQuestionIndex, lastQuestionIndex } = getIndexForSlice();
 
@@ -21,6 +23,11 @@ export const useFormState = () => {
   }, [state.currentPage, state.questionList]);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
     if (state.currentPage === 2) {
       updateState({
         user: {
@@ -160,5 +167,6 @@ export const useFormState = () => {
     decrementPage,
     errorRef,
     isLastPage,
+    formRef,
   };
 };

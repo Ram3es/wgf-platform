@@ -74,7 +74,7 @@ export const STRINGS = {
     submit: 'Submit',
     print: 'Print',
     result: 'See Results',
-    quiz: 'Go to Guiz',
+    quiz: 'Go to CAAS Quiz',
   },
   mainPage: {
     title: 'WIT GRIT FIT is a new way of approaching careers.',
