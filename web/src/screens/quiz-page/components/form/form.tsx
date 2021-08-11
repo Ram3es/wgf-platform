@@ -30,14 +30,8 @@ export const Form: React.FC = () => {
     errorRef,
     isShowModal,
     isLastPage,
+    formRef,
   } = useFormState();
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }, [currentPage]);
 
   return (
     <div>
@@ -66,10 +60,17 @@ export const Form: React.FC = () => {
               onChangeUser(e);
             };
 
+            const offsetHeight =
+              window.outerHeight < 350
+                ? -200
+                : window.outerHeight > 800
+                ? 200
+                : -50;
+
             useEffect(() => {
               if (!isValid && isSubmitting) {
                 window.scrollTo({
-                  top: 0,
+                  top: formRef.current!.offsetTop - offsetHeight,
                   behavior: 'smooth',
                 });
               }
@@ -82,7 +83,7 @@ export const Form: React.FC = () => {
                     {STRINGS.form.title} {user.firstName} {user.lastName}
                   </TitleStyles.h2>
                 ) : (
-                  <FormStyles.Form>
+                  <FormStyles.Form ref={formRef}>
                     <FormStyles.Label>{STRINGS.form.label}</FormStyles.Label>
                     <FormStyles.Item>
                       <TextField
