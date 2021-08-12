@@ -16,6 +16,7 @@ export interface TitleProps {
 export const TitleStyles = {
   h1: styled.h1<TitleProps>`
     font-weight: 700;
+    font-family: 'FrutigerLTStd-Bold';
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
     font-size: ${FONT_SIZES.title1};
     padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 40px')};
@@ -34,6 +35,7 @@ export const TitleStyles = {
     }
   `,
   h2: styled.h2<TitleProps>`
+    font-family: 'FrutigerLTStd-Bold';
     font-weight: 700;
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
     font-size: ${FONT_SIZES.title2};
@@ -53,6 +55,7 @@ export const TitleStyles = {
     `)}
   `,
   h3: styled.h3<TitleProps>`
+    font-family: 'FrutigerLTStd-Bold';
     font-weight: 700;
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
     font-size: ${FONT_SIZES.title3};

@@ -17,6 +17,7 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   border: 0;
   color: ${COLORS.white};
   font-size: ${FONT_SIZES.default};
+  font-family: 'FrutigerLTStd-Bold';
   font-weight: 700;
   background-color: ${({ color }) => color};
   ${({ variant }) => variant === 'secondary' && `opacity: 0.7`};

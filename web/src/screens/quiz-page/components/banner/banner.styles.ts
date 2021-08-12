@@ -24,6 +24,7 @@ export const BannerStyles = {
     position: relative;
     z-index: 1;
     font-size: ${FONT_SIZES.title1};
+    font-family: 'FrutigerLTStd-Bold';
     font-weight: 700;
     color: ${COLORS.greyLite};
 
