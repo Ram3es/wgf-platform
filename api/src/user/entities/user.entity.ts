@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { QuizAnswerEntity } from './quiz-answer.entity';
+import { CaasQuizAnswerEntity } from './caas-quiz-answer.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -30,6 +30,6 @@ export class UserEntity {
   isSubscriber: boolean;
 
   @ApiProperty({ example: 'IAnswer[]' })
-  @OneToMany(() => QuizAnswerEntity, (data) => data.user)
-  answers: QuizAnswerEntity[];
+  @OneToMany(() => CaasQuizAnswerEntity, (data) => data.user)
+  answers: CaasQuizAnswerEntity[];
 }
