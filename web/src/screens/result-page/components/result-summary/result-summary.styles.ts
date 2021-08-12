@@ -109,7 +109,7 @@ export const ResultSummaryStyles = {
   CardBody: styled.div`
     background: ${COLORS.bgGrey};
     border-radius: 10px;
-    margin-top: -10%;
+    margin-top: -8%;
     padding: 25px 10px;
     margin-bottom: 15px;
 

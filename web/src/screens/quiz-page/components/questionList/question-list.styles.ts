@@ -30,6 +30,7 @@ export const QuestionListStyles = {
 
   ItemTitle: styled.p<{ isError: boolean }>`
     font-size: ${FONT_SIZES.default};
+    font-family: 'FrutigerLTStd-Bold';
     font-weight: 700;
     color: ${({ isError }) => (isError ? COLORS.red : COLORS.black)};
 
