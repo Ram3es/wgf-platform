@@ -25,6 +25,5 @@ export class CreateUserDto {
   isSubscriber: boolean;
 
   @ApiProperty()
-  @IsNotEmpty()
   answers: IAnswer[];
 }

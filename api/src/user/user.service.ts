@@ -10,7 +10,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, IAnswer } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { QuizAnswerEntity } from './entities/quiz-answer.entity';
+import { CaasQuizAnswerEntity } from './entities/caas-quiz-answer.entity';
 import { UserEntity } from './entities/user.entity';
 
 @Injectable()
@@ -18,8 +18,8 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(QuizAnswerEntity)
-    private readonly quizRepository: Repository<QuizAnswerEntity>
+    @InjectRepository(CaasQuizAnswerEntity)
+    private readonly quizRepository: Repository<CaasQuizAnswerEntity>
   ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<any> {
@@ -33,22 +33,33 @@ export class UserService {
         where: {
           email: createUserDto.email,
         },
+        relations: ['answers'],
       });
 
       if (user) {
-        await this.removeUser(user.id);
+        await this.updateUserAnswers(user, createUserDto.answers);
+        const newUser = await this.updateUser(user.id, {
+          firstName: createUserDto.firstName,
+          lastName: createUserDto.lastName,
+        });
+
+        return {
+          user: newUser,
+          results: this.getResultCalculationAtributes(createUserDto.answers),
+        };
       }
 
       const newUser = await this.userRepository.save(createUserDto);
       createUserDto.answers.forEach(async (answer) => {
         await this.quizRepository.save({ ...answer, user: newUser });
       });
+
       return {
         user: newUser,
         results: this.getResultCalculationAtributes(createUserDto.answers),
       };
-    } catch {
-      throw new HttpException('Can not save User', HttpStatus.BAD_REQUEST);
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -84,6 +95,20 @@ export class UserService {
   ): Promise<UserEntity> {
     await this.userRepository.update(id, updateUserDto);
     return this.getUserById(id);
+  }
+
+  async updateUserAnswers(user: UserEntity, newAnswers: IAnswer[]) {
+    await Promise.all(
+      user.answers.map((answer) => {
+        return this.quizRepository.delete(answer.id);
+      })
+    );
+
+    const newUser = await this.getUserById(user.id);
+
+    newAnswers.forEach(async (answer) => {
+      await this.quizRepository.save({ ...answer, user: newUser });
+    });
   }
 
   getResultCalculationAtributes(answers: IAnswer[]) {
@@ -235,6 +260,8 @@ export class UserService {
       `cooperation_score=${cooperation.score}`,
     ];
 
-    return `${env.WEB_BASE_URL}pdf?${QUERIES.join('&')}`;
+    console.log(`${env.WEB_BASE_URL}caas-quiz/pdf?${QUERIES.join('&')}`);
+
+    return `${env.WEB_BASE_URL}caas-quiz/pdf?${QUERIES.join('&')}`;
   }
 }
