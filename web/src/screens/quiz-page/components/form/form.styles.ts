@@ -19,7 +19,6 @@ export const FormStyles = {
     flex: 0 1 100%;
     padding: 0 12px;
     font-size: ${FONT_SIZES.medium};
-    font-family: 'FrutigerLTStd-Bold';
     font-weight: 700;
     margin-bottom: 10px;
 
