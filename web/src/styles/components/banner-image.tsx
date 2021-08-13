@@ -12,14 +12,14 @@ export const BannerImageStyles = styled.div`
   min-width: 620px;
 
   ${Media.smallLandscape`
-      width: 100%;
-      top: 0;
-      left: 0;
-      min-width: auto;
+    width: 100%;
+    top: 0;
+    left: 0;
+    min-width: auto;
   `}
 
   ${Media.mobile`
-      top: 40px;
+    top: 40px;
   `}
 
   svg {
