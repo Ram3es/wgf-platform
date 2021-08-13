@@ -5,10 +5,10 @@ import { Media } from '@styles/media';
 
 export const BannerImageStyles = styled.div`
   position: absolute;
-  right: 52%;
+  right: 51%;
   bottom: 100%;
   margin-bottom: -300px;
-  width: 48%;
+  width: 49%;
   min-width: 620px;
 
   ${Media.smallLandscape`
