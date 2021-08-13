@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { Button } from '@components/button';
 import { COLORS } from '@styles/colors';
@@ -22,7 +22,9 @@ export const MainPage: React.FC = () => {
   return (
     <Container>
       <MainPageStyles.LogoWrapper>
-        <img src={images.companyLogo} alt={STRINGS.altLogo} />
+        <NavLink to={ROUTES.main}>
+          <img src={images.companyLogo} alt={STRINGS.altLogo} />
+        </NavLink>
       </MainPageStyles.LogoWrapper>
       <MainPageStyles.Banner>
         <MainPageStyles.BannerDescription>

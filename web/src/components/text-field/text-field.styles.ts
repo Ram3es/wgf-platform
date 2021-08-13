@@ -20,7 +20,6 @@ export const TextFieldStyled = {
     font-size: ${FONT_SIZES.medium};
     font-family: inherit;
     font-weight: 700;
-    font-family: 'FrutigerLTStd-Bold';
     width: ${({ isFullWidth, width }) =>
       isFullWidth ? '100%' : width || 'auto'};
     height: ${({ height }) => height || 'auto'};
