@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { BannerImage } from '@components/banner-image';
 import { Button } from '@components/button';
@@ -16,6 +16,7 @@ import { getPdf } from '@services/user.service';
 
 import { BASE_URL } from '@constants/config';
 import { images } from '@constants/images';
+import { ROUTES } from '@constants/routes';
 import { SESSION_STORAGE } from '@constants/storage';
 import { STRINGS } from '@constants/strings';
 
@@ -90,7 +91,9 @@ export const ResultPage: React.FC = () => {
           />
         </FlexCenter>
         <FlexCenter>
-          <img src={images.companyLogo} alt={STRINGS.altLogo} />
+          <NavLink to={ROUTES.main}>
+            <img src={images.companyLogo} alt={STRINGS.altLogo} />
+          </NavLink>
         </FlexCenter>
       </Container>
     </>
