@@ -84,8 +84,8 @@ export const ProgressBarStyles = {
     span {
       color: ${COLORS.white};
       font-size: ${FONT_SIZES.medium};
-      font-family: 'FrutigerLTStd-Bold';
       font-weight: 900;
+      line-height: 17px;
 
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.small};
