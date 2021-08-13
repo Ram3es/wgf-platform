@@ -158,7 +158,7 @@ export class UserService {
   async getPdf(id: string) {
     try {
       const user = await this.getUserById(id);
-      const file = `${user.firstName}-${user.lastName}-quiz-results.pdf`;
+      const file = `${user.firstName}-quiz-results-${user.id}.pdf`;
 
       const browser = await launch({
         headless: true,
@@ -259,8 +259,6 @@ export class UserService {
       `cooperation_level=${cooperation.level}`,
       `cooperation_score=${cooperation.score}`,
     ];
-
-    console.log(`${env.WEB_BASE_URL}caas-quiz/pdf?${QUERIES.join('&')}`);
 
     return `${env.WEB_BASE_URL}caas-quiz/pdf?${QUERIES.join('&')}`;
   }
