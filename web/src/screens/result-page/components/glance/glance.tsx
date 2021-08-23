@@ -15,9 +15,9 @@ export const Glance: React.FC<IGlanceProps> = ({ results }) => {
 
   return (
     <GlanceStyles.Wrapper>
-      <TitleStyles.h2 color={COLORS.grey} textAlign="center">
+      <TitleStyles.h1 color={COLORS.grey} textAlign="center">
         {STRINGS.resultPage.glanceTextBlock.title}
-      </TitleStyles.h2>
+      </TitleStyles.h1>
       <GlanceStyles.Content>
         <GlanceStyles.Heading>
           <GlanceStyles.HeadingTitle>
