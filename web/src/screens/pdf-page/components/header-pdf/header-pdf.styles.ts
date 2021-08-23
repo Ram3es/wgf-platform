@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 
-import { images } from '@constants/images';
+import { IMAGES } from '@constants/images';
 
 export const HeaderStyles = {
   Wrapper: styled.div`
@@ -31,7 +31,7 @@ export const HeaderStyles = {
   ProductLogo: styled.div`
     max-width: 400px;
     padding: 25px 0;
-    background-image: url(${images.bannerPdf});
+    background-image: url(${IMAGES.bannerPdf});
     background-position: top -40px left -20px;
     background-size: cover;
     background-repeat: no-repeat;

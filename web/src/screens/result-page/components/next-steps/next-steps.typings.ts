@@ -1,11 +1,13 @@
+import { TLevelResult } from '@styles/colors';
+
 export interface INextStepsProps {
   results: IResults;
 }
 
 export interface IStepsCategorie {
   title: string;
-  level: string;
-  description: string;
+  level: TLevelResult;
+  description: string[];
   color: string;
 }
 

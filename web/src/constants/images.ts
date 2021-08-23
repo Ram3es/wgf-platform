@@ -1,4 +1,4 @@
-export const images = {
+export const IMAGES = {
   companyLogo: require('../assets/img/company-logo.svg').default,
   productLogo: require('../assets/img/product-logo.svg').default,
   productLogoPdf: require('../assets/img/product-logo-pdf.svg').default,
@@ -23,9 +23,9 @@ export const images = {
   curiosityBodyImage: require('../assets/img/curiosity-body.svg').default,
   confidenceBodyImage: require('../assets/img/confidence-body.svg').default,
   cooperationBodyImage: require('../assets/img/cooperation-body.svg').default,
-  starConcern: require('../assets/img/star-concern.svg').default,
-  starControl: require('../assets/img/star-control.svg').default,
-  starCuriosity: require('../assets/img/star-curiosity.svg').default,
-  starConfidence: require('../assets/img/star-confidence.svg').default,
-  starCooperation: require('../assets/img/star-cooperation.svg').default,
+  starLow: require('../assets/img/star-low.svg').default,
+  starModerate: require('../assets/img/star-moderate.svg').default,
+  starHigh: require('../assets/img/star-high.svg').default,
+  superPower: require('../assets/img/superpower-icon.svg').default,
+  close: require('../assets/img/close.svg').default,
 };

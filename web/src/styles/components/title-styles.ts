@@ -22,6 +22,11 @@ export const TitleStyles = {
     padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '40px 0')};
     color: ${({ color }) => (color ? color : COLORS.default)};
 
+    ${Media.smallLandscape(css<TitleProps>`
+      padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 20px')};
+      padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '20px 0')};
+    `)}
+
     ${Media.mobile(css<TitleProps>`
       font-size: ${FONT_SIZES.title1Mobile};
       padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 15px')};
@@ -46,6 +51,11 @@ export const TitleStyles = {
       color-adjust: exact !important;
     }
 
+    ${Media.smallLandscape(css<TitleProps>`
+      padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 20px')};
+      padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '20px 0')};
+    `)}
+
     ${Media.mobile(css<TitleProps>`
       font-size: ${FONT_SIZES.title2Mobile};
       padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 15px')};
@@ -59,6 +69,11 @@ export const TitleStyles = {
     padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 40px')};
     padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '40px 0')};
     color: ${({ color }) => (color ? color : COLORS.default)};
+
+    ${Media.smallLandscape(css<TitleProps>`
+      padding: ${({ paddingX }) => (paddingX ? `0 ${paddingX}` : '0 20px')};
+      padding: ${({ paddingY }) => (paddingY ? `${paddingY} 0` : '20px 0')};
+    `)}
 
     ${Media.mobile(css<TitleProps>`
       font-size: ${FONT_SIZES.title3Mobile};

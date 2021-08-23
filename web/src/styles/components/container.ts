@@ -4,7 +4,7 @@ import { Media } from '../media';
 
 export const Container = styled.div`
   position: relative;
-  max-width: 1050px;
+  max-width: 1150px;
   padding: 0 25px;
   margin: 0 auto;
 

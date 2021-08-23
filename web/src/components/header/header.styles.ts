@@ -7,6 +7,7 @@ export const HeaderStyles = {
     padding: 40px 60px;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
 
     ${Media.landscapeWreck`
       padding: 60px 60px 40px;
@@ -22,7 +23,26 @@ export const HeaderStyles = {
       padding: 40px 0 0;
     `}
   `,
+  ProductLogo: styled.div`
+    position: relative;
+    z-index: 1;
+    padding-left: 5%;
 
+    ${Media.smallLandscape`
+      padding-left: 0;
+
+      img {
+        width: 275px;
+        height: 45px;
+      }
+    `}
+    ${Media.mobile`
+      img {
+        width: 205px;
+        height: 45px;
+      }
+    `}
+  `,
   CompanyLogo: styled.div`
     position: relative;
     z-index: 1;
@@ -31,16 +51,7 @@ export const HeaderStyles = {
       margin-bottom: 60px;
     `}
     ${Media.mobile`
-      margin-bottom: 80px;
+      margin-bottom: 65px;
     `}
-  `,
-
-  ProductLogo: styled.div`
-    position: relative;
-    z-index: 1;
-
-    ${Media.mobile`
-      max-width: 150px;
-  `}
   `,
 };

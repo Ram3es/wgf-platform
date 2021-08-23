@@ -7,15 +7,16 @@ import { Header } from '@components/header';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
-import { TextBlockStyles } from '@styles/components/text-block';
-import { Banner } from './components/banner-result';
+import { BannerResult } from './components/banner-result';
+import { Glance } from './components/glance';
 import { NextSteps } from './components/next-steps';
+import { Resources } from './components/resources';
 import { ResultSummary } from './components/result-summary';
 
 import { getPdf } from '@services/user.service';
 
 import { BASE_URL } from '@constants/config';
-import { images } from '@constants/images';
+import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
 import { SESSION_STORAGE } from '@constants/storage';
 import { STRINGS } from '@constants/strings';
@@ -34,7 +35,10 @@ export const ResultPage: React.FC = () => {
   const [results, setResult] = useState<IResults>();
 
   useEffect(() => {
-    const result = JSON.parse(sessionStorage.getItem(SESSION_STORAGE.results)!);
+    const result: IResults = JSON.parse(
+      sessionStorage.getItem(SESSION_STORAGE.results)!
+    );
+
     if (result) {
       return setResult(result);
     }
@@ -67,20 +71,14 @@ export const ResultPage: React.FC = () => {
       <Header />
       <BannerImage />
       <Container>
-        <Banner />
+        <BannerResult withBackground />
         <TitleStyles.h3 paddingY="20px">
-          {`${user.firstName}  ${user.lastName}`}
+          {`${STRINGS.resultPage.userTitle} ${user.firstName}`}
         </TitleStyles.h3>
-        <ResultSummary results={results} />
+        <ResultSummary results={results} withArchetypesIcon />
         <NextSteps results={results} />
-        {STRINGS.resultPage.resultTextBlocks.map(({ title, text }, i) => (
-          <div key={i}>
-            <TitleStyles.h2 paddingY="20px" color={COLORS.grey}>
-              {title}
-            </TitleStyles.h2>
-            <TextBlockStyles>{text}</TextBlockStyles>
-          </div>
-        ))}
+        <Glance results={results} />
+        <Resources />
         <FlexCenter>
           <Button
             title={STRINGS.button.print}
@@ -92,7 +90,7 @@ export const ResultPage: React.FC = () => {
         </FlexCenter>
         <FlexCenter>
           <NavLink to={ROUTES.main}>
-            <img src={images.companyLogo} alt={STRINGS.altLogo} />
+            <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />
           </NavLink>
         </FlexCenter>
       </Container>

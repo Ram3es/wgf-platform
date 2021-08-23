@@ -1,80 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Question } from '@components/icons';
+import { Modal } from '@components/modal';
 import { COLORS } from '@styles/colors';
 
-import { images } from '@constants/images';
+import { IMAGES } from '@constants/images';
 import { STRINGS } from '@constants/strings';
+import { getCategoriesList, STARS_ICONS } from './results.constants';
 
-import { IElementCategories, IResultSummaryProps, IStarsIconCount } from './result-summary.typings';
+import { IResultSummaryProps } from './result-summary.typings';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { ResultSummaryStyles } from './result-summary.styles';
 
-export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
-  const starsIconCount: IStarsIconCount = {
-    Low: Array.from(Array(1).keys()),
-    Moderate: Array.from(Array(2).keys()),
-    High: Array.from(Array(3).keys()),
-  };
+export const ResultSummary: React.FC<IResultSummaryProps> = ({
+  results,
+  withArchetypesIcon,
+}) => {
+  const categories = getCategoriesList(results);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const categories: IElementCategories[] = [
-    {
-      title: 'CONCERN',
-      imageHead: images.concernImage,
-      score: results.concern.score,
-      imageBody: images.concernBodyImage,
-      level: results.concern.level,
-      starIcon: images.starConcern,
-      description:
-        'Concern represents an optimistic future orientation and being planful',
-    },
-    {
-      title: 'CONTROL',
-      imageHead: images.controlImage,
-      score: results.control.score,
-      imageBody: images.controlBodyImage,
-      level: results.control.level,
-      starIcon: images.starControl,
-      description:
-        'Control is associated with decision making and an internal locus of control',
-    },
-    {
-      title: 'CURIOSITY',
-      imageHead: images.curiosityImage,
-      score: results.curiosity.score,
-      imageBody: images.curiosityBodyImage,
-      level: results.curiosity.level,
-      starIcon: images.starCuriosity,
-      description:
-        "Curiosity stands for the ability to explore one's own strengths and preferences as well as the requirements and benefits of different vocational environments",
-    },
-    {
-      title: 'CONFIDENCE',
-      imageHead: images.confidenceImage,
-      score: results.confidence.score,
-      imageBody: images.confidenceBodyImage,
-      level: results.confidence.level,
-      starIcon: images.starConfidence,
-      description:
-        "Confidence covers self-efficacy expectations with regard to one's vocational development",
-    },
-    {
-      title: 'COOPERATION',
-      imageHead: images.cooperationImage,
-      score: results.cooperation.score,
-      imageBody: images.cooperationBodyImage,
-      level: results.cooperation.level,
-      starIcon: images.starCooperation,
-      description:
-        'Cooperation is a cultural construct which impacts how one benefits from social interactions in a career.',
-    },
-  ];
+  const modalOpen = () => setIsOpen(true);
 
   return (
     <>
-      <TitleStyles.h1 color={COLORS.grey} paddingY="0">
-        {STRINGS.resultSummary.title}
-      </TitleStyles.h1>
+      <ResultSummaryStyles.ArchetypesWrapper>
+        <TitleStyles.h1 color={COLORS.grey} paddingY="0">
+          {STRINGS.resultSummary.title}
+        </TitleStyles.h1>
+        {withArchetypesIcon && (
+          <ResultSummaryStyles.ArchetypesIcon onClick={modalOpen}>
+            <Question />
+          </ResultSummaryStyles.ArchetypesIcon>
+        )}
+        {isOpen && (
+          <Modal
+            text={STRINGS.modalArchetypes.text}
+            title={STRINGS.modalArchetypes.title}
+            setIsOpen={setIsOpen}
+            withBackdrop
+            width={400}
+          />
+        )}
+      </ResultSummaryStyles.ArchetypesWrapper>
       <ResultSummaryStyles.CardWrapper>
         {categories.map(
           (
@@ -84,8 +52,9 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
               imageBody,
               level,
               score,
-              starIcon,
               description,
+              superPower,
+              color,
             },
             i
           ) => (
@@ -98,20 +67,26 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({ results }) => {
               </ResultSummaryStyles.CardHeading>
               <ResultSummaryStyles.CardBody>
                 <span>{STRINGS.resultSummary.score}</span>
-                <strong>{score}</strong>
+                <strong>{score}%</strong>
                 <img src={imageBody} />
-                <ResultSummaryStyles.CardBodyFooter>
+                <ResultSummaryStyles.CardBodyFooter
+                  color={COLORS.levelResult[level]}
+                >
                   <ResultSummaryStyles.StarWrapper>
-                    {starsIconCount[level].map((item) => (
-                      <img src={starIcon} key={item} />
+                    {STARS_ICONS[level].count.map((item) => (
+                      <img src={STARS_ICONS[level].icon} key={item} />
                     ))}
                   </ResultSummaryStyles.StarWrapper>
                   <strong>{level}</strong>
                 </ResultSummaryStyles.CardBodyFooter>
+                <ResultSummaryStyles.CardDescriprion>
+                  <p>{description}</p>
+                  <ResultSummaryStyles.SuperPower color={color}>
+                    <img src={IMAGES.superPower} alt={STRINGS.altLogo} />
+                    Superpower: <strong>{superPower}</strong>
+                  </ResultSummaryStyles.SuperPower>
+                </ResultSummaryStyles.CardDescriprion>
               </ResultSummaryStyles.CardBody>
-              <ResultSummaryStyles.CardDescriprion>
-                {description}
-              </ResultSummaryStyles.CardDescriprion>
             </ResultSummaryStyles.CardItem>
           )
         )}

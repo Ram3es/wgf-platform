@@ -5,7 +5,7 @@ import { Button } from '@components/button';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 
-import { images } from '@constants/images';
+import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 
@@ -23,7 +23,7 @@ export const MainPage: React.FC = () => {
     <Container>
       <MainPageStyles.LogoWrapper>
         <NavLink to={ROUTES.main}>
-          <img src={images.companyLogo} alt={STRINGS.altLogo} />
+          <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />
         </NavLink>
       </MainPageStyles.LogoWrapper>
       <MainPageStyles.Banner>
@@ -48,7 +48,7 @@ export const MainPage: React.FC = () => {
           </div>
         </MainPageStyles.BannerDescription>
         <MainPageStyles.BannerImage>
-          <img src={images.mainPage} alt={STRINGS.altLogo} />
+          <img src={IMAGES.mainPage} alt={STRINGS.altLogo} />
         </MainPageStyles.BannerImage>
       </MainPageStyles.Banner>
     </Container>
