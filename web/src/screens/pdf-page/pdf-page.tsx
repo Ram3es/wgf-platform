@@ -75,7 +75,7 @@ export const PdfPage: React.FC = () => {
       <BannerImagePdf />
       <BannerResult isPdfBanner />
       <Container>
-        <TitleStyles.h3 paddingY="-10px">{`${STRINGS.resultPage.userTitle} ${state.firstName}`}</TitleStyles.h3>
+        <TitleStyles.h3 paddingY="0">{`${STRINGS.resultPage.userTitle} ${state.firstName}`}</TitleStyles.h3>
         <ResultSummary results={state.results} />
         <NextSteps results={state.results} />
         <Glance results={state.results} />
