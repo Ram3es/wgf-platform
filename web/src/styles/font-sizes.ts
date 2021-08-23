@@ -1,7 +1,13 @@
 export const FONT_SIZES = {
   default: '18px',
-  scoreStrong: '50px',
-  scoreStrongMobile: '40px',
+  text: '16px',
+  scoreStrong: '40px',
+  scoreStrongMobile: '35px',
+  scoreStrongXsMobile: '28px',
+  titleMain: '60px',
+  titleMainLandscape: '50px',
+  titleMainMobile: '40px',
+  titleMainXsMobile: '30px',
   title1: '36px',
   title1Mobile: '30px',
   title1XsMobile: '26px',
@@ -15,4 +21,7 @@ export const FONT_SIZES = {
   medium: '14px',
   small: '12px',
   smallest: '10px',
+  resultSummary: '24px',
+  resultSummaryMobile: '19px',
+  resultSummaryXsMobile: '18px',
 };

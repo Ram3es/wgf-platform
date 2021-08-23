@@ -119,36 +119,69 @@ export class UserService {
     const cooperationQuestionsNumber = answers.slice(24, 35);
 
     return {
-      concern: this.getScoreOfAtribute(concernQuestionsNumber),
-      control: this.getScoreOfAtribute(controlQuestionsNumber),
-      curiosity: this.getScoreOfAtribute(curiosityQuestionsNumber),
-      confidence: this.getScoreOfAtribute(confidenceQuestionsNumber),
-      cooperation: this.getScoreOfAtribute(cooperationQuestionsNumber),
+      concern: this.getScoreOfAtribute(concernQuestionsNumber, 'concern'),
+      control: this.getScoreOfAtribute(controlQuestionsNumber, 'control'),
+      curiosity: this.getScoreOfAtribute(curiosityQuestionsNumber, 'curiosity'),
+      confidence: this.getScoreOfAtribute(
+        confidenceQuestionsNumber,
+        'confidence'
+      ),
+      cooperation: this.getScoreOfAtribute(
+        cooperationQuestionsNumber,
+        'cooperation'
+      ),
     };
   }
 
-  getScoreOfAtribute(atributeAnswers: IAnswer[]) {
+  getScoreOfAtribute(atributeAnswers: IAnswer[], atributeName: string) {
     const score = atributeAnswers.reduce(
       (acc, item) => acc + item.answerValue,
       0
     );
 
-    return {
-      score,
-      level: this.getLevelOfAtribute(score, atributeAnswers),
-    };
-  }
-
-  getLevelOfAtribute(score: number, atribute: IAnswer[]) {
-    const maxScore = atribute.length * 5;
+    const maxScore = atributeAnswers.length * 5;
 
     const scorePercent = (score / maxScore) * 100;
 
-    if (scorePercent >= 67) {
+    const scoreRound = Number.isInteger(scorePercent)
+      ? scorePercent
+      : scorePercent.toFixed(2);
+
+    return {
+      score: scoreRound,
+      level: this.getLevelOfAtribute(+scoreRound, atributeName),
+    };
+  }
+
+  getLevelOfAtribute(score: number, atribute: string) {
+    const atributeLevelPercent = {
+      concern: {
+        High: 83,
+        Moderate: 68.8,
+      },
+      control: {
+        High: 85.1,
+        Moderate: 72.1,
+      },
+      curiosity: {
+        High: 81,
+        Moderate: 66.9,
+      },
+      confidence: {
+        High: 86,
+        Moderate: 71.4,
+      },
+      cooperation: {
+        High: 84.7,
+        Moderate: 69,
+      },
+    };
+
+    if (score >= atributeLevelPercent[atribute].High) {
       return 'High';
     }
 
-    if (scorePercent >= 34) {
+    if (score >= atributeLevelPercent[atribute].Moderate) {
       return 'Moderate';
     }
 

@@ -10,36 +10,46 @@ export const BannerStyles = {
     z-index: 1;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding: 20px 0 100px;
+    padding: 0 0 30px;
 
     ${Media.smallLandscape`
       flex-direction: column;
       align-items: center;
-      padding: 0 0 30px;
+      padding: 20px 0 20px;
+    `}
+
+    ${Media.tablet`
+      padding: 20px 0 10px;
+    `}
+    
+    ${Media.mobile`
+      padding: 0 0 10px;
     `}
   `,
 
   Title: styled.h1`
     position: relative;
     z-index: 1;
-    font-size: ${FONT_SIZES.title1};
+    font-size: ${FONT_SIZES.titleMain};
     font-weight: 700;
     color: ${COLORS.greyLite};
+    padding-left: 60px;
 
-    ${Media.smallLandscape`
-      margin-bottom: 100px;
-    `}
+    ${Media.smallLandscape(css`
+      margin-bottom: 80px;
+      padding-left: 0;
+      font-size: ${FONT_SIZES.titleMainLandscape};
+    `)}
 
     ${Media.desktop`
-      padding-left: 150px;
+      padding-left: 260px;
     `}
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.title1Mobile};
+      font-size: ${FONT_SIZES.titleMainMobile};
     `)}
     ${Media.xsMobile(css`
-      font-size: ${FONT_SIZES.title1XsMobile};
+      font-size: ${FONT_SIZES.titleMainXsMobile};
     `)}
   `,
 
@@ -57,6 +67,10 @@ export const BannerStyles = {
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.defaultMobile};
       `)}
+
+      :first-of-type {
+        margin-bottom: 20px;
+      }
     }
   `,
 };

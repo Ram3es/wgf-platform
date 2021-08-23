@@ -4,10 +4,10 @@ import { Media } from '@styles/media';
 
 export const BannerImageStyles = styled.div`
   position: absolute;
-  right: 52%;
+  right: 50%;
   bottom: 100%;
   margin-bottom: -300px;
-  width: 48%;
+  width: 50%;
   min-width: 620px;
 
   ${Media.smallLandscape`
@@ -15,10 +15,12 @@ export const BannerImageStyles = styled.div`
       top: 0;
       left: 0;
       min-width: auto;
+      margin-bottom: -340px;
   `}
 
   ${Media.mobile`
       top: 40px;
+      margin-bottom: -300px;
   `}
 
   svg {

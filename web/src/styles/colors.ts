@@ -12,4 +12,12 @@ export const COLORS = {
   blue: '#00AEEF',
   violet: '#5448A9',
   bgGrey: '#f2f2f3',
+
+  levelResult: {
+    Low: '#F664C5',
+    Moderate: '#FBB040',
+    High: '#10D83C',
+  },
 };
+
+export type TLevelResult = keyof typeof COLORS.levelResult;

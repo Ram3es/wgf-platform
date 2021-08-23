@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { images } from '@constants/images';
+import { IMAGES } from '@constants/images';
 
 import { IButtonProps } from './button.typings';
 
@@ -26,8 +26,8 @@ export const Button: React.FC<IButtonProps> = ({
     color={color}
     image={image}
   >
-    {image === 'back' && <img src={images.back} />}
+    {image === 'back' && <img src={IMAGES.back} />}
     <span>{title}</span>
-    {image === 'next' && <img src={images.next} />}
+    {image === 'next' && <img src={IMAGES.next} />}
   </ButtonStyles>
 );

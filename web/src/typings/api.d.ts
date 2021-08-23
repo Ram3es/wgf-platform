@@ -5,8 +5,10 @@ interface IAnswer {
 
 interface ICategory {
   score: number;
-  level: string;
+  level: TLevels;
 }
+
+type TLevels = 'Low' | 'Moderate' | 'High';
 
 interface IQuestion {
   questionNumber: number;

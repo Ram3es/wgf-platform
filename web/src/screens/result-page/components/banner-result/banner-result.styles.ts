@@ -4,23 +4,32 @@ import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
-import { images } from '@constants/images';
+import { IMAGES } from '@constants/images';
 
 export const BannerStyles = {
   Wrapper: styled.div`
     position: relative;
     z-index: 1;
-    padding: 20px 0 50px;
+    padding: 0 0 50px;
     border-bottom: 2px solid ${COLORS.greenLite};
     margin-bottom: 50px;
 
+    @media print {
+      display: flex;
+    }
+
     ${Media.smallLandscape`
-    padding: 0 0 50px;
+      padding: 20px 0 50px;
     `}
 
     ${Media.tablet`
       border: 0;
       margin: 0;
+      padding: 20px 0 20px;
+    `}
+    
+    ${Media.mobile`
+      padding: 0 0 20px;
     `}
 
     @media print {
@@ -32,34 +41,35 @@ export const BannerStyles = {
   Title: styled.h1`
     position: relative;
     z-index: 1;
-    font-size: ${FONT_SIZES.title1};
     font-weight: 700;
     color: ${COLORS.greyLite};
     margin-bottom: 150px;
+    font-size: ${FONT_SIZES.titleMain};
+    padding-left: 60px;
 
     @media print {
-      padding-left: 100px;
+      margin-bottom: 60px;
+      margit-top: -10px;
+      padding-left: 255px;
     }
 
-    ${Media.desktop`
-      padding-left: 150px;
-    `}
-
-    ${Media.smallLandscape`
+    ${Media.smallLandscape(css`
+      padding-left: 0;
       text-align: center;
-    `}
-
-    ${Media.tablet`
+      font-size: ${FONT_SIZES.titleMainLandscape};
       margin-bottom: 100px;
+    `)}
+
+    ${Media.desktop`
+      padding-left: 260px;
     `}
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.title1Mobile};
+      font-size: ${FONT_SIZES.titleMainMobile};
       margin-bottom: 80px;
     `)}
-
     ${Media.xsMobile(css`
-      font-size: ${FONT_SIZES.title1XsMobile};
+      font-size: ${FONT_SIZES.titleMainXsMobile};
     `)}
   `,
 
@@ -67,58 +77,65 @@ export const BannerStyles = {
     display: flex;
     align-items: center;
 
+    @media print {
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
     ${Media.tablet`
     flex-wrap: wrap-reverse;
     justify-content: center;
     `}
   `,
   Image: styled.div`
-    min-height: 270px;
+    min-height: 250px;
     width: 53%;
-    background-image: url(${images.bannerResultLandscape});
+    background-image: url(${IMAGES.bannerResultLandscape});
     background-repeat: no-repeat;
     background-size: contain;
     background-position: top 0 left 100%;
 
-    @media print {
-      width: 80%;
-      min-height: 290px;
-      background-image: url(${images.bannerResultDesktop});
-    }
-
     ${Media.desktop(css`
       width: 80%;
-      min-height: 290px;
-      background-image: url(${images.bannerResultDesktop});
+      background-image: url(${IMAGES.bannerResultDesktop});
     `)}
 
+    ${Media.landscape`
+      min-height: 210px;
+    `}
+
     ${Media.smallLandscape`
-      min-height: 200px;
+      min-height: 170px;
     `}
 
 
     ${Media.tablet(css`
       width: 100%;
       min-height: 200px;
-      background-image: url(${images.bannerResultMobile});
+      background-image: url(${IMAGES.bannerResultMobile});
       background-position: center;
     `)}
   `,
   Text: styled.div`
     position: relative;
     z-index: 1;
-    text-align: center;
-    width: 47%;
     text-align: left;
     margin-right: 20px;
-
-    @media print {
-      width: 20%;
-    }
+    width: 36%;
 
     ${Media.desktop`
-      width: 20%;
+      width: 47%;
     `}
+
+    @media print {
+      width: 78%;
+      margin-top: -50px;
+    }
+
+    p:first-of-type {
+      margin-bottom: 20px;
+    }
+
     ${Media.tablet`
       width: auto;
       max-width: 440px;

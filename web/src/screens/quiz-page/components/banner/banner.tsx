@@ -8,7 +8,9 @@ export const Banner: React.FC = () => (
   <BannerStyles.Wrapper>
     <BannerStyles.Title>{STRINGS.banner.title}</BannerStyles.Title>
     <BannerStyles.Text>
-      <p>{STRINGS.banner.text}</p>
+      {STRINGS.banner.text.map((item, i) => (
+        <p key={i}>{item}</p>
+      ))}
     </BannerStyles.Text>
   </BannerStyles.Wrapper>
 );

@@ -74,8 +74,8 @@ export const ResultSummaryStyles = {
     }
 
     img {
-      width: 180px;
-      height: 120px;
+      width: 210px;
+      height: 130px;
 
       ${Media.landscape`
         width: 220px;
@@ -97,12 +97,14 @@ export const ResultSummaryStyles = {
       left: 50%;
       transform: translate(-50%, -50%);
       letter-spacing: -1px;
+      text-transform: uppercase;
+      font-size: ${FONT_SIZES.resultSummary};
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.title2Mobile};
+        font-size: ${FONT_SIZES.resultSummaryMobile};
       `)}
       ${Media.xsMobile(css`
-        font-size: ${FONT_SIZES.title2XsMobile};
+        font-size: ${FONT_SIZES.resultSummaryXsMobile};
       `)}
     }
   `,
@@ -126,7 +128,7 @@ export const ResultSummaryStyles = {
     }
     `}
     ${Media.mobile`
-      padding: 15px;
+      padding: 10px;
     `}
 
     span {
@@ -137,10 +139,6 @@ export const ResultSummaryStyles = {
       `)}
     }
 
-    img {
-      width: 100%;
-    }
-
     & > strong {
       font-size: ${FONT_SIZES.scoreStrong};
       color: ${COLORS.grey};
@@ -149,28 +147,36 @@ export const ResultSummaryStyles = {
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.scoreStrongMobile};
       `)}
+
+      ${Media.sMobile(css`
+        font-size: ${FONT_SIZES.scoreStrongXsMobile};
+      `)}
     }
 
     & > img {
-      margin-top: -20px;
-      min-height: 130px;
+      height: 150px;
       vertical-align: bottom;
+      width: 100%;
 
       ${Media.desktop`
-        min-height: 180px;
+        height: 180px;
       `}
 
-      ${Media.mobile`
-        min-height: auto;
+      ${Media.landscape`
+        height: auto;
+        margin-top: -50px;
+      `}
+
+      ${Media.smallLandscape`
+        margin-top: 0;
       `}
 
       @media print {
-        margin-top: -50px;
-        min-height: 185px;
+        height: 185px;
       }
     }
   `,
-  CardBodyFooter: styled.div`
+  CardBodyFooter: styled.div<{ color?: string }>`
     display: flex;
     justify-content: space-between;
     padding-top: 5px;
@@ -178,7 +184,7 @@ export const ResultSummaryStyles = {
 
     strong {
       font-size: ${FONT_SIZES.title2};
-      color: ${COLORS.grey};
+      color: ${({ color }) => (color ? color : COLORS.grey)};
 
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.title2XsMobile};
@@ -202,7 +208,19 @@ export const ResultSummaryStyles = {
     }
   `,
   CardDescriprion: styled.div`
-    font-size: ${FONT_SIZES.defaultMobile};
+    font-size: ${FONT_SIZES.text};
+
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.medium};
+    `)}
+
+    p {
+      padding: 20px 0;
+
+      ${Media.mobile`
+        padding: 10px 0;
+      `}
+    }
   `,
   StarWrapper: styled.div`
     display: flex;
@@ -214,6 +232,44 @@ export const ResultSummaryStyles = {
         max-width: 100%;
         margin-left: 0;
       `}
+    }
+  `,
+
+  SuperPower: styled.div<{ color?: string }>`
+    strong {
+      display: block;
+      color: ${({ color }) => (color ? color : COLORS.grey)};
+    }
+
+    img {
+      margin-right: 5px;
+    }
+  `,
+
+  ArchetypesWrapper: styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+
+  ArchetypesIcon: styled.div`
+    display: flex;
+    margin-left: 15px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+
+      :hover {
+        path:first-of-type {
+          fill: ${COLORS.greenLite};
+        }
+      }
+
+      path {
+        transition: 0.3s;
+      }
     }
   `,
 };

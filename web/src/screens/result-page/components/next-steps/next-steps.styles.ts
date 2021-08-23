@@ -39,15 +39,15 @@ export const NextStepsStyles = {
 
     break-inside: avoid-page;
 
-    ${Media.mobile`
+    ${Media.tablet`
       display: block;
     `}
   `,
-  CardHeading: styled.div`
+  CardHeading: styled.div<{ color?: string }>`
     padding: 20px 15px;
     background: ${COLORS.bgGrey};
     border-radius: 10px;
-    min-width: 230px;
+    min-width: 280px;
 
     ${Media.mobile`
         padding: 10px;
@@ -55,23 +55,13 @@ export const NextStepsStyles = {
 
     & > div {
       display: flex;
-      flex-direction: column;
-
-      ${Media.mobile`
-        flex-direction: row;
-        align-items: baseline;
-      `}
-
-      @media print {
-        flex-direction: row;
-        align-items: baseline;
-        min-width: 260px;
-      }
+      align-items: baseline;
     }
 
     span {
       margin-right: 5px;
-      font-size: ${FONT_SIZES.defaultMobile};
+      font-size: ${FONT_SIZES.text};
+      white-space: nowrap;
 
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.small};
@@ -85,22 +75,39 @@ export const NextStepsStyles = {
     strong {
       font-size: ${FONT_SIZES.title2};
       padding: 5px 0;
-      color: ${COLORS.grey};
+      color: ${({ color }) => (color ? color : COLORS.grey)};
 
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.title2XsMobile};
       `)}
+    }
+
+    h2 {
+      text-transform: uppercase;
     }
   `,
   CardText: styled.div`
     padding: 25px;
 
     p {
-      font-size: ${FONT_SIZES.defaultMobile};
+      font-size: ${FONT_SIZES.text};
+      white-space: break-spaces;
+      line-height: 19px;
 
       ${Media.mobile(css`
         font-size: ${FONT_SIZES.medium};
       `)}
+
+      :first-of-type {
+        margin-bottom: 15px;
+      }
+    }
+
+    strong {
+      display: block;
+      font-size: ${FONT_SIZES.text};
+      font-weight: 700;
+      margin-bottom: 15px;
     }
   `,
 };
