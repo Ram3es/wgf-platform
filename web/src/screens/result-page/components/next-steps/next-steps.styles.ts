@@ -6,26 +6,12 @@ import { Media } from '@styles/media';
 
 export const NextStepsStyles = {
   Wrapper: styled.div`
-    padding: 30px 0;
-
-    ${Media.mobile`
-        padding: 30px 0 0;
-      `}
-
     @media print {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
-
-      padding: 0;
     }
   `,
   CardWrapper: styled.div`
-    padding: 20px 0;
-
-    ${Media.mobile`
-        padding: 20px 0 0;
-      `}
-
     @media print {
       padding: 0;
     }
@@ -50,7 +36,7 @@ export const NextStepsStyles = {
     min-width: 280px;
 
     @media print {
-      margin-right: 310px;
+      min-width: 300px;
     }
 
     ${Media.mobile`
