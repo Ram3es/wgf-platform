@@ -10,9 +10,9 @@ import { ResourcesStyles } from './resources.styles';
 export const Resources: React.FC = () => {
   return (
     <>
-      <TitleStyles.h2 paddingY="20px" color={COLORS.grey}>
+      <TitleStyles.h1 paddingY="20px" color={COLORS.grey}>
         {STRINGS.resultPage.resourcesTextBlock.title}
-      </TitleStyles.h2>
+      </TitleStyles.h1>
       <ResourcesStyles.TextBlock>
         <ResourcesStyles.List>
           {STRINGS.resultPage.resourcesTextBlock.textList.map((item, i) => (

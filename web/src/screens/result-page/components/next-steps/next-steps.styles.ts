@@ -49,6 +49,10 @@ export const NextStepsStyles = {
     border-radius: 10px;
     min-width: 280px;
 
+    @media print {
+      margin-right: 310px;
+    }
+
     ${Media.mobile`
         padding: 10px;
       `}
