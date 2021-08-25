@@ -157,6 +157,7 @@ export const ResultSummaryStyles = {
       height: 150px;
       vertical-align: bottom;
       width: 100%;
+      margin-top: -30px;
 
       ${Media.desktop`
         height: 180px;
@@ -168,7 +169,7 @@ export const ResultSummaryStyles = {
       `}
 
       ${Media.smallLandscape`
-        margin-top: 0;
+        margin-top: -20px;
       `}
 
       @media print {

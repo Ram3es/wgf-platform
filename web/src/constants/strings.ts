@@ -15,7 +15,9 @@ export const STRINGS = {
   popUp: {
     radioWrapperLabel: '*Are you a student or working professional?',
     title: 'Keeping You Informed',
-    text: 'By giving your consent, you agree to our Privacy Policy and Terms of Use.',
+    text: 'By giving your consent, you agree to our ',
+    privacyPolicy: 'Privacy Policy',
+    termsOfUse: 'Terms of Use.',
     checkbox:
       'Yes! I want to receive exclusive events, tips and information regarding career design from Wit Grit Fit.',
   },
@@ -80,13 +82,13 @@ export const STRINGS = {
       ],
     },
     glanceTextBlock: {
-      title: 'At a Glance',
+      title: 'Quick Summary',
       headingTitle: 'If you are a(n):',
     },
   },
 
   resultSummary: {
-    title: 'Your Archetypes',
+    title: 'Your Career Adaptability At a Glance',
     score: 'Score',
   },
 

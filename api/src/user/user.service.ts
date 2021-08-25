@@ -141,15 +141,11 @@ export class UserService {
 
     const maxScore = atributeAnswers.length * 5;
 
-    const scorePercent = (score / maxScore) * 100;
-
-    const scoreRound = Number.isInteger(scorePercent)
-      ? scorePercent
-      : scorePercent.toFixed(2);
+    const scorePercent = ((score / maxScore) * 100).toFixed(2);
 
     return {
-      score: scoreRound,
-      level: this.getLevelOfAtribute(+scoreRound, atributeName),
+      score: Math.round(+scorePercent),
+      level: this.getLevelOfAtribute(+scorePercent, atributeName),
     };
   }
 
