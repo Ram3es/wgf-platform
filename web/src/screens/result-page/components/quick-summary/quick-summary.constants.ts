@@ -2,7 +2,7 @@ import { COLORS } from '@styles/colors';
 
 import { IMAGES } from '@constants/images';
 
-import { IRowItem } from './glance.typings';
+import { IRow, IRowListItem } from './quick-summary.typings';
 
 export const headingItemsList = [
   {
@@ -27,15 +27,30 @@ export const headingItemsList = [
   },
 ];
 
-export const rowList = [
-  'Your superpower is:',
-  'Answers the question:',
-  'Your self-assessment:',
-  'What you can do:',
-  'Maps to the Career Adaptability Scale',
+export const rowList: IRow[] = [
+  {
+    title: 'Your superpower is:',
+    rowName: 'superPower',
+  },
+  {
+    title: 'Answers the question:',
+    rowName: 'question',
+  },
+  {
+    title: 'Your self-assessment:',
+    rowName: 'level',
+  },
+  {
+    title: 'What you can do:',
+    rowName: 'description',
+  },
+  {
+    title: 'Maps to the Career Adaptability Scale',
+    rowName: 'category',
+  },
 ];
 
-export const getRowItemsList = (results: IResults): IRowItem[] => {
+export const getRowItemsList = (results: IResults): IRowListItem[] => {
   return [
     {
       question: 'Do I have a future?',

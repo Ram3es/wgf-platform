@@ -6,8 +6,8 @@ import { Header } from '@components/header';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
 import { BannerResult } from '../result-page/components/banner-result';
-import { Glance } from '../result-page/components/glance';
 import { NextSteps } from '../result-page/components/next-steps';
+import { QuickSummary } from '../result-page/components/quick-summary';
 import { Resources } from '../result-page/components/resources';
 import { ResultSummary } from '../result-page/components/result-summary';
 
@@ -78,7 +78,7 @@ export const PdfPage: React.FC = () => {
         <TitleStyles.h3 paddingY="0">{`${STRINGS.resultPage.userTitle} ${state.firstName}`}</TitleStyles.h3>
         <ResultSummary results={state.results} />
         <NextSteps results={state.results} />
-        <Glance results={state.results} />
+        <QuickSummary results={state.results} />
         <Resources />
         <FlexCenter>
           <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />

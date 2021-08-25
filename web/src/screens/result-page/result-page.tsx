@@ -8,8 +8,8 @@ import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
 import { BannerResult } from './components/banner-result';
-import { Glance } from './components/glance';
 import { NextSteps } from './components/next-steps';
+import { QuickSummary } from './components/quick-summary';
 import { Resources } from './components/resources';
 import { ResultSummary } from './components/result-summary';
 
@@ -77,7 +77,7 @@ export const ResultPage: React.FC = () => {
         </TitleStyles.h3>
         <ResultSummary results={results} withArchetypesIcon />
         <NextSteps results={results} />
-        <Glance results={results} />
+        <QuickSummary results={results} />
         <Resources />
         <FlexCenter>
           <Button

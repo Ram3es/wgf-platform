@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
 
-export const GlanceStyles = {
+export const QuickSummaryStyles = {
   Wrapper: styled.div`
     padding: 10px;
     overflow-x: auto;
@@ -80,7 +80,7 @@ export const GlanceStyles = {
     }
   `,
 
-  RowItem: styled.div<{ color?: string }>`
+  RowItem: styled.div`
     flex: 0 1 16.66%;
     padding: 30px 10px;
 
@@ -91,16 +91,15 @@ export const GlanceStyles = {
       margin-left: 10px;
     }
 
-    strong {
-      font-weight: 700;
-      position: relative;
-      z-index: 5;
-      color: ${({ color }) => (color ? color : COLORS.default)};
-    }
-
     p {
       position: relative;
       z-index: 5;
     }
+  `,
+  TitleStrong: styled.strong<{ color?: string }>`
+    font-weight: 700;
+    position: relative;
+    z-index: 5;
+    color: ${({ color }) => (color ? color : COLORS.default)};
   `,
 };

@@ -6,9 +6,11 @@ import { Checkbox } from '@components/checkbox';
 import { RadioButtonGroup } from '@components/radio-button-group';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
+import { LinkStyled } from '@styles/components/link';
 
 import { updateUser } from '@services/user.service';
 
+import { LINKS } from '@constants/links';
 import { ROUTES } from '@constants/routes';
 import { SESSION_STORAGE } from '@constants/storage';
 import { STRINGS } from '@constants/strings';
@@ -42,8 +44,8 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
       value: 'Student',
     },
     {
-      label: 'Marketing Professional',
-      value: 'Marketing Professional',
+      label: 'Working Professional',
+      value: 'Working Professional',
     },
   ];
 
@@ -82,7 +84,16 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
           onChange={checboxHandler}
           label={STRINGS.popUp.checkbox}
         />
-        <PopUpStyles.Text>{STRINGS.popUp.text}</PopUpStyles.Text>
+        <PopUpStyles.Text>
+          {STRINGS.popUp.text}
+          <LinkStyled href={LINKS.privacyPolicy} target="_blank">
+            {STRINGS.popUp.privacyPolicy}
+          </LinkStyled>
+          {` and `}
+          <LinkStyled href={LINKS.termsOfUse} target="_blank">
+            {STRINGS.popUp.termsOfUse}
+          </LinkStyled>
+        </PopUpStyles.Text>
         <PopUpStyles.ButtonWrapper>
           <Button
             title={STRINGS.button.result}

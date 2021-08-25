@@ -1,13 +1,9 @@
 export const IMAGES = {
   companyLogo: require('../assets/img/company-logo.svg').default,
   productLogo: require('../assets/img/product-logo.svg').default,
-  productLogoPdf: require('../assets/img/product-logo-pdf.svg').default,
   back: require('../assets/img/back-arrow.svg').default,
   next: require('../assets/img/next-arrow.svg').default,
   mainPage: require('../assets/img/main-page.jpg').default,
-  bannerImage: require('../assets/img/banner-image.svg').default,
-  bannerPdf: require('../assets/img/banner-image-pdf.svg').default,
-  bannerImageWeb: require('../assets/img/banner-image-web.svg').default,
   bannerResultMobile: require('../assets/img/banner-result-mobile.png').default,
   bannerResultLandscape: require('../assets/img/banner-result-landscape.png')
     .default,

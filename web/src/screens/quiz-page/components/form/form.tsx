@@ -153,7 +153,6 @@ export const Form: React.FC = () => {
                       onClick={decrementPage}
                       color={COLORS.greenLite}
                       image="back"
-                      variant="secondary"
                     />
                   )}
                   <Button
@@ -161,7 +160,7 @@ export const Form: React.FC = () => {
                       isLastPage ? STRINGS.button.submit : STRINGS.button.next
                     }
                     onClick={handleSubmit}
-                    color={isLastPage ? COLORS.grey : COLORS.greenLite}
+                    color={COLORS.greenLite}
                     image="next"
                     type="submit"
                   />
