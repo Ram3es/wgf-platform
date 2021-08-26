@@ -30,7 +30,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       description:
         'Optimistic Planners are concerned and positive about their future. Looking ahead to extend their current capabilities and roles, they regularly scan their environment for the need to change and take a planning, future-oriented approach to their careers.',
       superPower: 'Planning',
-      color: COLORS.greenLite,
+      colorTitle: COLORS.default,
     },
     {
       title: 'Responsible Shaper',
@@ -41,7 +41,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       description:
         'Responsible Shapers are self-aware and diligently manage their careers in a disciplined and organised manner. Skilled at making good decisions, they believe that they, and not external forces, have control over their career outcomes.',
       superPower: 'Decision Making',
-      color: COLORS.blue,
+      colorTitle: COLORS.white,
     },
     {
       title: 'Inquisitive Explorer',
@@ -52,7 +52,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       description:
         'Inquisitive Explorers are curious and constantly looking into future possibilities. By learning more about themselves, possible career pathways and just exploring the world around them, they maximize their options and allow a sense of calling to emerge.',
       superPower: 'Exploring',
-      color: COLORS.pink,
+      colorTitle: COLORS.white,
     },
     {
       title: 'Capable Overcomer',
@@ -63,7 +63,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       description:
         'Capable Overcomers have the confidence and courage to believe that they can surmount difficulties that arise in their careers. They pro-actively seek to build new skills and welcome opportunities to stretch beyond what they are currently capable of.',
       superPower: 'Problem Solving',
-      color: COLORS.yellow,
+      colorTitle: COLORS.default,
     },
     {
       title: 'Social Collaborator',
@@ -74,7 +74,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       description:
         'Social Collaborators have advanced interpersonal skills that enable them to accelerate their career development. They are often valued team players and good listeners whose pro-active contributions help everybody else succeed.',
       superPower: 'Collaborating',
-      color: COLORS.violet,
+      colorTitle: COLORS.white,
     },
   ];
 };

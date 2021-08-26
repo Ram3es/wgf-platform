@@ -8,22 +8,27 @@ export const headingItemsList = [
   {
     title: 'Optimistic Planner',
     imageHead: IMAGES.concernImage,
+    color: COLORS.default,
   },
   {
     title: 'Responsible Shaper',
     imageHead: IMAGES.controlImage,
+    color: COLORS.white,
   },
   {
     title: 'Inquisitive Explorer',
     imageHead: IMAGES.curiosityImage,
+    color: COLORS.white,
   },
   {
     title: 'Capable Overcomer',
     imageHead: IMAGES.confidenceImage,
+    color: COLORS.default,
   },
   {
     title: 'Social Collaborator',
     imageHead: IMAGES.cooperationImage,
+    color: COLORS.white,
   },
 ];
 
@@ -58,7 +63,6 @@ export const getRowItemsList = (results: IResults): IRowListItem[] => {
       description:
         'Be aware of upcoming educational and career options. Seek out career guidance professionals to get a quick start.',
       superPower: 'Planning',
-      color: COLORS.greenLite,
       category: 'Concern',
     },
     {
@@ -67,7 +71,6 @@ export const getRowItemsList = (results: IResults): IRowListItem[] => {
       description:
         'Take responsibility for your career and get better at making decisions. Knowing yourself better helps.',
       superPower: 'Decision Making',
-      color: COLORS.blue,
       category: 'Control',
     },
     {
@@ -76,7 +79,6 @@ export const getRowItemsList = (results: IResults): IRowListItem[] => {
       description:
         'Stay curious, ask questions and probe deeply into fields of interest. Use career tools to help you explore more effectively.',
       superPower: 'Exploring',
-      color: COLORS.pink,
       category: 'Curiosity',
     },
     {
@@ -85,7 +87,6 @@ export const getRowItemsList = (results: IResults): IRowListItem[] => {
       description:
         'Be confident of your abilities and keep working to improve them. Have a growth mindset and keep upskilling.',
       superPower: 'Problem Solving',
-      color: COLORS.yellow,
       category: 'Confidence',
     },
     {
@@ -94,7 +95,6 @@ export const getRowItemsList = (results: IResults): IRowListItem[] => {
       description:
         'Develop strong working relationships with collaborators. Be a team player, contributing proactively.',
       superPower: 'Collaborating',
-      color: COLORS.violet,
       category: 'Cooperation',
     },
   ];

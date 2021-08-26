@@ -1,4 +1,68 @@
 export const LINKS = {
-  privacyPolicy: 'https://witgritfit.com/privacy-policy/',
-  termsOfUse: 'https://witgritfit.com/terms-of-use/',
+  privacyPolicy: {
+    label: 'Privacy Policy',
+    href: 'https://witgritfit.com/privacy-policy/',
+  },
+  termsOfUse: {
+    label: 'Terms of Use',
+    href: 'https://witgritfit.com/terms-of-use/',
+  },
+  careerDesignWorkshop: {
+    label: 'Career Design Workshop',
+    href: 'https://witgritfit.com/career-design-life-simulation-digital/',
+  },
+  careerDesignCanvas: {
+    label: 'WIT GRIT FIT Career Design Canvas',
+    href: 'https://witgritfit.com/career-canvas-home/',
+  },
+  careerAdventure: {
+    label: 'Career Adventure tools',
+    href: 'https://witgritfit.com/my-career-adventure/',
+  },
+  linkedin: {
+    label: 'Linkedin',
+    href: 'https://www.linkedin.com/company/witgritfit',
+  },
+  facebook: {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/avidadventures',
+  },
+  stayingRelevant: {
+    label: 'Staying Relevant',
+    href: 'https://www.skillsfuture.gov.sg/skills-framework/criticalcoreskills',
+  },
+  resourcesPdf: [
+    {
+      label: 'Adaptability',
+      href: 'https://www.skillsfuture.gov.sg/-/media/SkillsFuture/Files/Skills-Framework/Critical-Core-Skills/CCS-PDF-Ref-Docs/CCSAdaptabilityv70.pdf',
+    },
+    {
+      label: 'Digital Fluency',
+      href: 'https://www.skillsfuture.gov.sg/-/media/SkillsFuture/Files/Skills-Framework/Critical-Core-Skills/CCS-PDF-Ref-Docs/CCSDigital-Fluencyv70.pdf',
+    },
+    {
+      label: 'Global Perspective',
+      href: 'https://www.skillsfuture.gov.sg/-/media/SkillsFuture/Files/Skills-Framework/Critical-Core-Skills/CCS-PDF-Ref-Docs/CCSGlobal-Perspectivev70.pdf',
+    },
+    {
+      label: 'Learning Agility',
+      href: 'https://www.skillsfuture.gov.sg/-/media/SkillsFuture/Files/Skills-Framework/Critical-Core-Skills/CCS-PDF-Ref-Docs/CCSLearning-Agilityv70.pdf',
+    },
+    {
+      label: 'Self Management',
+      href: 'https://www.skillsfuture.gov.sg/-/media/SkillsFuture/Files/Skills-Framework/Critical-Core-Skills/CCS-PDF-Ref-Docs/CCSSelf-Managementv60.pdf',
+    },
+  ],
 };
+
+interface ILink {
+  label: string;
+  href: string;
+}
+
+export const createLink = (href: string, label: string): string => {
+  return `<a href="${href}" target="_blank" rel="noreferrer">${label}</a>`;
+};
+
+export const createLinkList = (list: ILink[]) =>
+  list.map(({ label, href }) => `<li>${createLink(href, label)}</li>`).join('');

@@ -25,7 +25,7 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
         );
       case 'superPower':
         return (
-          <QuickSummaryStyles.TitleStrong color={item.color}>
+          <QuickSummaryStyles.TitleStrong color={COLORS.default}>
             {item.superPower}
           </QuickSummaryStyles.TitleStrong>
         );
@@ -37,17 +37,17 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
   return (
     <QuickSummaryStyles.Wrapper>
       <TitleStyles.h1 color={COLORS.grey} textAlign="center" paddingY="20px">
-        {STRINGS.resultPage.glanceTextBlock.title}
+        {STRINGS.resultPage.quickSummaryTextBlock.title}
       </TitleStyles.h1>
       <QuickSummaryStyles.Content>
         <QuickSummaryStyles.Heading>
           <QuickSummaryStyles.HeadingTitle>
-            {STRINGS.resultPage.glanceTextBlock.headingTitle}
+            {STRINGS.resultPage.quickSummaryTextBlock.headingTitle}
           </QuickSummaryStyles.HeadingTitle>
-          {headingItemsList.map(({ imageHead, title }, i) => (
+          {headingItemsList.map(({ imageHead, title, color }, i) => (
             <QuickSummaryStyles.HeadingItem key={i}>
               <img src={imageHead} alt={STRINGS.altLogo} />
-              <TitleStyles.h2 color={COLORS.white} paddingY="0px">
+              <TitleStyles.h2 color={color} paddingY="0px">
                 {title}
               </TitleStyles.h2>
             </QuickSummaryStyles.HeadingItem>
@@ -56,7 +56,9 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
         {rowList.map(({ title, rowName }) => (
           <QuickSummaryStyles.Row key={rowName}>
             <QuickSummaryStyles.RowItem>
-              <strong>{title}</strong>
+              <QuickSummaryStyles.TitleStrong>
+                {title}
+              </QuickSummaryStyles.TitleStrong>
             </QuickSummaryStyles.RowItem>
             {rowItems.map((item, i) => (
               <QuickSummaryStyles.RowItem key={i}>

@@ -34,3 +34,28 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+a {
+  text-decoration: none;
+  color: #8dc63f;
+  font-size: inherit;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+a:hover {
+  opacity: 0.5;
+}
+
+a:visited {
+  color: #888281;
+}
+
+.resources-list {
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.resources-list li {
+  padding: 5px 0;
+}
