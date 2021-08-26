@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import React from 'react';
 
 import { COLORS } from '@styles/colors';
@@ -16,7 +17,9 @@ export const Resources: React.FC = () => {
       <ResourcesStyles.TextBlock>
         <ResourcesStyles.List>
           {STRINGS.resultPage.resourcesTextBlock.textList.map((item, i) => (
-            <ResourcesStyles.ListItem key={i}>{item}</ResourcesStyles.ListItem>
+            <ResourcesStyles.ListItem key={i}>
+              {parse(item)}
+            </ResourcesStyles.ListItem>
           ))}
         </ResourcesStyles.List>
       </ResourcesStyles.TextBlock>

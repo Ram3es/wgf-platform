@@ -20,5 +20,5 @@ export interface IElementCategories {
   level: TLevelResult;
   description: string;
   superPower: string;
-  color: string;
+  colorTitle: string;
 }

@@ -36,6 +36,9 @@ export const ResultSummaryStyles = {
   `,
 
   CardItem: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
     position: relative;
     flex: 0 1 20%;
     padding: 10px;
@@ -64,7 +67,6 @@ export const ResultSummaryStyles = {
   CardHeading: styled.div`
     position: relative;
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
     padding: 0 -10px;
@@ -109,6 +111,9 @@ export const ResultSummaryStyles = {
     }
   `,
   CardBody: styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
     background: ${COLORS.bgGrey};
     border-radius: 10px;
     margin-top: -8%;
@@ -116,11 +121,11 @@ export const ResultSummaryStyles = {
     margin-bottom: 15px;
 
     @media print {
-      padding: 25px 20px;
+      padding: 25px 22px;
     }
 
     ${Media.desktop`
-      padding: 25px 30px;
+      padding: 25px 22px;
     `}
 
     ${Media.landscape`
@@ -160,7 +165,7 @@ export const ResultSummaryStyles = {
       margin-top: -30px;
 
       ${Media.desktop`
-        height: 180px;
+        height: 190px;
       `}
 
       ${Media.landscape`
@@ -209,6 +214,10 @@ export const ResultSummaryStyles = {
     }
   `,
   CardDescriprion: styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
     font-size: ${FONT_SIZES.text};
 
     ${Media.mobile(css`
@@ -236,10 +245,22 @@ export const ResultSummaryStyles = {
     }
   `,
 
-  SuperPower: styled.div<{ color?: string }>`
+  SuperPower: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+
     strong {
-      display: block;
-      color: ${({ color }) => (color ? color : COLORS.grey)};
+      flex: 0 1 100%;
+      font-weight: 700;
+      color: ${COLORS.default};
+      margin-left: 3px;
+
+      ${Media.landscape`
+        flex: 0 1 auto;
+      `}
+      ${Media.desktop`
+        flex: 0 1 auto;
+      `}
     }
 
     img {

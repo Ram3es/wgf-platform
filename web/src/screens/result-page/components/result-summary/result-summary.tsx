@@ -54,14 +54,14 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
               score,
               description,
               superPower,
-              color,
+              colorTitle,
             },
             i
           ) => (
             <ResultSummaryStyles.CardItem key={i}>
               <ResultSummaryStyles.CardHeading>
                 <img src={imageHead} />
-                <TitleStyles.h2 color={COLORS.white} paddingY="0">
+                <TitleStyles.h2 color={colorTitle} paddingY="0">
                   {title}
                 </TitleStyles.h2>
               </ResultSummaryStyles.CardHeading>
@@ -81,9 +81,10 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
                 </ResultSummaryStyles.CardBodyFooter>
                 <ResultSummaryStyles.CardDescriprion>
                   <p>{description}</p>
-                  <ResultSummaryStyles.SuperPower color={color}>
+                  <ResultSummaryStyles.SuperPower>
                     <img src={IMAGES.superPower} alt={STRINGS.altLogo} />
-                    Superpower: <strong>{superPower}</strong>
+                    <span>{STRINGS.resultSummary.superPower}</span>
+                    <strong>{superPower}</strong>
                   </ResultSummaryStyles.SuperPower>
                 </ResultSummaryStyles.CardDescriprion>
               </ResultSummaryStyles.CardBody>

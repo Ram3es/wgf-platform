@@ -33,7 +33,7 @@ export const QuickSummaryStyles = {
     padding: 5px;
 
     :not(:first-child) {
-      margin-left: 10px;
+      margin-left: 20px;
     }
 
     img {
@@ -82,13 +82,13 @@ export const QuickSummaryStyles = {
 
   RowItem: styled.div`
     flex: 0 1 16.66%;
-    padding: 30px 10px;
+    padding: 30px 10px 50px;
 
     min-height: 90px;
 
     :not(:first-child) {
       background: ${COLORS.bgGrey};
-      margin-left: 10px;
+      margin-left: 20px;
     }
 
     p {

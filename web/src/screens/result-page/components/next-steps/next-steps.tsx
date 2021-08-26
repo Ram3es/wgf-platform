@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import React from 'react';
 
 import { COLORS } from '@styles/colors';
@@ -36,7 +37,7 @@ export const NextSteps: React.FC<INextStepsProps> = ({ results }) => {
             <NextStepsStyles.CardText>
               <strong>{recomendationMessage[level]}</strong>
               {description.map((text, i) => (
-                <p key={i}>{text}</p>
+                <p key={i}>{parse(text)}</p>
               ))}
             </NextStepsStyles.CardText>
           </NextStepsStyles.CardItem>

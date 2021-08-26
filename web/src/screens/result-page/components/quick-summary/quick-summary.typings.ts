@@ -8,7 +8,6 @@ export interface IRowListItem {
   level: TLevelResult;
   description: string;
   superPower: string;
-  color: string;
   category: string;
   question: string;
 }
