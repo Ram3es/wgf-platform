@@ -57,10 +57,10 @@ export const BannerStyles = {
 
     ${Media.mobile(css`
       font-size: ${FONT_SIZES.titleMainMobile};
-      margin-bottom: 60px;
+      margin-bottom: 70px;
     `)}
     ${Media.sMobile(css`
-      margin-bottom: 45px;
+      margin-bottom: 55px;
     `)}
     ${Media.xsMobile(css`
       font-size: ${FONT_SIZES.titleMainXsMobile};
