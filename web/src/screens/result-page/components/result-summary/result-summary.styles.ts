@@ -60,6 +60,11 @@ export const ResultSummaryStyles = {
     `}
 
     ${Media.landscape`
+      flex: 0 1 33.33%;
+      padding: 20px;
+    `}
+    
+    ${Media.smallLandscape`
       flex: 0 1 50%;
       padding: 20px;
     `}

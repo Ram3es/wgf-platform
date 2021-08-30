@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 import { COLORS } from '../colors';
 import { FONT_SIZES } from '../font-sizes';
 
@@ -21,6 +22,14 @@ export const TitleStyles = {
     color: ${({ color }) => (color ? color : COLORS.default)};
     margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '0')};
 
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title1Mobile};
+    `)}
+
+    ${Media.xsMobile(css`
+      font-size: ${FONT_SIZES.title1XsMobile};
+    `)}
+
     @media print {
       -webkit-print-color-adjust: exact !important;
       color-adjust: exact !important;
@@ -34,6 +43,14 @@ export const TitleStyles = {
     color: ${({ color }) => (color ? color : COLORS.default)};
     margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '0')};
 
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title2Mobile};
+    `)}
+
+    ${Media.xsMobile(css`
+      font-size: ${FONT_SIZES.title2XsMobile};
+    `)}
+
     @media print {
       -webkit-print-color-adjust: exact !important;
       color-adjust: exact !important;
@@ -46,6 +63,10 @@ export const TitleStyles = {
     font-size: ${FONT_SIZES.title3};
     color: ${({ color }) => (color ? color : COLORS.default)};
     margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '0')};
+
+    ${Media.mobile(css`
+      font-size: ${FONT_SIZES.title3Mobile};
+    `)}
 
     @media print {
       -webkit-print-color-adjust: exact !important;

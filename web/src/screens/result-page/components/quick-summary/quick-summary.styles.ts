@@ -56,7 +56,7 @@ export const QuickSummaryStyles = {
       transform: translate(-50%, -50%);
       letter-spacing: -1px;
       text-transform: uppercase;
-      font-size: ${FONT_SIZES.title2XsMobile};
+      font-size: ${FONT_SIZES.resultSummaryMobile};
 
       ${Media.desktop(css`
         font-size: ${FONT_SIZES.title2Mobile};
