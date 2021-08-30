@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { IMAGES } from '@constants/images';
@@ -42,6 +43,7 @@ export const BannerStyles = {
     position: relative;
     z-index: 1;
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     color: ${COLORS.greyLite};
     margin-bottom: 150px;
     font-size: ${FONT_SIZES.titleMain};
@@ -146,6 +148,7 @@ export const BannerStyles = {
       font-size: ${FONT_SIZES.title1};
       color: ${COLORS.grey};
       font-weight: 700;
+      font-family: ${FONTS.frutigerBold};
       margin-bottom: 20px;
 
       ${Media.mobile(css`

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const BannerStyles = {
@@ -32,6 +33,7 @@ export const BannerStyles = {
     z-index: 1;
     font-size: ${FONT_SIZES.titleMain};
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     color: ${COLORS.greyLite};
     padding-left: 60px;
 

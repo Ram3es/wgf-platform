@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const QuestionListStyles = {
@@ -27,6 +28,7 @@ export const QuestionListStyles = {
   ItemTitle: styled.p<{ isError: boolean }>`
     font-size: ${FONT_SIZES.default};
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     color: ${({ isError }) => (isError ? COLORS.red : COLORS.black)};
 
     ${Media.mobile(css`

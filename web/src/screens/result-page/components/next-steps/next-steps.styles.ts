@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const NextStepsStyles = {
@@ -101,6 +102,7 @@ export const NextStepsStyles = {
       display: block;
       font-size: ${FONT_SIZES.text};
       font-weight: 700;
+      font-family: ${FONTS.frutigerBold};
       margin-bottom: 15px;
     }
   `,

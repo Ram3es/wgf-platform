@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { ITextFieldStylesProps } from './text-field.typings';
@@ -20,6 +21,7 @@ export const TextFieldStyled = {
     font-size: ${FONT_SIZES.medium};
     font-family: inherit;
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     width: ${({ isFullWidth, width }) =>
       isFullWidth ? '100%' : width || 'auto'};
     height: ${({ height }) => height || 'auto'};

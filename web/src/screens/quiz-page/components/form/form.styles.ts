@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const FormStyles = {
@@ -26,6 +27,7 @@ export const FormStyles = {
     font-size: ${FONT_SIZES.medium};
     font-weight: 700;
     margin-bottom: 10px;
+    font-family: ${FONTS.frutigerBold};
 
     ${Media.mobile`
       text-align: center;

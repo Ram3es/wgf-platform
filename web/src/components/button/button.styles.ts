@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '../../styles/fonts';
 
 import { IButtonStylesProps } from './button.typings';
 
@@ -18,6 +19,7 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   color: ${COLORS.white};
   font-size: ${FONT_SIZES.default};
   font-weight: 700;
+  font-family: ${FONTS.frutigerBold};
   background-color: ${({ color }) => color};
   ${({ variant }) => variant === 'secondary' && `opacity: 0.7`};
   transition: 0.3;
