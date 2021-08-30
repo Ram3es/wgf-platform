@@ -35,7 +35,19 @@ export const BannerStyles = {
     font-weight: 700;
     font-family: ${FONTS.frutigerBold};
     color: ${COLORS.greyLite};
-    padding-left: 60px;
+    padding-left: 100px;
+
+    ${Media.desktop`
+      padding-left: 260px;
+    `}
+
+    ${Media.landscapeWreck`
+      padding-left: 140px;
+    `}
+
+    ${Media.landscape`
+      padding-left: 75px;
+    `}
 
     ${Media.smallLandscape(css`
       margin-bottom: 80px;
@@ -43,12 +55,12 @@ export const BannerStyles = {
       font-size: ${FONT_SIZES.titleMainLandscape};
     `)}
 
-    ${Media.desktop`
-      padding-left: 260px;
-    `}
-
     ${Media.mobile(css`
       font-size: ${FONT_SIZES.titleMainMobile};
+      margin-bottom: 60px;
+    `)}
+    ${Media.sMobile(css`
+      margin-bottom: 45px;
     `)}
     ${Media.xsMobile(css`
       font-size: ${FONT_SIZES.titleMainXsMobile};
@@ -59,10 +71,18 @@ export const BannerStyles = {
     position: relative;
     z-index: 1;
     text-align: center;
-    max-width: 440px;
+    max-width: 540px;
 
     ${Media.desktop`
-      max-width: 630px;
+      max-width: 680px;
+    `}
+
+    ${Media.landscape`
+      max-width: 420px;
+    `}
+
+    ${Media.smallLandscape`
+      max-width: none;
     `}
 
     p {
