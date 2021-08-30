@@ -1,17 +1,21 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 
 export const QuickSummaryStyles = {
   Wrapper: styled.div`
     padding: 10px;
-    overflow-x: auto;
     margin: 0 -10px 20px;
 
     h1 {
       padding: 20px 0;
     }
+  `,
+  Overflow: styled.div`
+    overflow-x: auto;
   `,
   Heading: styled.div`
     display: flex;
@@ -52,11 +56,16 @@ export const QuickSummaryStyles = {
       transform: translate(-50%, -50%);
       letter-spacing: -1px;
       text-transform: uppercase;
-      font-size: ${FONT_SIZES.title2Mobile};
+      font-size: ${FONT_SIZES.title2XsMobile};
+
+      ${Media.desktop(css`
+        font-size: ${FONT_SIZES.title2Mobile};
+      `)}
     }
   `,
   HeadingTitle: styled.div`
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     color: ${COLORS.grey};
   `,
   Row: styled.div`
@@ -102,6 +111,7 @@ export const QuickSummaryStyles = {
   `,
   TitleStrong: styled.strong<{ color?: string }>`
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     position: relative;
     z-index: 5;
     color: ${({ color }) => (color ? color : COLORS.default)};

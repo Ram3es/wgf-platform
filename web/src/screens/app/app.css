@@ -1,3 +1,13 @@
+@font-face {
+  font-family: FrutigerRoman;
+  src: url('../../assets/fonts//FrutigerLT55Roman.ttf');
+}
+
+@font-face {
+  font-family: FrutigerBold;
+  src: url('../../assets/fonts/FrutigerLT65Bold.ttf');
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,11 +16,12 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: FrutigerRoman, -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 18px;
   min-width: 320px;
+  color: #333;
 
   @media screen (max-width: 600px) {
     font-size: 15px;
@@ -23,7 +34,7 @@ body {
 
 @media print {
   @page {
-    margin-top: 2cm;
+    margin-top: 1cm;
   }
   @page :first {
     margin-top: 0;

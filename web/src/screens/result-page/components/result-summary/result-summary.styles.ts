@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const ResultSummaryStyles = {
@@ -255,6 +256,7 @@ export const ResultSummaryStyles = {
     strong {
       flex: 0 1 100%;
       font-weight: 700;
+      font-family: ${FONTS.frutigerBold};
       color: ${COLORS.default};
       margin-left: 3px;
 

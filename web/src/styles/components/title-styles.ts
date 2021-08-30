@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { FONTS } from '@styles/fonts';
 import { COLORS } from '../colors';
 import { FONT_SIZES } from '../font-sizes';
 
@@ -14,6 +15,7 @@ export interface TitleProps {
 export const TitleStyles = {
   h1: styled.h1<TitleProps>`
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
     font-size: ${FONT_SIZES.title1};
     color: ${({ color }) => (color ? color : COLORS.default)};
@@ -26,6 +28,7 @@ export const TitleStyles = {
   `,
   h2: styled.h2<TitleProps>`
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
     font-size: ${FONT_SIZES.title2};
     color: ${({ color }) => (color ? color : COLORS.default)};
@@ -38,6 +41,7 @@ export const TitleStyles = {
   `,
   h3: styled.h3<TitleProps>`
     font-weight: 700;
+    font-family: ${FONTS.frutigerBold};
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
     font-size: ${FONT_SIZES.title3};
     color: ${({ color }) => (color ? color : COLORS.default)};

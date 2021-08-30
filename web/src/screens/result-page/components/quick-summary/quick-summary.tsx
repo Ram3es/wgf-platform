@@ -39,33 +39,35 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
       <TitleStyles.h1 color={COLORS.grey} textAlign="center">
         {STRINGS.resultPage.quickSummaryTextBlock.title}
       </TitleStyles.h1>
-      <QuickSummaryStyles.Content>
-        <QuickSummaryStyles.Heading>
-          <QuickSummaryStyles.HeadingTitle>
-            {STRINGS.resultPage.quickSummaryTextBlock.headingTitle}
-          </QuickSummaryStyles.HeadingTitle>
-          {headingItemsList.map(({ imageHead, title, color }, i) => (
-            <QuickSummaryStyles.HeadingItem key={i}>
-              <img src={imageHead} alt={STRINGS.altLogo} />
-              <TitleStyles.h2 color={color}>{title}</TitleStyles.h2>
-            </QuickSummaryStyles.HeadingItem>
-          ))}
-        </QuickSummaryStyles.Heading>
-        {rowList.map(({ title, rowName }) => (
-          <QuickSummaryStyles.Row key={rowName}>
-            <QuickSummaryStyles.RowItem>
-              <QuickSummaryStyles.TitleStrong>
-                {title}
-              </QuickSummaryStyles.TitleStrong>
-            </QuickSummaryStyles.RowItem>
-            {rowItems.map((item, i) => (
-              <QuickSummaryStyles.RowItem key={i}>
-                {getCurrentRowItem(rowName, item)}
-              </QuickSummaryStyles.RowItem>
+      <QuickSummaryStyles.Overflow>
+        <QuickSummaryStyles.Content>
+          <QuickSummaryStyles.Heading>
+            <QuickSummaryStyles.HeadingTitle>
+              {STRINGS.resultPage.quickSummaryTextBlock.headingTitle}
+            </QuickSummaryStyles.HeadingTitle>
+            {headingItemsList.map(({ imageHead, title, color }, i) => (
+              <QuickSummaryStyles.HeadingItem key={i}>
+                <img src={imageHead} alt={STRINGS.altLogo} />
+                <TitleStyles.h2 color={color}>{title}</TitleStyles.h2>
+              </QuickSummaryStyles.HeadingItem>
             ))}
-          </QuickSummaryStyles.Row>
-        ))}
-      </QuickSummaryStyles.Content>
+          </QuickSummaryStyles.Heading>
+          {rowList.map(({ title, rowName }) => (
+            <QuickSummaryStyles.Row key={rowName}>
+              <QuickSummaryStyles.RowItem>
+                <QuickSummaryStyles.TitleStrong>
+                  {title}
+                </QuickSummaryStyles.TitleStrong>
+              </QuickSummaryStyles.RowItem>
+              {rowItems.map((item, i) => (
+                <QuickSummaryStyles.RowItem key={i}>
+                  {getCurrentRowItem(rowName, item)}
+                </QuickSummaryStyles.RowItem>
+              ))}
+            </QuickSummaryStyles.Row>
+          ))}
+        </QuickSummaryStyles.Content>
+      </QuickSummaryStyles.Overflow>
     </QuickSummaryStyles.Wrapper>
   );
 };

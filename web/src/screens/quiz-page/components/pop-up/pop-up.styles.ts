@@ -52,6 +52,8 @@ export const PopUpStyles = {
     `}
 
     h2 {
+      padding: 20px 0;
+
       ${Media.mobile`
         text-align: center;
       `}
