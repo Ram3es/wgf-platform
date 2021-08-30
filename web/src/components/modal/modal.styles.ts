@@ -18,18 +18,20 @@ export const ModalStyles = {
     width: ${({ width }) => (width ? `${width}px` : 'auto')};
     max-width: ${({ width }) => (width ? `${width}px` : 'none')};
 
+    p {
+      font-size: ${FONT_SIZES.medium};
+      color: ${COLORS.default};
+
+      :first-of-type {
+        margin-bottom: 10px;
+      }
+    }
+
     ${Media.sMobile`
       padding: 30px;
       width: 100%;
       max-width: none;
     `}
-  `,
-  Title: styled.div`
-    margin-bottom: 20px;
-  `,
-  Text: styled.p`
-    font-size: ${FONT_SIZES.medium};
-    color: ${COLORS.default};
   `,
   BackDrop: styled.div`
     position: fixed;

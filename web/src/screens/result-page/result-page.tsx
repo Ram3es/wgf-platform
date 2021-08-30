@@ -72,7 +72,7 @@ export const ResultPage: React.FC = () => {
       <BannerImage />
       <Container>
         <BannerResult withBackground />
-        <TitleStyles.h3 paddingY="20px">
+        <TitleStyles.h3 mb={20}>
           {`${STRINGS.resultPage.userTitle} ${user.firstName}`}
         </TitleStyles.h3>
         <ResultSummary results={results} withArchetypesIcon />

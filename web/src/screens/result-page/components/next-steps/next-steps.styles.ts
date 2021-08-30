@@ -10,6 +10,10 @@ export const NextStepsStyles = {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+
+    h1 {
+      padding: 20px 0;
+    }
   `,
   CardWrapper: styled.div`
     @media print {

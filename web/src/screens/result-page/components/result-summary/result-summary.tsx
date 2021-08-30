@@ -25,7 +25,7 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
   return (
     <>
       <ResultSummaryStyles.ArchetypesWrapper>
-        <TitleStyles.h1 color={COLORS.grey} paddingY="0">
+        <TitleStyles.h1 color={COLORS.grey}>
           {STRINGS.resultSummary.title}
         </TitleStyles.h1>
         {withArchetypesIcon && (
@@ -34,13 +34,22 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
           </ResultSummaryStyles.ArchetypesIcon>
         )}
         {isOpen && (
-          <Modal
-            text={STRINGS.modalArchetypes.text}
-            title={STRINGS.modalArchetypes.title}
-            setIsOpen={setIsOpen}
-            withBackdrop
-            width={400}
-          />
+          <Modal setIsOpen={setIsOpen} withBackdrop width={400}>
+            <TitleStyles.h2 color={COLORS.grey} mb={20}>
+              Your Archetypes
+            </TitleStyles.h2>
+            <p>
+              Optimistic Planner, Responsible Shaper, Inquisitive Explorer,
+              Capable Overcomer and Social Collaborator are Archetypes.
+            </p>
+            <p>
+              Archetypes are ways of summarizing your personal attributes in a
+              simple yet clear way. You can have more than one archetype. In the
+              context of CareerFlex, having high scores on all archetypes is an
+              indicator of career adaptability, and by extension a predictor of
+              career success.
+            </p>
+          </Modal>
         )}
       </ResultSummaryStyles.ArchetypesWrapper>
       <ResultSummaryStyles.CardWrapper>
@@ -61,9 +70,7 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
             <ResultSummaryStyles.CardItem key={i}>
               <ResultSummaryStyles.CardHeading>
                 <img src={imageHead} />
-                <TitleStyles.h2 color={colorTitle} paddingY="0">
-                  {title}
-                </TitleStyles.h2>
+                <TitleStyles.h2 color={colorTitle}>{title}</TitleStyles.h2>
               </ResultSummaryStyles.CardHeading>
               <ResultSummaryStyles.CardBody>
                 <span>{STRINGS.resultSummary.score}</span>

@@ -77,7 +77,7 @@ export const Form: React.FC = () => {
             }, [isValid, isSubmitting]);
 
             return (
-              <>
+              <FormStyles.Wrapper>
                 {currentPage > 1 ? (
                   <TitleStyles.h2>
                     {STRINGS.form.title} {user.firstName}
@@ -165,7 +165,7 @@ export const Form: React.FC = () => {
                     type="submit"
                   />
                 </FormStyles.ControlPanel>
-              </>
+              </FormStyles.Wrapper>
             );
           }}
         </Formik>

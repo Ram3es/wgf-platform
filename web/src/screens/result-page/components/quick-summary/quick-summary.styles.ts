@@ -8,6 +8,10 @@ export const QuickSummaryStyles = {
     padding: 10px;
     overflow-x: auto;
     margin: 0 -10px 20px;
+
+    h1 {
+      padding: 20px 0;
+    }
   `,
   Heading: styled.div`
     display: flex;
