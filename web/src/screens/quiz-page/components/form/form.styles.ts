@@ -4,6 +4,11 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
 export const FormStyles = {
+  Wrapper: styled.div`
+    h2 {
+      padding-top: 40px;
+    }
+  `,
   Form: styled.form`
     display: flex;
     flex-wrap: wrap;

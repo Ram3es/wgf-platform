@@ -3,6 +3,22 @@ export const LINKS = {
     label: 'Privacy Policy',
     href: 'https://witgritfit.com/privacy-policy/',
   },
+  careersConnect: {
+    label: 'Careers Connect',
+    href: 'https://content.mycareersfuture.gov.sg/careercoaching/',
+  },
+  abundanceMindset: {
+    label: 'abundance mindset',
+    href: 'https://www.forbes.com/sites/carolinecastrillon/2020/07/12/5-ways-to-go-from-a-scarcity-to-abundance-mindset/',
+  },
+  growthMindset: {
+    label: 'growth mindset',
+    href: 'https://www.forbes.com/sites/carolinecastrillon/2020/07/12/5-ways-to-go-from-a-scarcity-to-abundance-mindset/',
+  },
+  criticalCoreSkills: {
+    label: 'Critical Core Skills',
+    href: 'https://www.myskillsfuture.gov.sg/content/portal/en/career-resources/career-resources/education-career-personal-development/Critical_Core_Skills_What_They_Are_And_Why_They_Matter.html',
+  },
   termsOfUse: {
     label: 'Terms of Use',
     href: 'https://witgritfit.com/terms-of-use/',

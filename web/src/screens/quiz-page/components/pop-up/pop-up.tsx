@@ -70,11 +70,7 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
           />
         </PopUpStyles.RadioGroupWrapper>
         <PopUpStyles.Title>
-          <TitleStyles.h2
-            paddingY="15px"
-            color={COLORS.greenLite}
-            textAlign="left"
-          >
+          <TitleStyles.h2 color={COLORS.greenLite} textAlign="left">
             {STRINGS.popUp.title}
           </TitleStyles.h2>
         </PopUpStyles.Title>
@@ -88,7 +84,7 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
           <Button
             title={STRINGS.button.result}
             onClick={onClick}
-            color={COLORS.grey}
+            color={COLORS.greenLite}
             image="next"
           />
         </PopUpStyles.ButtonWrapper>

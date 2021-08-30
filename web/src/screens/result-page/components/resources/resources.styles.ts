@@ -4,6 +4,11 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
 export const ResourcesStyles = {
+  Wrapper: styled.div`
+    h1 {
+      padding: 20px 0;
+    }
+  `,
   TextBlock: styled.div`
     padding: 20px 15px;
     border: 1px solid #c4c4c4;

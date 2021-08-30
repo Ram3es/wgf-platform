@@ -36,7 +36,7 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
 
   return (
     <QuickSummaryStyles.Wrapper>
-      <TitleStyles.h1 color={COLORS.grey} textAlign="center" paddingY="20px">
+      <TitleStyles.h1 color={COLORS.grey} textAlign="center">
         {STRINGS.resultPage.quickSummaryTextBlock.title}
       </TitleStyles.h1>
       <QuickSummaryStyles.Content>
@@ -47,9 +47,7 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
           {headingItemsList.map(({ imageHead, title, color }, i) => (
             <QuickSummaryStyles.HeadingItem key={i}>
               <img src={imageHead} alt={STRINGS.altLogo} />
-              <TitleStyles.h2 color={color} paddingY="0px">
-                {title}
-              </TitleStyles.h2>
+              <TitleStyles.h2 color={color}>{title}</TitleStyles.h2>
             </QuickSummaryStyles.HeadingItem>
           ))}
         </QuickSummaryStyles.Heading>

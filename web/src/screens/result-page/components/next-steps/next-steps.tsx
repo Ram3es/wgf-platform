@@ -16,7 +16,7 @@ export const NextSteps: React.FC<INextStepsProps> = ({ results }) => {
 
   return (
     <NextStepsStyles.Wrapper>
-      <TitleStyles.h1 color={COLORS.grey} paddingY="20px">
+      <TitleStyles.h1 color={COLORS.grey}>
         {STRINGS.nextSteps.title}
       </TitleStyles.h1>
       <NextStepsStyles.CardWrapper>
@@ -29,7 +29,7 @@ export const NextSteps: React.FC<INextStepsProps> = ({ results }) => {
               </div>
               <div>
                 <span>{STRINGS.nextSteps.span}</span>
-                <TitleStyles.h2 color={color} paddingY="0" textAlign="left">
+                <TitleStyles.h2 color={color} textAlign="left">
                   {title}
                 </TitleStyles.h2>
               </div>

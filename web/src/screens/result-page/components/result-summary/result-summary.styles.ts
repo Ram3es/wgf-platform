@@ -19,15 +19,15 @@ export const ResultSummaryStyles = {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
 
-      margin: 0 -25px;
+      margin: 0 -15px;
     }
 
     ${Media.desktop`
-    margin: 0 -25px;
+      margin: 0 -15px;
     `}
 
     ${Media.landscape`
-    margin: 0 -20px;
+      margin: 0 -20px;
     `}
 
     ${Media.mobile`
@@ -50,16 +50,19 @@ export const ResultSummaryStyles = {
       print-color-adjust: exact;
 
       flex: 0 1 20%;
-      padding: 20px;
+      padding: 15px;
     }
 
     ${Media.desktop`
       flex: 0 1 20%;
+      padding: 15px;
     `}
+
     ${Media.landscape`
       flex: 0 1 50%;
       padding: 20px;
     `}
+
     ${Media.mobile`
       padding: 3px;
     `}
@@ -121,11 +124,11 @@ export const ResultSummaryStyles = {
     margin-bottom: 15px;
 
     @media print {
-      padding: 25px 22px;
+      padding: 25px 15px;
     }
 
     ${Media.desktop`
-      padding: 25px 22px;
+      padding: 25px 15px;
     `}
 
     ${Media.landscape`

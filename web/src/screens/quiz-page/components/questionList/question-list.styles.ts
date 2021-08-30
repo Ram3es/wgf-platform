@@ -6,11 +6,7 @@ import { Media } from '@styles/media';
 
 export const QuestionListStyles = {
   Wrapper: styled.div`
-    padding: 35px 0;
-
-    ${Media.mobile`
-      padding: 35px 0 0;
-    `}
+    padding: 20px 0;
   `,
 
   Text: styled.p`

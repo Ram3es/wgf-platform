@@ -10,8 +10,8 @@ import { ResourcesStyles } from './resources.styles';
 
 export const Resources: React.FC = () => {
   return (
-    <>
-      <TitleStyles.h1 paddingY="20px" color={COLORS.grey}>
+    <ResourcesStyles.Wrapper>
+      <TitleStyles.h1 color={COLORS.grey}>
         {STRINGS.resultPage.resourcesTextBlock.title}
       </TitleStyles.h1>
       <ResourcesStyles.TextBlock>
@@ -23,6 +23,6 @@ export const Resources: React.FC = () => {
           ))}
         </ResourcesStyles.List>
       </ResourcesStyles.TextBlock>
-    </>
+    </ResourcesStyles.Wrapper>
   );
 };

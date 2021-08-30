@@ -42,7 +42,10 @@ export const STRINGS = {
       concern: {
         title: 'Optimistic Planner',
         description: [
-          `<b>Optimistic Planners</b> realize that their choices today shape their future.  To grow in this area, do consider what educational and career choices are ahead of you and work out how to make the most of these.  There are also often career guidance services that could be helpful.  If you are a Singapore resident, [link to WSG/ SSG career services].`,
+          `<b>Optimistic Planners</b> realize that their choices today shape their future.  To grow in this area, do consider what educational and career choices are ahead of you and work out how to make the most of these.  There are also often career guidance services that could be helpful.  If you are a Singapore resident, you can visit ${createLink(
+            LINKS.careersConnect.href,
+            LINKS.careersConnect.label
+          )} by WSG to access helpful career services. `,
           `You may also want to consider taking part in a ${createLink(
             LINKS.careerDesignWorkshop.href,
             LINKS.careerDesignWorkshop.label
@@ -85,7 +88,10 @@ export const STRINGS = {
       cooperation: {
         title: 'Social Collaborator',
         description: [
-          '<b>Social Collaborators</b> are great team players who are able to advance their careers by cooperating well with others. You can continue to develop your skills in this area by adopting an [abundance mindset - link to Linkedin post] and by pro-actively looking for opportunities to contribute your expertise. Developing a strong personal brand also helps you attract good collaborators in interest areas.',
+          `<b>Social Collaborators</b> are great team players who are able to advance their careers by cooperating well with others. You can continue to develop your skills in this area by adopting an ${createLink(
+            LINKS.abundanceMindset.href,
+            LINKS.abundanceMindset.label
+          )} and by pro-actively looking for opportunities to contribute your expertise. Developing a strong personal brand also helps you attract good collaborators in interest areas.`,
           `Follow us on ${createLink(
             LINKS.linkedin.href,
             LINKS.linkedin.label
@@ -110,7 +116,10 @@ export const STRINGS = {
         <ul class="resources-list">
           ${createLinkList(LINKS.resourcesPdf)}
         </ul>`,
-        '[Overview on Staying Relevant - link to Avid Aventures blog]',
+        `You may also want to read more regarding ${createLink(
+          LINKS.criticalCoreSkills.href,
+          LINKS.criticalCoreSkills.label
+        )} and why they are so important.`,
         'CareerFlex is adapted from the Career Adapt-Abilities Scale (CAAS) pioneered by Professors Mark Savickas and Erik Profeli.',
       ],
     },
@@ -140,10 +149,5 @@ export const STRINGS = {
       'We curate an ever-expanding suite of career tools, workshops and resources to help students and working professionals discover their life purpose and build career resilience. In an approachable, gamified way.',
       'Working with governments, businesses and schools, we leverage the power of design and technology to bring the best in career development practice to all. At scale.',
     ],
-  },
-
-  modalArchetypes: {
-    title: 'What are archetypes?',
-    text: 'Archetypes are ways of summarizing your personal attributes in a simple yet clear way. You can have more than one archetype. In the context of CareerFlex, having high scores on all archetypes is an indicator of career adaptability, and by extension a predictor of career success.',
   },
 };
