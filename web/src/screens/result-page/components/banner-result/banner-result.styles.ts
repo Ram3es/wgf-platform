@@ -47,13 +47,15 @@ export const BannerStyles = {
     color: ${COLORS.greyLite};
     margin-bottom: 150px;
     font-size: ${FONT_SIZES.titleMain};
-    padding-left: 60px;
+    padding-left: 100px;
 
-    @media print {
-      margin-bottom: 60px;
-      margit-top: -10px;
-      padding-left: 255px;
-    }
+    ${Media.landscapeWreck`
+      padding-left: 140px;
+    `}
+
+    ${Media.landscape`
+      padding-left: 75px;
+    `}
 
     ${Media.smallLandscape(css`
       padding-left: 0;
@@ -70,9 +72,16 @@ export const BannerStyles = {
       font-size: ${FONT_SIZES.titleMainMobile};
       margin-bottom: 80px;
     `)}
+    
     ${Media.xsMobile(css`
       font-size: ${FONT_SIZES.titleMainXsMobile};
     `)}
+
+    @media print {
+      margin-bottom: 60px;
+      margit-top: -10px;
+      padding-left: 255px;
+    }
   `,
 
   Body: styled.div`
@@ -98,7 +107,7 @@ export const BannerStyles = {
     background-position: top 0 left 100%;
 
     ${Media.desktop(css`
-      width: 80%;
+      width: 65%;
       background-image: url(${IMAGES.bannerResultDesktop});
     `)}
 
@@ -123,15 +132,16 @@ export const BannerStyles = {
     z-index: 1;
     text-align: left;
     margin-right: 20px;
-    width: 36%;
+    width: 47%;
 
     ${Media.desktop`
-      width: 47%;
+      width: 35%;
     `}
 
     @media print {
-      width: 78%;
+      width: 75%;
       margin-top: -50px;
+      margin-right: 50px;
     }
 
     p:first-of-type {
