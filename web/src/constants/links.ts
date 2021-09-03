@@ -13,7 +13,7 @@ export const LINKS = {
   },
   growthMindset: {
     label: 'growth mindset',
-    href: 'https://www.forbes.com/sites/carolinecastrillon/2020/07/12/5-ways-to-go-from-a-scarcity-to-abundance-mindset/',
+    href: 'https://www.mindsethealth.com/matter/growth-vs-fixed-mindset',
   },
   criticalCoreSkills: {
     label: 'Critical Core Skills',

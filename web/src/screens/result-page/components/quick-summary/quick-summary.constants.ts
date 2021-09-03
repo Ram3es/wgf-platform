@@ -34,23 +34,23 @@ export const headingItemsList = [
 
 export const rowList: IRow[] = [
   {
-    title: 'Your superpower is:',
-    rowName: 'superPower',
-  },
-  {
-    title: 'Answers the question:',
-    rowName: 'question',
-  },
-  {
     title: 'Your self-assessment:',
     rowName: 'level',
+  },
+  {
+    title: 'Superpower:',
+    rowName: 'superPower',
   },
   {
     title: 'What you can do:',
     rowName: 'description',
   },
   {
-    title: 'Maps to the Career Adaptability Scale',
+    title: 'Start by asking this:',
+    rowName: 'question',
+  },
+  {
+    title: 'Maps to the Career Adaptability Scale:',
     rowName: 'category',
   },
 ];

@@ -78,7 +78,10 @@ export const STRINGS = {
       confidence: {
         title: 'Capable Overcomer',
         description: [
-          '<b>Capable Overcomers</b> are confident about their career abilities. They invest in upskilling themselves and doing the best job they can everyday.  To grow in your problem solving skills at work, a [growth mindset - link to blog article on performance character] is essential.  From there, you will have to work on identifying the issues, understanding everybody’s interests and having the right technical and soft skills to find the solutions.',
+          `<b>Capable Overcomers</b> are confident about their career abilities. They invest in upskilling themselves and doing the best job they can everyday.  To grow in your problem solving skills at work, a ${createLink(
+            LINKS.growthMindset.href,
+            LINKS.growthMindset.label
+          )} is essential.  From there, you will have to work on identifying the issues, understanding everybody’s interests and having the right technical and soft skills to find the solutions.`,
           `Our free ${createLink(
             LINKS.careerAdventure.href,
             LINKS.careerAdventure.label
