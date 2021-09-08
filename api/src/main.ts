@@ -1,21 +1,44 @@
-import { NestFactory } from '@nestjs/core';
+import { json, urlencoded } from 'body-parser';
+import * as rateLimit from 'express-rate-limit';
+import * as helmet from 'helmet';
+
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { SWAGGER } from './constants/etc';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   const config = new DocumentBuilder()
-    .setTitle('Avid Quiz')
-    .setDescription('REST API Documentation')
-    .setVersion('1.0.0')
+    .setTitle(SWAGGER.title)
+    .setDescription(SWAGGER.description)
+    .setVersion(SWAGGER.version)
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);
 
+  app.use(json({ limit: '10mb' }));
+  app.use(urlencoded({ limit: '10mb', extended: true }));
   app.enableCors();
 
-  await app.listen(process.env.PORT || 8080);
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.use(helmet());
+
+  app.use(
+    rateLimit({
+      windowMs: 60 * 1000, // 1 minute
+      max: 100, // limit each IP to 100 requests per windowMs
+    })
+  );
+
+  const configService = app.get(ConfigService);
+  const PORT = configService.get('PORT');
+
+  await app.listen(PORT || 8080);
 }
 bootstrap();

@@ -1,294 +1,154 @@
-import { existsSync, unlinkSync } from 'fs';
-import { createTransport } from 'nodemailer';
-import { join } from 'path';
-import { env } from 'process';
-import { launch } from 'puppeteer';
+import * as bcrypt from 'bcrypt';
+import { deserialize, serialize } from 'class-transformer';
 import { Repository } from 'typeorm';
 
-import * as aws from '@aws-sdk/client-ses';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto, IAnswer } from './dto/create-user.dto';
+import { ERRORS } from 'src/constants/errors';
+import { EXPIRE_JWT_TIME } from 'src/constants/etc';
+import { ROLES } from 'src/constants/roles';
+import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { SignInDto } from './dto/sign-in.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CaasQuizAnswerEntity } from './entities/caas-quiz-answer.entity';
+import { UserIdDto } from './dto/user-by-id.dto';
 import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
+    private jwtService: JwtService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    @InjectRepository(CaasQuizAnswerEntity)
-    private readonly quizRepository: Repository<CaasQuizAnswerEntity>
+    private configService: ConfigService
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<any> {
-    try {
-      createUserDto = {
-        ...createUserDto,
-        email: createUserDto.email.toLowerCase(),
-      };
+  async createToken(user: UserEntity) {
+    const expiresIn = EXPIRE_JWT_TIME + Date.now();
+    const data = { id: user.id, expiresIn, role: user.role };
+    const secret = await this.createSecretString(user.publicKey);
+    return this.jwtService.sign(data, { secret });
+  }
 
-      const user = await this.userRepository.findOne({
-        where: {
-          email: createUserDto.email,
-        },
-        relations: ['answers'],
-      });
+  private async createSecretString(personalKey: string) {
+    const secret = await this.configService.get('JWT_SECRET');
+    return `${secret}${personalKey}`;
+  }
 
-      if (user) {
-        await this.updateUserAnswers(user, createUserDto.answers);
-        const newUser = await this.updateUser(user.id, {
-          firstName: createUserDto.firstName,
-          lastName: createUserDto.lastName,
-        });
+  async signUp(body: CreateUserDto) {
+    const email = body.email.toLowerCase();
 
-        return {
-          user: newUser,
-          results: this.getResultCalculationAtributes(createUserDto.answers),
-        };
-      }
-
-      const newUser = await this.userRepository.save(createUserDto);
-      createUserDto.answers.forEach(async (answer) => {
-        await this.quizRepository.save({ ...answer, user: newUser });
-      });
-
-      return {
-        user: newUser,
-        results: this.getResultCalculationAtributes(createUserDto.answers),
-      };
-    } catch (e) {
-      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    const user = await this.userRepository.findOne({
+      where: { email: email },
+    });
+    if (user) {
+      throw new HttpException(ERRORS.alreadyExist, HttpStatus.CONFLICT);
     }
+    const publicKey = await bcrypt.genSalt(6);
+    const newPassword = await bcrypt.hash(body.password, 10);
+
+    const newUser = await this.userRepository.save({
+      ...body,
+      email,
+      publicKey,
+      password: newPassword,
+    });
+
+    const token = await this.createToken(newUser);
+
+    return { user: await this.userSerializer(newUser), token };
   }
 
-  async getUsers(): Promise<UserEntity[]> {
-    return this.userRepository.find();
+  async signIn(data: SignInDto) {
+    const { email, password } = data;
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
+    }
+
+    if (!(await bcrypt.compare(password, user.password))) {
+      throw new HttpException(ERRORS.loginError, HttpStatus.BAD_REQUEST);
+    }
+
+    return {
+      user: await this.userSerializer(user),
+      token: await this.createToken(user),
+    };
   }
 
-  async getUserById(id: string): Promise<UserEntity> {
+  async logOut(id: string) {
     const user = await this.userRepository.findOne({
       where: {
         id,
       },
-      relations: ['answers'],
     });
     if (!user) {
-      throw new HttpException(
-        'User with this id does not exist',
-        HttpStatus.NOT_FOUND
-      );
+      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+    }
+
+    const publicKey = await bcrypt.genSalt(6);
+
+    await this.userRepository.update(user.id, {
+      publicKey,
+    });
+
+    return {
+      message: 'Success',
+    };
+  }
+
+  async getUserById(id: string) {
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
     return user;
   }
 
-  async removeUser(id: string): Promise<UserEntity> {
-    const user = await this.getUserById(id);
-    await this.userRepository.delete(id);
-    return user;
+  async userSerializer(user: UserEntity) {
+    const serializedUser = serialize(user);
+    return deserialize(UserEntity, serializedUser);
   }
 
-  async updateUser(
-    id: string,
-    updateUserDto: UpdateUserDto
-  ): Promise<UserEntity> {
-    await this.userRepository.update(id, updateUserDto);
-    return this.getUserById(id);
-  }
+  async createTrainerAdmin(body: CreateTrainerAdminDto) {
+    if (!body.email) {
+      throw new HttpException(ERRORS.notExist, HttpStatus.BAD_REQUEST);
+    }
 
-  async updateUserAnswers(user: UserEntity, newAnswers: IAnswer[]) {
-    await Promise.all(
-      user.answers.map((answer) => {
-        return this.quizRepository.delete(answer.id);
-      })
-    );
+    const user = await this.userRepository.findOne({
+      where: {
+        email: body.email,
+      },
+    });
 
-    const newUser = await this.getUserById(user.id);
-
-    newAnswers.forEach(async (answer) => {
-      await this.quizRepository.save({ ...answer, user: newUser });
+    return this.updateUser({
+      ...user,
+      role: ROLES.trainerAdmin,
     });
   }
 
-  getResultCalculationAtributes(answers: IAnswer[]) {
-    const concernQuestionsNumber = answers.slice(0, 6);
-    const controlQuestionsNumber = answers.slice(6, 12);
-    const curiosityQuestionsNumber = answers.slice(12, 18);
-    const confidenceQuestionsNumber = answers.slice(18, 24);
-    const cooperationQuestionsNumber = answers.slice(24, 35);
+  async updateUser(body: UpdateUserDto) {
+    const user = await this.getUserById(body.id);
 
-    return {
-      concern: this.getScoreOfAtribute(concernQuestionsNumber, 'concern'),
-      control: this.getScoreOfAtribute(controlQuestionsNumber, 'control'),
-      curiosity: this.getScoreOfAtribute(curiosityQuestionsNumber, 'curiosity'),
-      confidence: this.getScoreOfAtribute(
-        confidenceQuestionsNumber,
-        'confidence'
-      ),
-      cooperation: this.getScoreOfAtribute(
-        cooperationQuestionsNumber,
-        'cooperation'
-      ),
-    };
-  }
-
-  getScoreOfAtribute(atributeAnswers: IAnswer[], atributeName: string) {
-    const score = atributeAnswers.reduce(
-      (acc, item) => acc + item.answerValue,
-      0
-    );
-
-    const maxScore = atributeAnswers.length * 5;
-
-    const scorePercent = ((score / maxScore) * 100).toFixed(2);
-
-    return {
-      score: Math.round(+scorePercent),
-      level: this.getLevelOfAtribute(+scorePercent, atributeName),
-    };
-  }
-
-  getLevelOfAtribute(score: number, atribute: string) {
-    const atributeLevelPercent = {
-      concern: {
-        High: 83,
-        Moderate: 68.8,
-      },
-      control: {
-        High: 85.1,
-        Moderate: 72.1,
-      },
-      curiosity: {
-        High: 81,
-        Moderate: 66.9,
-      },
-      confidence: {
-        High: 86,
-        Moderate: 71.4,
-      },
-      cooperation: {
-        High: 84.7,
-        Moderate: 69,
-      },
-    };
-
-    if (score >= atributeLevelPercent[atribute].High) {
-      return 'High';
+    if (!user) {
+      throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
     }
 
-    if (score >= atributeLevelPercent[atribute].Moderate) {
-      return 'Moderate';
-    }
-
-    return 'Low';
-  }
-
-  async getPdf(id: string) {
-    try {
-      const user = await this.getUserById(id);
-      const file = `${user.firstName}-quiz-results-${user.id}.pdf`;
-
-      const browser = await launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-        defaultViewport: { width: 1600, height: 1500 },
-      });
-
-      const page = await browser.newPage();
-
-      await page.goto(this.getPdfPageUrl(user), {
-        waitUntil: 'networkidle2',
-        timeout: 15000,
-      });
-
-      const pdf = await page.pdf({
-        printBackground: true,
-        path: `${file}`,
-        format: 'a4',
-        scale: 0.5,
-      });
-
-      const base64 = pdf.toString('base64');
-
-      await browser.close();
-
-      setTimeout(() => {
-        if (existsSync(join(process.cwd(), file))) {
-          return unlinkSync(join(process.cwd(), file));
-        }
-      }, 20000);
-
-      this.sendMail(user, base64);
-
-      return { file };
-    } catch (e) {
-      return new HttpException(e.message, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  async sendMail(user: UserEntity, pdf: string) {
-    const ses = new aws.SES({
-      region: 'us-east-2',
+    await this.userRepository.save({
+      ...body,
+      email: body.email ? body.email.toLowerCase() : user.email,
     });
 
-    const transporter = createTransport({
-      SES: { ses, aws },
-    });
-
-    const message = {
-      from: `Avid Adventures <${env.EMAIL_ADRESS_FROM}>`,
-
-      to: `${user.firstName} ${user.lastName}<${user.email}>`,
-      bcc: user.email,
-
-      subject: 'Quiz Completion',
-
-      html: `
-        <p>Hi <b>${user.firstName},</b></p>
-        <p>Thanks for completing The Career Adapt-Abilities + Cooperation Assessment.</p>
-        <p>You’re all set! Please refer to the attachment to view your results.</p>
-        <p>Bests,<br/>Jac at Avid Adventures</p>
-      `,
-
-      attachments: [
-        {
-          filename: `${user.firstName}-${user.lastName}-quiz-results.pdf`,
-          content: pdf,
-          encoding: 'base64',
-        },
-      ],
-    };
-
-    try {
-      await transporter.sendMail(message);
-    } catch (e) {
-      return new HttpException(e.message, HttpStatus.BAD_REQUEST);
-    }
+    return this.getUserById(user.id);
   }
 
-  getPdfPageUrl(user: UserEntity) {
-    const sortedUserAnswers = user.answers.sort(
-      (a, b) => a.questionNumber - b.questionNumber
-    );
-    const { concern, confidence, curiosity, control, cooperation } =
-      this.getResultCalculationAtributes(sortedUserAnswers);
-
-    const QUERIES = [
-      `firstName=${user.firstName}`,
-      `lastName=${user.lastName}`,
-      `concern_level=${concern.level}`,
-      `concern_score=${concern.score}`,
-      `confidence_level=${confidence.level}`,
-      `confidence_score=${confidence.score}`,
-      `curiosity_level=${curiosity.level}`,
-      `curiosity_score=${curiosity.score}`,
-      `control_level=${control.level}`,
-      `control_score=${control.score}`,
-      `cooperation_level=${cooperation.level}`,
-      `cooperation_score=${cooperation.score}`,
-    ];
-
-    return `${env.WEB_BASE_URL}caas-quiz/pdf?${QUERIES.join('&')}`;
+  async addUsersTrainer(trainerAdminId: string, body: UserIdDto) {
+    const user = await this.getUserById(body.userId);
+    return this.updateUser({ ...user, trainerAdminId });
   }
 }
