@@ -1,6 +1,8 @@
-import { env } from 'process';
-
+import { config } from 'src/constants/config';
 import { UserEntity } from 'src/user/entities/user.entity';
+
+const WEB_BASE_URL = config().urls.webUrl;
+const EMAIL_FROM = config().transport.transport.auth.user;
 
 export interface IMessage {
   from: string;
@@ -17,7 +19,7 @@ export const caasQuizResultMessage = (
   user: UserEntity,
   pdf: string
 ): IMessage => ({
-  from: `Avid Adventures <${env.EMAIL_ADRESS_FROM}>`,
+  from: `Avid Adventures <${EMAIL_FROM}>`,
 
   to: `${user.firstName} ${user.lastName}<${user.email}>`,
   bcc: user.email,
@@ -44,7 +46,7 @@ export const caasCooperationQuizResultMessage = (
   user: UserEntity,
   pdf: string
 ): IMessage => ({
-  from: `Avid Adventures <${env.EMAIL_ADRESS_FROM}>`,
+  from: `Avid Adventures <${EMAIL_FROM}>`,
 
   to: `${user.firstName} ${user.lastName}<${user.email}>`,
   bcc: user.email,
@@ -71,7 +73,7 @@ export const ccQuizResultMessage = (
   user: UserEntity,
   pdf: string
 ): IMessage => ({
-  from: `Avid Adventures <${env.EMAIL_ADRESS_FROM}>`,
+  from: `Avid Adventures <${EMAIL_FROM}>`,
 
   to: `${user.firstName} ${user.lastName}<${user.email}>`,
   bcc: user.email,
@@ -99,3 +101,24 @@ export const quizMessage = {
   ['caas-cooperation-quiz']: caasCooperationQuizResultMessage,
   ['career-canvas']: ccQuizResultMessage,
 };
+
+export const registrationMessage = (user: UserEntity): IMessage => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+
+  to: `${user.firstName} ${user.lastName}<${user.email}>`,
+  bcc: user.email,
+
+  subject: 'Registration',
+
+  html: `
+    <p>Hi <b>${user.firstName},</b></p>
+    <p>You have successfully registered with Avid Adventures.</p>
+    <p>Here are your account details:</p>
+    <p>First Name: ${user.firstName}</p>
+    <p>Last Name: ${user.lastName}</p>
+    <p>Email: ${user.email}</p>
+    <p>Password: ${user.password}</p>
+    <p>Please log in and complete your assessments <a href=${WEB_BASE_URL}sign-in>here</a> to get your results.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});

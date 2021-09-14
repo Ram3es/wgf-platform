@@ -9,6 +9,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ERRORS } from 'src/constants/errors';
 import { EXPIRE_JWT_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
+import { sendMail } from 'src/services/utils/email';
+import { registrationMessage } from 'src/services/utils/messages';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SignInDto } from './dto/sign-in.dto';
@@ -57,6 +59,8 @@ export class UserService {
     });
 
     const token = await this.createToken(newUser);
+
+    sendMail({ ...newUser, password: body.password }, registrationMessage);
 
     return { user: await this.userSerializer(newUser), token };
   }

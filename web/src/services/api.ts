@@ -46,8 +46,8 @@ const getInstance = () => {
     },
     (error) => {
       if (
-        error?.response.status === 401 ||
-        error?.response.message === 'Token expired'
+        error?.response?.status === 401 ||
+        error?.response?.message === 'Token expired'
       ) {
         storageService.clearStorage();
       }
