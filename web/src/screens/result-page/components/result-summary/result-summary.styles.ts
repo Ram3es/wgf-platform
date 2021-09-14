@@ -6,7 +6,7 @@ import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const ResultSummaryStyles = {
-  CardWrapper: styled.div`
+  CardWrapper: styled.div<{ quiz: string }>`
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -20,14 +20,20 @@ export const ResultSummaryStyles = {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
 
-      margin: 0 -15px;
+      margin: ${({ quiz }) => (quiz === 'caas-quiz' ? '0 -25px' : '0 -15px')};
     }
 
-    ${Media.desktop`
-      margin: 0 -15px;
-    `}
+    ${({ quiz }) =>
+      Media.desktop(css`
+        margin: ${quiz === 'caas-quiz' ? '0 -25px' : '0 -15px'};
+      `)};
 
-    ${Media.landscape`
+    ${({ quiz }) =>
+      Media.landscape(css`
+        margin: ${quiz === 'caas-quiz' ? '0 -10px' : '0 -20px'};
+      `)};
+
+    ${Media.smallLandscape`
       margin: 0 -20px;
     `}
 
@@ -36,13 +42,13 @@ export const ResultSummaryStyles = {
     `}
   `,
 
-  CardItem: styled.div`
+  CardItem: styled.div<{ quiz: string }>`
     display: flex;
     flex-direction: column;
     align-self: stretch;
     position: relative;
-    flex: 0 1 20%;
     padding: 10px;
+    flex: 0 1 ${({ quiz }) => (quiz === 'caas-quiz' ? '25%' : '20%')};
 
     page-break-inside: avoid;
 
@@ -50,20 +56,19 @@ export const ResultSummaryStyles = {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
 
-      flex: 0 1 20%;
-      padding: 15px;
+      flex: 0 1 ${({ quiz }) => (quiz === 'caas-quiz' ? '25%' : '20%')};
+      padding: ${({ quiz }) => (quiz === 'caas-quiz' ? '10px 30px' : '10px')};
     }
+    ${({ quiz }) =>
+      Media.desktop(css`
+        padding: ${quiz === 'caas-quiz' ? '15px 30px' : '15px'};
+      `)}
+    ${({ quiz }) =>
+      Media.landscape(css`
+        flex: 0 1 ${quiz === 'caas-quiz' ? '25%' : '33.33%'};
+        padding: ${quiz === 'caas-quiz' ? '20px 10px' : '20px'};
+      `)}
 
-    ${Media.desktop`
-      flex: 0 1 20%;
-      padding: 15px;
-    `}
-
-    ${Media.landscape`
-      flex: 0 1 33.33%;
-      padding: 20px;
-    `}
-    
     ${Media.smallLandscape`
       flex: 0 1 50%;
       padding: 20px;
@@ -119,28 +124,32 @@ export const ResultSummaryStyles = {
       `)}
     }
   `,
-  CardBody: styled.div`
+  CardBody: styled.div<{ quiz: string }>`
     display: flex;
     flex-direction: column;
     flex: 1;
     background: ${COLORS.bgGrey};
     border-radius: 10px;
     margin-top: -8%;
-    padding: 25px 10px;
+    padding: ${({ quiz }) =>
+      quiz === 'caas-quiz' ? '25px 20px' : '25px 10px'};
     margin-bottom: 15px;
 
     @media print {
-      padding: 25px 15px;
+      padding: ${({ quiz }) =>
+        quiz === 'caas-quiz' ? '25px 35px' : '25px 15px'};
     }
 
-    ${Media.desktop`
-      padding: 25px 15px;
-    `}
+    ${({ quiz }) =>
+      Media.desktop(css`
+        padding: ${quiz === 'caas-quiz' ? '25px 35px' : '25px 15px'};
+      `)}
 
-    ${Media.landscape`
-      padding: 25px 30px;
-    }
-    `}
+    ${({ quiz }) =>
+      Media.landscape(css`
+        padding: ${quiz === 'caas-quiz' ? '25px 10px' : '25px 30px'};
+      `)}
+
     ${Media.mobile`
       padding: 10px;
     `}

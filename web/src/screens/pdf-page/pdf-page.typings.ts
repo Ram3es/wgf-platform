@@ -1,5 +1,7 @@
 export interface IInitalState {
-  firstName: string;
-  lastName: string;
+  userId: string;
+  userName: string;
+  quizId: string;
+  quizTitle: string;
   results: IResults;
 }

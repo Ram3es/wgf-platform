@@ -4,23 +4,12 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
-export const FormStyles = {
+export const QuizStyles = {
   Wrapper: styled.div`
     h2 {
       padding-top: 40px;
     }
   `,
-  Form: styled.form`
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 30px;
-    margin: 0 -12px;
-
-    ${Media.mobile`
-      display: block;
-    `}
-  `,
-
   Label: styled.p`
     flex: 0 1 100%;
     padding: 0 12px;

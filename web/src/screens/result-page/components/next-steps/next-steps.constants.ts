@@ -11,7 +11,7 @@ export const recomendationMessage: IRecomendationMessage = {
 };
 
 export const getCategoriesList = (results: IResults): IStepsCategorie[] => {
-  return [
+  const list = [
     {
       title: STRINGS.nextSteps.categories.concern.title,
       level: results.concern.level,
@@ -38,9 +38,17 @@ export const getCategoriesList = (results: IResults): IStepsCategorie[] => {
     },
     {
       title: STRINGS.nextSteps.categories.cooperation.title,
-      level: results.cooperation.level,
+      level: results.cooperation?.level || 'Low',
       description: STRINGS.nextSteps.categories.cooperation.description,
       color: COLORS.violet,
     },
   ];
+
+  if (!results.cooperation) {
+    const newList = [...list];
+    newList.pop();
+    return newList;
+  }
+
+  return list;
 };

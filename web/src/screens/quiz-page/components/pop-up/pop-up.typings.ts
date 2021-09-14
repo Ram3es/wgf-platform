@@ -1,10 +1,10 @@
 import { TUpdateStateData } from '@services/hooks/useUpdateState';
 
-import { IFormState, IUserValues } from '../form/form.typings';
+import { IQuizState } from '../quiz/quiz.typings';
 
 export interface IPopUpProps {
-  user: IUserValues;
-  setState(data: TUpdateStateData<IFormState>): void;
+  user: IUser;
+  setState(data: TUpdateStateData<IQuizState>): void;
 }
 
 export interface IUserRadioList {

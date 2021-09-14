@@ -8,10 +8,11 @@ import { RadioButtonGroup } from '@components/radio-button-group';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 
+import { getResults } from '@services/quiz.service';
+import { storageService } from '@services/storage/storage';
 import { updateUser } from '@services/user.service';
 
 import { ROUTES } from '@constants/routes';
-import { SESSION_STORAGE } from '@constants/storage';
 import { STRINGS } from '@constants/strings';
 
 import { IPopUpProps, IUserRadioList } from './pop-up.typings';
@@ -22,20 +23,30 @@ import { PopUpStyles } from './pop-up.styles';
 export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
   const history = useHistory();
 
-  const checboxHandler = () => {
+  const checkboxHandler = () => {
     setState({
       user: { ...user, isSubscriber: !user.isSubscriber },
     });
   };
 
-  const onClick = () => {
-    updateUser(sessionStorage.getItem(SESSION_STORAGE.userId)!, {
-      role: user.role || 'Student',
+  const onClick = async () => {
+    const { data } = await getResults({
+      quizId: storageService.getQuiz()!.id,
+      userId: user.id,
+    });
+
+    storageService.setResults(data, storageService.getQuiz()?.title || '');
+
+    updateUser({
+      id: storageService.getUser()?.id || '',
+      jobStatus: user.jobStatus || 'Student',
       isSubscriber: user.isSubscriber,
     });
     setState({ isShowModal: false });
     history.push(ROUTES.results);
   };
+
+  const closeModal = () => setState({ isShowModal: false });
 
   const userRadioGroup: IUserRadioList[] = [
     {
@@ -48,22 +59,22 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
     },
   ];
 
-  const handleChangeRole = (value: string) => {
+  const handleChangeJobStatus = (value: string) => {
     setState({
-      user: { ...user, role: value },
+      user: { ...user, jobStatus: value },
     });
   };
 
   return (
     <Container>
-      <PopUpStyles.BackDrop />
+      <PopUpStyles.BackDrop onClick={closeModal} />
       <PopUpStyles.Wrapper>
         <p>{STRINGS.popUp.radioWrapperLabel}</p>
         <PopUpStyles.RadioGroupWrapper>
           <RadioButtonGroup
             initValue="Student"
             isImage
-            onChange={handleChangeRole}
+            onChange={handleChangeJobStatus}
             radioGroup={userRadioGroup}
             radioWidth="24px"
             radioHeight="24px"
@@ -76,7 +87,7 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
         </PopUpStyles.Title>
         <Checkbox
           isChecked={user.isSubscriber}
-          onChange={checboxHandler}
+          onChange={checkboxHandler}
           label={STRINGS.popUp.checkbox}
         />
         <PopUpStyles.Text>{parse(STRINGS.popUp.text)}</PopUpStyles.Text>

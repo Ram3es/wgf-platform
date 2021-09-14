@@ -2,6 +2,7 @@ import { TLevelResult } from '@styles/colors';
 
 export interface IQuickSummaryProps {
   results: IResults;
+  quiz: string;
 }
 
 export interface IRowListItem {
@@ -10,6 +11,12 @@ export interface IRowListItem {
   superPower: string;
   category: string;
   question: string;
+}
+
+export interface IHeadingItem {
+  title: string;
+  imageHead: string;
+  color: string;
 }
 
 export type TRowList = keyof IRowListItem;

@@ -2,6 +2,8 @@ import React from 'react';
 
 import { COLORS } from '@styles/colors';
 
+
+
 import { STRINGS } from '@constants/strings';
 import { getRowItemsList, headingItemsList, rowList } from './quick-summary.constants';
 
@@ -10,7 +12,10 @@ import { IQuickSummaryProps, IRowListItem, TRowList } from './quick-summary.typi
 import { TitleStyles } from '@styles/components/title-styles';
 import { QuickSummaryStyles } from './quick-summary.styles';
 
-export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
+export const QuickSummary: React.FC<IQuickSummaryProps> = ({
+  results,
+  quiz,
+}) => {
   const rowItems = getRowItemsList(results);
 
   const getCurrentRowItem = (rowName: TRowList, item: IRowListItem) => {
@@ -41,11 +46,11 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
       </TitleStyles.h1>
       <QuickSummaryStyles.Overflow>
         <QuickSummaryStyles.Content>
-          <QuickSummaryStyles.Heading>
+          <QuickSummaryStyles.Heading quiz={quiz}>
             <QuickSummaryStyles.HeadingTitle>
               {STRINGS.resultPage.quickSummaryTextBlock.headingTitle}
             </QuickSummaryStyles.HeadingTitle>
-            {headingItemsList.map(({ imageHead, title, color }, i) => (
+            {headingItemsList(results).map(({ imageHead, title, color }, i) => (
               <QuickSummaryStyles.HeadingItem key={i}>
                 <img src={imageHead} alt={STRINGS.altLogo} />
                 <TitleStyles.h2 color={color}>{title}</TitleStyles.h2>
@@ -53,7 +58,7 @@ export const QuickSummary: React.FC<IQuickSummaryProps> = ({ results }) => {
             ))}
           </QuickSummaryStyles.Heading>
           {rowList.map(({ title, rowName }) => (
-            <QuickSummaryStyles.Row key={rowName}>
+            <QuickSummaryStyles.Row key={rowName} quiz={quiz}>
               <QuickSummaryStyles.RowItem>
                 <QuickSummaryStyles.TitleStrong>
                   {title}

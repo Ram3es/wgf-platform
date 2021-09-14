@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
@@ -12,8 +12,9 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   justify-content: center;
   cursor: pointer;
   padding: 7px 15px;
-  min-width: ${({ isFullWidth }) => (isFullWidth ? '100%' : '130px')};
-  min-height: 40px;
+  min-width: ${({ isFullWidth, minWidth }) =>
+    isFullWidth ? '100%' : minWidth ? `${minWidth}px` : '130px'};
+  min-height: ${({ variant }) => (variant === 'text' ? 'auto' : '40px')};
   border-radius: 20px;
   border: 0;
   color: ${COLORS.white};
@@ -25,14 +26,32 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   transition: 0.3;
   white-space: nowrap;
 
-  ${({ isDisabled }) => {
-    if (!isDisabled) {
+  ${({ variant, color }) =>
+    variant === 'text' &&
+    css`
+      padding: 0;
+      border-radius: 0;
+      color: ${color};
+      background-color: transparent;
+    `}
+
+  ${({ isDisabled, variant }) => {
+    if (!isDisabled && variant !== 'text') {
       return `
         :hover {
           box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
         }
       `;
     }
+
+    if (variant === 'text') {
+      return `
+        :hover {
+            opacity: 0.4;
+          }
+      `;
+    }
+
     return `
         cursor: not-allowed;
         opacity: 0.4;

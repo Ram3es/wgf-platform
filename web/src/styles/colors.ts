@@ -4,6 +4,7 @@ export const COLORS = {
   black: '#000',
   grey: '#888281',
   greyLite: '#F2F2F3',
+  authBg: '#F2F1F2',
   green: '#00A651',
   greenLite: '#8DC63F',
   red: '#DF0003',

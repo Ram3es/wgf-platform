@@ -1,8 +1,10 @@
 import { IInitalState } from './pdf-page.typings';
 
 export const initialState: IInitalState = {
-  firstName: '',
-  lastName: '',
+  userId: '',
+  quizTitle: '',
+  quizId: '',
+  userName: '',
   results: {
     concern: {
       level: 'Low',

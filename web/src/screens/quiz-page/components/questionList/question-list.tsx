@@ -16,8 +16,8 @@ export const QuestionList: React.FC<IQuestionListProps> = ({
   errorRef,
 }) => {
   useEffect(() => {
-    const answeredList = list.filter((item) => item.answerValue);
-    const percent = Math.round(answeredList.length * (100 / list.length));
+    const answeredList = list.filter((item) => item.answers[0]?.value);
+    const percent = Math.round(answeredList.length * (100 / list.length)) || 0;
 
     setState({
       percent,
@@ -27,8 +27,12 @@ export const QuestionList: React.FC<IQuestionListProps> = ({
   const changeHandler = (number: number) => (value: number) => {
     setState({
       questionList: list.map((item) => {
-        if (item.questionNumber === number) {
-          return { ...item, answerValue: value, isError: false };
+        if (item.order === number) {
+          return {
+            ...item,
+            answers: [{ ...item.answers[0], value: value.toString() }],
+            isError: false,
+          };
         }
         return item;
       }),
@@ -41,21 +45,21 @@ export const QuestionList: React.FC<IQuestionListProps> = ({
         {STRINGS.questionListText}
       </QuestionListStyles.Text>
       {currentQuestionList.map(
-        ({ title, questionNumber, answerValue, isError }, index) => (
-          <QuestionListStyles.Item key={questionNumber}>
+        ({ title, order, answers, isError, id }, index) => (
+          <QuestionListStyles.Item key={id}>
             <QuestionListStyles.ItemTitle
               isError={!!isError}
               ref={errorRef.current[index]}
             >
-              {title}
+              {order}. {title}
             </QuestionListStyles.ItemTitle>
             <QuestionListStyles.ItemRadioWrapper>
               <RadioButtonGroup
                 isVariantQuiz
                 containerWidth="20%"
                 radioGroup={RADIO_LIST_QUIZ}
-                onChange={changeHandler(questionNumber)}
-                initValue={answerValue ?? 0}
+                onChange={changeHandler(order)}
+                initValue={+answers[0]?.value ?? 0}
               />
             </QuestionListStyles.ItemRadioWrapper>
           </QuestionListStyles.Item>

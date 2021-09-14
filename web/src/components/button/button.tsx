@@ -15,6 +15,7 @@ export const Button: React.FC<IButtonProps> = ({
   type,
   color,
   image,
+  minWidth,
 }) => (
   <ButtonStyles
     isFullWidth={isFullWidth}
@@ -25,6 +26,7 @@ export const Button: React.FC<IButtonProps> = ({
     type={type}
     color={color}
     image={image}
+    minWidth={minWidth}
   >
     {image === 'back' && <img src={IMAGES.back} />}
     <span>{title}</span>

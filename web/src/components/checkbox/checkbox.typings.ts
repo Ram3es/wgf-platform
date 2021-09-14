@@ -2,8 +2,8 @@ export interface ICheckboxProps {
   onChange(): void;
   isChecked: boolean;
   label: string;
+  boxHeight?: number;
+  boxWidth?: number;
 }
 
-export interface ICheckboxStyles {
-  checked: boolean;
-}
+export type ICheckboxStyles = Partial<ICheckboxProps>;

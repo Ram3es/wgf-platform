@@ -8,6 +8,16 @@
   src: url('../../assets/fonts/FrutigerLT65Bold.ttf');
 }
 
+@font-face {
+  font-family: AbsideSmooth;
+  src: url('../../assets/fonts/Abside-Smooth.ttf');
+}
+
+@font-face {
+  font-family: PoppinsRegular;
+  src: url('../../assets/fonts/Poppins-Regular.ttf');
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

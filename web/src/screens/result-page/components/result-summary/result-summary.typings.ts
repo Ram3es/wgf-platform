@@ -3,6 +3,7 @@ import { TLevelResult } from '@styles/colors';
 export interface IResultSummaryProps {
   results: IResults;
   withArchetypesIcon?: boolean;
+  quiz: string;
 }
 
 export interface IStarsIcon {

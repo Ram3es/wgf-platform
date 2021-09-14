@@ -1,65 +1,50 @@
-import { ChangeEvent, createRef, useEffect, useRef } from 'react';
+import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { createUser } from '@services/user.service';
+import { getQuestions, postAnswers } from '@services/quiz.service';
+import { storageService } from '@services/storage/storage';
 
-import { SESSION_STORAGE } from '@constants/storage';
-import { initialState } from './form.constants';
+import { initialState } from './quiz.constants';
 
-export const useFormState = () => {
+export const useQuizState = () => {
   const { state, updateState } = useUpdateState(initialState);
+  const [isFirst, setIsFirst] = useState(true);
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const quiz = storageService.getQuiz();
 
-  useEffect(() => {
-    const { firstQuestionIndex, lastQuestionIndex } = getIndexForSlice();
+  const createQuestionList = useCallback(async () => {
+    const { data } = await getQuestions({
+      quizId: quiz?.id ?? '',
+    });
+
+    const list = data.questions.sort((a, b) => a.order - b.order);
+
+    const listStorage = storageService.getQuestionList(quiz?.title || '');
+
+    if (listStorage.length < 1) {
+      storageService.setQuestionList(list, quiz?.title || '');
+    }
 
     updateState({
-      questionListForPage: state.questionList.slice(
-        firstQuestionIndex,
-        lastQuestionIndex
-      ),
+      questionList: storageService.getQuestionList(quiz?.title || ''),
+      currentPage: storageService.getCurrentPage(quiz?.title || ''),
+      user: storageService.getUser(),
     });
-  }, [state.currentPage, state.questionList]);
+  }, []);
+
+  useEffect(() => {
+    createQuestionList();
+  }, [createQuestionList]);
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-
-    if (state.currentPage === 2) {
-      updateState({
-        user: {
-          ...state.user,
-          email: state.user.email.trim(),
-          firstName: state.user.firstName.trim(),
-          lastName: state.user.lastName.trim(),
-        },
-      });
-    }
   }, [state.currentPage]);
-
-  useEffect(() => {
-    sessionStorage.setItem(
-      SESSION_STORAGE.questionList,
-      JSON.stringify(state.questionList)
-    );
-    sessionStorage.setItem(SESSION_STORAGE.user, JSON.stringify(state.user));
-    sessionStorage.setItem(
-      SESSION_STORAGE.currentPage,
-      JSON.stringify(state.currentPage)
-    );
-  }, [state.questionList, state.user, state.currentPage]);
 
   const errorRef: React.MutableRefObject<React.RefObject<HTMLDivElement>[]> =
     useRef([...new Array(state.questionPerPage)].map(() => createRef()));
-
-  const onChangeUser = (e: ChangeEvent<HTMLInputElement>) => {
-    updateState((prev) => ({
-      user: { ...prev.user, [e.target.name]: e.target.value },
-    }));
-  };
 
   const isLastPage =
     state.questionList[state.questionList.length - 1] ===
@@ -75,11 +60,30 @@ export const useFormState = () => {
     };
   };
 
+  useEffect(() => {
+    const { firstQuestionIndex, lastQuestionIndex } = getIndexForSlice();
+
+    updateState({
+      questionListForPage: state.questionList.slice(
+        firstQuestionIndex,
+        lastQuestionIndex
+      ),
+    });
+
+    if (isFirst) {
+      return setIsFirst(false);
+    }
+
+    storageService.setCurrentPage(state.currentPage, quiz?.title || '');
+
+    storageService.setQuestionList(state.questionList, quiz?.title || '');
+  }, [state.currentPage, state.questionList]);
+
   const handleError = () => {
     const { firstQuestionIndex, lastQuestionIndex } = getIndexForSlice();
 
     const errorList = state.questionList.map((elem) => {
-      if (!elem.answerValue) {
+      if (!elem.answers[0]?.value) {
         return { ...elem, isError: true };
       }
       return elem;
@@ -121,14 +125,7 @@ export const useFormState = () => {
     });
 
     if (isLastPage) {
-      const { data } = await createUser(getUserRequestBody());
-
-      sessionStorage.setItem(
-        SESSION_STORAGE.results,
-        JSON.stringify(data.results)
-      );
-
-      sessionStorage.setItem(SESSION_STORAGE.userId, data.user.id);
+      await postAnswers(getAnswersRequestBody());
 
       updateState({
         isShowModal: true,
@@ -140,13 +137,13 @@ export const useFormState = () => {
     incrementPage();
   };
 
-  const getUserRequestBody = () => ({
-    ...state.user,
-    answers: state.questionList.map((item) => ({
-      questionNumber: item.questionNumber,
-      answerValue: item.answerValue!,
-    })),
-  });
+  const getAnswersRequestBody = () =>
+    state.questionList.map((item) => ({
+      questionId: item.id,
+      id: item.answers[0].id,
+      value: item.answers[0].value,
+      quizId: storageService.getQuiz()?.id || '',
+    }));
 
   const incrementPage = () =>
     updateState({
@@ -161,12 +158,10 @@ export const useFormState = () => {
   return {
     ...state,
     updateState,
-    onChangeUser,
     onSubmit,
     incrementPage,
     decrementPage,
     errorRef,
     isLastPage,
-    formRef,
   };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { BannerImagePdf } from '@components/banner-image-pdf';
@@ -10,6 +10,8 @@ import { NextSteps } from '../result-page/components/next-steps';
 import { QuickSummary } from '../result-page/components/quick-summary';
 import { Resources } from '../result-page/components/resources';
 import { ResultSummary } from '../result-page/components/result-summary';
+
+import { getResults } from '@services/quiz.service';
 
 import { IMAGES } from '@constants/images';
 import { STRINGS } from '@constants/strings';
@@ -25,48 +27,43 @@ export const PdfPage: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);
 
   useEffect(() => {
-    if (!query.get('firstName')) {
+    if (
+      !query.get('userId') &&
+      !query.get('quizId') &&
+      !query.get('quizTitle')
+    ) {
       return replace('/');
     }
 
     getQueryParams();
   }, []);
 
-  const getQueryParams = () => {
-    const firstName = query.get('firstName') || '';
-    const lastName = query.get('lastName') || '';
-    const concern: ICategory = {
-      level: (query.get('concern_level') as TLevels) || 'Low',
-      score: +(query.get('concern_score') || 0),
-    };
-    const confidence: ICategory = {
-      level: (query.get('confidence_level') as TLevels) || 'Low',
-      score: +(query.get('confidence_score') || 0),
-    };
-    const control: ICategory = {
-      level: (query.get('control_level') as TLevels) || 'Low',
-      score: +(query.get('control_score') || 0),
-    };
-    const curiosity: ICategory = {
-      level: (query.get('curiosity_level') as TLevels) || 'Low',
-      score: +(query.get('curiosity_score') || 0),
-    };
-    const cooperation: ICategory = {
-      level: (query.get('cooperation_level') as TLevels) || 'Low',
-      score: +(query.get('cooperation_score') || 0),
-    };
-
-    setState({
-      firstName,
-      lastName,
-      results: {
-        concern,
-        confidence,
-        control,
-        curiosity,
-        cooperation,
-      },
+  const getResult = useCallback(async () => {
+    const { data } = await getResults({
+      quizId: query.get('quizId')!,
+      userId: query.get('userId')!,
     });
+
+    setState((prev) => ({ ...prev, results: data }));
+  }, []);
+
+  useEffect(() => {
+    getResult();
+  }, [getResult]);
+
+  const getQueryParams = () => {
+    const userId = query.get('userId')!;
+    const userName = query.get('userName')!;
+    const quizId = query.get('quizId')!;
+    const quizTitle = query.get('quizTitle')!;
+
+    setState((prev) => ({
+      ...prev,
+      userId,
+      quizId,
+      quizTitle,
+      userName,
+    }));
   };
 
   return (
@@ -75,10 +72,10 @@ export const PdfPage: React.FC = () => {
       <BannerImagePdf />
       <BannerResult isPdfBanner />
       <Container>
-        <TitleStyles.h3>{`${STRINGS.resultPage.userTitle} ${state.firstName}`}</TitleStyles.h3>
-        <ResultSummary results={state.results} />
+        <TitleStyles.h3>{`${STRINGS.resultPage.userTitle} ${state.userName}`}</TitleStyles.h3>
+        <ResultSummary results={state.results} quiz={state.quizTitle} />
         <NextSteps results={state.results} />
-        <QuickSummary results={state.results} />
+        <QuickSummary results={state.results} quiz={state.quizTitle} />
         <Resources />
         <FlexCenter>
           <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />

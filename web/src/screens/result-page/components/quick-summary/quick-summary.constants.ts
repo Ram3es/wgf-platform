@@ -2,9 +2,9 @@ import { COLORS } from '@styles/colors';
 
 import { IMAGES } from '@constants/images';
 
-import { IRow, IRowListItem } from './quick-summary.typings';
+import { IHeadingItem, IRow, IRowListItem } from './quick-summary.typings';
 
-export const headingItemsList = [
+const headingItemslist = [
   {
     title: 'Optimistic Planner',
     imageHead: IMAGES.concernImage,
@@ -32,6 +32,16 @@ export const headingItemsList = [
   },
 ];
 
+export const headingItemsList = (results: IResults): IHeadingItem[] => {
+  if (!results.cooperation) {
+    const newList = [...headingItemslist];
+    newList.pop();
+    return newList;
+  }
+
+  return headingItemslist;
+};
+
 export const rowList: IRow[] = [
   {
     title: 'Your self-assessment:',
@@ -56,7 +66,7 @@ export const rowList: IRow[] = [
 ];
 
 export const getRowItemsList = (results: IResults): IRowListItem[] => {
-  return [
+  const list = [
     {
       question: 'Do I have a future?',
       level: results.concern.level,
@@ -91,11 +101,19 @@ export const getRowItemsList = (results: IResults): IRowListItem[] => {
     },
     {
       question: 'Who can help me succeed?',
-      level: results.cooperation.level,
+      level: results.cooperation?.level || 'Low',
       description:
         'Develop strong working relationships with collaborators. Be a team player, contributing proactively.',
       superPower: 'Collaborating',
       category: 'Cooperation',
     },
   ];
+
+  if (!results.cooperation) {
+    const newList = [...list];
+    newList.pop();
+    return newList;
+  }
+
+  return list;
 };

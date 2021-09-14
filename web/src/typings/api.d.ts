@@ -1,8 +1,3 @@
-interface IAnswer {
-  questionNumber: number;
-  answerValue: number;
-}
-
 interface ICategory {
   score: number;
   level: TLevels;
@@ -10,19 +5,12 @@ interface ICategory {
 
 type TLevels = 'Low' | 'Moderate' | 'High';
 
-interface IQuestion {
-  questionNumber: number;
-  title: string;
-  answerValue?: number;
-  isError?: boolean;
-}
-
 interface IResults {
   concern: ICategory;
   control: ICategory;
   curiosity: ICategory;
   confidence: ICategory;
-  cooperation: ICategory;
+  cooperation?: ICategory;
 }
 
 interface IPostResponce {
@@ -30,18 +18,72 @@ interface IPostResponce {
   results: IResults;
 }
 
-interface IUserCreate {
+interface IUserSignUp {
   firstName: string;
   lastName: string;
   email: string;
-  isSubscriber: boolean;
-  answers: IAnswer[];
+  password: string;
 }
 
-interface IUserUpdate extends Partial<IUserCreate> {
-  role?: string;
-}
-
-interface IUser extends IUserCreate {
+interface IUserUpdate extends Partial<IUser> {
   id: string;
+}
+
+interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  created: Date;
+  isSubscriber: boolean;
+  trainerAdminId: string | null;
+  role: string;
+  jobStatus: string | null;
+}
+
+interface ILoginData {
+  password: string;
+  email: string;
+}
+
+interface ISignUpResponse {
+  token: string;
+  user: IUser;
+}
+
+interface IQuestionListItem extends IQuestionRes {
+  id: string;
+  title: string;
+  category: string;
+  type: string;
+  order: number;
+  answers: IAnswerRes[];
+  isError?: boolean;
+}
+
+interface IAnswer {
+  id: string;
+  value: string;
+}
+
+interface IAnswerReq extends IAnswer {
+  questionId: string;
+  quizId: string;
+}
+
+interface IQuizResponse {
+  id: string;
+  title: string;
+  questions: IQuestionRes[];
+}
+
+interface IQuizItems {
+  caas: IQuizItem;
+  caasCooperation: IQuizItem;
+}
+
+interface IQuizItem {
+  questionList: IQuestionListItem[];
+  currentPage: number;
+  result: IResults;
 }
