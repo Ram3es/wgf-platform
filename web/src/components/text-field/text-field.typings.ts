@@ -13,7 +13,7 @@ export interface ITextFieldProps extends ITextFieldStylesProps {
   type: string;
   name: string;
   tabIndex: number;
-  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
-  onBlur?(e: React.FocusEvent<HTMLInputElement>): void;
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+  onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
   autoCapitalize?: string;
 }

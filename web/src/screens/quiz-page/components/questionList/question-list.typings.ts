@@ -1,10 +1,10 @@
 import { TUpdateStateData } from '@services/hooks/useUpdateState';
 
-import { IFormState } from '../form/form.typings';
+import { IQuizState } from '../quiz/quiz.typings';
 
 export interface IQuestionListProps {
-  list: IQuestion[];
-  currentQuestionList: IQuestion[];
-  setState(data: TUpdateStateData<IFormState>): void;
+  list: IQuestionListItem[];
+  currentQuestionList: IQuestionListItem[];
+  setState(data: TUpdateStateData<IQuizState>): void;
   errorRef: React.MutableRefObject<React.RefObject<HTMLDivElement>[]>;
 }

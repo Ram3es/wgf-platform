@@ -4,7 +4,7 @@ import { BannerImage } from '@components/banner-image';
 import { Header } from '@components/header';
 import { Container } from '@styles/components/container';
 import { Banner } from './components/banner';
-import { Form } from './components/form';
+import { Quiz } from './components/quiz';
 
 export const QuizPage: React.FC = () => (
   <>
@@ -12,7 +12,7 @@ export const QuizPage: React.FC = () => (
     <BannerImage />
     <Container>
       <Banner />
-      <Form />
+      <Quiz />
     </Container>
   </>
 );

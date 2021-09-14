@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { COLORS } from '@styles/colors';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const MainPageStyles = {
@@ -25,6 +27,11 @@ export const MainPageStyles = {
     display: flex;
     flex-direction: column;
     padding: 0 5px;
+
+    h1 {
+      font-family: ${FONTS.absideSmooth};
+      font-weight: 400;
+    }
   `,
   BannerText: styled.div`
     display: flex;
@@ -41,7 +48,28 @@ export const MainPageStyles = {
     justify-content: center;
     padding: 0 5px;
   `,
-  LogoWrapper: styled.div`
+  Header: styled.div`
+    display: flex;
+    justify-content: space-between;
     padding: 50px 0;
+
+    button {
+      padding: 1px 3px;
+      color: ${COLORS.white};
+      min-width: auto;
+      min-height: auto;
+      height: 28px;
+      border-radius: 15px;
+    }
+  `,
+  ButtonContainer: styled.div`
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    & > * {
+      margin-bottom: 10px;
+    }
   `,
 };

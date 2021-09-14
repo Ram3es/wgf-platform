@@ -1,4 +1,4 @@
-export const QUESTION_INITIAL_STATE: IQuestion[] = [
+export const QUESTION_INITIAL_STATE = [
   {
     questionNumber: 1,
     title: '1. Thinking about what my future will be like',

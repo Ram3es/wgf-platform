@@ -20,7 +20,7 @@ export const STARS_ICONS: IStarsIcon = {
 };
 
 export const getCategoriesList = (results: IResults): IElementCategories[] => {
-  return [
+  const list = [
     {
       title: 'Optimistic Planner',
       imageHead: IMAGES.concernImage,
@@ -68,13 +68,21 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
     {
       title: 'Social Collaborator',
       imageHead: IMAGES.cooperationImage,
-      score: results.cooperation.score,
+      score: results.cooperation?.score || 0,
       imageBody: IMAGES.cooperationBodyImage,
-      level: results.cooperation.level,
+      level: results.cooperation?.level || 'Low',
       description:
         'Social Collaborators have advanced interpersonal skills that enable them to accelerate their career development. They are often valued team players and good listeners whose pro-active contributions help everybody else succeed.',
       superPower: 'Collaborating',
       colorTitle: COLORS.white,
     },
   ];
+
+  if (!results.cooperation) {
+    const newList = [...list];
+    newList.pop();
+    return newList;
+  }
+
+  return list;
 };

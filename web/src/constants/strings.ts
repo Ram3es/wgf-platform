@@ -138,14 +138,44 @@ export const STRINGS = {
     superPower: 'Superpower: ',
   },
 
+  signIn: {
+    title: 'Welcome Back!',
+    label: 'Please log in to your account.',
+    notMember: 'Not a member?',
+    socialSignIn: 'or sign in with',
+    checkRemember: 'Remember me?',
+  },
+
+  signUp: {
+    title: 'Let’s Get Started!',
+    label:
+      'Create an account to access to our specially curated suite of career tools and assessments.Please log in to your account.',
+  },
+
   button: {
     next: 'Next',
     back: 'Back',
     submit: 'Submit',
     print: 'Print',
     result: 'See Results',
-    quiz: 'Go to CAAS Quiz',
+    quizCaas: 'Go to CAAS Quiz',
+    quizCooperation: 'Go to CAAS+Cooperation Quiz',
+    logOut: 'Log Out',
+    logIn: 'Log In',
+    signIn: 'Sign In',
+    signUp: 'Sign Up',
+    signUpNow: 'Sign up now',
+    forgetPassword: 'Forget Password',
+    returnSignIn: 'Return to Sign In',
   },
+
+  input: {
+    email: 'Email',
+    password: 'Password',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+  },
+
   mainPage: {
     title: 'WIT GRIT FIT is a new way of approaching careers.',
     bannerText: [

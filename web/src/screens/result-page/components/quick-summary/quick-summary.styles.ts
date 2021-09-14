@@ -17,13 +17,12 @@ export const QuickSummaryStyles = {
   Overflow: styled.div`
     overflow-x: auto;
   `,
-  Heading: styled.div`
+  Heading: styled.div<{ quiz: string }>`
     display: flex;
     align-items: center;
-    justify-content: center;
 
     & > * {
-      flex: 0 1 16.66%;
+      flex: 0 1 ${({ quiz }) => (quiz === 'caas-quiz' ? '20%' : '16.66%')};
     }
   `,
   Content: styled.div`
@@ -68,7 +67,7 @@ export const QuickSummaryStyles = {
     font-family: ${FONTS.frutigerBold};
     color: ${COLORS.grey};
   `,
-  Row: styled.div`
+  Row: styled.div<{ quiz: string }>`
     display: flex;
     position: relative;
     border-radius: 10px;
@@ -91,10 +90,13 @@ export const QuickSummaryStyles = {
         border-bottom-right-radius: 10px;
       }
     }
+
+    & > * {
+      flex: 0 1 ${({ quiz }) => (quiz === 'caas-quiz' ? '20%' : '16.66%')};
+    }
   `,
 
   RowItem: styled.div`
-    flex: 0 1 16.66%;
     padding: 30px 10px 50px;
 
     min-height: 90px;

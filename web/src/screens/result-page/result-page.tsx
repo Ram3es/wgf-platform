@@ -13,20 +13,18 @@ import { QuickSummary } from './components/quick-summary';
 import { Resources } from './components/resources';
 import { ResultSummary } from './components/result-summary';
 
-import { getPdf } from '@services/user.service';
+import { getPdf } from '@services/quiz.service';
+import { storageService } from '@services/storage/storage';
 
 import { BASE_URL } from '@constants/config';
 import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
-import { SESSION_STORAGE } from '@constants/storage';
 import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
 
 export const ResultPage: React.FC = () => {
-  const user: IUser = JSON.parse(sessionStorage.getItem(SESSION_STORAGE.user)!);
-
-  const userId = sessionStorage.getItem(SESSION_STORAGE.userId)!;
+  const user: IUser | null = storageService.getUser();
 
   const [loading, setLoading] = useState(false);
 
@@ -34,10 +32,12 @@ export const ResultPage: React.FC = () => {
 
   const [results, setResult] = useState<IResults>();
 
+  const [quiz, setQuiz] = useState<string>('');
+
   useEffect(() => {
-    const result: IResults = JSON.parse(
-      sessionStorage.getItem(SESSION_STORAGE.results)!
-    );
+    const quizTitle = storageService.getQuiz()?.title || '';
+    const result: IResults | null = storageService.getResults(quizTitle);
+    setQuiz(quizTitle);
 
     if (result) {
       return setResult(result);
@@ -50,12 +50,15 @@ export const ResultPage: React.FC = () => {
     return <div />;
   }
 
-  const generatePdf = (id: string) => async () => {
+  const generatePdf = () => async () => {
     setLoading(true);
 
     const {
       data: { file },
-    } = await getPdf(id);
+    } = await getPdf({
+      userId: user?.id || '',
+      quizId: storageService.getQuiz()?.id || '',
+    });
 
     if (!file) {
       return;
@@ -73,17 +76,17 @@ export const ResultPage: React.FC = () => {
       <Container>
         <BannerResult withBackground />
         <TitleStyles.h3 mb={20}>
-          {`${STRINGS.resultPage.userTitle} ${user.firstName}`}
+          {`${STRINGS.resultPage.userTitle} ${user?.firstName}`}
         </TitleStyles.h3>
-        <ResultSummary results={results} withArchetypesIcon />
+        <ResultSummary results={results} withArchetypesIcon quiz={quiz} />
         <NextSteps results={results} />
-        <QuickSummary results={results} />
+        <QuickSummary results={results} quiz={quiz} />
         <Resources />
         <FlexCenter>
           <Button
             title={STRINGS.button.print}
             color={COLORS.black}
-            onClick={generatePdf(userId)}
+            onClick={generatePdf()}
             isDisabled={loading}
             image="next"
           />

@@ -10,9 +10,16 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
   onChange,
   isChecked,
   label,
+  boxHeight,
+  boxWidth,
 }) => (
-  <CheckboxStyles.Wrapper>
-    <CheckboxStyles.RadioItem onClick={onChange} checked={isChecked}>
+  <CheckboxStyles.Wrapper boxHeight={boxHeight} boxWidth={boxWidth}>
+    <CheckboxStyles.RadioItem
+      onClick={onChange}
+      isChecked={isChecked}
+      boxHeight={boxHeight}
+      boxWidth={boxWidth}
+    >
       {isChecked && <Check />}
     </CheckboxStyles.RadioItem>
     <CheckboxStyles.Label onClick={onChange}>{label}</CheckboxStyles.Label>

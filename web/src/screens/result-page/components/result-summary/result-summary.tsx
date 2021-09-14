@@ -4,6 +4,8 @@ import { Question } from '@components/icons';
 import { Modal } from '@components/modal';
 import { COLORS } from '@styles/colors';
 
+
+
 import { IMAGES } from '@constants/images';
 import { STRINGS } from '@constants/strings';
 import { getCategoriesList, STARS_ICONS } from './results.constants';
@@ -16,6 +18,7 @@ import { ResultSummaryStyles } from './result-summary.styles';
 export const ResultSummary: React.FC<IResultSummaryProps> = ({
   results,
   withArchetypesIcon,
+  quiz,
 }) => {
   const categories = getCategoriesList(results);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -52,7 +55,7 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
           </Modal>
         )}
       </ResultSummaryStyles.ArchetypesWrapper>
-      <ResultSummaryStyles.CardWrapper>
+      <ResultSummaryStyles.CardWrapper quiz={quiz}>
         {categories.map(
           (
             {
@@ -67,12 +70,12 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
             },
             i
           ) => (
-            <ResultSummaryStyles.CardItem key={i}>
+            <ResultSummaryStyles.CardItem key={i} quiz={quiz}>
               <ResultSummaryStyles.CardHeading>
                 <img src={imageHead} />
                 <TitleStyles.h2 color={colorTitle}>{title}</TitleStyles.h2>
               </ResultSummaryStyles.CardHeading>
-              <ResultSummaryStyles.CardBody>
+              <ResultSummaryStyles.CardBody quiz={quiz}>
                 <span>{STRINGS.resultSummary.score}</span>
                 <strong>{score}%</strong>
                 <img src={imageBody} />

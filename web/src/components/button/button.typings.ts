@@ -1,9 +1,10 @@
-export type TButtonVariant = 'primary' | 'secondary';
+export type TButtonVariant = 'primary' | 'secondary' | 'text';
 
 export interface IButtonStylesProps {
   variant?: TButtonVariant;
   isDisabled?: boolean;
   isFullWidth?: boolean;
+  minWidth?: number;
   color?: string;
   image?: 'back' | 'next';
 }
