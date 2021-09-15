@@ -37,8 +37,6 @@ export class UserService {
   private async createSecretString(personalKey: string) {
     const secret = await this.configService.get('JWT_SECRET');
 
-    console.log(secret, 'configService JWT_SECRET');
-
     return `${secret}${personalKey}`;
   }
 

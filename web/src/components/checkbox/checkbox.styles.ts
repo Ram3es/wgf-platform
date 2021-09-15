@@ -11,8 +11,8 @@ export const CheckboxStyles = {
     margin-bottom: 20px;
 
     svg {
-      width: ${({ boxWidth }) => (boxWidth ? `${boxWidth - 6}px` : '24px')};
-      height: ${({ boxHeight }) => (boxHeight ? `${boxHeight - 8}px` : '24px')};
+      width: ${({ boxWidth }) => (boxWidth ? `${boxWidth - 6}px` : '16px')};
+      height: ${({ boxHeight }) => (boxHeight ? `${boxHeight - 8}px` : '14px')};
     }
   `,
   RadioItem: styled.div<ICheckboxStyles>`

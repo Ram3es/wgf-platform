@@ -72,7 +72,7 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
         <p>{STRINGS.popUp.radioWrapperLabel}</p>
         <PopUpStyles.RadioGroupWrapper>
           <RadioButtonGroup
-            initValue="Student"
+            initValue={user.jobStatus || 'Student'}
             isImage
             onChange={handleChangeJobStatus}
             radioGroup={userRadioGroup}

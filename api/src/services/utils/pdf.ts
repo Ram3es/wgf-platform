@@ -17,8 +17,6 @@ export const createPdf = async (
     defaultViewport: { width: 1600, height: 1500 },
   });
 
-  console.log(browser, 'after launch');
-
   const page = await browser.newPage();
 
   await page.goto(url, {
@@ -32,8 +30,6 @@ export const createPdf = async (
     format: 'a4',
     scale: 0.5,
   });
-
-  console.log(browser, 'after pdf');
 
   const base64 = pdf.toString('base64');
 

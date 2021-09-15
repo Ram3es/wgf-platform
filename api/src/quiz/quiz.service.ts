@@ -96,7 +96,6 @@ export class QuizService {
 
   async getPdf(body: { userId: string; quizId: string }) {
     const user = await this.userService.getUserById(body.userId);
-
     const quiz = await this.quizRepository.findOne(body.quizId);
 
     if (!quiz) {
@@ -104,7 +103,6 @@ export class QuizService {
     }
 
     const WEB_BASE_URL = await this.configService.get('WEB_BASE_URL');
-
     let url = '';
 
     if (quiz.title === 'caas-quiz' || quiz.title === 'caas-cooperation-quiz') {
@@ -114,12 +112,7 @@ export class QuizService {
     }
 
     const file = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
-
-    console.log('before create pdf');
-
     const base64 = await createPdf(user, file, url);
-
-    console.log('after create pdf');
 
     sendMail(user, quizMessage[quiz.title], base64);
 
