@@ -63,14 +63,14 @@ export const SignIn: React.FC = () => {
       storageService.setToken(data.token, isRemember);
       storageService.setUser(data.user);
     } catch (error) {
-      if (error.response?.status === 400) {
+      if (error?.response?.status === 400) {
         return UserErrorMessages['400'].fire();
       }
-      if (error.response?.status === 404) {
+      if (error?.response?.status === 404) {
         return UserErrorMessages['404'].fire();
       }
 
-      return errorMessage(error.response?.data.message).fire();
+      return errorMessage(error?.response?.data.message).fire();
     }
   };
 
