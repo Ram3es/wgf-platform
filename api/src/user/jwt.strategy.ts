@@ -26,6 +26,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
         const user = await this.userService.getUserById(decodedToken.id);
         const JWT_SECRET = configService.get('JWT_SECRET');
+        console.log(JWT_SECRET);
+
         done(null, `${JWT_SECRET}${user.publicKey}`);
       },
     });

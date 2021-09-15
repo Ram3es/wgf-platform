@@ -10,8 +10,10 @@ import { COLORS } from '@styles/colors';
 import { storageService } from '@services/storage/storage';
 import { signIn } from '@services/user.service';
 
+import { errorMessage, UserErrorMessages } from '@constants/pop-up-messages';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
+import { Toast } from '@constants/toasts';
 import { initialLoginData, LoginFormSchema } from './sign-in.constants';
 
 import { TitleStyles } from '@styles/components/title-styles';
@@ -49,10 +51,27 @@ export const SignIn: React.FC = () => {
   };
 
   const loginHandler = async () => {
-    const { data } = await signIn(loginData);
-    setCreatedUser(data.user);
-    storageService.setToken(data.token, isRemember);
-    storageService.setUser(data.user);
+    try {
+      const { data } = await signIn(loginData);
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Signed in successfully',
+      });
+
+      setCreatedUser(data.user);
+      storageService.setToken(data.token, isRemember);
+      storageService.setUser(data.user);
+    } catch (error) {
+      if (error.response?.status === 400) {
+        return UserErrorMessages['400'].fire();
+      }
+      if (error.response?.status === 404) {
+        return UserErrorMessages['404'].fire();
+      }
+
+      return errorMessage(error.response?.data.message).fire();
+    }
   };
 
   const onChangeLogin = (event: ChangeEvent<HTMLInputElement>) => {

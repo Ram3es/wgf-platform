@@ -10,6 +10,7 @@ import { storageService } from '@services/storage/storage';
 import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
+import { Toast } from '@constants/toasts';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { MainPageStyles } from './main-page.styles';
@@ -31,6 +32,11 @@ export const MainPage: React.FC = () => {
   const logOut = () => {
     storageService.clearSessionStorage();
     storageService.clearStorage();
+
+    Toast.fire({
+      icon: 'success',
+      title: 'Log Out successfully',
+    });
 
     setIsLogOut(false);
   };

@@ -51,6 +51,8 @@ const getInstance = () => {
       ) {
         storageService.clearStorage();
       }
+
+      return Promise.reject(error);
     }
   );
 

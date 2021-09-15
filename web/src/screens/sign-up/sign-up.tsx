@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import { Button } from '@components/button';
 import { TextField } from '@components/text-field';
@@ -11,6 +12,7 @@ import { signUp } from '@services/user.service';
 
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
+import { Toast } from '@constants/toasts';
 import { initialUser, UserFormSchema } from './sign-up.constants';
 
 import { TitleStyles } from '@styles/components/title-styles';
@@ -43,10 +45,24 @@ export const SignUp: React.FC = () => {
   };
 
   const signUpHandler = async () => {
-    const { data } = await signUp(user);
-    setCreatedUser(data.user);
-    storageService.setToken(data.token, false);
-    storageService.setUser(data.user);
+    try {
+      const { data } = await signUp(user);
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Signed up successfully',
+      });
+
+      setCreatedUser(data.user);
+      storageService.setToken(data.token, false);
+      storageService.setUser(data.user);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `${error.message}`,
+      });
+    }
   };
 
   const onChangeUser = (event: ChangeEvent<HTMLInputElement>) => {
