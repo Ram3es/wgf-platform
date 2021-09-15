@@ -106,11 +106,7 @@ export class QuizService {
 
     const WEB_BASE_URL = await this.configService.get('WEB_BASE_URL');
 
-    const webUrl = await this.configService.get('webUrl');
-
     console.log(WEB_BASE_URL, 'configService WEB_BASE_URL');
-
-    console.log(webUrl, 'configService webUrl');
 
     console.log(config().urls.webUrl, 'config()');
 
@@ -126,7 +122,11 @@ export class QuizService {
 
     const file = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
 
+    console.log('before create pdf');
+
     const base64 = await createPdf(user, file, url);
+
+    console.log('after create pdf');
 
     sendMail(user, quizMessage[quiz.title], base64);
 
