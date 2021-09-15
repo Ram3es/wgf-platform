@@ -106,9 +106,15 @@ export class QuizService {
 
     const WEB_BASE_URL = await this.configService.get('WEB_BASE_URL');
 
-    console.log(WEB_BASE_URL, 'configService');
+    const webUrl = await this.configService.get('webUrl');
 
-    console.log(config().urls.webUrl, 'configService');
+    console.log(WEB_BASE_URL, 'configService WEB_BASE_URL');
+
+    console.log(webUrl, 'configService webUrl');
+
+    console.log(config().urls.webUrl, 'config()');
+
+    console.log(process.env.WEB_BASE_URL, 'process.env');
 
     let url = '';
 
