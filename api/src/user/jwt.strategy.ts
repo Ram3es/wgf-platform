@@ -37,6 +37,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
         console.log(process.env.JWT_SECRET, 'process.env');
 
+        console.log(process.env.JWT_SECRET, 'process.env');
+
         done(null, `${JWT_SECRET}${user.publicKey}`);
       },
     });
