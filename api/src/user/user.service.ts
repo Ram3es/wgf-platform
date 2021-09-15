@@ -6,6 +6,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import { config } from 'src/constants/config';
 import { ERRORS } from 'src/constants/errors';
 import { EXPIRE_JWT_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
@@ -36,7 +37,9 @@ export class UserService {
 
   private async createSecretString(personalKey: string) {
     const secret = await this.configService.get('JWT_SECRET');
-    console.log(secret);
+    console.log(secret, 'configService');
+
+    console.log(config().jwtSecret);
     return `${secret}${personalKey}`;
   }
 

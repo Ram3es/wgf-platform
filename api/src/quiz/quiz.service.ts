@@ -4,6 +4,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AnswerService } from 'src/answer/answer.service';
+import { config } from 'src/constants/config';
 import { ERRORS } from 'src/constants/errors';
 import { sendMail } from 'src/services/utils/email';
 import { quizMessage } from 'src/services/utils/messages';
@@ -104,6 +105,10 @@ export class QuizService {
     }
 
     const WEB_BASE_URL = await this.configService.get('WEB_BASE_URL');
+
+    console.log(WEB_BASE_URL, 'configService');
+
+    console.log(config().urls.webUrl, 'configService');
 
     let url = '';
 

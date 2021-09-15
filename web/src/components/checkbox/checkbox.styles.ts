@@ -19,8 +19,8 @@ export const CheckboxStyles = {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${({ boxWidth }) => `${boxWidth}px` || '24px'};
-    height: ${({ boxHeight }) => `${boxHeight}px` || '24px'};
+    width: ${({ boxWidth }) => (boxWidth ? `${boxWidth}px` : '24px')};
+    height: ${({ boxHeight }) => (boxHeight ? `${boxHeight}px` : '24px')};
     cursor: pointer;
     border-radius: 4px;
     margin-right: 10px;
