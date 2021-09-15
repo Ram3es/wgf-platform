@@ -1,15 +1,17 @@
 import { existsSync, unlinkSync } from 'fs';
 import { join } from 'path';
-import { launch } from 'puppeteer';
 
 import { UserEntity } from 'src/user/entities/user.entity';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const puppeteer = require('puppeteer');
 
 export const createPdf = async (
   user: UserEntity,
   file: string,
   url: string
 ) => {
-  const browser = await launch({
+  const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
     defaultViewport: { width: 1600, height: 1500 },
