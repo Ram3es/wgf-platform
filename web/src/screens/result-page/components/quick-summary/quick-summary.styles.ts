@@ -9,6 +9,12 @@ export const QuickSummaryStyles = {
   Wrapper: styled.div`
     padding: 10px;
     margin: 0 -10px 20px;
+    break-inside: avoid-page;
+
+    @media print {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
 
     h1 {
       padding: 20px 0;

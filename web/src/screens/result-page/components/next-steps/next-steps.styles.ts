@@ -13,7 +13,7 @@ export const NextStepsStyles = {
     }
 
     h1 {
-      padding: 20px 0;
+      /* padding: 20px 0; */
     }
   `,
   CardWrapper: styled.div`
@@ -26,7 +26,7 @@ export const NextStepsStyles = {
     display: flex;
     border: 1px solid #c4c4c4;
     border-radius: 10px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 
     break-inside: avoid-page;
 
@@ -35,7 +35,7 @@ export const NextStepsStyles = {
     `}
   `,
   CardHeading: styled.div<{ color?: string }>`
-    padding: 20px 15px;
+    /* padding: 20px 15px; */
     background: ${COLORS.bgGrey};
     border-radius: 10px;
     min-width: 280px;
