@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Formik } from 'formik';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -63,14 +64,16 @@ export const SignIn: React.FC = () => {
       storageService.setToken(data.token, isRemember);
       storageService.setUser(data.user);
     } catch (error) {
-      if (error?.response?.status === 400) {
-        return UserErrorMessages['400'].fire();
-      }
-      if (error?.response?.status === 404) {
-        return UserErrorMessages['404'].fire();
-      }
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          return UserErrorMessages['400'].fire();
+        }
+        if (error.response?.status === 404) {
+          return UserErrorMessages['404'].fire();
+        }
 
-      return errorMessage(error?.response?.data.message).fire();
+        return errorMessage(error?.response?.data.message).fire();
+      }
     }
   };
 

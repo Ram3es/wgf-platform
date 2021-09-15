@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { Formik } from 'formik';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 import { Button } from '@components/button';
 import { TextField } from '@components/text-field';
@@ -10,6 +10,7 @@ import { COLORS } from '@styles/colors';
 import { storageService } from '@services/storage/storage';
 import { signUp } from '@services/user.service';
 
+import { errorMessage } from '@constants/pop-up-messages';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { Toast } from '@constants/toasts';
@@ -57,11 +58,9 @@ export const SignUp: React.FC = () => {
       storageService.setToken(data.token, false);
       storageService.setUser(data.user);
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: `${error.message}`,
-      });
+      if (axios.isAxiosError(error)) {
+        return errorMessage(error?.response?.data.message).fire();
+      }
     }
   };
 
