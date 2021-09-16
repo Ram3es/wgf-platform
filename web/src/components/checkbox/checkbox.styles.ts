@@ -7,7 +7,6 @@ import { ICheckboxStyles } from './checkbox.typings';
 export const CheckboxStyles = {
   Wrapper: styled.div<ICheckboxStyles>`
     display: flex;
-    align-items: center;
     margin-bottom: 20px;
 
     svg {
@@ -19,7 +18,7 @@ export const CheckboxStyles = {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${({ boxWidth }) => (boxWidth ? `${boxWidth}px` : '24px')};
+    min-width: ${({ boxWidth }) => (boxWidth ? `${boxWidth}px` : '24px')};
     height: ${({ boxHeight }) => (boxHeight ? `${boxHeight}px` : '24px')};
     cursor: pointer;
     border-radius: 4px;
