@@ -2,8 +2,7 @@ import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useUpdateState } from '../../services/hooks/useUpdateState';
-
+import { useUpdateState } from '@services/hooks/useUpdateState';
 import { storageService } from '@services/storage/storage';
 import { signIn } from '@services/user.service';
 
@@ -15,7 +14,7 @@ import { initialSignInState } from './sign-in.constants';
 import { ISignInState } from './sign-in.typings';
 
 export const useSignInState = () => {
-  const { replace, goBack } = useHistory();
+  const { replace, goBack, length } = useHistory();
 
   useEffect(() => {
     const user = storageService.getUser();
@@ -37,7 +36,9 @@ export const useSignInState = () => {
 
   useEffect(() => {
     if (state.user) {
-      return goBack();
+      if (length > 2) return goBack();
+
+      return replace('/');
     }
   }, [state.user]);
 

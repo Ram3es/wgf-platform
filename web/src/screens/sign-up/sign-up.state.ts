@@ -13,7 +13,7 @@ import { initialSignUpState } from './sign-up.constants';
 
 export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
-  const { replace, goBack } = useHistory();
+  const { replace, goBack, length } = useHistory();
 
   useEffect(() => {
     const user = storageService.getUser();
@@ -26,7 +26,9 @@ export const useSignUpState = () => {
 
   useEffect(() => {
     if (state.user) {
-      return goBack();
+      if (length > 2) return goBack();
+
+      return replace('/');
     }
   }, [state.user]);
 
