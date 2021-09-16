@@ -292,6 +292,12 @@ export const ResultSummaryStyles = {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    h1 {
+      @media print {
+        margin-bottom: 15px;
+      }
+    }
   `,
 
   ArchetypesIcon: styled.div`

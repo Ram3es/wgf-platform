@@ -72,7 +72,9 @@ export const PdfPage: React.FC = () => {
       <BannerImagePdf />
       <BannerResult isPdfBanner />
       <Container>
-        <TitleStyles.h3>{`${STRINGS.resultPage.userTitle} ${state.userName}`}</TitleStyles.h3>
+        <TitleStyles.h3
+          mb={20}
+        >{`${STRINGS.resultPage.userTitle} ${state.userName}`}</TitleStyles.h3>
         <ResultSummary results={state.results} quiz={state.quizTitle} />
         <NextSteps results={state.results} />
         <QuickSummary results={state.results} quiz={state.quizTitle} />
