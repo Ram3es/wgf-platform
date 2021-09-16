@@ -20,7 +20,7 @@ export const getResults = (data: { quizId: string; userId: string }) =>
   );
 
 export const getPdf = (data: { quizId: string; userId: string }) =>
-  POST<{ file: string }, { quizId: string; userId: string }>(
+  POST<{ file: string; name: string }, { quizId: string; userId: string }>(
     `${ENDPOINTS.quiz}/get-pdf`,
     data
   );

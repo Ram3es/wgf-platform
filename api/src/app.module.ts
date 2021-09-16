@@ -1,10 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'src/constants/config';
 import { AnswerModule } from './answer/answer.module';
-import { ServeHTMLMiddleware } from './app.middleware';
 import { QuestionModule } from './question/question.module';
 import { QuizModule } from './quiz/quiz.module';
 import { DatabaseConfig } from './shared/configs/database.config';
@@ -33,10 +32,4 @@ import { UserModule } from './user/user.module';
     },
   ],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(ServeHTMLMiddleware)
-      .forRoutes({ path: 'static/*', method: RequestMethod.GET });
-  }
-}
+export class AppModule {}

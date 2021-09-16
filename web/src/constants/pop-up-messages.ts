@@ -18,6 +18,7 @@ export const UserErrorMessages = {
     icon: 'error',
     title: 'Not Exist...',
     text: 'There is no user with this email.',
+    footer: `<p>Not a member? <a href="/sign-up">Sign up now</a></p>`,
   }),
 };
 

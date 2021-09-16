@@ -16,7 +16,6 @@ import { ResultSummary } from './components/result-summary';
 import { getPdf } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
-import { BASE_URL } from '@constants/config';
 import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
@@ -54,7 +53,7 @@ export const ResultPage: React.FC = () => {
     setLoading(true);
 
     const {
-      data: { file },
+      data: { file, name },
     } = await getPdf({
       userId: user?.id || '',
       quizId: storageService.getQuiz()?.id || '',
@@ -64,7 +63,13 @@ export const ResultPage: React.FC = () => {
       return;
     }
 
-    window.open(`${BASE_URL}/static/${file}`, '_self');
+    const downloadButton = document.createElement('a');
+    downloadButton.href = `data:application/pdf;base64,${file}`;
+    downloadButton.download = name;
+    downloadButton.target = '_blank';
+
+    downloadButton.click();
+    downloadButton.remove();
 
     setLoading(false);
   };

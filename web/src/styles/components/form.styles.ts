@@ -9,6 +9,7 @@ export const FormStyles = {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    min-height: 600px;
     padding: 0 20px;
   `,
   Wrapper: styled.div`

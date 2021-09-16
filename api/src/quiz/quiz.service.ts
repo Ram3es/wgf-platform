@@ -111,12 +111,12 @@ export class QuizService {
       url = `${WEB_BASE_URL}${quiz.title}/pdf?id=${body.userId}`;
     }
 
-    const file = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
-    const base64 = await createPdf(user, file, url);
+    const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
+    const base64 = await createPdf(user, fileName, url);
 
     sendMail(user, quizMessage[quiz.title], base64);
 
-    return { file };
+    return { file: base64, name: fileName };
   }
 
   getPdfPageUrl(user: UserEntity, quiz: QuizEntity) {
