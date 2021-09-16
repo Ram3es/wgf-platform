@@ -1,82 +1,26 @@
-import axios from 'axios';
 import { Formik } from 'formik';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 
 import { Button } from '@components/button';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
-import { storageService } from '@services/storage/storage';
-import { signUp } from '@services/user.service';
+import { useSignUpState } from './sign-up.state';
 
-import { errorMessage } from '@constants/pop-up-messages';
-import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
-import { Toast } from '@constants/toasts';
-import { initialUser, UserFormSchema } from './sign-up.constants';
+import { UserFormSchema } from './sign-up.constants';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { FormStyles } from '../../styles/components/form.styles';
 import { SignUpStyles } from './sign-up.styles';
 
 export const SignUp: React.FC = () => {
-  const { replace, goBack } = useHistory();
-
-  useEffect(() => {
-    const user = storageService.getUser();
-    const token = storageService.getToken();
-
-    if (user && token) {
-      return replace('/');
-    }
-  }, []);
-
-  const [user, setUser] = useState(initialUser);
-  const [createdUser, setCreatedUser] = useState<IUser>();
-
-  useEffect(() => {
-    if (createdUser) {
-      return goBack();
-    }
-  }, [createdUser]);
-
-  const redirectToSignIn = () => {
-    replace(ROUTES.signIn);
-  };
-
-  const signUpHandler = async () => {
-    try {
-      const { data } = await signUp(user);
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Signed up successfully',
-      });
-
-      setCreatedUser(data.user);
-      storageService.setToken(data.token, false);
-      storageService.setUser(data.user);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return errorMessage(error?.response?.data.message).fire();
-      }
-    }
-  };
-
-  const onChangeUser = (event: ChangeEvent<HTMLInputElement>) => {
-    setUser((prev) => ({
-      ...prev,
-      [event.target.name]:
-        event.target.name === 'email' || event.target.name === 'password'
-          ? event.target.value.trim()
-          : event.target.value,
-    }));
-  };
+  const { onChangeUser, signUpHandler, redirectToSignIn, signUpData } =
+    useSignUpState();
 
   return (
     <Formik
-      initialValues={user}
+      initialValues={signUpData}
       validateOnChange
       onSubmit={signUpHandler}
       validationSchema={UserFormSchema}
@@ -114,7 +58,7 @@ export const SignUp: React.FC = () => {
                       placeholder={STRINGS.input.firstName}
                       onChange={handleUserChange}
                       onBlur={handleBlur}
-                      value={user.firstName}
+                      value={signUpData.firstName}
                       tabIndex={1}
                       error={
                         touched.firstName && errors.firstName
@@ -131,7 +75,7 @@ export const SignUp: React.FC = () => {
                       placeholder={STRINGS.input.lastName}
                       onChange={handleUserChange}
                       onBlur={handleBlur}
-                      value={user.lastName}
+                      value={signUpData.lastName}
                       tabIndex={2}
                       error={
                         touched.lastName && errors.lastName
@@ -148,7 +92,7 @@ export const SignUp: React.FC = () => {
                       placeholder={STRINGS.input.email}
                       onChange={handleUserChange}
                       onBlur={handleBlur}
-                      value={user.email}
+                      value={signUpData.email}
                       tabIndex={3}
                       autoCapitalize="none"
                       error={touched.email && errors.email ? errors.email : ''}
@@ -162,7 +106,7 @@ export const SignUp: React.FC = () => {
                       placeholder={STRINGS.input.password}
                       onChange={handleUserChange}
                       onBlur={handleBlur}
-                      value={user.password}
+                      value={signUpData.password}
                       tabIndex={4}
                       autoCapitalize="none"
                       error={

@@ -1,8 +1,16 @@
 import * as yup from 'yup';
 
-export const initialLoginData = {
+import { ISignInState } from './sign-in.typings';
+
+export const initialSignInData = {
   email: '',
   password: '',
+};
+
+export const initialSignInState: ISignInState = {
+  signInData: initialSignInData,
+  user: null,
+  isRemember: false,
 };
 
 export const LoginFormSchema = yup.object().shape({

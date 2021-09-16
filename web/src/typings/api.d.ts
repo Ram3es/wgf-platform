@@ -41,7 +41,7 @@ interface IUser {
   jobStatus: string | null;
 }
 
-interface ILoginData {
+interface ISignInData {
   password: string;
   email: string;
 }

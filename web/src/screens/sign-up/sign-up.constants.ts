@@ -1,10 +1,17 @@
 import * as yup from 'yup';
 
-export const initialUser = {
+import { ISignUpState } from './sign-up.typings';
+
+export const initialSignUp = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
+};
+
+export const initialSignUpState: ISignUpState = {
+  signUpData: initialSignUp,
+  user: null,
 };
 
 export const UserFormSchema = yup.object().shape({
