@@ -14,7 +14,7 @@ import { initialSignInState } from './sign-in.constants';
 import { ISignInState } from './sign-in.typings';
 
 export const useSignInState = () => {
-  const { replace, goBack, length } = useHistory();
+  const { replace, goBack, length, push } = useHistory();
 
   useEffect(() => {
     const user = storageService.getUser();
@@ -81,11 +81,16 @@ export const useSignInState = () => {
     }));
   };
 
+  const redirectToResetPassword = () => {
+    push(ROUTES.resetPassword);
+  };
+
   return {
     onChangeSignInData,
     signInHandler,
     redirectToSignUp,
     checkboxHandler,
+    redirectToResetPassword,
     ...state,
   };
 };

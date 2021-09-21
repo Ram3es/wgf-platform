@@ -4,7 +4,7 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
-export const SignUpStyles = {
+export const UpdatePasswordStyles = {
   Wrapper: styled.div`
     font-size: ${FONT_SIZES.medium};
 
@@ -21,13 +21,20 @@ export const SignUpStyles = {
   `,
   FormLabel: styled.p`
     font-size: ${FONT_SIZES.medium};
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   `,
   Footer: styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding-top: 20px;
+
+    & > :first-child {
+      margin-right: 30px;
+    }
+
+    & > * {
+      flex: 0 1 50%;
+    }
 
     ${Media.sMobile`
       flex-wrap: wrap;
@@ -37,7 +44,8 @@ export const SignUpStyles = {
       }
 
       & > :first-child {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
+        margin-right: 0;
       }
     `}
   `,

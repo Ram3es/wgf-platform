@@ -5,9 +5,9 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AnswerService } from 'src/answer/answer.service';
 import { ERRORS } from 'src/constants/errors';
-import { sendMail } from 'src/services/utils/email';
-import { quizMessage } from 'src/services/utils/messages';
-import { createPdf } from 'src/services/utils/pdf';
+import { sendMail } from 'src/shared/utils/email';
+import { quizMessage } from 'src/shared/utils/messages';
+import { createPdf } from 'src/shared/utils/pdf';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { getResultDto } from './dto/get-result-quiz.dto';
@@ -114,7 +114,9 @@ export class QuizService {
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
     const base64 = await createPdf(user, fileName, url);
 
-    sendMail(user, quizMessage[quiz.title], base64);
+    const payload = quizMessage[quiz.title](user, base64);
+
+    sendMail(payload);
 
     return { file: base64, name: fileName };
   }

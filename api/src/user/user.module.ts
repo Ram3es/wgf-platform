@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AnswerEntity } from 'src/answer/entities/answer.entity';
+import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
 import { JwtStrategy } from './jwt.strategy';
 import { UserController } from './user.controller';
@@ -11,7 +12,7 @@ import { UserService } from './user.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, AnswerEntity]),
+    TypeOrmModule.forFeature([UserEntity, AnswerEntity, ResetPasswordEntity]),
     JwtModule.register({}),
     PassportModule.register({}),
     ConfigModule,

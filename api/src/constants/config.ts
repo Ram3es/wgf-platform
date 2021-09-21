@@ -30,6 +30,7 @@ export const config = () => ({
   },
   urls: {
     webUrl: process.env.WEB_BASE_URL,
+    apiUrl: process.env.API_BASE_URL,
   },
   aws: {
     key: process.env.AWS_KEY,

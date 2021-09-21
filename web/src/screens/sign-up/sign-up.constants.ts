@@ -22,7 +22,7 @@ export const UserFormSchema = yup.object().shape({
     .required('This field cannot be empty')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      'Must Contain 8 Characters, Uppercase, Lowercase,Number and special case Character'
+      'Must Contain 8 Characters,Upper & Lower case,Number and special case Character'
     ),
   email: yup
     .string()

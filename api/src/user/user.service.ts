@@ -1,21 +1,24 @@
 import * as bcrypt from 'bcrypt';
 import { deserialize, serialize } from 'class-transformer';
 import { Repository } from 'typeorm';
+import { v4 as uuid } from 'uuid';
 
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ERRORS } from 'src/constants/errors';
-import { EXPIRE_JWT_TIME } from 'src/constants/etc';
+import { EXPIRE_JWT_TIME, EXPIRE_LINK_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
-import { sendMail } from 'src/services/utils/email';
-import { registrationMessage } from 'src/services/utils/messages';
+import { sendMail } from 'src/shared/utils/email';
+import { createPasswordMail, registrationMessage } from 'src/shared/utils/messages';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ResetPassWordDTO } from './dto/reset-password.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserIdDto } from './dto/user-by-id.dto';
+import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
 
 @Injectable()
@@ -24,6 +27,8 @@ export class UserService {
     private jwtService: JwtService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(ResetPasswordEntity)
+    private readonly resetPasswordRepository: Repository<ResetPasswordEntity>,
     private configService: ConfigService
   ) {}
 
@@ -61,7 +66,12 @@ export class UserService {
 
     const token = await this.createToken(newUser);
 
-    sendMail({ ...newUser, password: body.password }, registrationMessage);
+    const payload = registrationMessage({
+      ...newUser,
+      password: body.password,
+    });
+
+    sendMail(payload);
 
     return { user: await this.userSerializer(newUser), token };
   }
@@ -152,8 +162,82 @@ export class UserService {
     return this.getUserById(user.id);
   }
 
+  async updatePasswordRequest(body: { email: string }) {
+    const { email } = body;
+    const isSend = await this.resetPasswordRepository.findOne({
+      where: { email: email.toLowerCase() },
+    });
+
+    if (isSend) {
+      await this.resetPasswordRepository.delete(isSend.id);
+    }
+
+    const user = await this.userRepository.findOne({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new HttpException(ERRORS.notExist, HttpStatus.BAD_REQUEST);
+    }
+
+    const token = uuid();
+    await this.resetPasswordRepository.save({
+      email,
+      token,
+    });
+
+    const payload = createPasswordMail(user, token);
+    sendMail(payload);
+
+    return {
+      message: 'Success',
+    };
+  }
+
   async addUsersTrainer(trainerAdminId: string, body: UserIdDto) {
     const user = await this.getUserById(body.userId);
     return this.updateUser({ ...user, trainerAdminId });
+  }
+
+  async updatePassword(body: ResetPassWordDTO) {
+    const resetPassModel = await this.resetPasswordRepository.findOne({
+      where: { token: body.token },
+    });
+
+    const email = resetPassModel?.email || body?.email;
+
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    if (user && !resetPassModel) {
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
+    }
+    if (
+      resetPassModel &&
+      new Date().getTime() - new Date(resetPassModel.created).getTime() >
+        EXPIRE_LINK_TIME
+    ) {
+      await this.resetPasswordRepository.delete(resetPassModel.id);
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.BAD_REQUEST);
+    }
+    if (
+      user &&
+      !body.token &&
+      !(await bcrypt.compare(body.password, user.password))
+    ) {
+      throw new HttpException(ERRORS.invalid, HttpStatus.FORBIDDEN);
+    }
+    const newPassword = await bcrypt.hash(body.newPassword, 10);
+    await this.userRepository.update(user.id, {
+      password: newPassword,
+    });
+    if (body.token) {
+      await this.resetPasswordRepository.delete(resetPassModel.id);
+    }
+
+    return {
+      message: 'Success',
+    };
   }
 }

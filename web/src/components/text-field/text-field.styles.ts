@@ -10,7 +10,7 @@ import { ITextFieldStylesProps } from './text-field.typings';
 export const TextFieldStyled = {
   Wrapper: styled.div<{ error?: string }>`
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 
     svg {
       position: absolute;
@@ -25,7 +25,7 @@ export const TextFieldStyled = {
 
   Input: styled.input<ITextFieldStylesProps>`
     background: ${COLORS.white};
-    border: 0;
+    border: 1px solid transparent;
     border-radius: 7.5px;
     font-size: ${FONT_SIZES.medium};
     font-weight: 700;
@@ -41,8 +41,9 @@ export const TextFieldStyled = {
 
     ${({ error }) =>
       error &&
-      `
-        box-shadow: 2.4px 7.2px 19.2px rgba(45, 45, 55, 0.1);
+      css`
+        border: 1px solid ${COLORS.red};
+        color: ${COLORS.red};
       `}
 
     ${Media.mobile(css`
@@ -65,7 +66,7 @@ export const TextFieldStyled = {
     }
 
     ::placeholder {
-      color: ${COLORS.grey};
+      color: ${({ error }) => (error ? COLORS.red : COLORS.grey)};
       font-weight: 400;
       font-family: ${FONTS.frutigerNormal};
     }
@@ -73,7 +74,7 @@ export const TextFieldStyled = {
 
   ErrorBlock: styled.div`
     position: absolute;
-    padding: 3px 10px;
+    padding: 3px 0;
     color: ${COLORS.red};
     font-size: ${FONT_SIZES.small};
     font-weight: 400;

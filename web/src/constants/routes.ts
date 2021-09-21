@@ -5,4 +5,6 @@ export const ROUTES = {
   pdf: '/caas-quiz/pdf',
   signIn: '/sign-in',
   signUp: '/sign-up',
+  resetPassword: '/reset-password',
+  updatePassword: '/password',
 };

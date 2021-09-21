@@ -1,6 +1,7 @@
 export const ERRORS = {
   invalidToken: 'Invalid token',
   invalidRole: 'Invalid role',
+  invalid: "Looks like that's the wrong password. Try again or reset.",
   tokenError: 'Token error',
   codeExpired: 'Code expired',
   linkExpired: 'Link expired',

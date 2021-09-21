@@ -152,10 +152,22 @@ export const STRINGS = {
       'Create an account to access to our specially curated suite of career tools and assessments.Please log in to your account.',
   },
 
+  resetPassword: {
+    title: 'Reset Password',
+    label:
+      'Enter your email address below and we will send you further instruction on how to reset your password.',
+  },
+
+  updatePassword: {
+    title: 'Update Password',
+    label: 'Enter your new password.',
+  },
+
   button: {
     next: 'Next',
     back: 'Back',
     submit: 'Submit',
+    cancel: 'Cancel',
     print: 'Print',
     result: 'See Results',
     quizCaas: 'Go to CAAS Quiz',
@@ -167,13 +179,18 @@ export const STRINGS = {
     signUpNow: 'Sign up now',
     forgetPassword: 'Forget Password',
     returnSignIn: 'Return to Sign In',
+    resetPassword: 'Reset Password',
+    updatePassword: 'Update Password',
   },
 
   input: {
-    email: 'Email',
-    password: 'Password',
-    firstName: 'First Name',
-    lastName: 'Last Name',
+    email: '* Email',
+    password: '* Password',
+    currentPassword: '* Current Password',
+    newPassword: '* New Password',
+    confirmPassword: '* Confirm Password',
+    firstName: '* First Name',
+    lastName: '* Last Name',
   },
 
   mainPage: {

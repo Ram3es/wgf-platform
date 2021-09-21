@@ -21,6 +21,7 @@ export const SignIn: React.FC = () => {
     signInHandler,
     redirectToSignUp,
     checkboxHandler,
+    redirectToResetPassword,
     signInData,
     isRemember,
   } = useSignInState();
@@ -97,6 +98,12 @@ export const SignIn: React.FC = () => {
                     isChecked={isRemember}
                     boxWidth={20}
                     boxHeight={20}
+                  />
+                  <Button
+                    title={STRINGS.button.forgetPassword}
+                    onClick={redirectToResetPassword}
+                    color={COLORS.blue}
+                    variant="text"
                   />
                 </SignInStyles.Settings>
                 <Button

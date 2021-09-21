@@ -5,6 +5,9 @@ export const USER_ROUTES = {
   signIn: 'sign-in',
   logOut: 'logout',
   getUserById: 'get-user-by-id',
+  resetPassword: 'password/:token',
+  updatePassword: 'update-password',
+  resetPasswordRequest: 'reset-password-request',
   createTrainerAdmin: 'create-trainer-admin',
   addUsersTrainer: 'add-users-trainer',
 };

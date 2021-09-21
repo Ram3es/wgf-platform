@@ -7,7 +7,7 @@ export const COLORS = {
   authBg: '#F2F1F2',
   green: '#00A651',
   greenLite: '#8DC63F',
-  red: '#DF0003',
+  red: '#FF000E',
   yellow: '#FFD530',
   pink: '#EF60A2',
   blue: '#00AEEF',

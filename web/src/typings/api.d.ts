@@ -87,3 +87,9 @@ interface IQuizItem {
   currentPage: number;
   result: IResults;
 }
+
+interface IUpdatePassword {
+  email: string;
+  newPassword: string;
+  token: string;
+}

@@ -52,6 +52,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_WEB_BASE_URL: ${{ secrets.WEB_BASE_URL }}
+          envkey_API_BASE_URL: ${{ secrets.API_BASE_URL }}
           envkey_EMAIL_ADRESS_FROM: ${{ secrets.EMAIL_ADRESS_FROM }}
           envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
           envkey_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

@@ -37,7 +37,7 @@ export const SignInStyles = {
   Footer: styled.div`
     display: flex;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 20px;
 
     button {
       margin-left: -10px;
