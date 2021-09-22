@@ -3,7 +3,9 @@ import { Formik } from 'formik';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
+import { Header } from '@components/header';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
@@ -17,7 +19,7 @@ import { EmailFormSchema } from './reset-password.constants';
 
 import { FormStyles } from '@styles/components/form.styles';
 import { TitleStyles } from '@styles/components/title-styles';
-import { ResetPasswordStyles } from './reset-password.styles';
+import { ResetPasswordStyles as Styled } from './reset-password.styles';
 
 export const ResetPassword: React.FC = () => {
   const [resetPasswordData, setResetPasswordData] = useState({ email: '' });
@@ -46,77 +48,87 @@ export const ResetPassword: React.FC = () => {
   };
 
   return (
-    <Formik
-      initialValues={resetPasswordData}
-      validateOnChange
-      onSubmit={resetPasswordHandler}
-      validationSchema={EmailFormSchema}
-    >
-      {({
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        isValid,
-        handleSubmit,
-      }) => {
-        const handleDataChange = (
-          event: React.ChangeEvent<HTMLInputElement>
-        ) => {
-          handleChange(event);
-          setResetPasswordData((prev) => ({
-            ...prev,
-            email: event.target.value,
-          }));
-        };
+    <>
+      <Header />
+      <Backdrop />
+      <Formik
+        initialValues={resetPasswordData}
+        validateOnChange
+        onSubmit={resetPasswordHandler}
+        validationSchema={EmailFormSchema}
+      >
+        {({
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          isValid,
+          handleSubmit,
+        }) => {
+          const handleDataChange = (
+            event: React.ChangeEvent<HTMLInputElement>
+          ) => {
+            handleChange(event);
+            setResetPasswordData((prev) => ({
+              ...prev,
+              email: event.target.value,
+            }));
+          };
 
-        return (
-          <FormStyles.Section>
-            <FormStyles.Wrapper>
-              <ResetPasswordStyles.Wrapper>
-                <TitleStyles.h1 textAlign="center" color={COLORS.grey} mb={40}>
-                  {STRINGS.resetPassword.title}
-                </TitleStyles.h1>
-                <ResetPasswordStyles.FormLabel>
-                  {STRINGS.resetPassword.label}
-                </ResetPasswordStyles.FormLabel>
-                <FormStyles.Form>
-                  <FormStyles.Item>
-                    <TextField
-                      type="text"
-                      name="email"
-                      placeholder={STRINGS.input.email}
-                      onChange={handleDataChange}
-                      onBlur={handleBlur}
-                      value={resetPasswordData.email}
-                      tabIndex={1}
-                      autoCapitalize="none"
-                      error={touched.email && errors.email ? errors.email : ''}
-                      isFullWidth
+          return (
+            <FormStyles.Section>
+              <FormStyles.Wrapper>
+                <Styled.Wrapper>
+                  <TitleStyles.h1
+                    textAlign="center"
+                    color={COLORS.grey}
+                    mb={40}
+                  >
+                    {STRINGS.resetPassword.title}
+                  </TitleStyles.h1>
+                  <Styled.FormLabel>
+                    {STRINGS.resetPassword.label}
+                  </Styled.FormLabel>
+                  <FormStyles.Form>
+                    <FormStyles.Item>
+                      <TextField
+                        type="text"
+                        name="email"
+                        placeholder={STRINGS.input.email}
+                        onChange={handleDataChange}
+                        onBlur={handleBlur}
+                        value={resetPasswordData.email}
+                        tabIndex={1}
+                        autoCapitalize="none"
+                        error={
+                          touched.email && errors.email ? errors.email : ''
+                        }
+                        isFullWidth
+                      />
+                    </FormStyles.Item>
+                  </FormStyles.Form>
+                  <Styled.Footer>
+                    <Button
+                      title={STRINGS.button.resetPassword}
+                      onClick={handleSubmit}
+                      color={COLORS.blue}
+                      type="submit"
+                      isDisabled={!isValid}
+                      minWidth={150}
                     />
-                  </FormStyles.Item>
-                </FormStyles.Form>
-                <ResetPasswordStyles.Footer>
-                  <Button
-                    title={STRINGS.button.resetPassword}
-                    onClick={handleSubmit}
-                    color={COLORS.blue}
-                    type="submit"
-                    isDisabled={!isValid}
-                    minWidth={150}
-                  />
-                  <Button
-                    title={STRINGS.button.cancel}
-                    onClick={redirectToSignIn}
-                    variant="cancel"
-                    color={COLORS.blue}
-                  />
-                </ResetPasswordStyles.Footer>
-              </ResetPasswordStyles.Wrapper>
-            </FormStyles.Wrapper>
-          </FormStyles.Section>
-        );
-      }}
-    </Formik>
+                    <Button
+                      title={STRINGS.button.cancel}
+                      onClick={redirectToSignIn}
+                      variant="cancel"
+                      color={COLORS.blue}
+                    />
+                  </Styled.Footer>
+                </Styled.Wrapper>
+              </FormStyles.Wrapper>
+            </FormStyles.Section>
+          );
+        }}
+      </Formik>
+    </>
   );
 };

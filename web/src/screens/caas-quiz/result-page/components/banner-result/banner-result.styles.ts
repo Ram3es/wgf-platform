@@ -10,7 +10,7 @@ import { IMAGES } from '@constants/images';
 export const BannerStyles = {
   Wrapper: styled.div`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     padding: 0 0 50px;
     border-bottom: 2px solid ${COLORS.greenLite};
     margin-bottom: 50px;
@@ -41,7 +41,7 @@ export const BannerStyles = {
 
   Title: styled.h1`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     font-weight: 700;
     font-family: ${FONTS.frutigerBold};
     color: ${COLORS.greyLite};
@@ -133,7 +133,7 @@ export const BannerStyles = {
   `,
   Text: styled.div`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     text-align: left;
     margin-right: 20px;
     width: 47%;

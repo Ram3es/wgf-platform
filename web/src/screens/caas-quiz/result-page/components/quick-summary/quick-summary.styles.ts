@@ -5,6 +5,8 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
+import { Z_INDEX } from '@constants/z-indexes';
+
 export const QuickSummaryStyles = {
   Wrapper: styled.div`
     padding: 10px;
@@ -114,14 +116,14 @@ export const QuickSummaryStyles = {
 
     p {
       position: relative;
-      z-index: 5;
+      z-index: ${Z_INDEX.medium};
     }
   `,
   TitleStrong: styled.strong<{ color?: string }>`
     font-weight: 700;
     font-family: ${FONTS.frutigerBold};
     position: relative;
-    z-index: 5;
+    z-index: ${Z_INDEX.medium};
     color: ${({ color }) => (color ? color : COLORS.default)};
   `,
 };

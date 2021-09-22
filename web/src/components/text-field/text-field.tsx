@@ -4,7 +4,7 @@ import { Shape } from '@components/icons/shape';
 
 import { ITextFieldProps } from './text-field.typings';
 
-import { TextFieldStyled } from './text-field.styles';
+import { TextFieldStyled as Styled } from './text-field.styles';
 
 export const TextField: React.FC<ITextFieldProps> = ({
   width,
@@ -22,8 +22,8 @@ export const TextField: React.FC<ITextFieldProps> = ({
   autoCapitalize,
 }) => (
   <div>
-    <TextFieldStyled.Wrapper error={error}>
-      <TextFieldStyled.Input
+    <Styled.Wrapper error={error}>
+      <Styled.Input
         width={width}
         isFullWidth={isFullWidth}
         error={error}
@@ -39,9 +39,7 @@ export const TextField: React.FC<ITextFieldProps> = ({
         autoCapitalize={autoCapitalize}
       />
       {type === 'password' && <Shape />}
-      {error && (
-        <TextFieldStyled.ErrorBlock>{error}</TextFieldStyled.ErrorBlock>
-      )}
-    </TextFieldStyled.Wrapper>
+      {error && <Styled.ErrorBlock>{error}</Styled.ErrorBlock>}
+    </Styled.Wrapper>
   </div>
 );

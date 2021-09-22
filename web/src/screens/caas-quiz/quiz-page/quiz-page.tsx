@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Container } from '@styles/components/container';
 import { BannerImage } from '../components/banner-image';
-import { Header } from '../components/header';
+import { HeaderQuiz } from '../components/header-quiz';
 import { Banner } from './components/banner';
 import { Quiz } from './components/quiz';
 
 export const QuizPage: React.FC = () => (
   <>
-    <Header />
+    <HeaderQuiz />
     <BannerImage />
     <Container>
       <Banner />

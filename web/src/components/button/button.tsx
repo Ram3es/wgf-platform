@@ -4,7 +4,7 @@ import { IMAGES } from '@constants/images';
 
 import { IButtonProps } from './button.typings';
 
-import { ButtonStyles } from './button.styles';
+import { ButtonStyles as Styled } from './button.styles';
 
 export const Button: React.FC<IButtonProps> = ({
   title,
@@ -17,7 +17,7 @@ export const Button: React.FC<IButtonProps> = ({
   image,
   minWidth,
 }) => (
-  <ButtonStyles
+  <Styled
     isFullWidth={isFullWidth}
     variant={variant}
     onClick={onClick}
@@ -31,5 +31,5 @@ export const Button: React.FC<IButtonProps> = ({
     {image === 'back' && <img src={IMAGES.back} />}
     <span>{title}</span>
     {image === 'next' && <img src={IMAGES.next} />}
-  </ButtonStyles>
+  </Styled>
 );

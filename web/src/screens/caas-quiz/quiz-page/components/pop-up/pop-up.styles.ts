@@ -4,12 +4,14 @@ import { COLORS } from '@styles/colors';
 import { FONT_SIZES } from '@styles/font-sizes';
 import { Media } from '@styles/media';
 
+import { Z_INDEX } from '@constants/z-indexes';
+
 export const PopUpStyles = {
   Wrapper: styled.div`
     position: absolute;
     top: -100px;
     left: 50%;
-    z-index: 20;
+    z-index: ${Z_INDEX.high};
     transform: translateX(-50%);
     padding: 85px 75px 65px;
     background: ${COLORS.white};
@@ -86,7 +88,7 @@ export const PopUpStyles = {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 10;
+    z-index: ${Z_INDEX.medium};
     backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.5);
   `,

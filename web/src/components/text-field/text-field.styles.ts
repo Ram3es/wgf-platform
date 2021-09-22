@@ -5,6 +5,8 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
+import { Z_INDEX } from '@constants/z-indexes';
+
 import { ITextFieldStylesProps } from './text-field.typings';
 
 export const TextFieldStyled = {
@@ -79,6 +81,6 @@ export const TextFieldStyled = {
     font-size: ${FONT_SIZES.small};
     font-weight: 400;
     border-radius: 5px;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
   `,
 };

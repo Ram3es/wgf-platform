@@ -26,7 +26,6 @@ export const SignInStyles = {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 10px;
     margin-bottom: 40px;
 
     & > * {

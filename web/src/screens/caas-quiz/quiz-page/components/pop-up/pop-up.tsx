@@ -18,7 +18,7 @@ import { STRINGS } from '@constants/strings';
 import { IPopUpProps, IUserRadioList } from './pop-up.typings';
 
 import { TitleStyles } from '@styles/components/title-styles';
-import { PopUpStyles } from './pop-up.styles';
+import { PopUpStyles as Styled } from './pop-up.styles';
 
 export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
   const history = useHistory();
@@ -67,10 +67,10 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
 
   return (
     <Container>
-      <PopUpStyles.BackDrop onClick={closeModal} />
-      <PopUpStyles.Wrapper>
+      <Styled.BackDrop onClick={closeModal} />
+      <Styled.Wrapper>
         <p>{STRINGS.popUp.radioWrapperLabel}</p>
-        <PopUpStyles.RadioGroupWrapper>
+        <Styled.RadioGroupWrapper>
           <RadioButtonGroup
             initValue={user.jobStatus || 'Student'}
             isImage
@@ -79,27 +79,27 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
             radioWidth="24px"
             radioHeight="24px"
           />
-        </PopUpStyles.RadioGroupWrapper>
-        <PopUpStyles.Title>
+        </Styled.RadioGroupWrapper>
+        <Styled.Title>
           <TitleStyles.h2 color={COLORS.greenLite} textAlign="left">
             {STRINGS.popUp.title}
           </TitleStyles.h2>
-        </PopUpStyles.Title>
+        </Styled.Title>
         <Checkbox
           isChecked={user.isSubscriber}
           onChange={checkboxHandler}
           label={STRINGS.popUp.checkbox}
         />
-        <PopUpStyles.Text>{parse(STRINGS.popUp.text)}</PopUpStyles.Text>
-        <PopUpStyles.ButtonWrapper>
+        <Styled.Text>{parse(STRINGS.popUp.text)}</Styled.Text>
+        <Styled.ButtonWrapper>
           <Button
             title={STRINGS.button.result}
             onClick={onClick}
             color={COLORS.greenLite}
             image="next"
           />
-        </PopUpStyles.ButtonWrapper>
-      </PopUpStyles.Wrapper>
+        </Styled.ButtonWrapper>
+      </Styled.Wrapper>
     </Container>
   );
 };

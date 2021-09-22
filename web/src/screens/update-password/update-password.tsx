@@ -3,7 +3,9 @@ import { Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
+import { Header } from '@components/header';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
@@ -17,7 +19,7 @@ import { UpdatePasswordFormSchema, updatePasswordInitial } from './update-passwo
 
 import { FormStyles } from '@styles/components/form.styles';
 import { TitleStyles } from '@styles/components/title-styles';
-import { UpdatePasswordStyles } from './update-password.styles';
+import { UpdatePasswordStyles as Styled } from './update-password.styles';
 
 export const UpdatePassword: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);
@@ -60,112 +62,122 @@ export const UpdatePassword: React.FC = () => {
   };
 
   return (
-    <Formik
-      initialValues={updatePasswordData}
-      validateOnChange
-      onSubmit={resetPasswordHandler}
-      validationSchema={UpdatePasswordFormSchema}
-    >
-      {({
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        isValid,
-        handleSubmit,
-      }) => {
-        const handlePasswordChange = (
-          event: React.ChangeEvent<HTMLInputElement>
-        ) => {
-          handleChange(event);
-          setUpdatePasswordData((prev) => ({
-            ...prev,
-            [event.target.name]: event.target.value,
-          }));
-        };
+    <>
+      <Header />
+      <Backdrop />
+      <Formik
+        initialValues={updatePasswordData}
+        validateOnChange
+        onSubmit={resetPasswordHandler}
+        validationSchema={UpdatePasswordFormSchema}
+      >
+        {({
+          errors,
+          touched,
+          handleBlur,
+          handleChange,
+          isValid,
+          handleSubmit,
+        }) => {
+          const handlePasswordChange = (
+            event: React.ChangeEvent<HTMLInputElement>
+          ) => {
+            handleChange(event);
+            setUpdatePasswordData((prev) => ({
+              ...prev,
+              [event.target.name]: event.target.value,
+            }));
+          };
 
-        return (
-          <FormStyles.Section>
-            <FormStyles.Wrapper>
-              <UpdatePasswordStyles.Wrapper>
-                <TitleStyles.h1 textAlign="center" color={COLORS.grey} mb={40}>
-                  {STRINGS.updatePassword.title}
-                </TitleStyles.h1>
-                <UpdatePasswordStyles.FormLabel>
-                  {STRINGS.updatePassword.label}
-                </UpdatePasswordStyles.FormLabel>
-                <FormStyles.Form>
-                  <FormStyles.Item>
-                    <TextField
-                      type="text"
-                      name="email"
-                      placeholder={STRINGS.input.email}
-                      onChange={handlePasswordChange}
-                      onBlur={handleBlur}
-                      value={updatePasswordData.email}
-                      tabIndex={1}
-                      autoCapitalize="none"
-                      error={touched.email && errors.email ? errors.email : ''}
-                      isFullWidth
+          return (
+            <FormStyles.Section>
+              <FormStyles.Wrapper>
+                <Styled.Wrapper>
+                  <TitleStyles.h1
+                    textAlign="center"
+                    color={COLORS.grey}
+                    mb={40}
+                  >
+                    {STRINGS.updatePassword.title}
+                  </TitleStyles.h1>
+                  <Styled.FormLabel>
+                    {STRINGS.updatePassword.label}
+                  </Styled.FormLabel>
+                  <FormStyles.Form>
+                    <FormStyles.Item>
+                      <TextField
+                        type="text"
+                        name="email"
+                        placeholder={STRINGS.input.email}
+                        onChange={handlePasswordChange}
+                        onBlur={handleBlur}
+                        value={updatePasswordData.email}
+                        tabIndex={1}
+                        autoCapitalize="none"
+                        error={
+                          touched.email && errors.email ? errors.email : ''
+                        }
+                        isFullWidth
+                      />
+                    </FormStyles.Item>
+                    <FormStyles.Item>
+                      <TextField
+                        type="password"
+                        name="newPassword"
+                        placeholder={STRINGS.input.newPassword}
+                        onChange={handlePasswordChange}
+                        onBlur={handleBlur}
+                        value={updatePasswordData.newPassword}
+                        tabIndex={2}
+                        autoCapitalize="none"
+                        error={
+                          touched.newPassword && errors.newPassword
+                            ? errors.newPassword
+                            : ''
+                        }
+                        isFullWidth
+                      />
+                    </FormStyles.Item>
+                    <FormStyles.Item>
+                      <TextField
+                        type="password"
+                        name="confirmPassword"
+                        placeholder={STRINGS.input.confirmPassword}
+                        onChange={handlePasswordChange}
+                        onBlur={handleBlur}
+                        value={updatePasswordData.confirmPassword}
+                        tabIndex={3}
+                        autoCapitalize="none"
+                        error={
+                          touched.confirmPassword && errors.confirmPassword
+                            ? errors.confirmPassword
+                            : ''
+                        }
+                        isFullWidth
+                      />
+                    </FormStyles.Item>
+                  </FormStyles.Form>
+                  <Styled.Footer>
+                    <Button
+                      title={STRINGS.button.updatePassword}
+                      onClick={handleSubmit}
+                      color={COLORS.blue}
+                      type="submit"
+                      isDisabled={!isValid}
                     />
-                  </FormStyles.Item>
-                  <FormStyles.Item>
-                    <TextField
-                      type="password"
-                      name="newPassword"
-                      placeholder={STRINGS.input.newPassword}
-                      onChange={handlePasswordChange}
-                      onBlur={handleBlur}
-                      value={updatePasswordData.newPassword}
-                      tabIndex={2}
-                      autoCapitalize="none"
-                      error={
-                        touched.newPassword && errors.newPassword
-                          ? errors.newPassword
-                          : ''
-                      }
-                      isFullWidth
+                    <Button
+                      title={STRINGS.button.cancel}
+                      onClick={redirectToSignIn}
+                      variant="cancel"
+                      color={COLORS.blue}
                     />
-                  </FormStyles.Item>
-                  <FormStyles.Item>
-                    <TextField
-                      type="password"
-                      name="confirmPassword"
-                      placeholder={STRINGS.input.confirmPassword}
-                      onChange={handlePasswordChange}
-                      onBlur={handleBlur}
-                      value={updatePasswordData.confirmPassword}
-                      tabIndex={3}
-                      autoCapitalize="none"
-                      error={
-                        touched.confirmPassword && errors.confirmPassword
-                          ? errors.confirmPassword
-                          : ''
-                      }
-                      isFullWidth
-                    />
-                  </FormStyles.Item>
-                </FormStyles.Form>
-                <UpdatePasswordStyles.Footer>
-                  <Button
-                    title={STRINGS.button.updatePassword}
-                    onClick={handleSubmit}
-                    color={COLORS.blue}
-                    type="submit"
-                    isDisabled={!isValid}
-                  />
-                  <Button
-                    title={STRINGS.button.cancel}
-                    onClick={redirectToSignIn}
-                    variant="cancel"
-                    color={COLORS.blue}
-                  />
-                </UpdatePasswordStyles.Footer>
-              </UpdatePasswordStyles.Wrapper>
-            </FormStyles.Wrapper>
-          </FormStyles.Section>
-        );
-      }}
-    </Formik>
+                  </Styled.Footer>
+                </Styled.Wrapper>
+              </FormStyles.Wrapper>
+            </FormStyles.Section>
+          );
+        }}
+      </Formik>
+    </>
   );
 };

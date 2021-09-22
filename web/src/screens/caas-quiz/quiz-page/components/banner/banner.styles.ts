@@ -5,10 +5,12 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
+import { Z_INDEX } from '@constants/z-indexes';
+
 export const BannerStyles = {
   Wrapper: styled.div`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     display: flex;
     justify-content: space-between;
     padding: 0 0 30px;
@@ -30,7 +32,7 @@ export const BannerStyles = {
 
   Title: styled.h1`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     font-size: ${FONT_SIZES.titleMain};
     font-weight: 700;
     font-family: ${FONTS.frutigerBold};
@@ -69,7 +71,7 @@ export const BannerStyles = {
 
   Text: styled.div`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     text-align: center;
     max-width: 540px;
 

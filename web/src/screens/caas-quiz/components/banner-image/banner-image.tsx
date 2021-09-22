@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { BannerImageStyles } from './banner-image.styles';
+import { BannerImageStyles as Styled } from './banner-image.styles';
 
 export const BannerImage: React.FC = () => (
-  <BannerImageStyles>
+  <Styled>
     <svg
       width="375"
       height="244"
@@ -30,5 +30,5 @@ export const BannerImage: React.FC = () => (
         </linearGradient>
       </defs>
     </svg>
-  </BannerImageStyles>
+  </Styled>
 );

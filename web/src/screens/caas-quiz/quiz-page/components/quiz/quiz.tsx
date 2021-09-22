@@ -13,7 +13,7 @@ import { useQuizState } from './quiz.state';
 import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
-import { QuizStyles } from './quiz.styles';
+import { QuizStyles as Styled } from './quiz.styles';
 
 export const Quiz: React.FC = () => {
   const { replace } = useHistory();
@@ -49,7 +49,7 @@ export const Quiz: React.FC = () => {
 
   return (
     <div>
-      <QuizStyles.Wrapper>
+      <Styled.Wrapper>
         <TitleStyles.h2>
           {STRINGS.form.title} {user?.firstName}
         </TitleStyles.h2>
@@ -60,7 +60,7 @@ export const Quiz: React.FC = () => {
           currentQuestionList={questionListForPage}
           errorRef={errorRef}
         />
-        <QuizStyles.ControlPanel>
+        <Styled.ControlPanel>
           {currentPage === 1 ? (
             <div />
           ) : (
@@ -78,8 +78,8 @@ export const Quiz: React.FC = () => {
             image="next"
             type="submit"
           />
-        </QuizStyles.ControlPanel>
-      </QuizStyles.Wrapper>
+        </Styled.ControlPanel>
+      </Styled.Wrapper>
     </div>
   );
 };

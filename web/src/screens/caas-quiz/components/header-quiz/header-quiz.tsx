@@ -5,17 +5,17 @@ import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 
-import { HeaderStyles } from './header.styles';
+import { HeaderStyles as Styled } from './header-quiz.styles';
 
-export const Header: React.FC = () => (
-  <HeaderStyles.Wrapper>
-    <HeaderStyles.ProductLogo>
+export const HeaderQuiz: React.FC = () => (
+  <Styled.Wrapper>
+    <Styled.ProductLogo>
       <img src={IMAGES.productLogo} alt={STRINGS.altLogo} />
-    </HeaderStyles.ProductLogo>
-    <HeaderStyles.CompanyLogo>
+    </Styled.ProductLogo>
+    <Styled.CompanyLogo>
       <NavLink to={ROUTES.main}>
         <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />
       </NavLink>
-    </HeaderStyles.CompanyLogo>
-  </HeaderStyles.Wrapper>
+    </Styled.CompanyLogo>
+  </Styled.Wrapper>
 );

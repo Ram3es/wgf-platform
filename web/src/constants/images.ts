@@ -24,4 +24,8 @@ export const IMAGES = {
   starHigh: require('../assets/img/star-high.svg').default,
   superPower: require('../assets/img/superpower-icon.svg').default,
   close: require('../assets/img/close.svg').default,
+  circleBackdrop: require('../assets/img/circle-backdrop.png').default,
+  starTopBackdrop: require('../assets/img/star-backdrop.png').default,
+  starBottomBackdrop: require('../assets/img/star-bottom-backdrop.png').default,
+  ovalBackdrop: require('../assets/img/oval-backdrop.png').default,
 };

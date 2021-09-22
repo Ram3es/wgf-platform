@@ -6,7 +6,7 @@ import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
 import { BannerImage } from '../components/banner-image';
-import { Header } from '../components/header';
+import { HeaderQuiz } from '../components/header-quiz';
 import { BannerResult } from './components/banner-result';
 import { NextSteps } from './components/next-steps';
 import { QuickSummary } from './components/quick-summary';
@@ -26,7 +26,7 @@ export const ResultPage: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <HeaderQuiz />
       <BannerImage />
       <Container>
         <BannerResult withBackground />

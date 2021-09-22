@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import { Media } from '@styles/media';
 
+import { Z_INDEX } from '@constants/z-indexes';
+
 export const HeaderStyles = {
   Wrapper: styled.div`
     padding: 40px 60px;
@@ -29,7 +31,7 @@ export const HeaderStyles = {
   `,
   ProductLogo: styled.div`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
     padding-left: 5%;
 
     ${Media.smallLandscape`
@@ -49,7 +51,7 @@ export const HeaderStyles = {
   `,
   CompanyLogo: styled.div`
     position: relative;
-    z-index: 1;
+    z-index: ${Z_INDEX.low};
 
     ${Media.smallLandscape`
       margin-bottom: 60px;

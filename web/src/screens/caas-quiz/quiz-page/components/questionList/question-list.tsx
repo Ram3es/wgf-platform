@@ -7,7 +7,7 @@ import { RADIO_LIST_QUIZ } from './question-list.constants';
 
 import { IQuestionListProps } from './question-list.typings';
 
-import { QuestionListStyles } from './question-list.styles';
+import { QuestionListStyles as Styled } from './question-list.styles';
 
 export const QuestionList: React.FC<IQuestionListProps> = ({
   list,
@@ -40,20 +40,15 @@ export const QuestionList: React.FC<IQuestionListProps> = ({
   };
 
   return (
-    <QuestionListStyles.Wrapper>
-      <QuestionListStyles.Text>
-        {STRINGS.questionListText}
-      </QuestionListStyles.Text>
+    <Styled.Wrapper>
+      <Styled.Text>{STRINGS.questionListText}</Styled.Text>
       {currentQuestionList.map(
         ({ title, order, answers, isError, id }, index) => (
-          <QuestionListStyles.Item key={id}>
-            <QuestionListStyles.ItemTitle
-              isError={!!isError}
-              ref={errorRef.current[index]}
-            >
+          <Styled.Item key={id}>
+            <Styled.ItemTitle isError={!!isError} ref={errorRef.current[index]}>
               {order}. {title}
-            </QuestionListStyles.ItemTitle>
-            <QuestionListStyles.ItemRadioWrapper>
+            </Styled.ItemTitle>
+            <Styled.ItemRadioWrapper>
               <RadioButtonGroup
                 isVariantQuiz
                 containerWidth="20%"
@@ -61,10 +56,10 @@ export const QuestionList: React.FC<IQuestionListProps> = ({
                 onChange={changeHandler(order)}
                 initValue={+answers[0]?.value ?? 0}
               />
-            </QuestionListStyles.ItemRadioWrapper>
-          </QuestionListStyles.Item>
+            </Styled.ItemRadioWrapper>
+          </Styled.Item>
         )
       )}
-    </QuestionListStyles.Wrapper>
+    </Styled.Wrapper>
   );
 };

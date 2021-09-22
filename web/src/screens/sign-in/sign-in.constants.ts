@@ -14,7 +14,7 @@ export const initialSignInState: ISignInState = {
 };
 
 export const LoginFormSchema = yup.object().shape({
-  password: yup.string().max(50).required('This field cannot be empty'),
+  password: yup.string().max(50).min(8).required('This field cannot be empty'),
   email: yup
     .string()
     .max(50)

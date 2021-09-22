@@ -4,7 +4,7 @@ import { Check } from '@components/icons';
 
 import { IRadioButtonProps } from './radio-button-group.typings';
 
-import { RadioButtonGroupStyles } from './radio-button-group.styles';
+import { RadioButtonGroupStyles as Styled } from './radio-button-group.styles';
 
 export const RadioButtonGroup: React.FC<IRadioButtonProps> = ({
   onChange,
@@ -26,12 +26,12 @@ export const RadioButtonGroup: React.FC<IRadioButtonProps> = ({
   return (
     <>
       {radioGroup.map(({ value, label, color }, i) => (
-        <RadioButtonGroupStyles.Wrapper
+        <Styled.Wrapper
           isVariantQuiz={isVariantQuiz}
           key={i}
           containerWidth={containerWidth}
         >
-          <RadioButtonGroupStyles.RadioItem
+          <Styled.RadioItem
             color={color}
             onClick={changeHandler(value)}
             radioWidth={radioWidth}
@@ -40,15 +40,15 @@ export const RadioButtonGroup: React.FC<IRadioButtonProps> = ({
             checked={radioValue === value}
           >
             {isImage && radioValue === value && <Check />}
-          </RadioButtonGroupStyles.RadioItem>
-          <RadioButtonGroupStyles.Label
+          </Styled.RadioItem>
+          <Styled.Label
             color={color}
             onClick={changeHandler(value)}
             isVariantQuiz={isVariantQuiz}
           >
             {label}
-          </RadioButtonGroupStyles.Label>
-        </RadioButtonGroupStyles.Wrapper>
+          </Styled.Label>
+        </Styled.Wrapper>
       ))}
     </>
   );

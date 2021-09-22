@@ -4,7 +4,7 @@ import { Check } from '@components/icons';
 
 import { ICheckboxProps } from './checkbox.typings';
 
-import { CheckboxStyles } from './checkbox.styles';
+import { CheckboxStyles as Styled } from './checkbox.styles';
 
 export const Checkbox: React.FC<ICheckboxProps> = ({
   onChange,
@@ -13,15 +13,15 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
   boxHeight,
   boxWidth,
 }) => (
-  <CheckboxStyles.Wrapper boxHeight={boxHeight} boxWidth={boxWidth}>
-    <CheckboxStyles.RadioItem
+  <Styled.Wrapper boxHeight={boxHeight} boxWidth={boxWidth}>
+    <Styled.RadioItem
       onClick={onChange}
       isChecked={isChecked}
       boxHeight={boxHeight}
       boxWidth={boxWidth}
     >
       {isChecked && <Check />}
-    </CheckboxStyles.RadioItem>
-    <CheckboxStyles.Label onClick={onChange}>{label}</CheckboxStyles.Label>
-  </CheckboxStyles.Wrapper>
+    </Styled.RadioItem>
+    <Styled.Label onClick={onChange}>{label}</Styled.Label>
+  </Styled.Wrapper>
 );
