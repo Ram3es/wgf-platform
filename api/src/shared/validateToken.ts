@@ -15,6 +15,7 @@ export const validateToken = async (auth: string, roles?: string[]) => {
     if (!roles?.includes(resp.role)) {
       throw new HttpException(ERRORS.invalidRole, HttpStatus.FORBIDDEN);
     }
+
     if (!resp.expiresIn || Date.now() > resp.expiresIn) {
       throw new HttpException(ERRORS.tokenExpired, HttpStatus.UNAUTHORIZED);
     }

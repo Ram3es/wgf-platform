@@ -9,18 +9,11 @@ export const POST = async <T, B>(
 ): Promise<AxiosResponse<T>> =>
   getInstance().post(`${BASE_URL}${endPoint}`, data);
 
-export const GET = async <T, P = undefined>(
+export const UPDATE = async <T, B = undefined>(
   endPoint: string,
-  params?: P
-): Promise<AxiosResponse<T>> => axios.get(`${BASE_URL}${endPoint}`, { params });
-
-export const DELETE = async <T>(endPoint: string): Promise<AxiosResponse<T>> =>
-  axios.delete(`${BASE_URL}${endPoint}`);
-
-export const UPDATE = async <T, B>(
-  endPoint: string,
-  data: B
-): Promise<AxiosResponse<T>> => axios.put(`${BASE_URL}${endPoint}`, data);
+  data?: B
+): Promise<AxiosResponse<T>> =>
+  getInstance().put(`${BASE_URL}${endPoint}`, data);
 
 const getInstance = () => {
   const instance = axios.create({

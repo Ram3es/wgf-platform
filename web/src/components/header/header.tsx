@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 
@@ -5,8 +6,10 @@ import { Button } from '@components/button';
 import { COLORS } from '@styles/colors';
 
 import { storageService } from '@services/storage/storage';
+import { logOut } from '@services/user.service';
 
 import { IMAGES } from '@constants/images';
+import { errorMessage } from '@constants/pop-up-messages';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { Toast } from '@constants/toasts';
@@ -27,16 +30,24 @@ export const Header: React.FC = () => {
     }
   }, []);
 
-  const logOut = () => {
-    storageService.clearSessionStorage();
-    storageService.clearStorage();
+  const logOutHandler = async () => {
+    try {
+      await logOut();
 
-    Toast.fire({
-      icon: 'success',
-      title: 'Log Out successfully',
-    });
+      storageService.clearSessionStorage();
+      storageService.clearStorage();
 
-    setIsLogOut(false);
+      Toast.fire({
+        icon: 'success',
+        title: 'Log Out successfully',
+      });
+
+      setIsLogOut(false);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
   };
 
   const loginHandler = () => {
@@ -50,7 +61,7 @@ export const Header: React.FC = () => {
       </NavLink>
       {isLogOut ? (
         <Button
-          onClick={logOut}
+          onClick={logOutHandler}
           color={COLORS.grey}
           title={STRINGS.button.logOut}
         />
