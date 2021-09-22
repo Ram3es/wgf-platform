@@ -6,6 +6,7 @@ import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { IMAGES } from '@constants/images';
+import { Z_INDEX } from '@constants/z-indexes';
 
 export const BannerStyles = {
   Wrapper: styled.div`
