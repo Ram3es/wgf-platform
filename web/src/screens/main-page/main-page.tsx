@@ -41,8 +41,8 @@ export const MainPage: React.FC = () => {
     setIsLogOut(false);
   };
 
-  const redirectToSignIn = () => {
-    history.push(ROUTES.signIn);
+  const loginHandler = () => {
+    history.push(ROUTES.signUp);
   };
 
   const redirectToCaasCooperationQuiz = () => {
@@ -75,7 +75,7 @@ export const MainPage: React.FC = () => {
           />
         ) : (
           <Button
-            onClick={redirectToSignIn}
+            onClick={loginHandler}
             color={COLORS.grey}
             title={STRINGS.button.logIn}
           />

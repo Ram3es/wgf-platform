@@ -21,7 +21,7 @@ export const SignUpStyles = {
   `,
   FormLabel: styled.p`
     font-size: ${FONT_SIZES.medium};
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   `,
   Footer: styled.div`
     display: flex;

@@ -21,12 +21,11 @@ export const ResetPasswordStyles = {
   `,
   FormLabel: styled.p`
     font-size: ${FONT_SIZES.medium};
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   `,
   Footer: styled.div`
     display: flex;
     align-items: center;
-    padding-top: 20px;
 
     & > :first-child {
       margin-right: 30px;

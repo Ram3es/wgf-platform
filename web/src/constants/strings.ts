@@ -148,8 +148,7 @@ export const STRINGS = {
 
   signUp: {
     title: 'Let’s Get Started!',
-    label:
-      'Create an account to access to our specially curated suite of career tools and assessments.Please log in to your account.',
+    label: 'Let’s set up your account.',
   },
 
   resetPassword: {
@@ -175,10 +174,10 @@ export const STRINGS = {
     logOut: 'Log Out',
     logIn: 'Log In',
     signIn: 'Sign In',
-    signUp: 'Sign Up',
+    signUp: 'Create Account',
     signUpNow: 'Sign up now',
     forgetPassword: 'Forget Password',
-    returnSignIn: 'Return to Sign In',
+    returnSignIn: 'Go to Sign In',
     resetPassword: 'Reset Password',
     updatePassword: 'Update Password',
   },

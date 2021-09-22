@@ -39,7 +39,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       imageBody: IMAGES.controlBodyImage,
       level: results.control.level,
       description:
-        'Responsible Shapers are self-aware and diligently manage their careers in a disciplined and organised manner. Skilled at making good decisions, they believe that they, and not external forces, have control over their career outcomes.',
+        'Responsible Shapers are self-aware and diligently manage their careers in a disciplined and organised manner. Being good at making decisions, they believe that they, and not external forces, have control over their career outcomes.',
       superPower: 'Decision Making',
       colorTitle: COLORS.white,
     },
@@ -72,7 +72,7 @@ export const getCategoriesList = (results: IResults): IElementCategories[] => {
       imageBody: IMAGES.cooperationBodyImage,
       level: results.cooperation?.level || 'Low',
       description:
-        'Social Collaborators have advanced interpersonal skills that enable them to accelerate their career development. They are often valued team players and good listeners whose pro-active contributions help everybody else succeed.',
+        'Social Collaborators have excellent social abilities that enable them to accelerate their career development. They are often valued team players and good listeners whose pro-active contributions help everybody else succeed.',
       superPower: 'Collaborating',
       colorTitle: COLORS.white,
     },

@@ -109,7 +109,7 @@ export const SignIn: React.FC = () => {
                 <Button
                   title={STRINGS.button.signIn}
                   onClick={handleSubmit}
-                  color={COLORS.greenLite}
+                  color={COLORS.blue}
                   type="submit"
                   isDisabled={!isValid}
                   minWidth={170}
