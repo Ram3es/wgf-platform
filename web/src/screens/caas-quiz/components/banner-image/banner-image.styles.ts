@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { COLORS } from '@styles/colors';
 import { Media } from '@styles/media';
 
 export const BannerImageStyles = styled.div`
@@ -26,5 +27,20 @@ export const BannerImageStyles = styled.div`
   svg {
     width: 100%;
     height: 100%;
+  }
+
+  @media print {
+    top: -120px;
+    left: -40px;
+    width: 55%;
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      path {
+        fill: ${COLORS.greenLite};
+      }
+    }
   }
 `;

@@ -13,14 +13,11 @@ export const getQuestions = (data: { quizId: string }) =>
     data
   );
 
-export const getResults = (data: { quizId: string; userId: string }) =>
-  POST<IResults, { quizId: string; userId: string }>(
-    `${ENDPOINTS.quiz}/get-result-by-quiz`,
-    data
-  );
+export const getResults = (data: IQuizRequest) =>
+  POST<IResults, IQuizRequest>(`${ENDPOINTS.quiz}/get-result-by-quiz`, data);
 
-export const getPdf = (data: { quizId: string; userId: string }) =>
-  POST<{ file: string; name: string }, { quizId: string; userId: string }>(
+export const getPdf = (data: IQuizRequest) =>
+  POST<{ file: string; name: string }, IQuizRequest>(
     `${ENDPOINTS.quiz}/get-pdf`,
     data
   );

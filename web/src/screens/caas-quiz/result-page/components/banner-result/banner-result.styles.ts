@@ -126,6 +126,10 @@ export const BannerStyles = {
       background-image: url(${IMAGES.bannerResultMobile});
       background-position: center;
     `)}
+
+    @media print {
+      display: none;
+    }
   `,
   Text: styled.div`
     position: relative;

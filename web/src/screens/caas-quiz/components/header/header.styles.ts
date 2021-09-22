@@ -22,6 +22,10 @@ export const HeaderStyles = {
       align-items: center;
       padding: 40px 0 0;
     `}
+
+    @media print {
+      padding-bottom: 20px;
+    }
   `,
   ProductLogo: styled.div`
     position: relative;

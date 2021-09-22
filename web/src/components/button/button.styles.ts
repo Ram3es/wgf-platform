@@ -28,6 +28,10 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   transition: 0.3;
   white-space: nowrap;
 
+  @media print {
+    display: none;
+  }
+
   ${({ variant, color }) =>
     variant === 'text' &&
     css`

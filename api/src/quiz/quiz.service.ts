@@ -131,6 +131,6 @@ export class QuizService {
 
     return `${this.configService.get(
       'WEB_BASE_URL'
-    )}caas-quiz/pdf?${QUERIES.join('&')}`;
+    )}caas-quiz/results?${QUERIES.join('&')}`;
   }
 }

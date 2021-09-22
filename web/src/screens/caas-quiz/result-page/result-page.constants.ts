@@ -1,10 +1,8 @@
-import { IInitalState } from './pdf-page.typings';
 
-export const initialState: IInitalState = {
-  userId: '',
-  quizTitle: '',
-  quizId: '',
-  userName: '',
+
+import { IResultState } from './result-page.typings';
+
+export const initialResultState: IResultState = {
   results: {
     concern: {
       level: 'Low',
@@ -26,5 +24,13 @@ export const initialState: IInitalState = {
       level: 'Low',
       score: 0,
     },
+  },
+  quiz: {
+    id: '',
+    title: '',
+  },
+  user: {
+    id: '',
+    firstName: '',
   },
 };

@@ -93,11 +93,11 @@ class StorageService {
     return data && data.length >= 1 ? data : [];
   };
 
-  public setQuiz = (data: { id: string; title: string }) => {
+  public setQuiz = (data: IQuiz) => {
     return sessionStorage.setItem(SESSION_STORAGE.quiz, JSON.stringify(data));
   };
 
-  public getQuiz = (): { id: string; title: string } | null => {
+  public getQuiz = (): IQuiz | null => {
     const data = sessionStorage.getItem(SESSION_STORAGE.quiz);
     return data ? JSON.parse(data) : null;
   };

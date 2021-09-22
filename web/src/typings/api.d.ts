@@ -71,10 +71,18 @@ interface IAnswerReq extends IAnswer {
   quizId: string;
 }
 
-interface IQuizResponse {
+interface IQuiz {
   id: string;
   title: string;
+}
+
+interface IQuizResponse extends IQuiz {
   questions: IQuestionRes[];
+}
+
+interface IQuizRequest {
+  quizId: string;
+  userId: string;
 }
 
 interface IQuizItems {
