@@ -54,6 +54,7 @@ export const createCsvCaasQuiz = async (
       item.resultCategories.control.level,
       item.resultCategories.concern.level,
       item.resultCategories.confidence.level,
+      item.resultCategories.cooperation?.level,
     ];
   });
 
