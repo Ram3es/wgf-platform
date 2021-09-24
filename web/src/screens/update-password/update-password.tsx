@@ -106,22 +106,6 @@ export const UpdatePassword: React.FC = () => {
                   <FormStyles.Form>
                     <FormStyles.Item>
                       <TextField
-                        type="text"
-                        name="email"
-                        placeholder={STRINGS.input.email}
-                        onChange={handlePasswordChange}
-                        onBlur={handleBlur}
-                        value={updatePasswordData.email}
-                        tabIndex={1}
-                        autoCapitalize="none"
-                        error={
-                          touched.email && errors.email ? errors.email : ''
-                        }
-                        isFullWidth
-                      />
-                    </FormStyles.Item>
-                    <FormStyles.Item>
-                      <TextField
                         type="password"
                         name="newPassword"
                         placeholder={STRINGS.input.newPassword}
