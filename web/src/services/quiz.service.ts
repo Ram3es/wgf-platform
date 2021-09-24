@@ -1,8 +1,8 @@
 import { ENDPOINTS } from '@constants/api';
 import { POST } from './api';
 
-export const postAnswers = (data: IAnswerReq[]) =>
-  POST<{ message: string }, IAnswerReq[]>(
+export const postAnswers = (data: ICreateResult) =>
+  POST<{ message: string }, ICreateResult>(
     `${ENDPOINTS.answers}/create-answers`,
     data
   );
@@ -21,3 +21,5 @@ export const getPdf = (data: IQuizRequest) =>
     `${ENDPOINTS.quiz}/get-pdf`,
     data
   );
+export const getCsv = (data: { quizId: string }) =>
+  POST<{ file: string }, { quizId: string }>(`${ENDPOINTS.quiz}/get-csv`, data);

@@ -1,9 +1,11 @@
+import axios from 'axios';
 import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { getQuestions, postAnswers } from '@services/quiz.service';
+import { getCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
+import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
 import { initialState } from './quiz.constants';
 
 export const useQuizState = () => {
@@ -127,6 +129,16 @@ export const useQuizState = () => {
     if (isLastPage) {
       await postAnswers(getAnswersRequestBody());
 
+      const { data } = await getQuestions({
+        quizId: quiz?.id ?? '',
+      });
+
+      const list = data.questions.sort((a, b) => a.order - b.order);
+
+      storageService.setQuestionList(
+        list,
+        storageService.getQuiz()?.title || ''
+      );
       updateState({
         isShowModal: true,
       });
@@ -137,13 +149,15 @@ export const useQuizState = () => {
     incrementPage();
   };
 
-  const getAnswersRequestBody = () =>
-    state.questionList.map((item) => ({
+  const getAnswersRequestBody = () => ({
+    answers: state.questionList.map((item) => ({
       questionId: item.id,
       id: item.answers[0].id,
       value: item.answers[0].value,
       quizId: storageService.getQuiz()?.id || '',
-    }));
+    })),
+    status: 'Completed',
+  });
 
   const incrementPage = () =>
     updateState({
@@ -155,6 +169,23 @@ export const useQuizState = () => {
       currentPage: --state.currentPage,
     });
 
+  const downloadCsv = async () => {
+    try {
+      const { data } = await getCsv({
+        quizId: storageService.getQuiz()?.id || '',
+      });
+
+      downloadMessage(
+        `data:application/csv;base64,${data.file}`,
+        `${storageService.getQuiz()?.title || 'quiz'}.csv`
+      ).fire();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
+  };
+
   return {
     ...state,
     updateState,
@@ -163,5 +194,6 @@ export const useQuizState = () => {
     decrementPage,
     errorRef,
     isLastPage,
+    downloadCsv,
   };
 };

@@ -33,4 +33,9 @@ export const QuizStyles = {
     justify-content: space-between;
     margin-bottom: 40px;
   `,
+
+  DownloadButton: styled.div`
+    display: flex;
+    justify-content: center;
+  `,
 };

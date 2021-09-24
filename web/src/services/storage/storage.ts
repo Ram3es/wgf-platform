@@ -48,26 +48,26 @@ class StorageService {
   public setQuestionList = (data: IQuestionListItem[], quizTitle: string) => {
     const quizItems = this.getQuizItems();
 
-    let newData;
-
     switch (quizTitle) {
       case 'caas-quiz':
-        newData = {
+        const newDataCaas = {
           ...quizItems,
           caas: { ...quizItems?.caas, questionList: data },
         };
+
         return sessionStorage.setItem(
           SESSION_STORAGE.quizItems,
-          JSON.stringify(newData)
+          JSON.stringify(newDataCaas)
         );
       case 'caas-cooperation-quiz':
-        newData = {
+        const newData = {
           ...quizItems,
           caasCooperation: {
             ...quizItems?.caasCooperation,
             questionList: data,
           },
         };
+
         return sessionStorage.setItem(
           SESSION_STORAGE.quizItems,
           JSON.stringify(newData)

@@ -11,6 +11,7 @@ import { storageService } from '@services/storage/storage';
 import { useQuizState } from './quiz.state';
 
 import { STRINGS } from '@constants/strings';
+import { ROLES } from '@constants/user.roles';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { QuizStyles as Styled } from './quiz.styles';
@@ -41,6 +42,7 @@ export const Quiz: React.FC = () => {
     errorRef,
     isShowModal,
     isLastPage,
+    downloadCsv,
   } = useQuizState();
 
   if (isShowModal) {
@@ -50,6 +52,15 @@ export const Quiz: React.FC = () => {
   return (
     <div>
       <Styled.Wrapper>
+        {user?.role === ROLES['superAdmin'] && (
+          <Styled.DownloadButton>
+            <Button
+              title={STRINGS.button.downloadCsv}
+              onClick={downloadCsv}
+              color={COLORS.greenLite}
+            />
+          </Styled.DownloadButton>
+        )}
         <TitleStyles.h2>
           {STRINGS.form.title} {user?.firstName}
         </TitleStyles.h2>

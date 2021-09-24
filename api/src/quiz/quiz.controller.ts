@@ -2,6 +2,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
+import { RoleGuard } from 'src/shared/guards/role.guard';
 import { getQuizDto } from './dto/get-quiz.dto';
 import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
@@ -48,5 +49,17 @@ export class QuizController {
   @HttpCode(HttpStatus.OK)
   public async getPdf(@Body() body: getResultDto) {
     return this.quizService.getPdf(body);
+  }
+
+  @Post(QUIZ_ROUTES.getCsv)
+  @ApiOperation({ summary: QUIZ_ROUTES.getCsv })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: QUIZ_ROUTES.getCsv,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async getCsv(@Body() body: { quizId: string }) {
+    return this.quizService.getCsv(body);
   }
 }

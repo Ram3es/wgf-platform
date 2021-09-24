@@ -5,6 +5,7 @@ import {
 
 import { ApiProperty } from '@nestjs/swagger';
 import { AnswerEntity } from 'src/answer/entities/answer.entity';
+import { ResultEntity } from 'src/answer/entities/result.entity';
 import { ROLES } from 'src/constants/roles';
 
 @Entity('user')
@@ -72,4 +73,7 @@ export class UserEntity {
 
   @OneToMany(() => AnswerEntity, (data) => data.user)
   answers: AnswerEntity[];
+
+  @OneToMany(() => ResultEntity, (data) => data.user)
+  results: ResultEntity[];
 }

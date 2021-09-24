@@ -8,6 +8,7 @@ import { QuizEntity } from 'src/quiz/entities/quiz.entity';
 import { UserService } from 'src/user/user.service';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { AnswerEntity } from './entities/answer.entity';
+import { ResultEntity } from './entities/result.entity';
 
 @Injectable()
 export class AnswerService {
@@ -16,16 +17,38 @@ export class AnswerService {
     private readonly answerRepository: Repository<AnswerEntity>,
     @InjectRepository(QuizEntity)
     private readonly quizRepository: Repository<QuizEntity>,
+    @InjectRepository(ResultEntity)
+    private readonly resultRepository: Repository<ResultEntity>,
     @InjectRepository(QuestionEntity)
     private readonly questionRepository: Repository<QuestionEntity>,
     private readonly userService: UserService
   ) {}
-  async saveAnswers(userId: string, body: CreateAnswerDto[]) {
+  async saveAnswers(
+    userId: string,
+    body: { answers: CreateAnswerDto[]; status: string }
+  ) {
     const user = await this.userService.getUserById(userId);
+    const quiz = await this.quizRepository.findOne(body.answers[0].quizId);
 
-    body.forEach(async (answer) => {
+    const result = await this.resultRepository.findOne({
+      where: {
+        user: {
+          id: userId,
+        },
+        quiz: {
+          id: quiz.id,
+        },
+      },
+    });
+
+    if (result) {
+      await this.resultRepository.delete(result.id);
+    }
+
+    await this.resultRepository.save({ user, quiz, status: body.status });
+
+    body.answers.forEach(async (answer) => {
       const question = await this.questionRepository.findOne(answer.questionId);
-      const quiz = await this.quizRepository.findOne(answer.quizId);
 
       if (!quiz || !question) {
         throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
@@ -41,16 +64,6 @@ export class AnswerService {
           quiz,
         });
       }
-    });
-
-    return {
-      message: 'Success',
-    };
-  }
-
-  updateAnswers(body: AnswerEntity[]) {
-    body.forEach(async (answer) => {
-      await this.answerRepository.save(answer);
     });
 
     return {

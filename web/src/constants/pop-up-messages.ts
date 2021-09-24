@@ -28,3 +28,19 @@ export const errorMessage = (text: string) =>
     title: 'Oops...',
     text,
   });
+
+export const downloadMessage = (
+  file: string,
+  fileName: string,
+  html?: string
+) =>
+  Swal.mixin({
+    icon: 'question',
+    html: `
+    ${html}
+    <p>Do you want to download file?</p>
+    `,
+    footer: `<a href="${file}" download="${fileName}">Download</a>`,
+    showConfirmButton: false,
+    showCloseButton: true,
+  });

@@ -6,10 +6,16 @@ import { UserModule } from '../user/user.module';
 import { AnswerController } from './answer.controller';
 import { AnswerService } from './answer.service';
 import { AnswerEntity } from './entities/answer.entity';
+import { ResultEntity } from './entities/result.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([AnswerEntity, QuestionEntity, QuizEntity]),
+    TypeOrmModule.forFeature([
+      AnswerEntity,
+      QuestionEntity,
+      QuizEntity,
+      ResultEntity,
+    ]),
     UserModule,
   ],
   controllers: [AnswerController],

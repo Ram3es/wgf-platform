@@ -10,6 +10,8 @@ import { quizMessage } from 'src/shared/utils/messages';
 import { createPdf } from 'src/shared/utils/pdf';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
+import { ResultEntity } from '../answer/entities/result.entity';
+import { createCsvCaasQuiz } from '../shared/utils/csv-format';
 import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
 
@@ -20,6 +22,8 @@ export class QuizService {
   constructor(
     @InjectRepository(QuizEntity)
     private readonly quizRepository: Repository<QuizEntity>,
+    @InjectRepository(ResultEntity)
+    private readonly resultRepository: Repository<ResultEntity>,
     private readonly answerService: AnswerService,
     private readonly userService: UserService,
     private readonly configService: ConfigService
@@ -30,7 +34,7 @@ export class QuizService {
     const quiz = await this.quizRepository.findOne(quizId);
 
     if (!quiz) {
-      return new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
 
     return this.quizRepository
@@ -132,5 +136,52 @@ export class QuizService {
     return `${this.configService.get(
       'WEB_BASE_URL'
     )}caas-quiz/results?${QUERIES.join('&')}`;
+  }
+
+  async getCsv(body: { quizId: string }) {
+    const data = await this.getUsersWithCompletedQuiz(body.quizId);
+
+    if (!data) {
+      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+    }
+
+    const users = await Promise.all(
+      data.map(async (item) => {
+        const quiz = await this.getQuizQuestions(item.user.id, body.quizId);
+
+        return {
+          user: item.user,
+          reportCreated: item.updated,
+          questions: quiz.questions,
+          resultCategories: await this.getQuizCaasResult({
+            userId: item.user.id,
+            quizId: body.quizId,
+          }),
+        };
+      })
+    );
+
+    const quiz = await this.quizRepository.findOne({
+      where: {
+        id: body.quizId,
+      },
+      relations: ['questions'],
+    });
+
+    return {
+      file: await createCsvCaasQuiz(users, quiz.questions),
+    };
+  }
+
+  async getUsersWithCompletedQuiz(quizId: string) {
+    return this.resultRepository.find({
+      where: {
+        quiz: {
+          id: quizId,
+        },
+        status: 'Completed',
+      },
+      relations: ['user'],
+    });
   }
 }

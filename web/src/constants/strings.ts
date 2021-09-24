@@ -180,6 +180,7 @@ export const STRINGS = {
     returnSignIn: 'Go to Sign In',
     resetPassword: 'Reset Password',
     updatePassword: 'Update Password',
+    downloadCsv: 'Download CSV',
   },
 
   input: {

@@ -5,6 +5,7 @@ import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getPdf, getResults } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
+import { downloadMessage } from '@constants/pop-up-messages';
 import { initialResultState } from './result-page.constants';
 
 import { IResultState } from './result-page.typings';
@@ -65,13 +66,10 @@ export const useResultState = () => {
       return;
     }
 
-    const downloadButton = document.createElement('a');
-    downloadButton.href = `data:application/pdf;base64,${file}`;
-    downloadButton.download = name;
-    downloadButton.target = '_blank';
-
-    downloadButton.click();
-    downloadButton.remove();
+    const html = `
+      <p>A pdf file report was sent to your email.</p>
+    `;
+    downloadMessage(`data:application/pdf;base64,${file}`, name, html).fire();
 
     setLoading(false);
   };

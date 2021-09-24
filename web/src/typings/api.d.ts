@@ -57,18 +57,23 @@ interface IQuestionListItem extends IQuestionRes {
   category: string;
   type: string;
   order: number;
-  answers: IAnswerRes[];
+  answers: IAnswer[];
   isError?: boolean;
 }
 
 interface IAnswer {
-  id: string;
+  id?: string;
   value: string;
 }
 
 interface IAnswerReq extends IAnswer {
   questionId: string;
   quizId: string;
+}
+
+interface ICreateResult {
+  answers: IAnswerReq[];
+  status: string;
 }
 
 interface IQuiz {
