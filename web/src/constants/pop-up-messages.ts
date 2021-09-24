@@ -39,7 +39,7 @@ export const downloadMessage = (
   Swal.mixin({
     icon: 'question',
     html: `
-    ${html}
+    ${html || ''}
     <p>Do you want to download file?</p>
     `,
     footer: `<a href="${file}" download="${fileName}">Download</a>`,
