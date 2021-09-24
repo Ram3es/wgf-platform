@@ -4,6 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ResetPassWordDTO {
   @ApiProperty()
+  @IsOptional()
   @IsEmail()
   email: string;
   @ApiProperty()

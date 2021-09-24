@@ -43,7 +43,6 @@ export const UpdatePassword: React.FC = () => {
   const resetPasswordHandler = async () => {
     try {
       await updatePassword({
-        email: updatePasswordData.email,
         newPassword: updatePasswordData.newPassword,
         token: query.get('token') || '',
       });

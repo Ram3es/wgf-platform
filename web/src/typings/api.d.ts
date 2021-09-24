@@ -102,7 +102,6 @@ interface IQuizItem {
 }
 
 interface IUpdatePassword {
-  email: string;
   newPassword: string;
   token: string;
 }
