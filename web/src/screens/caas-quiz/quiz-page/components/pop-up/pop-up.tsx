@@ -8,7 +8,6 @@ import { RadioButtonGroup } from '@components/radio-button-group';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 
-import { getResults } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 import { updateUser } from '@services/user.service';
 
@@ -30,13 +29,6 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
   };
 
   const onClick = async () => {
-    const { data } = await getResults({
-      quizId: storageService.getQuiz()!.id,
-      userId: user.id,
-    });
-
-    storageService.setResults(data, storageService.getQuiz()?.title || '');
-
     updateUser({
       id: storageService.getUser()?.id || '',
       jobStatus: user.jobStatus || 'Student',

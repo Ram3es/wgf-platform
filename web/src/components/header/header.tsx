@@ -1,15 +1,16 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { trackPromise } from 'react-promise-tracker';
 import { NavLink, useHistory } from 'react-router-dom';
 
 import { Button } from '@components/button';
+import { Loader } from '@components/loader';
 import { COLORS } from '@styles/colors';
 
 import { storageService } from '@services/storage/storage';
 import { logOut } from '@services/user.service';
 
 import { IMAGES } from '@constants/images';
-import { errorMessage } from '@constants/pop-up-messages';
+import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { Toast } from '@constants/toasts';
@@ -31,23 +32,17 @@ export const Header: React.FC = () => {
   }, []);
 
   const logOutHandler = async () => {
-    try {
-      await logOut();
+    await trackPromise(logOut(), PROMISES_AREA.logOut);
 
-      storageService.clearSessionStorage();
-      storageService.clearStorage();
+    storageService.clearSessionStorage();
+    storageService.clearStorage();
 
-      Toast.fire({
-        icon: 'success',
-        title: 'Log Out successfully',
-      });
+    Toast.fire({
+      icon: 'success',
+      title: 'Log Out successfully',
+    });
 
-      setIsLogOut(false);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return errorMessage(error?.response?.data.message).fire();
-      }
-    }
+    setIsLogOut(false);
   };
 
   const loginHandler = () => {
@@ -59,19 +54,21 @@ export const Header: React.FC = () => {
       <NavLink to={ROUTES.main}>
         <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />
       </NavLink>
-      {isLogOut ? (
-        <Button
-          onClick={logOutHandler}
-          color={COLORS.grey}
-          title={STRINGS.button.logOut}
-        />
-      ) : (
-        <Button
-          onClick={loginHandler}
-          color={COLORS.grey}
-          title={STRINGS.button.logIn}
-        />
-      )}
+      <Loader area={PROMISES_AREA.logOut}>
+        {isLogOut ? (
+          <Button
+            onClick={logOutHandler}
+            color={COLORS.grey}
+            title={STRINGS.button.logOut}
+          />
+        ) : (
+          <Button
+            onClick={loginHandler}
+            color={COLORS.grey}
+            title={STRINGS.button.logIn}
+          />
+        )}
+      </Loader>
     </Styled.Wrapper>
   );
 };

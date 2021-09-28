@@ -5,11 +5,13 @@ import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Checkbox } from '@components/checkbox';
 import { Header } from '@components/header';
+import { Loader } from '@components/loader';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
 import { useSignInState } from './sign-in.state';
 
+import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
 import { LoginFormSchema } from './sign-in.constants';
 
@@ -107,6 +109,7 @@ export const SignIn: React.FC = () => {
                       isChecked={isRemember}
                       boxWidth={20}
                       boxHeight={20}
+                      alignItems="center"
                     />
                     <Button
                       title={STRINGS.button.forgetPassword}
@@ -115,23 +118,25 @@ export const SignIn: React.FC = () => {
                       variant="text"
                     />
                   </Styled.Settings>
-                  <Button
-                    title={STRINGS.button.signIn}
-                    onClick={handleSubmit}
-                    color={COLORS.blue}
-                    type="submit"
-                    isDisabled={!isValid}
-                    minWidth={170}
-                  />
-                  <Styled.Footer>
-                    <span>{STRINGS.signIn.notMember}</span>
+                  <Loader area={PROMISES_AREA.signIn}>
                     <Button
-                      title={STRINGS.button.signUpNow}
-                      onClick={redirectToSignUp}
+                      title={STRINGS.button.signIn}
+                      onClick={handleSubmit}
                       color={COLORS.blue}
-                      variant="text"
+                      type="submit"
+                      isDisabled={!isValid}
+                      minWidth={170}
                     />
-                  </Styled.Footer>
+                    <Styled.Footer>
+                      <span>{STRINGS.signIn.notMember}</span>
+                      <Button
+                        title={STRINGS.button.signUpNow}
+                        onClick={redirectToSignUp}
+                        color={COLORS.blue}
+                        variant="text"
+                      />
+                    </Styled.Footer>
+                  </Loader>
                 </Styled.Wrapper>
               </FormStyles.Wrapper>
             </FormStyles.Section>

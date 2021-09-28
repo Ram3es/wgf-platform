@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { createRef, useCallback, useEffect, useRef, useState } from 'react';
+import { trackPromise } from 'react-promise-tracker';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
 import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
+import { PROMISES_AREA } from '@constants/promises-area';
 import { initialState } from './quiz.constants';
 
 export const useQuizState = () => {
@@ -15,15 +17,18 @@ export const useQuizState = () => {
   const quiz = storageService.getQuiz();
 
   const createQuestionList = useCallback(async () => {
-    const { data } = await getQuestions({
-      quizId: quiz?.id ?? '',
-    });
-
-    const list = data.questions.sort((a, b) => a.order - b.order);
-
     const listStorage = storageService.getQuestionList(quiz?.title || '');
 
     if (listStorage.length < 1) {
+      const { data } = await trackPromise(
+        getQuestions({
+          quizId: quiz?.id ?? '',
+        }),
+        PROMISES_AREA.getCaasQuestionList
+      );
+
+      const list = data.questions.sort((a, b) => a.order - b.order);
+
       storageService.setQuestionList(list, quiz?.title || '');
     }
 
@@ -127,7 +132,10 @@ export const useQuizState = () => {
     });
 
     if (isLastPage) {
-      await postAnswers(getAnswersRequestBody());
+      await trackPromise(
+        postAnswers(getAnswersRequestBody()),
+        PROMISES_AREA.sendCaasAnswers
+      );
 
       const { data } = await getQuestions({
         quizId: quiz?.id ?? '',
@@ -171,9 +179,12 @@ export const useQuizState = () => {
 
   const downloadCsv = async () => {
     try {
-      const { data } = await getCsv({
-        quizId: storageService.getQuiz()?.id || '',
-      });
+      const { data } = await trackPromise(
+        getCsv({
+          quizId: storageService.getQuiz()?.id || '',
+        }),
+        PROMISES_AREA.getCaasCsv
+      );
 
       downloadMessage(
         `data:application/csv;base64,${data.file}`,

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Button } from '@components/button';
+import { Loader } from '@components/loader';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
 import { FlexCenter } from '@styles/components/flex-center';
@@ -16,13 +17,14 @@ import { ResultSummary } from './components/result-summary';
 import { useResultState } from './result-page.state';
 
 import { IMAGES } from '@constants/images';
+import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
 
 export const ResultPage: React.FC = () => {
-  const { loading, user, results, quiz, generatePdf } = useResultState();
+  const { user, results, quiz, generatePdf } = useResultState();
 
   return (
     <>
@@ -33,24 +35,31 @@ export const ResultPage: React.FC = () => {
         <TitleStyles.h3 mb={20}>
           {STRINGS.resultPage.userTitle} {user.firstName}
         </TitleStyles.h3>
-        <ResultSummary results={results} withArchetypesIcon quiz={quiz.title} />
-        <NextSteps results={results} />
-        <QuickSummary results={results} quiz={quiz.title} />
-        <Resources />
-        <FlexCenter>
-          <Button
-            title={STRINGS.button.print}
-            color={COLORS.black}
-            onClick={generatePdf()}
-            isDisabled={loading}
-            image="next"
+        <Loader area={PROMISES_AREA.getCaasResult}>
+          <ResultSummary
+            results={results}
+            withArchetypesIcon
+            quiz={quiz.title}
           />
-        </FlexCenter>
-        <FlexCenter>
-          <NavLink to={ROUTES.main}>
-            <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />
-          </NavLink>
-        </FlexCenter>
+          <NextSteps results={results} />
+          <QuickSummary results={results} quiz={quiz.title} />
+          <Resources />
+          <FlexCenter>
+            <Loader area={PROMISES_AREA.printCaasPdf}>
+              <Button
+                title={STRINGS.button.print}
+                color={COLORS.black}
+                onClick={generatePdf}
+                image="next"
+              />
+            </Loader>
+          </FlexCenter>
+          <FlexCenter>
+            <NavLink to={ROUTES.main}>
+              <img src={IMAGES.companyLogo} alt={STRINGS.altLogo} />
+            </NavLink>
+          </FlexCenter>
+        </Loader>
       </Container>
     </>
   );

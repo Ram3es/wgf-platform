@@ -1,5 +1,3 @@
-
-
 import { IQuizState } from './quiz.typings';
 
 export const initialState: IQuizState = {

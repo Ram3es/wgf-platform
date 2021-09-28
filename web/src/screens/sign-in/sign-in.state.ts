@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
+import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
@@ -7,6 +8,7 @@ import { storageService } from '@services/storage/storage';
 import { signIn } from '@services/user.service';
 
 import { errorMessage, UserErrorMessages } from '@constants/pop-up-messages';
+import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { Toast } from '@constants/toasts';
 import { initialSignInState } from './sign-in.constants';
@@ -48,7 +50,10 @@ export const useSignInState = () => {
 
   const signInHandler = async () => {
     try {
-      const { data } = await signIn(state.signInData);
+      const { data } = await trackPromise(
+        signIn(state.signInData),
+        PROMISES_AREA.signIn
+      );
 
       Toast.fire({
         icon: 'success',

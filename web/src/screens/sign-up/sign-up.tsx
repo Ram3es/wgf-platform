@@ -4,11 +4,13 @@ import React from 'react';
 import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Header } from '@components/header';
+import { Loader } from '@components/loader';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
 import { useSignUpState } from './sign-up.state';
 
+import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
 import { UserFormSchema } from './sign-up.constants';
 
@@ -127,22 +129,24 @@ export const SignUp: React.FC = () => {
                       />
                     </FormStyles.Item>
                   </FormStyles.Form>
-                  <Styled.Footer>
-                    <Button
-                      title={STRINGS.button.signUp}
-                      onClick={handleSubmit}
-                      color={COLORS.blue}
-                      type="submit"
-                      isDisabled={!isValid}
-                      minWidth={150}
-                    />
-                    <Button
-                      title={STRINGS.button.returnSignIn}
-                      onClick={redirectToSignIn}
-                      variant="text"
-                      color={COLORS.blue}
-                    />
-                  </Styled.Footer>
+                  <Loader area={PROMISES_AREA.signUp}>
+                    <Styled.Footer>
+                      <Button
+                        title={STRINGS.button.signUp}
+                        onClick={handleSubmit}
+                        color={COLORS.blue}
+                        type="submit"
+                        isDisabled={!isValid}
+                        minWidth={150}
+                      />
+                      <Button
+                        title={STRINGS.button.returnSignIn}
+                        onClick={redirectToSignIn}
+                        variant="text"
+                        color={COLORS.blue}
+                      />
+                    </Styled.Footer>
+                  </Loader>
                 </Styled.Wrapper>
               </FormStyles.Wrapper>
             </FormStyles.Section>

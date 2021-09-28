@@ -18,7 +18,7 @@ export const UPDATE = async <T, B = undefined>(
 const getInstance = () => {
   const instance = axios.create({
     baseURL: BASE_URL,
-    timeout: 10000,
+    timeout: 20000,
   });
   instance.interceptors.request.use((config) => {
     const token = storageService.getToken();
