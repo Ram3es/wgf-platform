@@ -132,8 +132,112 @@ export const createPasswordMail = (user: UserEntity, token: string) => ({
   html: `
     <p>Hi <b>${user.firstName},</b></p>
     <p>We're sending you this email because you requested a password reset.</p>
-    <p>Click  <a href=${API_BASE_URL}user/password/${token}>here </a> to reset your password on Avid Adventures.</p>
+    <p>Click  <a href=${WEB_BASE_URL}password/?token=${token}>here </a> to reset your password on Avid Adventures.</p>
     <p>If you didn't request a password reset, you can ignore this email. Your password will not be changed.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});
+
+export const trainerToExistingStudentMail = (
+  user: UserEntity,
+  trainerName: string,
+  token: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: user.email,
+  bcc: user.email,
+  subject: 'Invitation from Trainer',
+  html: `
+    <p>Hi <b>${user.firstName},</b></p>
+    <p>We're sending you this email because you get invitation from Trainer: ${trainerName}.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to accept invitation.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});
+
+export const trainerToStudentMail = (
+  email: string,
+  userName: string,
+  trainerName: string,
+  token: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: email,
+  bcc: email,
+  subject: 'Invitation from Trainer',
+  html: `
+    <p>Hi <b>${userName},</b></p>
+    <p>We're sending you this email because you get invitation from Trainer: ${trainerName}.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invitation and complete registration.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});
+
+export const adminToExistingTrainerMail = (
+  user: UserEntity,
+  superAdminName: string,
+  token: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: user.email,
+  bcc: user.email,
+  subject: 'Invitation from Trainer',
+  html: `
+    <p>Hi <b>${user.firstName},</b></p>
+    <p>We're sending you this email because you get invitation from Trainer: ${superAdminName}.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to accept invitation.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});
+
+export const adminToTrainerMail = (
+  email: string,
+  userName: string,
+  superAdminName: string,
+  token: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: email,
+  bcc: email,
+  subject: 'Invitation from Trainer',
+  html: `
+    <p>Hi <b>${userName},</b></p>
+    <p>We're sending you this email because you get invitation from Super Admin: ${superAdminName}.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invitation and complete registration.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});
+
+export const studentToTrainerMail = (
+  trainer: UserEntity,
+  studentName: string,
+  token: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: trainer.email,
+  bcc: trainer.email,
+  subject: 'Request from Student',
+  html: `
+    <p>Hi <b>${trainer.firstName},</b></p>
+    <p>We're sending you this email because you get request from Student: ${studentName}.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-request-trainer/${token}>here </a> to accept request.</p>
+    <p>Bests,<br/>Jac at Avid Adventures</p>
+  `,
+});
+
+export const adminToUserMail = (
+  user: UserEntity,
+  adminName: string,
+  token: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: user.email,
+  bcc: user.email,
+  subject: 'Invite from Admin',
+  html: `
+    <p>Hi <b>${user.firstName},</b></p>
+    <p>We're sending you this email because you get invite to registration from Admin: ${adminName}.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invite.</p>
     <p>Bests,<br/>Jac at Avid Adventures</p>
   `,
 });

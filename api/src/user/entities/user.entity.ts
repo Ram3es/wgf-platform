@@ -1,12 +1,14 @@
 import { Exclude } from 'class-transformer';
 import {
-    Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn
+    Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn,
+    UpdateDateColumn
 } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { AnswerEntity } from 'src/answer/entities/answer.entity';
 import { ResultEntity } from 'src/answer/entities/result.entity';
 import { ROLES } from 'src/constants/roles';
+import { GroupEntity } from 'src/group/entities/group.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -68,12 +70,39 @@ export class UserEntity {
   @Column({
     nullable: true,
   })
-  @ApiProperty({ example: 'bd4bc447-88a5-4ea9-975b-16d1eebef55d' })
-  trainerAdminId: string;
+  @ApiProperty()
+  avatar: string;
+
+  @Column({
+    nullable: true,
+  })
+  @ApiProperty()
+  country: string;
+
+  @Column({
+    nullable: true,
+  })
+  @ApiProperty()
+  mobileNumber: string;
+
+  @Column({
+    nullable: true,
+  })
+  @ApiProperty()
+  organizationName: string;
+
+  @Column({
+    nullable: true,
+  })
+  @ApiProperty()
+  occupation: string;
 
   @OneToMany(() => AnswerEntity, (data) => data.user)
   answers: AnswerEntity[];
 
   @OneToMany(() => ResultEntity, (data) => data.user)
   results: ResultEntity[];
+
+  @ManyToMany(() => GroupEntity, (data) => data.users, { eager: false })
+  groups: GroupEntity[];
 }

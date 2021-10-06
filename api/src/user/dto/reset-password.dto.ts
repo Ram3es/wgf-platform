@@ -1,24 +1,10 @@
-import { IsEmail, IsOptional, MinLength } from 'class-validator';
+import { IsOptional } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
+import { UpdatePassWordDTO } from './update-password.dto';
 
-export class ResetPassWordDTO {
-  @ApiProperty()
-  @IsOptional()
-  @IsEmail()
-  email: string;
-  @ApiProperty()
-  @MinLength(8)
-  @IsOptional()
-  password: string;
-  @ApiProperty()
-  @MinLength(8)
-  @IsOptional()
-  newPassword: string;
+export class ResetPassWordDTO extends UpdatePassWordDTO {
   @ApiProperty()
   @IsOptional()
   token: string;
-  @ApiProperty()
-  @IsOptional()
-  userId: string;
 }

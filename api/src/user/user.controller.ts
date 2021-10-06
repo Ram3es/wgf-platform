@@ -1,30 +1,22 @@
-import { Response } from 'express';
-
-import {
-    Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Res, UseGuards
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Body, Controller, HttpCode, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
 import { RoleGuard } from '../shared/guards/role.guard';
-import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserIdDto } from './dto/user-by-id.dto';
 import { UserEntity } from './entities/user.entity';
-import { USER_ROUTES } from './user.routes';
 import { UserService } from './user.service';
+
+import { USER_ROUTES } from './user.constants';
 
 @ApiTags(USER_ROUTES.main)
 @Controller(USER_ROUTES.main)
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly configService: ConfigService
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post(USER_ROUTES.signUp)
   @ApiOperation({ summary: USER_ROUTES.signUp })
@@ -86,59 +78,112 @@ export class UserController {
     return await this.userService.getUserById(body.userId);
   }
 
-  @Put(USER_ROUTES.createTrainerAdmin)
-  @ApiOperation({ summary: USER_ROUTES.createTrainerAdmin })
+  @Post(USER_ROUTES.getUsersByTrainer)
+  @ApiOperation({ summary: USER_ROUTES.getUsersByTrainer })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: USER_ROUTES.createTrainerAdmin,
+    description: USER_ROUTES.getUsersByTrainer,
+    isArray: true,
+    type: [UserEntity],
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['trainerAdmin']))
+  public async getUsersByTrainer(@User('id') id: string) {
+    return this.userService.getUsersByTrainer(id);
+  }
+
+  @Post(USER_ROUTES.getAllUsers)
+  @ApiOperation({ summary: USER_ROUTES.getAllUsers })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getAllUsers,
+    isArray: true,
+    type: [UserEntity],
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async getAllUsers() {
+    return this.userService.getAllUsers();
+  }
+
+  @Post(USER_ROUTES.getAllTrainers)
+  @ApiOperation({ summary: USER_ROUTES.getAllTrainers })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getAllTrainers,
+    isArray: true,
+    type: [UserEntity],
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async getAllTrainers() {
+    return this.userService.getAllTrainers();
+  }
+
+  @Post(USER_ROUTES.getTrainersByUser)
+  @ApiOperation({ summary: USER_ROUTES.getTrainersByUser })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getTrainersByUser,
+    isArray: true,
+    type: [UserEntity],
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthenticationGuard)
+  public async getTrainersByUser(@User('id') id: string) {
+    return this.userService.getTrainersByUser(id);
+  }
+
+  @Post(USER_ROUTES.updateResetedPassword)
+  @ApiOperation({ summary: USER_ROUTES.updateResetedPassword })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.updateResetedPassword,
+  })
+  @HttpCode(HttpStatus.OK)
+  public async updateResetedPassword(@Body() body: ResetPassWordDTO) {
+    return await this.userService.updateResetedPassword(body);
+  }
+
+  @Post(USER_ROUTES.updateProfilePassword)
+  @ApiOperation({ summary: USER_ROUTES.updateProfilePassword })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.updateProfilePassword,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthenticationGuard)
+  public async updateProfilePassword(
+    @User('id') id: string,
+    @Body() body: ResetPassWordDTO
+  ) {
+    return await this.userService.updateProfilePassword(id, body);
+  }
+
+  @Post(USER_ROUTES.deleteUser)
+  @ApiOperation({ summary: USER_ROUTES.deleteUser })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.deleteUser,
     type: UserEntity,
   })
   @HttpCode(HttpStatus.OK)
   @UseGuards(new RoleGuard(['superAdmin']))
-  public async createTrainerAdmin(@Body() body: CreateTrainerAdminDto) {
-    return await this.userService.createTrainerAdmin(body);
+  public async deleteUser(@Body() body: UserIdDto) {
+    return await this.userService.deleteUser(body);
   }
 
-  @Put(USER_ROUTES.addUsersTrainer)
-  @ApiOperation({ summary: USER_ROUTES.addUsersTrainer })
+  @Post(USER_ROUTES.deleteTrainer)
+  @ApiOperation({ summary: USER_ROUTES.deleteTrainer })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: USER_ROUTES.addUsersTrainer,
+    description: USER_ROUTES.deleteTrainer,
     type: UserEntity,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(new RoleGuard(['trainerAdmin']))
-  public async addUsersTrainer(
-    @User('id') id: string,
-    @Body() body: UserIdDto
-  ) {
-    return await this.userService.addUsersTrainer(id, body);
-  }
-
-  @Post(USER_ROUTES.updatePassword)
-  @ApiOperation({ summary: USER_ROUTES.updatePassword })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: USER_ROUTES.updatePassword,
-  })
-  @HttpCode(HttpStatus.OK)
-  public async updatePassword(@Body() body: ResetPassWordDTO) {
-    return await this.userService.updatePassword(body);
-  }
-
-  @Get(USER_ROUTES.resetPassword)
-  @HttpCode(HttpStatus.OK)
-  public async resetPassword(
-    @Param() params: { token: string },
-    @Res() res: Response
-  ) {
-    try {
-      const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
-      const link = `${WEB_BASE_URL}password/?token=${params.token}`;
-      return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
-    } catch (error) {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(error);
-    }
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async deleteTrainer(@Body() body: UserIdDto) {
+    return await this.userService.deleteTrainer(body);
   }
 
   @Post(USER_ROUTES.resetPasswordRequest)

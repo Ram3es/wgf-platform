@@ -12,21 +12,33 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
   @ApiProperty()
   @IsOptional()
-  @IsNotEmpty()
   role: ROLES;
 
   @ApiProperty()
   @IsOptional()
-  @IsNotEmpty()
   isSubscriber: boolean;
 
   @ApiProperty()
   @IsOptional()
-  @IsNotEmpty()
   answers: AnswerEntity[];
 
   @ApiProperty()
   @IsOptional()
-  @IsNotEmpty()
-  trainerAdminId: string;
+  avatar: string;
+
+  @ApiProperty()
+  @IsOptional()
+  country: string;
+
+  @ApiProperty()
+  @IsOptional()
+  mobileNumber: string;
+
+  @ApiProperty()
+  @IsOptional()
+  organizationName: string;
+
+  @ApiProperty()
+  @IsOptional()
+  occupation: string;
 }

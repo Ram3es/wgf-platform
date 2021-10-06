@@ -7,19 +7,25 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
+import { InvitationEntity } from 'src/ invitation/entities/ invitation.entity';
 import { ERRORS } from 'src/constants/errors';
 import { EXPIRE_JWT_TIME, EXPIRE_LINK_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
 import { sendMail } from 'src/shared/utils/email';
 import { createPasswordMail, registrationMessage } from 'src/shared/utils/messages';
+import { GroupService } from '../group/group.service';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
 import { SignInDto } from './dto/sign-in.dto';
+import { UpdatePassWordDTO } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserIdDto } from './dto/user-by-id.dto';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
+
+import { INVITATION_STATUS, INVITATION_TYPE } from 'src/ invitation/invitation.constants';
+import { UNASSIGNED_GROUP } from 'src/group/group.constants';
 
 @Injectable()
 export class UserService {
@@ -27,9 +33,12 @@ export class UserService {
     private jwtService: JwtService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(InvitationEntity)
+    private readonly invitationRepository: Repository<InvitationEntity>,
     @InjectRepository(ResetPasswordEntity)
     private readonly resetPasswordRepository: Repository<ResetPasswordEntity>,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private groupService: GroupService
   ) {}
 
   async createToken(user: UserEntity) {
@@ -52,7 +61,7 @@ export class UserService {
       where: { email: email },
     });
     if (user) {
-      throw new HttpException(ERRORS.alreadyExist, HttpStatus.CONFLICT);
+      throw new HttpException(ERRORS.user.alreadyExist, HttpStatus.CONFLICT);
     }
     const publicKey = await bcrypt.genSalt(6);
     const newPassword = await bcrypt.hash(body.password, 10);
@@ -73,6 +82,21 @@ export class UserService {
 
     sendMail(payload);
 
+    const invitation = await this.invitationRepository.findOne({
+      where: {
+        to: email,
+      },
+      relations: ['group'],
+    });
+
+    if (invitation?.status === INVITATION_STATUS.registrationPending) {
+      await this.acceptInvitation(invitation, newUser);
+
+      const updatedUser = await this.getUserById(newUser.id);
+
+      return { user: await this.userSerializer(updatedUser), token };
+    }
+
     return { user: await this.userSerializer(newUser), token };
   }
 
@@ -83,11 +107,11 @@ export class UserService {
     });
 
     if (!user) {
-      throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
 
     if (!(await bcrypt.compare(password, user.password))) {
-      throw new HttpException(ERRORS.loginError, HttpStatus.BAD_REQUEST);
+      throw new HttpException(ERRORS.user.loginError, HttpStatus.BAD_REQUEST);
     }
 
     return {
@@ -103,7 +127,7 @@ export class UserService {
       },
     });
     if (!user) {
-      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
 
     const publicKey = await bcrypt.genSalt(6);
@@ -119,8 +143,9 @@ export class UserService {
 
   async getUserById(id: string) {
     const user = await this.userRepository.findOne(id);
+
     if (!user) {
-      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
     return user;
   }
@@ -130,28 +155,11 @@ export class UserService {
     return deserialize(UserEntity, serializedUser);
   }
 
-  async createTrainerAdmin(body: CreateTrainerAdminDto) {
-    if (!body.email) {
-      throw new HttpException(ERRORS.notExist, HttpStatus.BAD_REQUEST);
-    }
-
-    const user = await this.userRepository.findOne({
-      where: {
-        email: body.email,
-      },
-    });
-
-    return this.updateUser({
-      ...user,
-      role: ROLES.trainerAdmin,
-    });
-  }
-
   async updateUser(body: UpdateUserDto) {
     const user = await this.getUserById(body.id);
 
     if (!user) {
-      throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
 
     await this.userRepository.save({
@@ -179,7 +187,7 @@ export class UserService {
     });
 
     if (!user) {
-      throw new HttpException(ERRORS.notExist, HttpStatus.BAD_REQUEST);
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.BAD_REQUEST);
     }
 
     const token = uuid();
@@ -196,48 +204,193 @@ export class UserService {
     };
   }
 
-  async addUsersTrainer(trainerAdminId: string, body: UserIdDto) {
-    const user = await this.getUserById(body.userId);
-    return this.updateUser({ ...user, trainerAdminId });
-  }
+  async updateProfilePassword(id: string, body: UpdatePassWordDTO) {
+    const user = await this.getUserById(id);
 
-  async updatePassword(body: ResetPassWordDTO) {
-    const resetPassModel = await this.resetPasswordRepository.findOne({
-      where: { token: body.token },
-    });
-
-    const email = resetPassModel?.email || body?.email;
-
-    const user = await this.userRepository.findOne({ where: { email } });
-
-    if (user && !resetPassModel) {
-      throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
+    if (!(await bcrypt.compare(body.password, user.password))) {
+      throw new HttpException(ERRORS.user.wrongPassword, HttpStatus.FORBIDDEN);
     }
-    if (
-      resetPassModel &&
-      new Date().getTime() - new Date(resetPassModel.created).getTime() >
-        EXPIRE_LINK_TIME
-    ) {
-      await this.resetPasswordRepository.delete(resetPassModel.id);
-      throw new HttpException(ERRORS.linkExpired, HttpStatus.BAD_REQUEST);
-    }
-    if (
-      user &&
-      !body.token &&
-      !(await bcrypt.compare(body.password, user.password))
-    ) {
-      throw new HttpException(ERRORS.invalid, HttpStatus.FORBIDDEN);
-    }
+
     const newPassword = await bcrypt.hash(body.newPassword, 10);
     await this.userRepository.update(user.id, {
       password: newPassword,
     });
-    if (body.token) {
-      await this.resetPasswordRepository.delete(resetPassModel.id);
-    }
 
     return {
       message: 'Success',
     };
+  }
+
+  async updateResetedPassword(body: ResetPassWordDTO) {
+    const resetPassModel = await this.resetPasswordRepository.findOne({
+      where: { token: body.token },
+    });
+
+    if (!resetPassModel) {
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
+    }
+
+    const user = await this.userRepository.findOne({
+      where: { email: resetPassModel.email },
+    });
+
+    if (!user) {
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
+    }
+
+    if (
+      new Date().getTime() - new Date(resetPassModel.created).getTime() >
+      EXPIRE_LINK_TIME
+    ) {
+      await this.resetPasswordRepository.delete(resetPassModel.id);
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.BAD_REQUEST);
+    }
+
+    const newPassword = await bcrypt.hash(body.newPassword, 10);
+    await this.userRepository.update(user.id, {
+      password: newPassword,
+    });
+
+    await this.resetPasswordRepository.delete(resetPassModel.id);
+
+    return {
+      message: 'Success',
+    };
+  }
+
+  async createTrainerAdmin(body: CreateTrainerAdminDto) {
+    const user = await this.userRepository.findOne({
+      where: {
+        email: body.email,
+      },
+    });
+
+    await this.updateUser({
+      ...user,
+      role: ROLES.trainerAdmin,
+    });
+
+    await this.groupService.createGroup({
+      name: UNASSIGNED_GROUP,
+      trainerId: user.id,
+    });
+
+    return {
+      message: 'Success',
+    };
+  }
+
+  async acceptInvitation(invitation: InvitationEntity, user: UserEntity) {
+    switch (invitation.type) {
+      case INVITATION_TYPE.trainer:
+        await this.createTrainerAdmin({ email: user.email });
+        await this.invitationRepository.update(invitation.id, {
+          status: INVITATION_STATUS.accepted,
+        });
+        break;
+      case INVITATION_TYPE.student:
+        await this.groupService.assignUsersToGroup({
+          groupId: invitation.group.id,
+          userIds: [user.id],
+        });
+        await this.invitationRepository.update(invitation.id, {
+          status: INVITATION_STATUS.accepted,
+        });
+        break;
+      default:
+        await this.invitationRepository.update(invitation.id, {
+          status: INVITATION_STATUS.accepted,
+        });
+        break;
+    }
+  }
+
+  async getUsersByTrainer(trainerId: string) {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.results', 'result')
+      .leftJoinAndSelect('result.quiz', 'quiz')
+      .leftJoinAndSelect('user.groups', 'group')
+      .where('group.trainerId = (:trainerId)', {
+        trainerId,
+      })
+      .select([
+        'user.id',
+        'user.firstName',
+        'user.lastName',
+        'user.email',
+        'user.created',
+        'group.name',
+        'group.id',
+        'result.status',
+        'result.updated',
+        'quiz.title',
+      ])
+      .getMany();
+  }
+
+  async getAllUsers() {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.results', 'result')
+      .leftJoinAndSelect('result.quiz', 'quiz')
+      .leftJoinAndSelect('user.groups', 'group')
+      .select([
+        'user.id',
+        'user.firstName',
+        'user.lastName',
+        'user.email',
+        'user.created',
+        'group.name',
+        'result.status',
+        'result.updated',
+        'quiz.title',
+      ])
+      .getMany();
+  }
+
+  async getAllTrainers() {
+    return this.userRepository.find({
+      where: {
+        role: ROLES.trainerAdmin,
+      },
+    });
+  }
+
+  async getTrainersByUser(id: string) {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id = (:id)', {
+        id,
+      })
+      .leftJoinAndSelect('user.groups', 'group')
+      .getOne();
+
+    const trainers = [...new Set(user.groups.map((item) => item.trainerId))];
+
+    return this.userRepository.findByIds(trainers);
+  }
+
+  async deleteUser(body: UserIdDto) {
+    const user = await this.getUserById(body.userId);
+
+    await this.userRepository.delete(user.id);
+
+    return user;
+  }
+
+  async deleteTrainer(body: UserIdDto) {
+    const trainer = await this.getUserById(body.userId);
+
+    await this.userRepository.delete(trainer.id);
+    const groups = await this.groupService.getGroupsByTrainer({
+      trainerId: trainer.id,
+    });
+
+    groups.forEach(async (group) => {
+      await this.groupService.deleteGroup({ groupId: group.id });
+    });
+
+    return trainer;
   }
 }

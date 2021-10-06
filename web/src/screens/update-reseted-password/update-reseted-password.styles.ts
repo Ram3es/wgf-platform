@@ -4,7 +4,7 @@ import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
-export const UpdatePasswordStyles = {
+export const UpdateResetedPasswordStyles = {
   Wrapper: styled.div`
     font-size: ${FONT_SIZES.medium};
 

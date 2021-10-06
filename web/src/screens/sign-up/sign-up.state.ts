@@ -15,7 +15,7 @@ import { initialSignUpState } from './sign-up.constants';
 
 export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
-  const { replace, goBack, length } = useHistory();
+  const { replace, goBack, length, push } = useHistory();
 
   useEffect(() => {
     const user = storageService.getUser();
@@ -35,7 +35,7 @@ export const useSignUpState = () => {
   }, [state.user]);
 
   const redirectToSignIn = () => {
-    replace(ROUTES.signIn);
+    push(ROUTES.signIn);
   };
 
   const signUpHandler = async () => {

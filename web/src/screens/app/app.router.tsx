@@ -7,7 +7,7 @@ import { MainPage } from '../main-page';
 import { ResetPassword } from '../reset-password';
 import { SignIn } from '../sign-in';
 import { SignUp } from '../sign-up';
-import { UpdatePassword } from '../update-password';
+import { UpdateResetedPassword } from '../update-reseted-password';
 import { PrivateRoute } from './private-route';
 
 import { ROUTES } from '@constants/routes';
@@ -20,7 +20,11 @@ export const Router: React.FC = () => (
     <Route exact path={ROUTES.signIn} component={SignIn} />
     <Route exact path={ROUTES.signUp} component={SignUp} />
     <Route exact path={ROUTES.resetPassword} component={ResetPassword} />
-    <Route exact path={ROUTES.updatePassword} component={UpdatePassword} />
+    <Route
+      exact
+      path={ROUTES.updatePassword}
+      component={UpdateResetedPassword}
+    />
     <Redirect to={ROUTES.main} />
   </Switch>
 );

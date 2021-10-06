@@ -1,0 +1,18 @@
+export const USER_ROUTES = {
+  main: 'user',
+  update: 'update',
+  signUp: 'sign-up',
+  signIn: 'sign-in',
+  logOut: 'logout',
+  getUserById: 'get-user-by-id',
+  updateProfilePassword: 'update-profile-password',
+  updateResetedPassword: 'update-reseted-password',
+  resetPasswordRequest: 'reset-password-request',
+  createTrainerAdmin: 'create-trainer-admin',
+  getUsersByTrainer: 'get-users-by-trainer',
+  getAllUsers: 'get-all-users',
+  getAllTrainers: 'get-all-trainers',
+  getTrainersByUser: 'get-trainers-by-user',
+  deleteUser: 'delete-user',
+  deleteTrainer: 'delete-trainer',
+};

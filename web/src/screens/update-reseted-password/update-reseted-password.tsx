@@ -9,19 +9,21 @@ import { Header } from '@components/header';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
-import { updatePassword } from '@services/user.service';
+import { updateResetedPassword } from '@services/user.service';
 
 import { errorMessage } from '@constants/pop-up-messages';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { Toast } from '@constants/toasts';
-import { UpdatePasswordFormSchema, updatePasswordInitial } from './update-password.constants';
+import {
+    UpdatePasswordFormSchema, updatePasswordInitial
+} from './update-reseted-password.constants';
 
 import { FormStyles } from '@styles/components/form.styles';
 import { TitleStyles } from '@styles/components/title-styles';
-import { UpdatePasswordStyles as Styled } from './update-password.styles';
+import { UpdateResetedPasswordStyles as Styled } from './update-reseted-password.styles';
 
-export const UpdatePassword: React.FC = () => {
+export const UpdateResetedPassword: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export const UpdatePassword: React.FC = () => {
 
   const resetPasswordHandler = async () => {
     try {
-      await updatePassword({
+      await updateResetedPassword({
         newPassword: updatePasswordData.newPassword,
         token: query.get('token') || '',
       });

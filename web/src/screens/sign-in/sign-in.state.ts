@@ -45,7 +45,7 @@ export const useSignInState = () => {
   }, [state.user]);
 
   const redirectToSignUp = () => {
-    replace(ROUTES.signUp);
+    push(ROUTES.signUp);
   };
 
   const signInHandler = async () => {

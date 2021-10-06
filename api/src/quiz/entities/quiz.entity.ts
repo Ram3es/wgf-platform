@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { ResultEntity } from 'src/answer/entities/result.entity';
@@ -22,6 +22,5 @@ export class QuizEntity {
   results: ResultEntity[];
 
   @ManyToMany(() => QuestionEntity, (data) => data.quizes)
-  @JoinTable()
   questions: QuestionEntity[];
 }
