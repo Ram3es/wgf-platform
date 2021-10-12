@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 import { COLORS } from '../colors';
-import { FONT_SIZES } from '../font-sizes';
 
 type TTextAlign = 'left' | 'right' | 'center';
 
@@ -16,18 +15,18 @@ export interface TitleProps {
 export const TitleStyles = {
   h1: styled.h1<TitleProps>`
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
-    font-size: ${FONT_SIZES.title1};
+    font-size: ${FONTS.sizes[36]};
     color: ${({ color }) => (color ? color : COLORS.default)};
     margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '0')};
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.title1Mobile};
+      font-size: ${FONTS.sizes[30]};
     `)}
 
     ${Media.xsMobile(css`
-      font-size: ${FONT_SIZES.title1XsMobile};
+      font-size: ${FONTS.sizes[26]};
     `)}
 
     @media print {
@@ -37,18 +36,18 @@ export const TitleStyles = {
   `,
   h2: styled.h2<TitleProps>`
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
-    font-size: ${FONT_SIZES.title2};
+    font-size: ${FONTS.sizes[26]};
     color: ${({ color }) => (color ? color : COLORS.default)};
     margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '0')};
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.title2Mobile};
+      font-size: ${FONTS.sizes[22]};
     `)}
 
     ${Media.xsMobile(css`
-      font-size: ${FONT_SIZES.title2XsMobile};
+      font-size: ${FONTS.sizes[20]};
     `)}
 
     @media print {
@@ -58,14 +57,14 @@ export const TitleStyles = {
   `,
   h3: styled.h3<TitleProps>`
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     text-align: ${({ textAlign }) => (textAlign ? textAlign : 'center')};
-    font-size: ${FONT_SIZES.title3};
+    font-size: ${FONTS.sizes[24]};
     color: ${({ color }) => (color ? color : COLORS.default)};
     margin-bottom: ${({ mb }) => (mb ? `${mb}px` : '0')};
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.title3Mobile};
+      font-size: ${FONTS.sizes[20]};
     `)}
 
     @media print {

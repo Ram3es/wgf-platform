@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -44,10 +43,10 @@ export const BannerStyles = {
     position: relative;
     z-index: ${Z_INDEX.low};
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     color: ${COLORS.greyLite};
     margin-bottom: 150px;
-    font-size: ${FONT_SIZES.titleMain};
+    font-size: ${FONTS.sizes[60]};
     padding-left: 100px;
 
     ${Media.landscapeWreck`
@@ -61,7 +60,7 @@ export const BannerStyles = {
     ${Media.smallLandscape(css`
       padding-left: 0;
       text-align: center;
-      font-size: ${FONT_SIZES.titleMainLandscape};
+      font-size: ${FONTS.sizes[50]};
       margin-bottom: 100px;
     `)}
 
@@ -70,12 +69,12 @@ export const BannerStyles = {
     `}
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.titleMainMobile};
+      font-size: ${FONTS.sizes[40]};
       margin-bottom: 80px;
     `)}
     
     ${Media.xsMobile(css`
-      font-size: ${FONT_SIZES.titleMainXsMobile};
+      font-size: ${FONTS.sizes[15]};
     `)}
 
     @media print {
@@ -160,20 +159,20 @@ export const BannerStyles = {
     `}
 
     h1 {
-      font-size: ${FONT_SIZES.title1};
+      font-size: ${FONTS.sizes[36]};
       color: ${COLORS.grey};
       font-weight: 700;
-      font-family: ${FONTS.frutigerBold};
+      font-family: ${FONTS.family.frutigerBold};
       margin-bottom: 20px;
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.title1Mobile};
+        font-size: ${FONTS.sizes[30]};
       `)}
     }
 
     p {
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.defaultMobile};
+        font-size: ${FONTS.sizes[15]};
       `)}
     }
   `,

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 
 import { IButtonStylesProps } from './button.typings';
@@ -20,9 +19,9 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
     `1px solid ${variant === 'cancel' ? COLORS.grey : 'transparent'}`};
   color: ${({ variant }) =>
     variant === 'cancel' ? COLORS.grey : COLORS.white};
-  font-size: ${FONT_SIZES.default};
+  font-size: ${FONTS.sizes[18]};
   font-weight: 700;
-  font-family: ${FONTS.frutigerBold};
+  font-family: ${FONTS.family.frutigerBold};
   background-color: ${({ color, variant }) =>
     variant === 'cancel' ? COLORS.white : color};
   transition: 0.3;

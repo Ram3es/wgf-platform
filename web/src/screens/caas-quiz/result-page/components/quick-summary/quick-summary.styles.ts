@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -63,16 +62,16 @@ export const QuickSummaryStyles = {
       transform: translate(-50%, -50%);
       letter-spacing: -1px;
       text-transform: uppercase;
-      font-size: ${FONT_SIZES.resultSummaryMobile};
+      font-size: ${FONTS.sizes[19]};
 
       ${Media.desktop(css`
-        font-size: ${FONT_SIZES.title2Mobile};
+        font-size: ${FONTS.sizes[22]};
       `)}
     }
   `,
   HeadingTitle: styled.div`
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     color: ${COLORS.grey};
   `,
   Row: styled.div<{ quiz: string }>`
@@ -121,7 +120,7 @@ export const QuickSummaryStyles = {
   `,
   TitleStrong: styled.strong<{ color?: string }>`
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     position: relative;
     z-index: ${Z_INDEX.medium};
     color: ${({ color }) => (color ? color : COLORS.default)};

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const ResourcesStyles = {
@@ -15,15 +15,15 @@ export const ResourcesStyles = {
     border-radius: 10px;
     min-height: 150px;
     margin-bottom: 40px;
-    font-size: ${FONT_SIZES.text};
+    font-size: ${FONTS.sizes[16]};
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.small};
+      font-size: ${FONTS.sizes[12]};
       margin-bottom: 20px;
     `)}
   `,
   List: styled.ol`
-    font-size: ${FONT_SIZES.text};
+    font-size: ${FONTS.sizes[16]};
     margin-left: 20px;
   `,
   ListItem: styled.li`

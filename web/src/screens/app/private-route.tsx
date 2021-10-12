@@ -15,8 +15,9 @@ export const PrivateRoute: FunctionComponent<IPrivateRouteProps> = ({
   ...rest
 }) => {
   const isToken = storageService.getToken();
+  const user = storageService.getUser();
 
-  if (!isToken) {
+  if (!isToken || !user) {
     return <Redirect push to={ROUTES.signIn} />;
   }
 

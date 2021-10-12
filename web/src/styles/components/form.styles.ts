@@ -10,7 +10,7 @@ export const FormStyles = {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 101px);
+    height: calc(100vh - 95px);
     min-height: 600px;
     padding: 0 20px;
   `,

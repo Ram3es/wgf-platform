@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { Z_INDEX } from '@constants/z-indexes';
@@ -62,7 +62,7 @@ export const PopUpStyles = {
     }
   `,
   Text: styled.p`
-    font-size: ${FONT_SIZES.medium};
+    font-size: ${FONTS.sizes[14]};
     color: ${COLORS.black};
     margin-bottom: 80px;
 

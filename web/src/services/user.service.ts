@@ -16,9 +16,15 @@ export const resetPassword = (data: { email: string }) =>
     data
   );
 
-export const updateResetedPassword = (data: IUpdatePassword) =>
-  POST<{ message: string }, IUpdatePassword>(
+export const updateResetedPassword = (data: IUpdateResetedPassword) =>
+  POST<{ message: string }, IUpdateResetedPassword>(
     `${ENDPOINTS.user}/update-reseted-password`,
+    data
+  );
+
+export const updateProfilePassword = (data: IUpdateProfilePassword) =>
+  POST<{ message: string }, IUpdateProfilePassword>(
+    `${ENDPOINTS.user}/update-profile-password`,
     data
   );
 

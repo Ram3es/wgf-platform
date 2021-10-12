@@ -6,6 +6,7 @@ import { RoleGuard } from '../shared/guards/role.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
 import { SignInDto } from './dto/sign-in.dto';
+import { UpdatePassWordDTO } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserIdDto } from './dto/user-by-id.dto';
 import { UserEntity } from './entities/user.entity';
@@ -155,7 +156,7 @@ export class UserController {
   @UseGuards(JwtAuthenticationGuard)
   public async updateProfilePassword(
     @User('id') id: string,
-    @Body() body: ResetPassWordDTO
+    @Body() body: UpdatePassWordDTO
   ) {
     return await this.userService.updateProfilePassword(id, body);
   }

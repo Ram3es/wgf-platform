@@ -181,6 +181,7 @@ export const STRINGS = {
     resetPassword: 'Reset Password',
     updatePassword: 'Update Password',
     downloadCsv: 'Download CSV',
+    save: 'Save',
   },
 
   input: {
@@ -191,6 +192,11 @@ export const STRINGS = {
     confirmPassword: '* Confirm Password',
     firstName: '* First Name',
     lastName: '* Last Name',
+    organisation: 'Organisation',
+    occupation: 'Occupation',
+    created: 'Joined on',
+    mobileNumber: 'Mobile Number',
+    country: 'Country',
   },
 
   mainPage: {
@@ -199,5 +205,10 @@ export const STRINGS = {
       'We curate an ever-expanding suite of career tools, workshops and resources to help students and working professionals discover their life purpose and build career resilience. In an approachable, gamified way.',
       'Working with governments, businesses and schools, we leverage the power of design and technology to bring the best in career development practice to all. At scale.',
     ],
+  },
+
+  profile: {
+    profileTitle: 'Profile',
+    accountTitle: 'Account',
   },
 };

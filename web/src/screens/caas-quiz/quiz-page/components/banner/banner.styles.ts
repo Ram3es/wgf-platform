@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -33,9 +32,9 @@ export const BannerStyles = {
   Title: styled.h1`
     position: relative;
     z-index: ${Z_INDEX.low};
-    font-size: ${FONT_SIZES.titleMain};
+    font-size: ${FONTS.sizes[60]};
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     color: ${COLORS.greyLite};
     padding-left: 100px;
 
@@ -54,18 +53,18 @@ export const BannerStyles = {
     ${Media.smallLandscape(css`
       margin-bottom: 80px;
       padding-left: 0;
-      font-size: ${FONT_SIZES.titleMainLandscape};
+      font-size: ${FONTS.sizes[50]};
     `)}
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.titleMainMobile};
+      font-size: ${FONTS.sizes[40]};
       margin-bottom: 70px;
     `)}
     ${Media.sMobile(css`
       margin-bottom: 55px;
     `)}
     ${Media.xsMobile(css`
-      font-size: ${FONT_SIZES.titleMainXsMobile};
+      font-size: ${FONTS.sizes[30]};
     `)}
   `,
 
@@ -89,7 +88,7 @@ export const BannerStyles = {
 
     p {
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.defaultMobile};
+        font-size: ${FONTS.sizes[15]};
       `)}
 
       :first-of-type {

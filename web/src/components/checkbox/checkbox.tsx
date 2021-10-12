@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Check } from '@components/icons';
+import { Icon } from '@components/icon';
 
 import { ICheckboxProps } from './checkbox.typings';
 
@@ -25,7 +25,7 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
       boxHeight={boxHeight}
       boxWidth={boxWidth}
     >
-      {isChecked && <Check />}
+      {isChecked && <Icon type="check" />}
     </Styled.RadioItem>
     <Styled.Label onClick={onChange}>{label}</Styled.Label>
   </Styled.Wrapper>

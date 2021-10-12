@@ -1,4 +1,4 @@
-export const IMAGES = {
+export const IMAGES: Record<string, string> = {
   companyLogo: require('../assets/img/company-logo.svg').default,
   productLogo: require('../assets/img/product-logo.svg').default,
   back: require('../assets/img/back-arrow.svg').default,
@@ -28,4 +28,15 @@ export const IMAGES = {
   starTopBackdrop: require('../assets/img/star-backdrop.png').default,
   starBottomBackdrop: require('../assets/img/star-bottom-backdrop.png').default,
   ovalBackdrop: require('../assets/img/oval-backdrop.png').default,
+  home: require('../assets/img/section-home.svg').default,
+  assessment: require('../assets/img/section-assessment.svg').default,
+  users: require('../assets/img/section-users.svg').default,
+  userProfile: require('../assets/img/user.png').default,
+  CareerFlex: require('../assets/img/career-flex.png').default,
+  ['Career Design Game']: require('../assets/img/career-design-game.png')
+    .default,
+  ['My Career Adventure']: require('../assets/img/career-design-canvas.png')
+    .default,
+  ['Career Design Canvas']: require('../assets/img/my-career-adventure.png')
+    .default,
 };

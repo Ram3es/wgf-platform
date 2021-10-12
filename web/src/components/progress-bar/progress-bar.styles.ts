@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -84,13 +83,13 @@ export const ProgressBarStyles = {
 
     span {
       color: ${COLORS.white};
-      font-size: ${FONT_SIZES.medium};
+      font-size: ${FONTS.sizes[14]};
       font-weight: 900;
       line-height: 17px;
-      font-family: ${FONTS.frutigerBold};
+      font-family: ${FONTS.family.frutigerBold};
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.small};
+        font-size: ${FONTS.sizes[12]};
       `)}
     }
   `,

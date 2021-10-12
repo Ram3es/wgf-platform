@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -15,7 +14,7 @@ export const QuestionListStyles = {
     margin-bottom: 80px;
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.defaultMobile};
+      font-size: ${FONTS.sizes[15]};
       margin-bottom: 20px;
     `)}
   `,
@@ -26,13 +25,13 @@ export const QuestionListStyles = {
   `,
 
   ItemTitle: styled.p<{ isError: boolean }>`
-    font-size: ${FONT_SIZES.default};
+    font-size: ${FONTS.sizes[18]};
     font-weight: 700;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
     color: ${({ isError }) => (isError ? COLORS.red : COLORS.black)};
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.defaultMobile};
+      font-size: ${FONTS.sizes[15]};
     `)}
   `,
 

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { IRadioButtonPropsStyles } from './radio-button-group.typings';
@@ -43,12 +43,12 @@ export const RadioButtonGroupStyles = {
 
   Label: styled.span<IRadioButtonPropsStyles>`
     cursor: pointer;
-    font-size: ${FONT_SIZES.default};
+    font-size: ${FONTS.sizes[18]};
     ${({ isVariantQuiz, color }) =>
       isVariantQuiz ? `color: ${color};` : `color: ${COLORS.default}`}
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.smallest};
+      font-size: ${FONTS.sizes[10]};
     `)}
   `,
 };

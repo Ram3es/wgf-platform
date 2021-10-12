@@ -29,16 +29,32 @@ interface IUserUpdate extends Partial<IUser> {
   id: string;
 }
 
-interface IUser {
+type TRole = 'superAdmin' | 'trainerAdmin' | 'user';
+
+interface IUser extends IProfileData {
   id: string;
+  isSubscriber: boolean;
+  role: TRole;
+  jobStatus: string | null;
+  avatar: string | null;
+  country: string | null;
+}
+
+interface IProfileData {
   firstName: string;
   lastName: string;
   email: string;
-  created: Date;
-  isSubscriber: boolean;
-  trainerAdminId: string | null;
-  role: string;
-  jobStatus: string | null;
+  created: string;
+  mobileNumber: string | null;
+  organizationName: string | null;
+  occupation: string | null;
+  country: string | null;
+}
+
+interface IAccountData {
+  newPassword: string;
+  password: string;
+  confirmPassword: string;
 }
 
 interface ISignInData {
@@ -101,7 +117,12 @@ interface IQuizItem {
   result: IResults;
 }
 
-interface IUpdatePassword {
+interface IUpdateResetedPassword {
   newPassword: string;
   token: string;
+}
+
+interface IUpdateProfilePassword {
+  newPassword: string;
+  password: string;
 }

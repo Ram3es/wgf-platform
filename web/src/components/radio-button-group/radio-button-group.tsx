@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Check } from '@components/icons';
+import { Icon } from '@components/icon';
 
 import { IRadioButtonProps } from './radio-button-group.typings';
 
@@ -39,7 +39,7 @@ export const RadioButtonGroup: React.FC<IRadioButtonProps> = ({
             isVariantQuiz={isVariantQuiz}
             checked={radioValue === value}
           >
-            {isImage && radioValue === value && <Check />}
+            {isImage && radioValue === value && <Icon type="check" />}
           </Styled.RadioItem>
           <Styled.Label
             color={color}

@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -114,13 +113,13 @@ export const ResultSummaryStyles = {
       transform: translate(-50%, -50%);
       letter-spacing: -1px;
       text-transform: uppercase;
-      font-size: ${FONT_SIZES.resultSummary};
+      font-size: ${FONTS.sizes[24]};
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.resultSummaryMobile};
+        font-size: ${FONTS.sizes[19]};
       `)}
       ${Media.xsMobile(css`
-        font-size: ${FONT_SIZES.resultSummaryXsMobile};
+        font-size: ${FONTS.sizes[18]};
       `)}
     }
   `,
@@ -155,24 +154,24 @@ export const ResultSummaryStyles = {
     `}
 
     span {
-      font-size: ${FONT_SIZES.defaultMobile};
+      font-size: ${FONTS.sizes[15]};
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.small};
+        font-size: ${FONTS.sizes[12]};
       `)}
     }
 
     & > strong {
-      font-size: ${FONT_SIZES.scoreStrong};
+      font-size: ${FONTS.sizes[40]};
       color: ${COLORS.grey};
       display: block;
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.scoreStrongMobile};
+        font-size: ${FONTS.sizes[35]};
       `)}
 
       ${Media.sMobile(css`
-        font-size: ${FONT_SIZES.scoreStrongXsMobile};
+        font-size: ${FONTS.sizes[28]};
       `)}
     }
 
@@ -207,15 +206,15 @@ export const ResultSummaryStyles = {
     align-items: center;
 
     strong {
-      font-size: ${FONT_SIZES.title2};
+      font-size: ${FONTS.sizes[26]};
       color: ${({ color }) => (color ? color : COLORS.grey)};
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.title2XsMobile};
+        font-size: ${FONTS.sizes[20]};
       `)}
 
       ${Media.xsMobile(css`
-        font-size: ${FONT_SIZES.defaultMobile};
+        font-size: ${FONTS.sizes[15]};
       `)}
     }
 
@@ -236,10 +235,10 @@ export const ResultSummaryStyles = {
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
-    font-size: ${FONT_SIZES.text};
+    font-size: ${FONTS.sizes[16]};
 
     ${Media.mobile(css`
-      font-size: ${FONT_SIZES.medium};
+      font-size: ${FONTS.sizes[14]};
     `)}
 
     p {
@@ -270,7 +269,7 @@ export const ResultSummaryStyles = {
     strong {
       flex: 0 1 100%;
       font-weight: 700;
-      font-family: ${FONTS.frutigerBold};
+      font-family: ${FONTS.family.frutigerBold};
       color: ${COLORS.default};
       margin-left: 3px;
 

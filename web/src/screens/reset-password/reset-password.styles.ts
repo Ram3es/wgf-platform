@@ -1,26 +1,25 @@
 import styled from 'styled-components';
 
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 export const ResetPasswordStyles = {
   Wrapper: styled.div`
-    font-size: ${FONT_SIZES.medium};
+    font-size: ${FONTS.sizes[14]};
 
     h1 {
-      font-family: ${FONTS.absideSmooth};
+      font-family: ${FONTS.family.absideSmooth};
       font-weight: 400;
     }
 
     button {
       font-weight: 400;
-      font-family: ${FONTS.poppinsRegular};
-      font-size: ${FONT_SIZES.medium};
+      font-family: ${FONTS.family.poppinsRegular};
+      font-size: ${FONTS.sizes[14]};
     }
   `,
   FormLabel: styled.p`
-    font-size: ${FONT_SIZES.medium};
+    font-size: ${FONTS.sizes[14]};
     margin-bottom: 20px;
   `,
   Footer: styled.div`

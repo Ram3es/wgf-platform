@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -55,11 +54,11 @@ export const NextStepsStyles = {
 
     span {
       margin-right: 5px;
-      font-size: ${FONT_SIZES.text};
+      font-size: ${FONTS.sizes[16]};
       white-space: nowrap;
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.small};
+        font-size: ${FONTS.sizes[12]};
       `)}
 
       @media print {
@@ -68,12 +67,12 @@ export const NextStepsStyles = {
     }
 
     strong {
-      font-size: ${FONT_SIZES.title2};
+      font-size: ${FONTS.sizes[26]};
       padding: 5px 0;
       color: ${({ color }) => (color ? color : COLORS.grey)};
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.title2XsMobile};
+        font-size: ${FONTS.sizes[20]};
       `)}
     }
 
@@ -85,12 +84,12 @@ export const NextStepsStyles = {
     padding: 25px;
 
     p {
-      font-size: ${FONT_SIZES.text};
+      font-size: ${FONTS.sizes[16]};
       white-space: break-spaces;
       line-height: 19px;
 
       ${Media.mobile(css`
-        font-size: ${FONT_SIZES.medium};
+        font-size: ${FONTS.sizes[14]};
       `)}
 
       :first-of-type {
@@ -100,9 +99,9 @@ export const NextStepsStyles = {
 
     strong {
       display: block;
-      font-size: ${FONT_SIZES.text};
+      font-size: ${FONTS.sizes[16]};
       font-weight: 700;
-      font-family: ${FONTS.frutigerBold};
+      font-family: ${FONTS.family.frutigerBold};
       margin-bottom: 15px;
     }
   `,

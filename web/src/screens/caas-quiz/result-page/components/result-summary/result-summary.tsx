@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
-import { Question } from '@components/icons';
+import { Icon } from '@components/icon';
 import { Modal } from '@components/modal';
 import { COLORS } from '@styles/colors';
-
-
 
 import { IMAGES } from '@constants/images';
 import { STRINGS } from '@constants/strings';
@@ -33,7 +31,7 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
         </TitleStyles.h1>
         {withArchetypesIcon && (
           <ResultSummaryStyles.ArchetypesIcon onClick={modalOpen}>
-            <Question />
+            <Icon type="question" />
           </ResultSummaryStyles.ArchetypesIcon>
         )}
         {isOpen && (

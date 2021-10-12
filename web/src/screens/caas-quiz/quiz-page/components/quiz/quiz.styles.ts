@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { FONT_SIZES } from '@styles/font-sizes';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
@@ -13,10 +12,10 @@ export const QuizStyles = {
   Label: styled.p`
     flex: 0 1 100%;
     padding: 0 12px;
-    font-size: ${FONT_SIZES.medium};
+    font-size: ${FONTS.sizes[14]};
     font-weight: 700;
     margin-bottom: 10px;
-    font-family: ${FONTS.frutigerBold};
+    font-family: ${FONTS.family.frutigerBold};
 
     ${Media.mobile`
       text-align: center;

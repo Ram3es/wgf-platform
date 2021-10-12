@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { FONT_SIZES } from '@styles/font-sizes';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { Z_INDEX } from '@constants/z-indexes';
@@ -21,7 +21,7 @@ export const ModalStyles = {
     max-width: ${({ width }) => (width ? `${width}px` : 'none')};
 
     p {
-      font-size: ${FONT_SIZES.medium};
+      font-size: ${FONTS.sizes[14]};
       color: ${COLORS.default};
 
       :first-of-type {

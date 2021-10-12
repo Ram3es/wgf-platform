@@ -29,7 +29,7 @@ export const MainPageStyles = {
     padding: 0 5px;
 
     h1 {
-      font-family: ${FONTS.absideSmooth};
+      font-family: ${FONTS.family.absideSmooth};
       font-weight: 400;
     }
   `,

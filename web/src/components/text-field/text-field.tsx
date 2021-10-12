@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Shape } from '@components/icons/shape';
+import { Icon } from '@components/icon';
 
 import { ITextFieldProps } from './text-field.typings';
 
@@ -20,8 +20,11 @@ export const TextField: React.FC<ITextFieldProps> = ({
   readOnly,
   tabIndex,
   autoCapitalize,
+  withBorder,
+  onClick,
+  isAutoCompleteOff,
 }) => (
-  <div>
+  <>
     <Styled.Wrapper error={error}>
       <Styled.Input
         width={width}
@@ -37,9 +40,12 @@ export const TextField: React.FC<ITextFieldProps> = ({
         readOnly={readOnly}
         tabIndex={tabIndex}
         autoCapitalize={autoCapitalize}
+        withBorder={withBorder}
+        onClick={onClick}
+        autoComplete={isAutoCompleteOff ? 'off' : 'on'}
       />
-      {type === 'password' && <Shape />}
+      {type === 'password' && <Icon type="shape" />}
       {error && <Styled.ErrorBlock>{error}</Styled.ErrorBlock>}
     </Styled.Wrapper>
-  </div>
+  </>
 );
