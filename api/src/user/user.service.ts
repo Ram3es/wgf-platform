@@ -230,6 +230,8 @@ export class UserService {
   }
 
   async updateResetedPassword(body: ResetPassWordDTO) {
+    console.log(body);
+
     const resetPassModel = await this.resetPasswordRepository.findOne({
       where: { token: body.token },
     });
