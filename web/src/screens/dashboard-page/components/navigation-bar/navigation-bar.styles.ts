@@ -8,8 +8,7 @@ export const NavigationBarStyles = {
     width: 300px;
     background: ${COLORS.authBg};
     border-top-right-radius: 20px;
-    height: calc(100vh - 95px);
-    min-height: 700px;
+    min-height: calc(100vh - 95px);
     padding: 45px 0 45px 35px;
 
     ${Media.landscapeWreck`

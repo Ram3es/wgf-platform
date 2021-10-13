@@ -167,7 +167,7 @@ export const useProfileState = () => {
 
   const handleSubmitAccountForm = async () => {
     try {
-      updateState({ isAccountEdit: false });
+      updateState({ isAccountEdit: false, accountData: initialAccountData });
       await updateProfilePassword({
         password: state.accountData.password,
         newPassword: state.accountData.newPassword,

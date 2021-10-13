@@ -6,3 +6,8 @@ export interface IResultState {
     firstName: string;
   };
 }
+
+export interface IPdf {
+  file: string;
+  name: string;
+}

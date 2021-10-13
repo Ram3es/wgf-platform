@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -14,11 +14,13 @@ import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { initialResultState } from './result-page.constants';
 
-import { IResultState } from './result-page.typings';
+import { IPdf, IResultState } from './result-page.typings';
 
 export const useResultState = () => {
   const { state, updateState } =
     useUpdateState<IResultState>(initialResultState);
+
+  const [filePdf, setFilePdf] = useState<null | IPdf>(null);
 
   const userInfo = useSelector((state: RootState) => state.user);
 
@@ -66,31 +68,41 @@ export const useResultState = () => {
     getResult();
   }, [getResult]);
 
-  const generatePdf = async () => {
-    try {
-      const {
-        data: { file, name },
-      } = await trackPromise(
-        getPdf({
-          userId: state.user.id,
-          quizId: state.quiz.id,
-        }),
-        PROMISES_AREA.printCaasPdf
-      );
+  const getPdfFile = async () => {
+    if (!filePdf) {
+      try {
+        const { data } = await trackPromise(
+          getPdf({
+            userId: state.user.id,
+            quizId: state.quiz.id,
+          }),
+          PROMISES_AREA.printCaasPdf
+        );
 
-      if (!file) {
-        return;
-      }
-
-      const html = `
-        <p>A pdf file report was sent to your email.</p>
-      `;
-      downloadMessage(`data:application/pdf;base64,${file}`, name, html).fire();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return errorMessage(error?.response?.data.message).fire();
+        return data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          errorMessage(error?.response?.data.message).fire();
+        }
       }
     }
+
+    return filePdf;
+  };
+
+  const generatePdf = async () => {
+    const data = await getPdfFile();
+
+    setFilePdf(data);
+
+    const html = `
+        <p>A pdf file report was sent to your email.</p>
+      `;
+    downloadMessage(
+      `data:application/pdf;base64,${data!.file}`,
+      data!.name,
+      html
+    ).fire();
   };
 
   return {

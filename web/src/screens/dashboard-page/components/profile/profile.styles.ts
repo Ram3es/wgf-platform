@@ -153,7 +153,7 @@ export const ProfileSectionFormStyles = {
   `,
   FormItem: styled.div<{ type?: string }>`
     & > * {
-      margin-bottom: ${({ type }) => (type === 'password' ? '30px' : '20px')};
+      margin-bottom: ${({ type }) => (type === 'password' ? '32px' : '20px')};
     }
   `,
   FormControl: styled.div`
