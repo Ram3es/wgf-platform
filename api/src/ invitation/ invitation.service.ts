@@ -350,8 +350,8 @@ export class InvitationService {
 
         return {
           ...item,
-          registeredOn: user?.created || 'Pending',
-          name: user ? `${user?.firstName} ${user.lastName}` : item.name,
+          registeredOn: user.created || 'Pending',
+          name: user ? `${user.firstName} ${user.lastName}` : item.name,
         };
       })
     );

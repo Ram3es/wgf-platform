@@ -4,6 +4,5 @@ export interface IQuizState {
   questionPerPage: number;
   questionList: IQuestionListItem[];
   questionListForPage: IQuestionListItem[];
-  user: IUser | null;
   isShowModal: boolean;
 }

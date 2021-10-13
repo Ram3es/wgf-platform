@@ -1,3 +1,5 @@
+
+
 export const initialProfileData = {
   firstName: '',
   lastName: '',
@@ -16,11 +18,11 @@ export const initialAccountData = {
 };
 
 export const initialProfileState = {
-  user: null,
   profileData: null,
   initialProfileData: null,
   accountData: initialAccountData,
   isPhotoPicked: false,
   isProfileEdit: false,
   isAccountEdit: false,
+  avatar: null,
 };

@@ -3,9 +3,9 @@ import axios, { AxiosResponse } from 'axios';
 import { BASE_URL } from '../constants/config';
 import { storageService } from './storage/storage';
 
-export const POST = async <T, B>(
+export const POST = async <T, B = undefined>(
   endPoint: string,
-  data: B
+  data?: B
 ): Promise<AxiosResponse<T>> =>
   getInstance().post(`${BASE_URL}${endPoint}`, data);
 

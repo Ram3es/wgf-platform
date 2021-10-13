@@ -32,6 +32,7 @@ export const Profile: React.FC = () => {
     isAccountEdit,
     accountChange,
     accountData,
+    avatar,
     handleSubmitAccountForm,
     editAccountClick,
     updateSelectedCountry,
@@ -45,13 +46,13 @@ export const Profile: React.FC = () => {
         <Styled.AvatarColumn>
           <Styled.NameTitle>
             <TitleStyles.h2 textAlign="center" color={COLORS.grey}>
-              {user?.firstName} {user?.lastName}
+              {user.firstName} {user.lastName}
             </TitleStyles.h2>
           </Styled.NameTitle>
           <Styled.AvatarWrapper>
             <ImagePicker setValue={handleImageChange} />
             <Styled.Avatar>
-              <img src={user?.avatar || IMAGES.userProfile} />
+              <img src={avatar || IMAGES.userProfile} />
             </Styled.Avatar>
             <Styled.SubmitAvatar
               onClick={isPhotoPicked ? sendAvatar : undefined}

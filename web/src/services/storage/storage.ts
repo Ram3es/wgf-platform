@@ -1,5 +1,4 @@
 const TOKEN_STORAGE_KEY = 'token';
-const USER_STORAGE_KEY = 'user';
 
 export const SESSION_STORAGE = {
   caasQuestionList: 'caasQuestionList',
@@ -11,6 +10,9 @@ export const SESSION_STORAGE = {
 };
 
 class StorageService {
+  getUser() {
+    throw new Error('Method not implemented.');
+  }
   public getToken = () => {
     return (
       localStorage.getItem(TOKEN_STORAGE_KEY) ||
@@ -24,15 +26,6 @@ class StorageService {
   };
   public removeToken = () => {
     return localStorage.removeItem(TOKEN_STORAGE_KEY);
-  };
-
-  public setUser = (data: IUser) => {
-    return localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(data));
-  };
-
-  public getUser = (): IUser | null => {
-    const data = localStorage.getItem(USER_STORAGE_KEY);
-    return data ? JSON.parse(data) : null;
   };
 
   public getQuizItems = (): IQuizItems => {

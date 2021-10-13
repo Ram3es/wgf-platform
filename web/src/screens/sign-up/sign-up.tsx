@@ -14,12 +14,12 @@ import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
 import { UserFormSchema } from './sign-up.constants';
 
+import { FormStyles } from '@styles/components/form.styles';
 import { TitleStyles } from '@styles/components/title-styles';
-import { FormStyles } from '../../styles/components/form.styles';
 import { SignUpStyles as Styled } from './sign-up.styles';
 
 export const SignUp: React.FC = () => {
-  const { onChangeUser, signUpHandler, redirectToSignIn, signUpData } =
+  const { onChangeUser, signUpHandler, redirectToSignIn, state } =
     useSignUpState();
 
   return (
@@ -27,7 +27,7 @@ export const SignUp: React.FC = () => {
       <Header />
       <Backdrop />
       <Formik
-        initialValues={signUpData}
+        initialValues={state}
         validateOnChange
         onSubmit={signUpHandler}
         validationSchema={UserFormSchema}
@@ -67,7 +67,7 @@ export const SignUp: React.FC = () => {
                         placeholder={STRINGS.input.firstName}
                         onChange={handleUserChange}
                         onBlur={handleBlur}
-                        value={signUpData.firstName}
+                        value={state.firstName}
                         tabIndex={1}
                         error={
                           touched.firstName && errors.firstName
@@ -84,7 +84,7 @@ export const SignUp: React.FC = () => {
                         placeholder={STRINGS.input.lastName}
                         onChange={handleUserChange}
                         onBlur={handleBlur}
-                        value={signUpData.lastName}
+                        value={state.lastName}
                         tabIndex={2}
                         error={
                           touched.lastName && errors.lastName
@@ -101,7 +101,7 @@ export const SignUp: React.FC = () => {
                         placeholder={STRINGS.input.email}
                         onChange={handleUserChange}
                         onBlur={handleBlur}
-                        value={signUpData.email}
+                        value={state.email}
                         tabIndex={3}
                         autoCapitalize="none"
                         error={
@@ -117,7 +117,7 @@ export const SignUp: React.FC = () => {
                         placeholder={STRINGS.input.password}
                         onChange={handleUserChange}
                         onBlur={handleBlur}
-                        value={signUpData.password}
+                        value={state.password}
                         tabIndex={4}
                         autoCapitalize="none"
                         error={

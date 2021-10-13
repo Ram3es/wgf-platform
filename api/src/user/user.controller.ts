@@ -79,6 +79,19 @@ export class UserController {
     return await this.userService.getUserById(body.userId);
   }
 
+  @Post(USER_ROUTES.getUserByToken)
+  @ApiOperation({ summary: USER_ROUTES.getUserByToken })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getUserByToken,
+    type: UserEntity,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthenticationGuard)
+  public async getUserByToken(@User('id') id: string) {
+    return await this.userService.getUserById(id);
+  }
+
   @Post(USER_ROUTES.getUsersByTrainer)
   @ApiOperation({ summary: USER_ROUTES.getUsersByTrainer })
   @ApiResponse({

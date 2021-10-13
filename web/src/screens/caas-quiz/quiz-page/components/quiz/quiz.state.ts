@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
+import { useSelector } from 'react-redux';
+
+import { RootState } from '@store/store';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getCsv, getQuestions, postAnswers } from '@services/quiz.service';
@@ -15,6 +18,8 @@ export const useQuizState = () => {
   const [isFirst, setIsFirst] = useState(true);
 
   const quiz = storageService.getQuiz();
+
+  const { user } = useSelector((state: RootState) => state);
 
   const createQuestionList = useCallback(async () => {
     const listStorage = storageService.getQuestionList(quiz?.title || '');
@@ -35,7 +40,6 @@ export const useQuizState = () => {
     updateState({
       questionList: storageService.getQuestionList(quiz?.title || ''),
       currentPage: storageService.getCurrentPage(quiz?.title || ''),
-      user: storageService.getUser(),
     });
   }, []);
 
@@ -206,5 +210,6 @@ export const useQuizState = () => {
     errorRef,
     isLastPage,
     downloadCsv,
+    user,
   };
 };

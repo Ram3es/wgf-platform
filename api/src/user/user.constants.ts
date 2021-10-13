@@ -5,6 +5,7 @@ export const USER_ROUTES = {
   signIn: 'sign-in',
   logOut: 'logout',
   getUserById: 'get-user-by-id',
+  getUserByToken: 'get-user-by-token',
   updateProfilePassword: 'update-profile-password',
   updateResetedPassword: 'update-reseted-password',
   resetPasswordRequest: 'reset-password-request',

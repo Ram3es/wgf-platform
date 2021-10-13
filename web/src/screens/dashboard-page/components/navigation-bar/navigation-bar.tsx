@@ -15,7 +15,7 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
   user,
 }) => (
   <Styled.Wrapper>
-    {navigationRoles[user!.role].map((section, key) => (
+    {navigationRoles[user.role].map((section, key) => (
       <Styled.Section key={key}>
         <Styled.SectionTitle color={sectionColors[section.title]}>
           <img src={IMAGES[section.title]} />

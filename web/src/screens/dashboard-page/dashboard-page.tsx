@@ -1,24 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Header } from '@components/header';
+import { RootState } from '@store/store';
 import { Dashboard } from './components/dashboard';
 import { NavigationBar } from './components/navigation-bar';
 import { Profile } from './components/profile';
 
-import { storageService } from '@services/storage/storage';
-
 import { DashboardPageStyles as Styled } from './dashboard-page.styles';
 
 export const DashboardPage: React.FC = () => {
-  const { replace } = useHistory();
-  const user = useMemo(() => storageService.getUser(), []);
-
-  useEffect(() => {
-    if (!user) {
-      return replace('/');
-    }
-  }, []);
+  const { user } = useSelector((state: RootState) => state);
 
   const [activeDashboarItem, setActiveDashboarItem] = useState('Dashboard');
   const setActiveItem = (item: string) => () => {
@@ -37,7 +29,7 @@ export const DashboardPage: React.FC = () => {
         <NavigationBar
           setActiveItem={setActiveItem}
           activeDashboardItem={activeDashboarItem}
-          user={user!}
+          user={user}
         />
         {NAVIGATION_HASH_MAPS[activeDashboarItem] || <Dashboard />}
       </Styled.Wrapper>

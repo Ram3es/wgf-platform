@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
+import { loginUser } from '@store/reducers/user.slice';
+import { AppDispatch } from '@store/store';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { storageService } from '@services/storage/storage';
@@ -18,14 +22,7 @@ import { ISignInState } from './sign-in.typings';
 export const useSignInState = () => {
   const { replace, goBack, length, push } = useHistory();
 
-  useEffect(() => {
-    const user = storageService.getUser();
-    const token = storageService.getToken();
-
-    if (user && token) {
-      return replace('/');
-    }
-  }, []);
+  const dispatch = useDispatch<AppDispatch>();
 
   const { state, updateState } =
     useUpdateState<ISignInState>(initialSignInState);
@@ -37,12 +34,14 @@ export const useSignInState = () => {
   };
 
   useEffect(() => {
-    if (state.user) {
+    const token = storageService.getToken();
+
+    if (token) {
       if (length > 2) return goBack();
 
       return replace('/');
     }
-  }, [state.user]);
+  }, []);
 
   const redirectToSignUp = () => {
     push(ROUTES.signUp);
@@ -60,9 +59,11 @@ export const useSignInState = () => {
         title: 'Signed in successfully',
       });
 
-      updateState({ user: data.user });
+      dispatch(loginUser(data.user));
+
       storageService.setToken(data.token, state.isRemember);
-      storageService.setUser(data.user);
+
+      replace('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 400) {

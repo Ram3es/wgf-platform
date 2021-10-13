@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { useCallback, useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+
+import { RootState } from '@store/store';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getPdf, getResults } from '@services/quiz.service';
@@ -17,6 +20,8 @@ export const useResultState = () => {
   const { state, updateState } =
     useUpdateState<IResultState>(initialResultState);
 
+  const userInfo = useSelector((state: RootState) => state.user);
+
   const { replace } = useHistory();
 
   const query = new URLSearchParams(useLocation().search);
@@ -25,11 +30,12 @@ export const useResultState = () => {
     const quizTitle =
       storageService.getQuiz()?.title || query.get('quizTitle')!;
     const quizId = storageService.getQuiz()?.id || query.get('quizId')!;
-    const userId = storageService.getUser()?.id || query.get('userId')!;
+    const userId = userInfo?.id || query.get('userId')!;
     const results = storageService.getResults(quizTitle);
+
     const user = {
       id: userId,
-      firstName: storageService.getUser()?.firstName || query.get('userName')!,
+      firstName: userInfo?.firstName || query.get('userName')!,
     };
 
     updateState({ quiz: { id: quizId, title: quizTitle }, user });

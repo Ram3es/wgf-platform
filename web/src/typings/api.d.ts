@@ -37,7 +37,6 @@ interface IUser extends IProfileData {
   role: TRole;
   jobStatus: string | null;
   avatar: string | null;
-  country: string | null;
 }
 
 interface IProfileData {

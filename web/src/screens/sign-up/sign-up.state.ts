@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
+import { loginUser } from '@store/reducers/user.slice';
+import { AppDispatch } from '@store/store';
 
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { storageService } from '@services/storage/storage';
@@ -17,22 +21,17 @@ export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
   const { replace, goBack, length, push } = useHistory();
 
-  useEffect(() => {
-    const user = storageService.getUser();
-    const token = storageService.getToken();
+  const token = storageService.getToken();
 
-    if (user && token) {
-      return replace('/');
-    }
-  }, []);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (state.user) {
+    if (token) {
       if (length > 2) return goBack();
 
       return replace('/');
     }
-  }, [state.user]);
+  }, [token]);
 
   const redirectToSignIn = () => {
     push(ROUTES.signIn);
@@ -42,9 +41,9 @@ export const useSignUpState = () => {
     try {
       const { data } = await trackPromise(
         signUp({
-          ...state.signUpData,
-          firstName: state.signUpData.firstName.trim(),
-          lastName: state.signUpData.lastName.trim(),
+          ...state,
+          firstName: state.firstName.trim(),
+          lastName: state.lastName.trim(),
         }),
         PROMISES_AREA.signUp
       );
@@ -54,9 +53,11 @@ export const useSignUpState = () => {
         title: 'Signed up successfully',
       });
 
-      updateState({ user: data.user });
+      dispatch(loginUser(data.user));
+
       storageService.setToken(data.token, false);
-      storageService.setUser(data.user);
+
+      replace('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 409) {
@@ -69,21 +70,16 @@ export const useSignUpState = () => {
   };
 
   const onChangeUser = (event: ChangeEvent<HTMLInputElement>) => {
-    updateState((prev) => ({
-      signUpData: {
-        ...prev.signUpData,
-        [event.target.name]:
-          event.target.name === 'email' || event.target.name === 'password'
-            ? event.target.value.trim()
-            : event.target.value,
-      },
-    }));
+    const { name, value } = event.target;
+    updateState({
+      [name]: ['email', 'password'].includes(name) ? value.trim() : value,
+    });
   };
 
   return {
     onChangeUser,
     signUpHandler,
     redirectToSignIn,
-    ...state,
+    state,
   };
 };

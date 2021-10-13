@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+import { updateUserAvatar, updateUserProfile } from '@store/reducers/user.slice';
+import { AppDispatch, RootState } from '@store/store';
+
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { storageService } from '@services/storage/storage';
 import { updateProfilePassword, updateUser } from '@services/user.service';
 
 import { DATE_OPTIONS } from '@constants/date';
@@ -16,12 +19,11 @@ import { IProfileInitialState } from './profile.typings';
 export const useProfileState = () => {
   const { replace } = useHistory();
 
-  const { state, updateState } =
-    useUpdateState<IProfileInitialState>(initialProfileState);
+  const { user } = useSelector((state: RootState) => state);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const user = storageService.getUser();
-
     if (!user) {
       return replace('/');
     }
@@ -43,30 +45,36 @@ export const useProfileState = () => {
     };
 
     updateState({
-      user,
       profileData: data,
       initialProfileData: data,
+      avatar: user.avatar,
     });
   }, []);
 
+  const { state, updateState } =
+    useUpdateState<IProfileInitialState>(initialProfileState);
+
   const handleImageChange = (value: string) => {
-    if (value !== state.user?.avatar) {
-      updateState((prev) => ({
-        user: { ...prev.user!, avatar: value },
+    if (value !== user?.avatar) {
+      updateState({
         isPhotoPicked: true,
-      }));
+        avatar: value,
+      });
     }
   };
 
-  const updateUserApi = async () => {
+  const updateUserApi = async (avatar?: string) => {
     try {
-      const { data } = await updateUser({
-        ...state.user!,
+      const payload = {
+        ...user,
         ...state.profileData!,
-        created: state.user!.created,
-      });
+        created: user.created,
+        avatar: avatar || user.avatar,
+      };
 
-      storageService.setUser(data);
+      await updateUser(payload);
+
+      dispatch(updateUserProfile(payload));
 
       Toast.fire({
         icon: 'success',
@@ -101,7 +109,10 @@ export const useProfileState = () => {
   };
 
   const sendAvatar = async () => {
-    await updateUserApi();
+    await updateUserApi(state.avatar!);
+
+    dispatch(updateUserAvatar({ avatar: state.avatar! }));
+
     updateState({ isPhotoPicked: false });
   };
 
@@ -117,14 +128,14 @@ export const useProfileState = () => {
 
   const cancelEditProfile = () => {
     const data = {
-      created: state.user!.created,
-      email: state.user!.email,
-      firstName: state.user!.firstName,
-      lastName: state.user!.lastName,
-      occupation: state.user!.occupation,
-      organizationName: state.user!.organizationName,
-      mobileNumber: state.user!.mobileNumber,
-      country: state.user!.country,
+      created: user.created,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      occupation: user.occupation,
+      organizationName: user.organizationName,
+      mobileNumber: user.mobileNumber,
+      country: user.country,
     };
 
     updateState({ isProfileEdit: false, profileData: data });
@@ -135,14 +146,12 @@ export const useProfileState = () => {
   };
 
   const handleSubmitProfileForm = async () => {
-    updateState((prev) => ({
-      user: {
-        ...prev.user!,
-        ...state.profileData,
-      },
+    updateState({
       initialProfileData: state.profileData,
       isProfileEdit: false,
-    }));
+    });
+
+    dispatch(updateUserProfile(state.profileData!));
 
     await updateUserApi();
   };
@@ -190,5 +199,6 @@ export const useProfileState = () => {
     editAccountClick,
     handleSubmitAccountForm,
     updateSelectedCountry,
+    user,
   };
 };

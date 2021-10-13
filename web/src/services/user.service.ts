@@ -4,6 +4,9 @@ import { POST, UPDATE } from '@services/api';
 export const signUp = (data: IUserSignUp) =>
   POST<ISignUpResponse, IUserSignUp>(`${ENDPOINTS.user}/sign-up`, data);
 
+export const getUserByToken = () =>
+  POST<IUser>(`${ENDPOINTS.user}/get-user-by-token`);
+
 export const logOut = () =>
   UPDATE<{ message: string }>(`${ENDPOINTS.user}/logout`);
 

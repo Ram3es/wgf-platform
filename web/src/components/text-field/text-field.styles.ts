@@ -70,11 +70,9 @@ export const TextFieldStyled = {
         !readOnly &&
         css`
           box-shadow: 0px 6px 17px rgba(0, 0, 0, 0.2);
-          -webkit-box-shadow: 0px 6px 17px rgba(0, 0, 0, 0.2);
           ${error &&
           css`
             box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2);
-            -webkit-box-shadow: 0px 4px 15px rgba(223, 0, 3, 0.2);
           `}
         `}
     }

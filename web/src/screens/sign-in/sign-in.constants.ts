@@ -9,7 +9,6 @@ export const initialSignInData = {
 
 export const initialSignInState: ISignInState = {
   signInData: initialSignInData,
-  user: null,
   isRemember: false,
 };
 

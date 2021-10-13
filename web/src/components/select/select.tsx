@@ -8,16 +8,18 @@ import { ISelectProps } from './select.typings';
 
 import { SelectStyled } from './select.styles';
 
-export const Select: React.FC<ISelectProps> = ({
-  options,
-  selected,
-  setSelected,
-  maxHeight,
-  isDisabled,
-  isFullWidth,
-  maxWidth,
-  setIsActive,
-}) => {
+export const Select: React.FC<ISelectProps> = (props) => {
+  const {
+    options,
+    selected,
+    setSelected,
+    maxHeight,
+    isDisabled,
+    isFullWidth,
+    maxWidth,
+    setIsActive,
+  } = props;
+
   const toggleActive = () => !isDisabled && setIsActive(false);
 
   const selectedChange = (selected: string) => () => {

@@ -1,7 +1,5 @@
 import * as yup from 'yup';
 
-import { ISignUpState } from './sign-up.typings';
-
 export const initialSignUp = {
   firstName: '',
   lastName: '',
@@ -9,10 +7,7 @@ export const initialSignUp = {
   password: '',
 };
 
-export const initialSignUpState: ISignUpState = {
-  signUpData: initialSignUp,
-  user: null,
-};
+export const initialSignUpState: IUserSignUp = initialSignUp;
 
 export const UserFormSchema = yup.object().shape({
   firstName: yup.string().max(25).trim().required('This field cannot be empty'),

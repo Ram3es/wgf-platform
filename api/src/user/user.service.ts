@@ -114,9 +114,17 @@ export class UserService {
       throw new HttpException(ERRORS.user.loginError, HttpStatus.BAD_REQUEST);
     }
 
+    const publicKey = await bcrypt.genSalt(6);
+
+    await this.userRepository.update(user.id, {
+      publicKey,
+    });
+
+    const newUser = await this.getUserById(user.id);
+
     return {
-      user: await this.userSerializer(user),
-      token: await this.createToken(user),
+      user: await this.userSerializer(newUser),
+      token: await this.createToken(newUser),
     };
   }
 

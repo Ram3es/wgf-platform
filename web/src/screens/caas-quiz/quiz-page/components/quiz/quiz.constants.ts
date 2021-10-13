@@ -7,5 +7,4 @@ export const initialState: IQuizState = {
   questionListForPage: [],
   percent: 0,
   isShowModal: false,
-  user: null,
 };

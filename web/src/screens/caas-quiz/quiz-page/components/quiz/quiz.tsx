@@ -48,13 +48,13 @@ export const Quiz: React.FC = () => {
   } = useQuizState();
 
   if (isShowModal) {
-    return <PopUp user={user!} setState={updateState} />;
+    return <PopUp user={user} setState={updateState} />;
   }
 
   return (
     <div>
       <Styled.Wrapper>
-        {user?.role === ROLES['superAdmin'] && (
+        {user.role === ROLES['superAdmin'] && (
           <Loader area={PROMISES_AREA.getCaasCsv}>
             <Styled.DownloadButton>
               <Button
@@ -66,7 +66,7 @@ export const Quiz: React.FC = () => {
           </Loader>
         )}
         <TitleStyles.h2>
-          {STRINGS.form.title} {user?.firstName}
+          {STRINGS.form.title} {user.firstName}
         </TitleStyles.h2>
         <ProgressBar percent={percent} />
         <Loader area={PROMISES_AREA.getCaasQuestionList}>

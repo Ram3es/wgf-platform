@@ -75,6 +75,7 @@ export const HeaderStyles = {
     width: 100%;
     bottom: -40px;
     right: -5px;
+    min-width: 150px;
 
     span {
       font-size: ${FONTS.sizes[16]};
