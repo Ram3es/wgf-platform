@@ -31,6 +31,13 @@ export const errorMessage = (text: string) =>
     text,
   });
 
+export const unAutorizedError = () =>
+  Swal.mixin({
+    icon: 'error',
+    title: 'Unautorized...',
+    text: 'The session has been expired. Please, login.',
+  });
+
 export const downloadMessage = (
   file: string,
   fileName: string,

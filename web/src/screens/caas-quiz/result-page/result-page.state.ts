@@ -10,7 +10,7 @@ import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getPdf, getResults } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
-import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
+import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { initialResultState } from './result-page.constants';
 
@@ -19,6 +19,8 @@ import { IPdf, IResultState } from './result-page.typings';
 export const useResultState = () => {
   const { state, updateState } =
     useUpdateState<IResultState>(initialResultState);
+
+  const { push } = useHistory();
 
   const [filePdf, setFilePdf] = useState<null | IPdf>(null);
 
@@ -82,7 +84,13 @@ export const useResultState = () => {
         return data;
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          errorMessage(error?.response?.data.message).fire();
+          if (error.response?.status === 401) {
+            unAutorizedError()
+              .fire()
+              .finally(() => push('/sign-in'));
+          } else {
+            errorMessage(error?.response?.data.message).fire();
+          }
         }
       }
     }

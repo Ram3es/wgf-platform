@@ -44,7 +44,7 @@ export const useHeaderState = () => {
   }, [selected]);
 
   const logOutHandler = async () => {
-    await trackPromise(logOut(), PROMISES_AREA.logOut);
+    trackPromise(logOut(), PROMISES_AREA.logOut);
 
     storageService.clearSessionStorage();
     storageService.clearStorage();

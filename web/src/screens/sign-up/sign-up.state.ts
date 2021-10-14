@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { loginUser } from '@store/reducers/user.slice';
@@ -21,17 +21,19 @@ export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
   const { replace, goBack, length, push } = useHistory();
 
-  const token = storageService.getToken();
+  const user = useSelector((state) => state);
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (token) {
+    const token = storageService.getToken();
+
+    if (token && user) {
       if (length > 2) return goBack();
 
       return replace('/');
     }
-  }, [token]);
+  }, [user]);
 
   const redirectToSignIn = () => {
     push(ROUTES.signIn);
@@ -56,8 +58,6 @@ export const useSignUpState = () => {
       dispatch(loginUser(data.user));
 
       storageService.setToken(data.token, false);
-
-      replace('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 409) {

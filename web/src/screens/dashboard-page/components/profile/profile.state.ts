@@ -10,14 +10,14 @@ import { useUpdateState } from '@services/hooks/useUpdateState';
 import { updateProfilePassword, updateUser } from '@services/user.service';
 
 import { DATE_OPTIONS } from '@constants/date';
-import { errorMessage } from '@constants/pop-up-messages';
+import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { Toast } from '@constants/toasts';
 import { initialAccountData, initialProfileState } from './profile.constants';
 
 import { IProfileInitialState } from './profile.typings';
 
 export const useProfileState = () => {
-  const { replace } = useHistory();
+  const { replace, push } = useHistory();
 
   const { user } = useSelector((state: RootState) => state);
 
@@ -82,6 +82,12 @@ export const useProfileState = () => {
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push('/sign-in'));
+        }
+
         return errorMessage(error?.response?.data.message).fire();
       }
     }
@@ -179,6 +185,12 @@ export const useProfileState = () => {
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push('/sign-in'));
+        }
+
         return errorMessage(error?.response?.data.message).fire();
       }
     }

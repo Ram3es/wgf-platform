@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { RootState } from '@store/store';
 
@@ -9,13 +10,15 @@ import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
-import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
+import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { initialState } from './quiz.constants';
 
 export const useQuizState = () => {
   const { state, updateState } = useUpdateState(initialState);
   const [isFirst, setIsFirst] = useState(true);
+
+  const { push } = useHistory();
 
   const quiz = storageService.getQuiz();
 
@@ -196,6 +199,12 @@ export const useQuizState = () => {
       ).fire();
     } catch (error) {
       if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push('/sign-in'));
+        }
+
         return errorMessage(error?.response?.data.message).fire();
       }
     }
