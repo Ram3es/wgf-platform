@@ -36,6 +36,7 @@ export class QuizController {
     description: QUIZ_ROUTES.getResult,
   })
   @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthenticationGuard)
   public async getQuizResult(@Body() body: getResultDto) {
     return this.quizService.getQuizCaasResult(body);
   }
@@ -47,6 +48,7 @@ export class QuizController {
     description: QUIZ_ROUTES.getPdf,
   })
   @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthenticationGuard)
   public async getPdf(@Body() body: getResultDto) {
     return this.quizService.getPdf(body);
   }

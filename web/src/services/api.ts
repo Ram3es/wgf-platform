@@ -43,6 +43,8 @@ const getInstance = () => {
         error?.response?.message === 'Token expired'
       ) {
         storageService.clearStorage();
+        storageService.clearSessionStorage();
+        window.location.reload();
       }
 
       return Promise.reject(error);

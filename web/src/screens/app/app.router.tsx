@@ -13,7 +13,7 @@ import { PrivateRoute } from './private-route';
 
 import { ROUTES } from '@constants/routes';
 
-export const Router: React.FC = () => (
+export const AppRouter: React.FC = () => (
   <Switch>
     <Route exact path={ROUTES.main} component={MainPage} />
     <PrivateRoute exact path={ROUTES.quiz} component={QuizPage} />
