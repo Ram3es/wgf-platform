@@ -18,7 +18,7 @@ export const useQuizState = () => {
   const { state, updateState } = useUpdateState(initialState);
   const [isFirst, setIsFirst] = useState(true);
 
-  const { push } = useHistory();
+  const { push, replace } = useHistory();
 
   const quiz = storageService.getQuiz();
 
@@ -27,17 +27,32 @@ export const useQuizState = () => {
   const createQuestionList = useCallback(async () => {
     const listStorage = storageService.getQuestionList(quiz?.title || '');
 
+    if (!quiz) {
+      return replace('/');
+    }
+
     if (listStorage.length < 1) {
-      const { data } = await trackPromise(
-        getQuestions({
-          quizId: quiz?.id ?? '',
-        }),
-        PROMISES_AREA.getCaasQuestionList
-      );
+      try {
+        const { data } = await trackPromise(
+          getQuestions({
+            quizId: quiz?.id ?? '',
+          }),
+          PROMISES_AREA.getCaasQuestionList
+        );
 
-      const list = data.questions.sort((a, b) => a.order - b.order);
+        const list = data.questions.sort((a, b) => a.order - b.order);
+        storageService.setQuestionList(list, quiz?.title || '');
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            return unAutorizedError()
+              .fire()
+              .finally(() => push('/sign-in'));
+          }
 
-      storageService.setQuestionList(list, quiz?.title || '');
+          return errorMessage(error?.response?.data.message).fire();
+        }
+      }
     }
 
     updateState({
@@ -139,26 +154,38 @@ export const useQuizState = () => {
     });
 
     if (isLastPage) {
-      await trackPromise(
-        postAnswers(getAnswersRequestBody()),
-        PROMISES_AREA.sendCaasAnswers
-      );
+      try {
+        await trackPromise(
+          postAnswers(getAnswersRequestBody()),
+          PROMISES_AREA.sendCaasAnswers
+        );
 
-      const { data } = await getQuestions({
-        quizId: quiz?.id ?? '',
-      });
+        const { data } = await getQuestions({
+          quizId: quiz?.id ?? '',
+        });
 
-      const list = data.questions.sort((a, b) => a.order - b.order);
+        const list = data.questions.sort((a, b) => a.order - b.order);
 
-      storageService.setQuestionList(
-        list,
-        storageService.getQuiz()?.title || ''
-      );
-      updateState({
-        isShowModal: true,
-      });
+        storageService.setQuestionList(
+          list,
+          storageService.getQuiz()?.title || ''
+        );
+        updateState({
+          isShowModal: true,
+        });
 
-      return;
+        return;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            return unAutorizedError()
+              .fire()
+              .finally(() => push('/sign-in'));
+          }
+
+          return errorMessage(error?.response?.data.message).fire();
+        }
+      }
     }
 
     incrementPage();

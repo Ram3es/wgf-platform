@@ -47,20 +47,31 @@ export const useResultState = () => {
     if (results) {
       return updateState({ results });
     }
+    try {
+      const { data } = await trackPromise(
+        getResults({
+          quizId,
+          userId,
+        }),
+        PROMISES_AREA.getCaasResult
+      );
 
-    const { data } = await trackPromise(
-      getResults({
-        quizId,
-        userId,
-      }),
-      PROMISES_AREA.getCaasResult
-    );
+      if (data) {
+        const quizTitle =
+          storageService.getQuiz()?.title || query.get('quizTitle')!;
+        storageService.setResults(data, quizTitle);
+        return updateState({ results: data });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push('/sign-in'));
+        }
 
-    if (data) {
-      const quizTitle =
-        storageService.getQuiz()?.title || query.get('quizTitle')!;
-      storageService.setResults(data, quizTitle);
-      return updateState({ results: data });
+        return errorMessage(error?.response?.data.message).fire();
+      }
     }
 
     return replace('/');
@@ -99,18 +110,30 @@ export const useResultState = () => {
   };
 
   const generatePdf = async () => {
-    const data = await getPdfFile();
+    try {
+      const data = await getPdfFile();
 
-    setFilePdf(data);
+      setFilePdf(data);
 
-    const html = `
+      const html = `
         <p>A pdf file report was sent to your email.</p>
       `;
-    downloadMessage(
-      `data:application/pdf;base64,${data!.file}`,
-      data!.name,
-      html
-    ).fire();
+      downloadMessage(
+        `data:application/pdf;base64,${data!.file}`,
+        data!.name,
+        html
+      ).fire();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push('/sign-in'));
+        }
+
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
   };
 
   return {

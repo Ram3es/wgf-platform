@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 
 import { Button } from '@components/button';
 import { Loader } from '@components/loader';
@@ -8,7 +7,6 @@ import { COLORS } from '@styles/colors';
 import { PopUp } from '../pop-up';
 import { QuestionList } from '../questionList';
 
-import { storageService } from '@services/storage/storage';
 import { useQuizState } from './quiz.state';
 
 import { PROMISES_AREA } from '@constants/promises-area';
@@ -19,19 +17,6 @@ import { TitleStyles } from '@styles/components/title-styles';
 import { QuizStyles as Styled } from './quiz.styles';
 
 export const Quiz: React.FC = () => {
-  const { replace } = useHistory();
-  const quiz = storageService.getQuiz();
-
-  useEffect(() => {
-    if (!quiz) {
-      return replace('/');
-    }
-  }, [quiz]);
-
-  if (!quiz) {
-    return <div />;
-  }
-
   const {
     updateState,
     currentPage,
