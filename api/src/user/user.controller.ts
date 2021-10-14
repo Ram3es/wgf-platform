@@ -156,7 +156,6 @@ export class UserController {
     description: USER_ROUTES.updateResetedPassword,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthenticationGuard)
   public async updateResetedPassword(@Body() body: ResetPassWordDTO) {
     return await this.userService.updateResetedPassword(body);
   }

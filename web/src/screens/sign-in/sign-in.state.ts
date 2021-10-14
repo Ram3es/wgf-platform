@@ -20,7 +20,7 @@ import { initialSignInState } from './sign-in.constants';
 import { ISignInState } from './sign-in.typings';
 
 export const useSignInState = () => {
-  const history = useHistory();
+  const { replace, length, goBack } = useHistory();
 
   const user = useSelector((state) => state);
 
@@ -39,14 +39,14 @@ export const useSignInState = () => {
     const token = storageService.getToken();
 
     if (token && user) {
-      if (history.length > 2) return history.goBack();
+      if (length > 2) return goBack();
 
-      return history.replace('/');
+      return replace('/');
     }
   }, [user]);
 
   const redirectToSignUp = () => {
-    history.push(ROUTES.signUp);
+    replace(ROUTES.signUp);
   };
 
   const signInHandler = async () => {
@@ -88,7 +88,7 @@ export const useSignInState = () => {
   };
 
   const redirectToResetPassword = () => {
-    history.push(ROUTES.resetPassword);
+    replace(ROUTES.resetPassword);
   };
 
   return {

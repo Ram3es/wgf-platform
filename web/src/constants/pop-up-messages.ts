@@ -38,6 +38,13 @@ export const unAutorizedError = () =>
     text: 'The session has been expired. Please, login.',
   });
 
+export const imageError = () =>
+  Swal.mixin({
+    icon: 'error',
+    title: 'Bad file format...',
+    text: 'Please, choose another image.',
+  });
+
 export const downloadMessage = (
   file: string,
   fileName: string,

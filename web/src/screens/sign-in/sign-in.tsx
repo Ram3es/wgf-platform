@@ -112,7 +112,7 @@ export const SignIn: React.FC = () => {
                       alignItems="center"
                     />
                     <Button
-                      title={STRINGS.button.forgetPassword}
+                      title={STRINGS.button.forgotPassword}
                       onClick={redirectToResetPassword}
                       color={COLORS.blue}
                       variant="text"

@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/styled-components": "^5.1.11",
     "axios": "^0.21.1",
+    "browser-image-compression": "^1.0.16",
     "craco-alias": "^3.0.1",
     "dotenv": "^10.0.0",
     "formik": "^2.2.9",

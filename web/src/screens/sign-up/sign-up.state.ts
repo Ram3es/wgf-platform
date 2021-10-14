@@ -19,7 +19,7 @@ import { initialSignUpState } from './sign-up.constants';
 
 export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
-  const { replace, goBack, length, push } = useHistory();
+  const { replace, goBack, length } = useHistory();
 
   const user = useSelector((state) => state);
 
@@ -36,7 +36,7 @@ export const useSignUpState = () => {
   }, [user]);
 
   const redirectToSignIn = () => {
-    push(ROUTES.signIn);
+    replace(ROUTES.signIn);
   };
 
   const signUpHandler = async () => {

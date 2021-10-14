@@ -374,9 +374,22 @@ export class UserService {
       .leftJoinAndSelect('user.groups', 'group')
       .getOne();
 
-    const trainers = [...new Set(user.groups.map((item) => item.trainerId))];
+    return Promise.all(
+      user.groups.map(async (item) => {
+        const { organizationName, lastName, firstName, email, avatar, id } =
+          await this.getUserById(item.trainerId);
 
-    return this.userRepository.findByIds(trainers);
+        return {
+          group: item.name,
+          id,
+          firstName,
+          lastName,
+          email,
+          organizationName,
+          avatar,
+        };
+      })
+    );
   }
 
   async deleteUser(body: UserIdDto) {

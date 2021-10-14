@@ -176,7 +176,7 @@ export const STRINGS = {
     signIn: 'Sign In',
     signUp: 'Create Account',
     signUpNow: 'Sign up now',
-    forgetPassword: 'Forget Password',
+    forgotPassword: 'Forgot Password',
     returnSignIn: 'Go to Sign In',
     resetPassword: 'Reset Password',
     updatePassword: 'Update Password',
