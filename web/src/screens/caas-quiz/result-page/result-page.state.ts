@@ -37,6 +37,10 @@ export const useResultState = () => {
     const userId = userInfo?.id || query.get('userId')!;
     const results = storageService.getResults(quizTitle);
 
+    if (!quizId || !quizTitle) {
+      return replace('/');
+    }
+
     const user = {
       id: userId,
       firstName: userInfo?.firstName || query.get('userName')!,
@@ -64,12 +68,6 @@ export const useResultState = () => {
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          return unAutorizedError()
-            .fire()
-            .finally(() => push('/sign-in'));
-        }
-
         return errorMessage(error?.response?.data.message).fire();
       }
     }
@@ -102,6 +100,8 @@ export const useResultState = () => {
           } else {
             errorMessage(error?.response?.data.message).fire();
           }
+
+          return null;
         }
       }
     }
@@ -110,30 +110,20 @@ export const useResultState = () => {
   };
 
   const generatePdf = async () => {
-    try {
-      const data = await getPdfFile();
+    const data = await getPdfFile();
 
-      setFilePdf(data);
+    if (!data) return;
 
-      const html = `
+    setFilePdf(data);
+
+    const html = `
         <p>A pdf file report was sent to your email.</p>
       `;
-      downloadMessage(
-        `data:application/pdf;base64,${data!.file}`,
-        data!.name,
-        html
-      ).fire();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          return unAutorizedError()
-            .fire()
-            .finally(() => push('/sign-in'));
-        }
-
-        return errorMessage(error?.response?.data.message).fire();
-      }
-    }
+    downloadMessage(
+      `data:application/pdf;base64,${data!.file}`,
+      data!.name,
+      html
+    ).fire();
   };
 
   return {

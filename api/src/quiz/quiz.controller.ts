@@ -25,7 +25,10 @@ export class QuizController {
   })
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthenticationGuard)
-  public async create(@User('id') id: string, @Body() body: getQuizDto) {
+  public async getQuizQuestions(
+    @User('id') id: string,
+    @Body() body: getQuizDto
+  ) {
     return this.quizService.getQuizQuestions(id, body.quizId);
   }
 
@@ -36,7 +39,6 @@ export class QuizController {
     description: QUIZ_ROUTES.getResult,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthenticationGuard)
   public async getQuizResult(@Body() body: getResultDto) {
     return this.quizService.getQuizCaasResult(body);
   }
