@@ -44,7 +44,7 @@ const getInstance = () => {
       ) {
         storageService.clearStorage();
         storageService.clearSessionStorage();
-        window.location.reload();
+        window.location.assign('/sign-in');
       }
 
       return Promise.reject(error);
