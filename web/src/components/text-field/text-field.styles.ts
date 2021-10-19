@@ -33,8 +33,8 @@ export const TextFieldStyled = {
     font-size: ${FONTS.sizes[14]};
     font-weight: 700;
     font-family: ${FONTS.family.frutigerBold};
-    width: ${({ isFullWidth, width }) =>
-      isFullWidth ? '100%' : width || 'auto'};
+    min-width: ${({ isFullWidth, minWidth }) =>
+      isFullWidth ? '100%' : minWidth ? `${minWidth}px` : 'auto'};
     height: ${({ height }) => height || 'auto'};
     color: ${COLORS.default};
     transition: 0.3s;

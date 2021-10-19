@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Icon } from '@components/icon';
 import { Modal } from '@components/modal';
@@ -23,6 +23,16 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
 
   const modalOpen = () => setIsOpen(true);
 
+  useEffect(() => {
+    const body = document.querySelector('body');
+
+    if (isOpen) {
+      return body?.classList.add('hidden');
+    }
+
+    body?.classList.remove('hidden');
+  }, [isOpen]);
+
   return (
     <>
       <ResultSummaryStyles.ArchetypesWrapper>
@@ -37,19 +47,11 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
         {isOpen && (
           <Modal setIsOpen={setIsOpen} withBackdrop width={400}>
             <TitleStyles.h2 color={COLORS.grey} mb={20}>
-              Your Archetypes
+              {STRINGS.archetypesModal.title}
             </TitleStyles.h2>
-            <p>
-              Optimistic Planner, Responsible Shaper, Inquisitive Explorer,
-              Capable Overcomer and Social Collaborator are Archetypes.
-            </p>
-            <p>
-              Archetypes are ways of summarizing your personal attributes in a
-              simple yet clear way. You can have more than one archetype. In the
-              context of CareerFlex, having high scores on all archetypes is an
-              indicator of career adaptability, and by extension a predictor of
-              career success.
-            </p>
+            {STRINGS.archetypesModal.description.map((item, index) => (
+              <p key={index}>{item}</p>
+            ))}
           </Modal>
         )}
       </ResultSummaryStyles.ArchetypesWrapper>

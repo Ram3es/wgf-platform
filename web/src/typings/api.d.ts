@@ -125,3 +125,33 @@ interface IUpdateProfilePassword {
   newPassword: string;
   password: string;
 }
+
+interface ITrainer extends Partial<IUser> {
+  groupId: string;
+  groupName: string;
+}
+
+interface IStudentFromTrainer {
+  trainerId: string;
+  userId: string;
+}
+
+type TInvitationType = 'user' | 'student' | 'trainer' | 'requestTrainer';
+type TInvitationStatus = 'Pending' | 'Accepted' | 'Registration Pending';
+
+interface IInvitation {
+  id: string;
+  inviteDate: Date;
+  from: string;
+  to: string;
+  name: string | null;
+  status: TInvitationStatus;
+  type: TInvitationType;
+}
+
+interface IInvitationReq {
+  to: string;
+  name?: string;
+  type: INVITATION_TYPE;
+  groupId?: string;
+}

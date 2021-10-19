@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { Z_INDEX } from '../../constants/z-indexes';
+
+import { Z_INDEX } from '@constants/z-indexes';
 
 export const BackdropStyles = {
   Wrapper: styled.div`
@@ -9,12 +10,13 @@ export const BackdropStyles = {
     background: ${COLORS.backdropBg};
     box-shadow: inset 0px -13.5px 13.5px rgba(136, 130, 129, 0.1),
       inset 0px 13.5px 27px rgba(255, 255, 255, 0.15);
-    height: 100vh;
+    min-height: calc(100vh - 95px);
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     overflow: hidden;
+    z-index: -1;
   `,
   Circle: styled.div`
     position: absolute;

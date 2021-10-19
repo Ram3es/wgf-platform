@@ -44,20 +44,21 @@ export const useHeaderState = () => {
   }, [selected]);
 
   const logOutHandler = async () => {
-    trackPromise(logOut(), PROMISES_AREA.logOut);
+    try {
+      await trackPromise(logOut(), PROMISES_AREA.logOut);
+    } finally {
+      Toast.fire({
+        icon: 'success',
+        title: 'Log Out successfully',
+      });
 
-    storageService.clearSessionStorage();
-    storageService.clearStorage();
+      storageService.clearSessionStorage();
+      storageService.clearStorage();
+      dispatch(clearUser());
 
-    dispatch(clearUser());
-
-    Toast.fire({
-      icon: 'success',
-      title: 'Log Out successfully',
-    });
-
-    setIsLogined(false);
-    push('/');
+      setIsLogined(false);
+      push('/');
+    }
   };
 
   const selectedChange = (value: string) => {

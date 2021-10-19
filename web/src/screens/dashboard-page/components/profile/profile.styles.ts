@@ -6,20 +6,16 @@ import { Media } from '@styles/media';
 
 export const ProfileStyles = {
   Wrapper: styled.div`
-    width: calc(100% - 310px);
-
-    ${Media.landscapeWreck`
-      width: calc(100% - 260px);
-    `}
+    width: calc(100% - 260px);
   `,
   ContentWrapper: styled.div`
     display: flex;
+    justify-content: center;
     width: 100%;
-    padding: 15px 75px 0;
-    max-width: 1400px;
+    padding: 50px 75px 0;
 
     ${Media.landscapeWreck`
-      padding: 0 25px 0;
+      padding: 50px 25px 0;
     `}
 
     ${Media.smallLandscape`
@@ -30,7 +26,8 @@ export const ProfileStyles = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 0 1 20%;
+    flex: 0 1 25%;
+    max-width: 300px;
     min-width: 200px;
     margin-right: 50px;
 
@@ -38,6 +35,10 @@ export const ProfileStyles = {
       flex: 0 1 100%;
       padding-top: 0;
       margin-right: 0;
+    `}
+
+    ${Media.desktop1600`
+      margin-right: 100px;
     `}
   `,
   AvatarWrapper: styled.div`
@@ -90,10 +91,11 @@ export const ProfileStyles = {
   `,
   ProfileColumn: styled.div`
     flex: 1 1 auto;
-    padding: 0 50px 25px;
+    padding: 75px 50px 25px;
+    max-width: 700px;
 
     ${Media.landscapeWreck`
-      padding: 0 0 25px;
+      padding: 75px 25px 25px;
     `}
 
     ${Media.smallLandscape`
@@ -141,7 +143,7 @@ export const ProfileSectionFormStyles = {
     justify-content: space-between;
 
     & > div {
-      flex: 0 1 80%;
+      flex: 0 1 75%;
     }
   `,
   Label: styled.span`

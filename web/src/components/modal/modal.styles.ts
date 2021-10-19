@@ -9,17 +9,24 @@ import { Z_INDEX } from '@constants/z-indexes';
 export const ModalStyles = {
   Wrapper: styled.div<{ width?: number }>`
     position: absolute;
-    top: 110%;
+    top: 50%;
     left: 50%;
     z-index: ${Z_INDEX.high};
-    transform: translateX(-50%);
-    padding: 50px;
-    background: ${COLORS.white};
+    transform: translate(-50%, -50%);
+    max-width: ${({ width }) => (width ? `${width}px` : 'none')};
+    width: 100%;
+
+    ${Media.mobile`
+      max-width: none;
+    `}
+  `,
+  Content: styled.div`
+    width: 100%;
+    position: relative;
     box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
-    width: ${({ width }) => (width ? `${width}px` : 'auto')};
-    max-width: ${({ width }) => (width ? `${width}px` : 'none')};
-
+    background-color: ${COLORS.authBg};
+    padding: 50px;
     p {
       font-size: ${FONTS.sizes[14]};
       color: ${COLORS.default};
@@ -29,10 +36,8 @@ export const ModalStyles = {
       }
     }
 
-    ${Media.sMobile`
-      padding: 30px;
-      width: 100%;
-      max-width: none;
+    ${Media.mobile`
+      padding: 25px;
     `}
   `,
   BackDrop: styled.div`
@@ -41,13 +46,19 @@ export const ModalStyles = {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: ${Z_INDEX.medium};
+    z-index: ${Z_INDEX.backDrop};
     backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.5);
   `,
   CloseIcon: styled.div`
     position: absolute;
+    cursor: pointer;
     top: 20px;
     right: 20px;
+
+    ${Media.mobile`
+      top: 10px;
+      right: 10px;
+    `}
   `,
 };

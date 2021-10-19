@@ -182,6 +182,8 @@ export const STRINGS = {
     updatePassword: 'Update Password',
     downloadCsv: 'Download CSV',
     save: 'Save',
+    confirm: 'Confirm',
+    sendRequest: 'Send Request',
   },
 
   input: {
@@ -199,6 +201,14 @@ export const STRINGS = {
     country: 'Country',
   },
 
+  archetypesModal: {
+    title: 'Your Archetypes',
+    description: [
+      'Optimistic Planner, Responsible Shaper, Inquisitive Explorer,Capable Overcomer and Social Collaborator are Archetypes.',
+      'Archetypes are ways of summarizing your personal attributes in a simple yet clear way. You can have more than one archetype. In the context of CareerFlex, having high scores on all archetypes is an indicator of career adaptability, and by extension a predictor of career success.',
+    ],
+  },
+
   mainPage: {
     title: 'WIT GRIT FIT is a new way of approaching careers.',
     bannerText: [
@@ -210,5 +220,17 @@ export const STRINGS = {
   profile: {
     profileTitle: 'Profile',
     accountTitle: 'Account',
+  },
+
+  trainer: {
+    noTrainers: "You don't have trainers yet",
+    noTrainerInfo: 'No information',
+    trainerTitle: 'Trainer',
+    requestTitle: 'Trainer Request',
+    disconnect: {
+      title: 'Disconnect Trainer',
+      discription:
+        'Are you sure you want to disconnect the trainer from your account?',
+    },
   },
 };

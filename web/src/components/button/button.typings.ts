@@ -6,7 +6,8 @@ export interface IButtonStylesProps {
   isFullWidth?: boolean;
   minWidth?: number;
   color?: string;
-  image?: 'back' | 'next';
+  iconType?: string;
+  iconLocation?: 'left' | 'right';
 }
 
 export interface IButtonProps extends IButtonStylesProps {

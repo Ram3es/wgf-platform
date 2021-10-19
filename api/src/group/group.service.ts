@@ -55,10 +55,14 @@ export class GroupService {
 
     const users = (await this.groupRepository.findOne(group.id)).users;
 
-    return this.groupRepository.save({
+    await this.groupRepository.save({
       ...group,
       users: [...(users.filter((item) => item.id !== body.userId) || [])],
     });
+
+    return {
+      message: 'Success',
+    };
   }
 
   async getUserInGroup(body: GetUserFromTrainerDto) {

@@ -14,13 +14,16 @@ export const Modal: React.FC<IModalProps> = ({
   children,
 }) => {
   const closeModal = () => setIsOpen(false);
+
   return (
     <>
       <Styled.Wrapper width={width}>
-        <Styled.CloseIcon onClick={closeModal}>
-          <img src={IMAGES.close} alt={STRINGS.altLogo} />
-        </Styled.CloseIcon>
-        {children}
+        <Styled.Content>
+          <Styled.CloseIcon onClick={closeModal}>
+            <img src={IMAGES.close} alt={STRINGS.altLogo} />
+          </Styled.CloseIcon>
+          {children}
+        </Styled.Content>
       </Styled.Wrapper>
       {withBackdrop && <Styled.BackDrop onClick={closeModal} />}
     </>

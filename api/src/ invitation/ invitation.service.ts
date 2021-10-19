@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ERRORS } from 'src/constants/errors';
+import { EXPIRE_INVITE_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
 import { GroupEntity } from 'src/group/entities/group.entity';
 import { sendMail } from 'src/shared/utils/email';
@@ -134,12 +135,33 @@ export class InvitationService {
     const student = await this.userRepository.findOne(userId);
 
     if (!trainer) {
-      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        ERRORS.student.trainerNotExist,
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    const userInGroup = await this.groupService.getUserInGroup({
+      trainerId: trainer.id,
+      userId: student.id,
+    });
+
+    if (userInGroup) {
+      throw new HttpException(ERRORS.student.alreadyExist, HttpStatus.CONFLICT);
     }
 
     const isSend = await this.invitationRepository.findOne({
       where: { to: email, from: student.id },
     });
+
+    if (
+      isSend &&
+      new Date().getTime() - new Date(isSend.inviteDate).getTime() <
+        EXPIRE_INVITE_TIME &&
+      isSend.status === INVITATION_STATUS.pending
+    ) {
+      throw new HttpException(ERRORS.student.alreadySent, HttpStatus.FORBIDDEN);
+    }
 
     if (isSend) {
       await this.invitationRepository.delete(isSend.id);

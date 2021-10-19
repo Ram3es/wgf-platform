@@ -42,6 +42,15 @@ body {
   }
 }
 
+body.hidden {
+  height: 100%;
+  overflow: hidden;
+}
+
+body.hidden header {
+  z-index: 1;
+}
+
 @media print {
   @page {
     margin-top: 1cm;

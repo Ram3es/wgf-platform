@@ -380,7 +380,8 @@ export class UserService {
           await this.getUserById(item.trainerId);
 
         return {
-          group: item.name,
+          groupName: item.name,
+          groupId: item.id,
           id,
           firstName,
           lastName,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IMAGES } from '@constants/images';
+import { Icon } from '@components/icon';
 
 import { IButtonProps } from './button.typings';
 
@@ -14,7 +14,8 @@ export const Button: React.FC<IButtonProps> = ({
   isFullWidth,
   type,
   color,
-  image,
+  iconType,
+  iconLocation = 'left',
   minWidth,
 }) => (
   <Styled
@@ -25,11 +26,11 @@ export const Button: React.FC<IButtonProps> = ({
     disabled={isDisabled}
     type={type}
     color={color}
-    image={image}
+    iconType={iconType}
     minWidth={minWidth}
   >
-    {image === 'back' && <img src={IMAGES.back} />}
+    {iconLocation === 'left' && iconType && <Icon type={iconType} />}
     <span>{title}</span>
-    {image === 'next' && <img src={IMAGES.next} />}
+    {iconLocation === 'right' && iconType && <Icon type={iconType} />}
   </Styled>
 );

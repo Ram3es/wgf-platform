@@ -50,7 +50,8 @@ export const ResultPage: React.FC = () => {
                 title={STRINGS.button.print}
                 color={COLORS.black}
                 onClick={generatePdf}
-                image="next"
+                iconType="next"
+                iconLocation="right"
               />
             </Loader>
           </FlexCenter>

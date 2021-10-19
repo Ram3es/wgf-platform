@@ -1,6 +1,6 @@
 export interface ITextFieldStylesProps {
   error?: string;
-  width?: string;
+  minWidth?: number;
   height?: string;
   isFullWidth?: boolean;
   placeholder?: string;

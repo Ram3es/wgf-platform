@@ -5,15 +5,16 @@ import { Media } from '@styles/media';
 
 export const NavigationBarStyles = {
   Wrapper: styled.div`
-    width: 300px;
+    position: fixed;
+    left: 0;
+    width: 250px;
     background: ${COLORS.authBg};
     border-top-right-radius: 20px;
     min-height: calc(100vh - 95px);
     padding: 45px 0 45px 35px;
 
     ${Media.landscapeWreck`
-      width: 250px;
-      padding: 45px 10px 45px 20px;
+      padding: 45px 0 45px 20px;
     `}
   `,
   Section: styled.div`
@@ -33,7 +34,7 @@ export const NavigationBarStyles = {
   Item: styled.div<{ isActive: boolean; section: string; color: string }>`
     display: flex;
     align-items: center;
-    padding: 7.5px 0 7.5px 25px;
+    padding: 7.5px 10px 7.5px 25px;
     cursor: pointer;
     position: relative;
 

@@ -25,7 +25,7 @@ export class InvitationEntity {
   })
   to: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({
     example: 'User User',
   })

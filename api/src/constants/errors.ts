@@ -13,4 +13,9 @@ export const ERRORS = {
     wrongPassword: "Looks like that's the wrong password. Try again or reset.",
     alreadyExist: 'This user already exists',
   },
+  student: {
+    trainerNotExist: 'Sorry pls check the email as this user doesn’t exist.',
+    alreadySent: 'You have already sent a request to this trainer today.',
+    alreadyExist: 'This trainer has already been added to you.',
+  },
 };

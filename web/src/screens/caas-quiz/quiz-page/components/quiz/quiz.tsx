@@ -71,14 +71,16 @@ export const Quiz: React.FC = () => {
                 title={STRINGS.button.back}
                 onClick={decrementPage}
                 color={COLORS.greenLite}
-                image="back"
+                iconType="back"
+                iconLocation="left"
               />
             )}
             <Button
               title={isLastPage ? STRINGS.button.submit : STRINGS.button.next}
               onClick={onSubmit}
               color={COLORS.greenLite}
-              image="next"
+              iconType="next"
+              iconLocation="right"
               type="submit"
             />
           </Styled.ControlPanel>

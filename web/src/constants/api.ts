@@ -3,4 +3,6 @@ export const ENDPOINTS = {
   quiz: '/quiz',
   answers: '/answers',
   pdf: '/pdf',
+  group: '/group',
+  invitation: '/invitation',
 };

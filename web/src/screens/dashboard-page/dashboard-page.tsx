@@ -6,6 +6,7 @@ import { RootState } from '@store/store';
 import { Dashboard } from './components/dashboard';
 import { NavigationBar } from './components/navigation-bar';
 import { Profile } from './components/profile';
+import { Trainer } from './components/trainer';
 
 import { DashboardPageStyles as Styled } from './dashboard-page.styles';
 
@@ -20,6 +21,7 @@ export const DashboardPage: React.FC = () => {
   const NAVIGATION_HASH_MAPS: Record<string, React.ReactNode> = {
     Dashboard: <Dashboard />,
     Profile: <Profile />,
+    Trainer: <Trainer />,
   };
 
   return (

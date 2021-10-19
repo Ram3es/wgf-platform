@@ -6,14 +6,17 @@ import { FONTS } from '@styles/fonts';
 import { Z_INDEX } from '@constants/z-indexes';
 
 export const HeaderStyles = {
-  Wrapper: styled.div`
+  Wrapper: styled.header`
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: ${COLORS.white};
     padding: 22px 30px;
-    position: relative;
-    z-index: ${Z_INDEX.medium};
+    z-index: ${Z_INDEX.extraMedium};
 
     button {
       padding: 1px 3px;

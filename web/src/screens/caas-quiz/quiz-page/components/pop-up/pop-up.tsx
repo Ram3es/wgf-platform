@@ -88,7 +88,8 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
             title={STRINGS.button.result}
             onClick={onClick}
             color={COLORS.greenLite}
-            image="next"
+            iconType="next"
+            iconLocation="right"
           />
         </Styled.ButtonWrapper>
       </Styled.Wrapper>
