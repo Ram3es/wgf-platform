@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-import { Media } from '@styles/media';
 
 export const NavigationBarStyles = {
   Wrapper: styled.div`
@@ -11,11 +10,7 @@ export const NavigationBarStyles = {
     background: ${COLORS.authBg};
     border-top-right-radius: 20px;
     min-height: calc(100vh - 95px);
-    padding: 45px 0 45px 35px;
-
-    ${Media.landscapeWreck`
-      padding: 45px 0 45px 20px;
-    `}
+    padding: 45px 0 45px 20px;
   `,
   Section: styled.div`
     margin-bottom: 40px;

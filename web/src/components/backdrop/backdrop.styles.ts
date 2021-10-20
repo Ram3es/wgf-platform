@@ -16,7 +16,7 @@ export const BackdropStyles = {
     left: 0;
     right: 0;
     overflow: hidden;
-    z-index: -1;
+    z-index: ${Z_INDEX.negative};
   `,
   Circle: styled.div`
     position: absolute;

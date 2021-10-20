@@ -181,10 +181,10 @@ export const adminToExistingTrainerMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: user.email,
   bcc: user.email,
-  subject: 'Invitation from Trainer',
+  subject: 'Invitation from Super Admin',
   html: `
     <p>Hi <b>${user.firstName},</b></p>
-    <p>We're sending you this email because you get invitation from Trainer: ${superAdminName}.</p>
+    <p>We're sending you this email because you get invitation to become a trainer admin from Super Admin: ${superAdminName}.</p>
     <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to accept invitation.</p>
     <p>Bests,<br/>Jac at Avid Adventures</p>
   `,
@@ -199,10 +199,10 @@ export const adminToTrainerMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: email,
   bcc: email,
-  subject: 'Invitation from Trainer',
+  subject: 'Invitation from Super Admin',
   html: `
     <p>Hi <b>${userName},</b></p>
-    <p>We're sending you this email because you get invitation from Super Admin: ${superAdminName}.</p>
+    <p>We're sending you this email because you get invitation to become a trainer admin from Super Admin: ${superAdminName}.</p>
     <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invitation and complete registration.</p>
     <p>Bests,<br/>Jac at Avid Adventures</p>
   `,

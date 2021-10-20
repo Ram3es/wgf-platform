@@ -1,12 +1,11 @@
 import { Formik } from 'formik';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 
 import { Button } from '@components/button';
 import { Loader } from '@components/loader';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
-import { requestTrainer } from '@services/student.service';
 import { useTrainerRequestState } from './trainer-request.state';
 
 import { PROMISES_AREA } from '@constants/promises-area';
