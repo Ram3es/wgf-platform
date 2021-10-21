@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { RootState } from '@store/store';
-
+import { useAppSelector } from '@services/hooks/redux';
 import { disconnectTrainer, getTrainersByUser } from '@services/student.service';
 
 import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
@@ -21,7 +19,7 @@ export const useTrainerViewingState = () => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [selectedTrainer, setSelectedTrainer] = useState<string>('');
 
-  const { user } = useSelector((state: RootState) => state);
+  const { user } = useAppSelector((state) => state);
 
   const { push } = useHistory();
 

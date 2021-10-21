@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ComponentType, FunctionComponent } from 'react';
-import { Redirect, Route, RouteComponentProps, RouteProps } from 'react-router';
+import { Redirect, Route, RouteComponentProps, RouteProps, useHistory } from 'react-router';
 
 import { storageService } from '@services/storage/storage';
 
@@ -14,10 +14,20 @@ export const PrivateRoute: FunctionComponent<IPrivateRouteProps> = ({
   component: Component,
   ...rest
 }) => {
+  const { location } = useHistory();
+
   const isToken = storageService.getToken();
 
   if (!isToken) {
-    return <Redirect push to={ROUTES.signIn} />;
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: ROUTES.signIn,
+          state: { from: location },
+        }}
+      />
+    );
   }
 
   const renderRoute = (props: any) => <Component {...props} />;

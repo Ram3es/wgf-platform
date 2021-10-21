@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { loginUser } from '@store/reducers/user.slice';
-import { AppDispatch } from '@store/store';
 
+import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { storageService } from '@services/storage/storage';
 import { signUp } from '@services/user.service';
@@ -21,9 +20,9 @@ export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
   const { replace, goBack, length } = useHistory();
 
-  const user = useSelector((state) => state);
+  const { user } = useAppSelector((state) => state);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const token = storageService.getToken();

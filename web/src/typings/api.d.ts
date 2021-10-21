@@ -155,3 +155,16 @@ interface IInvitationReq {
   type: INVITATION_TYPE;
   groupId?: string;
 }
+
+interface IGroup {
+  id: string;
+  created: Date;
+  name: string;
+  trainerId: string;
+}
+
+interface ILocationState {
+  from: {
+    pathname: string;
+  };
+}

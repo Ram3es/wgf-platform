@@ -137,21 +137,14 @@ export const ProfileStyles = {
 };
 
 export const ProfileSectionFormStyles = {
-  FormLabelWrapper: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    & > div {
-      flex: 0 1 75%;
-    }
+  FormWrapper: styled.div`
+    position: relative;
   `,
-  Label: styled.span`
-    flex: 0 1 30%;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    font-size: ${FONTS.sizes[15]};
-    color: ${COLORS.grey};
+  SelectWrapper: styled.div`
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: calc(70% - 10px);
   `,
   FormItem: styled.div<{ type?: string }>`
     & > * {

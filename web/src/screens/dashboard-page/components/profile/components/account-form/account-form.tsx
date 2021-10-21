@@ -47,8 +47,7 @@ export const AccountForm: React.FC<IAccountFormProps> = ({
               const key = item as keyof IAccountData;
 
               return (
-                <Styled.FormLabelWrapper key={index}>
-                  <Styled.Label>{accountLabels[item]}</Styled.Label>
+                <Styled.FormWrapper key={index}>
                   <Styled.FormItem type="password">
                     <TextField
                       type="password"
@@ -58,12 +57,12 @@ export const AccountForm: React.FC<IAccountFormProps> = ({
                       onBlur={handleBlur}
                       value={accountData[key] || ''}
                       error={touched[key] && errors[key] ? errors[key] : ''}
-                      isFullWidth
+                      label={accountLabels[item]}
                       withBorder
                       height="38px"
                     />
                   </Styled.FormItem>
-                </Styled.FormLabelWrapper>
+                </Styled.FormWrapper>
               );
             })}
             <Styled.FormControl>

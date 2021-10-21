@@ -53,6 +53,22 @@ export class InvitationController {
     return this.invitationService.inviteTrainer(id, body);
   }
 
+  @Post(INVITATION_ROUTES.inviteUser)
+  @ApiOperation({ summary: INVITATION_ROUTES.inviteUser })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: INVITATION_ROUTES.inviteUser,
+    type: InvitationEntity,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async inviteUser(
+    @User('id') id: string,
+    @Body() body: CreateInvitationDto
+  ) {
+    return this.invitationService.inviteUser(id, body);
+  }
+
   @Post(INVITATION_ROUTES.requestTrainerFromStudent)
   @ApiOperation({ summary: INVITATION_ROUTES.requestTrainerFromStudent })
   @ApiResponse({
@@ -118,7 +134,7 @@ export class InvitationController {
       token: params.token,
     });
     const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
-    const link = WEB_BASE_URL;
+    const link = `${WEB_BASE_URL}dashboard`;
     return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
   }
 
@@ -132,7 +148,7 @@ export class InvitationController {
       token: params.token,
     });
     const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
-    const link = WEB_BASE_URL;
+    const link = `${WEB_BASE_URL}dashboard`;
     return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
   }
 

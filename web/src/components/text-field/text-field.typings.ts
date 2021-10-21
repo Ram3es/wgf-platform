@@ -7,6 +7,8 @@ export interface ITextFieldStylesProps {
   readOnly?: boolean;
   withBorder?: boolean;
   isAutoCompleteOff?: boolean;
+  isSelect?: boolean;
+  label?: string;
 }
 
 export interface ITextFieldProps extends ITextFieldStylesProps {

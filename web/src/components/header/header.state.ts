@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { clearUser } from '@store/reducers/user.slice';
-import { AppDispatch, RootState } from '@store/store';
 
+import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { storageService } from '@services/storage/storage';
 import { logOut } from '@services/user.service';
 
@@ -23,9 +22,9 @@ export const useHeaderState = () => {
 
   const token = storageService.getToken();
 
-  const { user } = useSelector((state: RootState) => state);
+  const { user } = useAppSelector((state) => state);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (token) {

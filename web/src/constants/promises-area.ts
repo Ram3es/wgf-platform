@@ -9,4 +9,7 @@ export const PROMISES_AREA = {
   getCaasCsv: 'get-caas-csv',
   getUserTrainers: 'get-user-trainers',
   requestTrainer: 'request-trainer',
+  getGroupsByTrainer: 'get-groups-by-trainer',
+  inviteStudent: 'invite-student',
+  inviteFromSuperAdmin: 'invite-from-super-admin',
 };

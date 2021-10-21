@@ -6,50 +6,18 @@ import { Media } from '@styles/media';
 
 import { Z_INDEX } from '@constants/z-indexes';
 
-import { ITextFieldStylesProps } from './text-field.typings';
+import { ITextFieldStylesProps } from '@components/text-field/text-field.typings';
 
-export const TextFieldStyled = {
-  Wrapper: styled.div<{ isSelect?: boolean }>`
-    position: relative;
-    margin-bottom: 30px;
-
-    ${({ isSelect }) =>
-      isSelect &&
-      css`
-        svg {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          right: 15px;
-        }
-      `}
-  `,
-  Label: styled.label<{ isValue?: boolean; isReadOnly?: boolean }>`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    cursor: ${({ isReadOnly }) => (isReadOnly ? 'text' : 'pointer')};
-
-    span {
-      flex: 0 1 30%;
-      margin-right: 20px;
-      font-size: ${FONTS.sizes[15]};
-      color: ${({ isValue }) => (isValue ? COLORS.default : COLORS.grey)};
-    }
-  `,
+export const InputStyled = {
   FormItem: styled.div<{ error?: string; label?: string }>`
     position: relative;
-    display: flex;
+    margin-bottom: 20px;
 
     ${({ label }) =>
       label &&
       css`
         flex: 0 1 70%;
-
-        & > * {
-          margin-bottom: 0;
-        }
+        margin-bottom: 0;
       `}
 
     svg {

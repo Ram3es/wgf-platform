@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import { RootState } from '@store/store';
-
+import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getPdf, getResults } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
@@ -24,7 +22,7 @@ export const useResultState = () => {
 
   const [filePdf, setFilePdf] = useState<null | IPdf>(null);
 
-  const userInfo = useSelector((state: RootState) => state.user);
+  const userInfo = useAppSelector((state) => state.user);
 
   const { replace } = useHistory();
 

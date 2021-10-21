@@ -43,13 +43,17 @@ export class InvitationService {
       },
     });
 
+    if (user && user.role !== ROLES.user) {
+      throw new HttpException(ERRORS.user.anotherRole, HttpStatus.CONFLICT);
+    }
+
     const userInGroup = await this.groupService.getUserInGroup({
       trainerId,
-      userId: user.id,
+      userId: user?.id,
     });
 
     if (userInGroup) {
-      throw new HttpException(ERRORS.alreadyExist, HttpStatus.CONFLICT);
+      throw new HttpException(ERRORS.trainer.alreadyExist, HttpStatus.CONFLICT);
     }
 
     const trainer = await this.userRepository.findOne(trainerId);
@@ -57,6 +61,15 @@ export class InvitationService {
     const isSend = await this.invitationRepository.findOne({
       where: { to: email, from: trainer.id },
     });
+
+    if (
+      isSend &&
+      new Date().getTime() - new Date(isSend.inviteDate).getTime() <
+        EXPIRE_INVITE_TIME &&
+      isSend.status === INVITATION_STATUS.pending
+    ) {
+      throw new HttpException(ERRORS.trainer.alreadySent, HttpStatus.FORBIDDEN);
+    }
 
     if (isSend) {
       await this.invitationRepository.delete(isSend.id);
@@ -104,6 +117,15 @@ export class InvitationService {
       where: { to: email, from: admin.id },
     });
 
+    if (
+      isSend &&
+      new Date().getTime() - new Date(isSend.inviteDate).getTime() <
+        EXPIRE_INVITE_TIME &&
+      isSend.status === INVITATION_STATUS.pending
+    ) {
+      throw new HttpException(ERRORS.student.alreadySent, HttpStatus.FORBIDDEN);
+    }
+
     if (isSend) {
       await this.invitationRepository.delete(isSend.id);
     }
@@ -117,7 +139,7 @@ export class InvitationService {
 
     const adminName = `${admin.firstName} ${admin.lastName}`;
 
-    sendMail(adminToUserMail(user, adminName, invitation.id));
+    sendMail(adminToUserMail(body.to, body.name, adminName, invitation.id));
 
     return invitation;
   }
@@ -326,6 +348,15 @@ export class InvitationService {
     const isSend = await this.invitationRepository.findOne({
       where: { to: email, from: superAdminId },
     });
+
+    if (
+      isSend &&
+      new Date().getTime() - new Date(isSend.inviteDate).getTime() <
+        EXPIRE_INVITE_TIME &&
+      isSend.status === INVITATION_STATUS.pending
+    ) {
+      throw new HttpException(ERRORS.student.alreadySent, HttpStatus.FORBIDDEN);
+    }
 
     if (isSend) {
       await this.invitationRepository.delete(isSend.id);

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { updateUserAvatar, updateUserProfile } from '@store/reducers/user.slice';
-import { AppDispatch, RootState } from '@store/store';
 
+import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { updateProfilePassword, updateUser } from '@services/user.service';
 
@@ -19,9 +18,9 @@ import { IProfileInitialState } from './profile.typings';
 export const useProfileState = () => {
   const { replace, push } = useHistory();
 
-  const { user } = useSelector((state: RootState) => state);
+  const { user } = useAppSelector((state) => state);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!user) {

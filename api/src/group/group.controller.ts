@@ -40,6 +40,7 @@ export class GroupController {
     type: GroupEntity,
   })
   @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin', 'trainerAdmin']))
   public async assignUsersToGroup(@Body() body: AssignUsersToGroupDto) {
     return this.groupService.assignUsersToGroup(body);
   }

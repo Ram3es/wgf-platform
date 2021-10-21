@@ -24,7 +24,7 @@ export class GroupEntity {
   @ApiProperty({ example: 'bd4bc467-77a5-4ea9-975b-16d1eebef55d' })
   trainerId: string;
 
-  @ManyToMany(() => UserEntity, (data) => data.groups, { eager: true })
+  @ManyToMany(() => UserEntity, (data) => data.groups)
   @JoinTable()
   users: UserEntity[];
 

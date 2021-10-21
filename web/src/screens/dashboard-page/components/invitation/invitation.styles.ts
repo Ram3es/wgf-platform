@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Media } from '@styles/media';
 
-export const TrainerStyles = {
+export const InvitationStyles = {
   Wrapper: styled.div`
     position: relative;
     width: calc(100% - 260px);
@@ -20,8 +20,6 @@ export const TrainerStyles = {
     `}
   `,
   Content: styled.div`
-    display: flex;
-    flex-direction: column;
     position: relative;
     padding: 0 30px;
     width: 100%;

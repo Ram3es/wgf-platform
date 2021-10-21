@@ -184,6 +184,7 @@ export const STRINGS = {
     save: 'Save',
     confirm: 'Confirm',
     sendRequest: 'Send Request',
+    invite: 'Invite',
   },
 
   input: {
@@ -231,6 +232,15 @@ export const STRINGS = {
       title: 'Disconnect Trainer',
       discription:
         'Are you sure you want to disconnect the trainer from your account?',
+    },
+  },
+
+  invitation: {
+    individualInvite: 'INDIVIDUAL INVITE',
+    inviteUsersTitle: {
+      superAdmin: 'Invite Users/Trainers',
+      trainerAdmin: 'Invite Users',
+      user: '',
     },
   },
 };

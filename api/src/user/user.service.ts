@@ -94,6 +94,8 @@ export class UserService {
 
       const updatedUser = await this.getUserById(newUser.id);
 
+      const token = await this.createToken(updatedUser);
+
       return { user: await this.userSerializer(updatedUser), token };
     }
 

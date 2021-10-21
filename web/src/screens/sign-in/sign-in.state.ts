@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { loginUser } from '@store/reducers/user.slice';
-import { AppDispatch } from '@store/store';
 
+import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { storageService } from '@services/storage/storage';
 import { signIn } from '@services/user.service';
@@ -20,11 +19,13 @@ import { initialSignInState } from './sign-in.constants';
 import { ISignInState } from './sign-in.typings';
 
 export const useSignInState = () => {
-  const { replace, length, goBack } = useHistory();
+  const { replace } = useHistory();
 
-  const user = useSelector((state) => state);
+  const location = useLocation<ILocationState>();
 
-  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useAppSelector((state) => state);
+
+  const dispatch = useAppDispatch();
 
   const { state, updateState } =
     useUpdateState<ISignInState>(initialSignInState);
@@ -39,9 +40,7 @@ export const useSignInState = () => {
     const token = storageService.getToken();
 
     if (token && user) {
-      if (length > 2) return goBack();
-
-      return replace('/');
+      return replace(location?.state?.from.pathname || '/');
     }
   }, [user]);
 

@@ -185,7 +185,7 @@ export const adminToExistingTrainerMail = (
   html: `
     <p>Hi <b>${user.firstName},</b></p>
     <p>We're sending you this email because you get invitation to become a trainer admin from Super Admin: ${superAdminName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to accept invitation.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}>here </a> to accept invitation.</p>
     <p>Bests,<br/>Jac at Avid Adventures</p>
   `,
 });
@@ -226,18 +226,19 @@ export const studentToTrainerMail = (
 });
 
 export const adminToUserMail = (
-  user: UserEntity,
+  email: string,
+  userName: string,
   adminName: string,
   token: string
 ) => ({
   from: `Avid Adventures <${EMAIL_FROM}>`,
-  to: user.email,
-  bcc: user.email,
+  to: email,
+  bcc: email,
   subject: 'Invite from Admin',
   html: `
-    <p>Hi <b>${user.firstName},</b></p>
+    <p>Hi <b>${userName},</b></p>
     <p>We're sending you this email because you get invite to registration from Admin: ${adminName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invite.</p>
+    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invite and complete registration.</p>
     <p>Bests,<br/>Jac at Avid Adventures</p>
   `,
 });

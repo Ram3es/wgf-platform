@@ -34,7 +34,9 @@ export class GroupService {
   }
 
   async assignUsersToGroup(body: AssignUsersToGroupDto) {
-    const group = await this.groupRepository.findOne(body.groupId);
+    const group = await this.groupRepository.findOne(body.groupId, {
+      relations: ['users'],
+    });
 
     if (!group) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
@@ -53,7 +55,9 @@ export class GroupService {
   async removeUserFromTrainer(body: GetUserFromTrainerDto) {
     const group = await this.getUserInGroup(body);
 
-    const users = (await this.groupRepository.findOne(group.id)).users;
+    const users = (
+      await this.groupRepository.findOne(group.id, { relations: ['users'] })
+    ).users;
 
     await this.groupRepository.save({
       ...group,
@@ -90,7 +94,9 @@ export class GroupService {
   }
 
   async deleteGroup(body: GroupIdDto) {
-    const group = await this.groupRepository.findOne(body.groupId);
+    const group = await this.groupRepository.findOne(body.groupId, {
+      relations: ['users'],
+    });
 
     if (!group) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
@@ -132,7 +138,9 @@ export class GroupService {
   }
 
   async getUsersByGroup(body: { groupId: string }) {
-    const group = await this.groupRepository.findOne(body.groupId);
+    const group = await this.groupRepository.findOne(body.groupId, {
+      relations: ['users'],
+    });
 
     if (!group) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);

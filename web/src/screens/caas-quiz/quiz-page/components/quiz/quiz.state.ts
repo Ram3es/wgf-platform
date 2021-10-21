@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { RootState } from '@store/store';
-
+import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
@@ -22,7 +20,7 @@ export const useQuizState = () => {
 
   const quiz = storageService.getQuiz();
 
-  const { user } = useSelector((state: RootState) => state);
+  const { user } = useAppSelector((state) => state);
 
   const createQuestionList = useCallback(async () => {
     const listStorage = storageService.getQuestionList(quiz?.title || '');

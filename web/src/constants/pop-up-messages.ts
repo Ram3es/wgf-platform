@@ -43,6 +43,27 @@ export const trainerRequestSuccessMessage = Swal.mixin({
   confirmButtonColor: `${COLORS.blue}`,
 });
 
+export const studentInviteSuccessMessage = Swal.mixin({
+  icon: 'success',
+  title: 'Invitation Student Sent',
+  text: `Your invitation has been sent to the student.`,
+  confirmButtonColor: `${COLORS.blue}`,
+});
+
+export const userInviteSuccessMessage = Swal.mixin({
+  icon: 'success',
+  title: 'Invitation User Sent',
+  text: `Your invitation has been sent to the user.`,
+  confirmButtonColor: `${COLORS.blue}`,
+});
+
+export const trainerInviteSuccessMessage = Swal.mixin({
+  icon: 'success',
+  title: 'Invitation Trainer Sent',
+  text: `Your invitation has been sent to the trainer.`,
+  confirmButtonColor: `${COLORS.blue}`,
+});
+
 export const errorMessage = (text: string) =>
   Swal.mixin({
     icon: 'error',

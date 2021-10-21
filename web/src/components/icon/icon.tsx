@@ -8,6 +8,7 @@ import { ReactComponent as edit } from '@assets/img/edit.svg';
 import { ReactComponent as History } from '@assets/img/history.svg';
 import { ReactComponent as imagesPicker } from '@assets/img/images-picker.svg';
 import { ReactComponent as inviteUsers } from '@assets/img/invite-users.svg';
+import { ReactComponent as invite } from '@assets/img/invite.svg';
 import { ReactComponent as logout } from '@assets/img/logout.svg';
 import { ReactComponent as manageGroup } from '@assets/img/manage-group.svg';
 import { ReactComponent as manageTrainers } from '@assets/img/manage-trainers.svg';
@@ -43,6 +44,7 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   options,
   disconnect,
   requestTrainer,
+  invite,
 };
 
 export const Icon = (props: {
