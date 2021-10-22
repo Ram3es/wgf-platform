@@ -7,6 +7,10 @@ import { Media } from '@styles/media';
 export const ProfileStyles = {
   Wrapper: styled.div`
     width: calc(100% - 260px);
+
+    ${Media.tablet`
+      width: 100%;
+    `}
   `,
   ContentWrapper: styled.div`
     display: flex;
@@ -20,6 +24,10 @@ export const ProfileStyles = {
 
     ${Media.smallLandscape`
       flex-wrap: wrap;
+    `}
+
+    ${Media.mobile`
+      padding: 20px;
     `}
   `,
   AvatarColumn: styled.div`
@@ -68,11 +76,11 @@ export const ProfileStyles = {
       font-size: ${FONTS.sizes[28]};
 
       ${Media.tablet(css`
-        font-size: ${FONTS.sizes[24]};
+        font-size: ${FONTS.sizes[26]};
       `)}
 
       ${Media.mobile(css`
-        font-size: ${FONTS.sizes[20]};
+        font-size: ${FONTS.sizes[24]};
       `)}
     }
   `,
@@ -100,6 +108,10 @@ export const ProfileStyles = {
 
     ${Media.smallLandscape`
       flex: 0 1 100%;
+    `}
+
+    ${Media.mobile`
+      padding: 25px 0;
     `}
   `,
   SectionProfile: styled.div`

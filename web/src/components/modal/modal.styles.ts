@@ -15,10 +15,7 @@ export const ModalStyles = {
     transform: translate(-50%, -50%);
     max-width: ${({ width }) => (width ? `${width}px` : 'none')};
     width: 100%;
-
-    ${Media.mobile`
-      max-width: none;
-    `}
+    padding: 0 10px;
   `,
   Content: styled.div`
     width: 100%;

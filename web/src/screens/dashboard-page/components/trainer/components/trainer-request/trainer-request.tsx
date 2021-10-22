@@ -21,7 +21,7 @@ export const TrainerRequest: React.FC = () => {
 
   return (
     <Styled.Wrapper>
-      <div>
+      <Styled.Content>
         <TitleStyles.h2 color={COLORS.grey} textAlign="left">
           {STRINGS.trainer.requestTitle}
         </TitleStyles.h2>
@@ -46,7 +46,6 @@ export const TrainerRequest: React.FC = () => {
             return (
               <Styled.FormWrapper>
                 <Styled.FormLabelWrapper>
-                  <Styled.Label>{STRINGS.input.email}</Styled.Label>
                   <TextField
                     type="text"
                     name="email"
@@ -57,6 +56,7 @@ export const TrainerRequest: React.FC = () => {
                     onChange={onChange}
                     onBlur={handleBlur}
                     error={touched.email && errors.email ? errors.email : ''}
+                    label={STRINGS.input.email}
                   />
                 </Styled.FormLabelWrapper>
                 <Styled.FormControl>
@@ -76,7 +76,7 @@ export const TrainerRequest: React.FC = () => {
             );
           }}
         </Formik>
-      </div>
+      </Styled.Content>
     </Styled.Wrapper>
   );
 };

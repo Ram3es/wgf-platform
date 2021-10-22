@@ -9,6 +9,8 @@ export interface ITextFieldStylesProps {
   isAutoCompleteOff?: boolean;
   isSelect?: boolean;
   label?: string;
+  isReadOnly?: boolean;
+  isValue?: boolean;
 }
 
 export interface ITextFieldProps extends ITextFieldStylesProps {

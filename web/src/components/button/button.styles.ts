@@ -24,7 +24,7 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   font-family: ${FONTS.family.frutigerBold};
   background-color: ${({ color, variant }) =>
     variant === 'cancel' ? COLORS.white : color};
-  transition: 0.3;
+  transition: 0.3s;
   white-space: nowrap;
 
   @media print {

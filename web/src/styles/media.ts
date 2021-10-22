@@ -7,7 +7,7 @@ export const SIZE = {
   sMobile: '400px',
   mobile: '600px',
   tablet: '768px',
-  smallLandscape: '940px',
+  smallLandscape: '998px',
   landscape: '1180px',
   landscapeWreck: '1350px',
   desktop: '1500px',

@@ -2,18 +2,23 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 
 export const TrainerViewingStyled = {
   Wrapper: styled.div`
     position: relative;
     margin-bottom: 50px;
+
+    ${Media.mobile`
+      margin-bottom: 20px;
+    `}
   `,
   Title: styled.div`
     h2 {
       font-family: ${FONTS.family.absideSmooth};
       font-weight: 400;
     }
-    margin-bottom: 25px;
+    margin-bottom: 15px;
   `,
   Cards: styled.div`
     display: flex;
@@ -23,8 +28,12 @@ export const TrainerViewingStyled = {
   CardWrapper: styled.div`
     flex: 1 1 auto;
     max-width: 450px;
-    min-width: 335px;
-    padding: 10px;
+    min-width: 320px;
+    padding: 20px 10px;
+
+    ${Media.mobile`
+      padding: 20px 0;
+    `}
   `,
   CardItem: styled.div`
     border-radius: 20px;
@@ -97,9 +106,5 @@ export const DisconnectPopUpStyled = {
   ButtonPanel: styled.div`
     display: flex;
     justify-content: space-between;
-
-    & > :first-child {
-      margin-right: 20px;
-    }
   `,
 };

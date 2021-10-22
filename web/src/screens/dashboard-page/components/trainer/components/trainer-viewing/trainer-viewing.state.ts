@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ export const useTrainerViewingState = () => {
 
   const { push } = useHistory();
 
-  const getTrainers = async () => {
+  const getTrainers = useCallback(async () => {
     try {
       const { data } = await trackPromise(
         getTrainersByUser(),
@@ -42,11 +42,11 @@ export const useTrainerViewingState = () => {
         return errorMessage(error?.response?.data.message).fire();
       }
     }
-  };
+  }, []);
 
   useEffect(() => {
     getTrainers();
-  }, []);
+  }, [getTrainers]);
 
   useEffect(() => {
     const body = document.querySelector('body');

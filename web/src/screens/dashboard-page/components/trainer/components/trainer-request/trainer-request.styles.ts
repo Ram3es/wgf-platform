@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 
 export const TrainerRequestStyled = {
   Wrapper: styled.div`
@@ -9,14 +9,27 @@ export const TrainerRequestStyled = {
     display: flex;
     align-items: center;
 
+    ${Media.mobile`
+      width: 100%;
+    `}
+
     h2 {
       font-family: ${FONTS.family.absideSmooth};
       font-weight: 400;
       margin-bottom: 25px;
     }
   `,
+  Content: styled.div`
+    ${Media.mobile`
+      width: 100%;
+    `}
+  `,
   FormWrapper: styled.div`
     padding: 20px;
+
+    ${Media.mobile`
+      padding: 0;
+    `}
   `,
   FormLabelWrapper: styled.div`
     display: flex;
@@ -26,14 +39,10 @@ export const TrainerRequestStyled = {
     & > * {
       flex: 1 1 auto;
     }
-  `,
-  Label: styled.span`
-    flex: 0 1 20%;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    font-size: ${FONTS.sizes[15]};
-    color: ${COLORS.grey};
-    margin-bottom: 30px;
+
+    ${Media.mobile`
+      min-width: 100%;
+    `}
   `,
   FormControl: styled.div`
     display: flex;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 
 import { Z_INDEX } from '@constants/z-indexes';
 
@@ -17,6 +18,10 @@ export const HeaderStyles = {
     background-color: ${COLORS.white};
     padding: 22px 30px;
     z-index: ${Z_INDEX.extraMedium};
+
+    ${Media.tablet`
+      position: static;
+    `}
 
     button {
       padding: 1px 3px;
@@ -43,28 +48,32 @@ export const HeaderStyles = {
       }
     }
 
+    ::after {
+      content: '';
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 4px 0 4px 6px;
+      border-color: transparent transparent transparent ${COLORS.black};
+      transition: 0.3s;
+      transform: translateY(-50%)
+        ${({ isActive }) => isActive && 'rotate(90deg)'};
+    }
+
     & > span {
       position: relative;
       font-size: ${FONTS.sizes[14]};
       font-weight: 700;
-      padding: 0 10px;
+      padding-right: 10px;
 
-      ::after {
-        content: '';
-        position: absolute;
-        left: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-        display: block;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 4px 0 4px 6px;
-        border-color: transparent transparent transparent ${COLORS.black};
-        transition: 0.3s;
-        transform: translateY(-50%)
-          ${({ isActive }) => isActive && 'rotate(90deg)'};
-      }
+      ${Media.mobile`
+        display: none;
+      `}
     }
   `,
   AvatarWrapper: styled.div`
@@ -72,6 +81,7 @@ export const HeaderStyles = {
     width: 40px;
     overflow: hidden;
     border-radius: 50%;
+    margin-right: 10px;
   `,
   LoginDropdown: styled.div`
     position: absolute;
@@ -79,6 +89,7 @@ export const HeaderStyles = {
     bottom: -40px;
     right: -5px;
     min-width: 150px;
+    z-index: ${Z_INDEX.extraMedium};
 
     span {
       font-size: ${FONTS.sizes[16]};

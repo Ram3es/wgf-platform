@@ -20,6 +20,10 @@ export const InputStyled = {
         margin-bottom: 0;
       `}
 
+    ${Media.mobile`
+      flex: 0 1 100%;
+    `}
+    
     svg {
       position: absolute;
       left: 13px;
