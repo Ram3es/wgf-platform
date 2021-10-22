@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 
 export const InviteUsersStyled = {
   Wrapper: styled.div`
@@ -13,6 +14,10 @@ export const InviteUsersStyled = {
   `,
   Content: styled.div`
     display: flex;
+
+    ${Media.tablet`
+      display: block;
+    `}
   `,
   Separator: styled.div`
     width: 3px;
@@ -23,5 +28,9 @@ export const InviteUsersStyled = {
       0px 18.45px 13.7314px rgba(0, 0, 0, 0.0371871),
       0px 10.9957px 6.51949px rgba(0, 0, 0, 0.0308146),
       0px 5.10827px 2.31447px rgba(0, 0, 0, 0.0219847);
+
+    ${Media.tablet`
+      display: none;
+    `}
   `,
 };

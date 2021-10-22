@@ -153,6 +153,10 @@ export const NavigationBarStyles = {
     ${Media.tablet`
         display: block;
     `}
+
+    ${Media.mobile`
+      padding: 10px 20px;
+    `}
   `,
   LineWrapper: styled.div`
     cursor: pointer;
@@ -170,7 +174,7 @@ export const NavigationBarStyles = {
       isActiveMenu &&
       css`
         position: absolute;
-        left: 30px;
+        left: 20px;
         transform: rotate(45deg);
         border-radius: 5px;
         top: 16px;
@@ -198,7 +202,7 @@ export const NavigationBarStyles = {
       isActiveMenu &&
       css`
         position: absolute;
-        left: 30px;
+        left: 20px;
         top: 16px;
         transform: rotate(-45deg);
         border-radius: 5px;

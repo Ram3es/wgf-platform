@@ -9,7 +9,7 @@ import { Z_INDEX } from '@constants/z-indexes';
 import { ITextFieldStylesProps } from '@components/text-field/text-field.typings';
 
 export const InputStyled = {
-  FormItem: styled.div<{ error?: string; label?: string }>`
+  FormItem: styled.div<ITextFieldStylesProps>`
     position: relative;
     margin-bottom: 20px;
 
@@ -23,16 +23,24 @@ export const InputStyled = {
     ${Media.mobile`
       flex: 0 1 100%;
     `}
-    
+
     svg {
       position: absolute;
-      left: 13px;
       top: 50%;
       transform: translateY(-50%);
 
-      path {
-        fill: ${({ error }) => (error ? COLORS.red : COLORS.grey)};
-      }
+      ${({ isSelect, error }) =>
+        isSelect
+          ? css`
+              right: 13px;
+            `
+          : css`
+              left: 13px;
+
+              path {
+                fill: ${error ? COLORS.red : COLORS.grey};
+              }
+            `}
     }
   `,
 

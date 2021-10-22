@@ -18,6 +18,12 @@ export const InvitationStyles = {
     ${Media.landscape`
       padding: 20px 0;
     `}
+
+    ${Media.tablet`
+      width: 100%;
+      min-height: calc(100vh - 135px);
+      border-top-left-radius: 0;
+    `}
   `,
   Content: styled.div`
     position: relative;

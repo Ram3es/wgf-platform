@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Icon } from '@components/icon';
 import { Input } from './components/input';
 
 import { ITextFieldProps } from './text-field.typings';
@@ -20,7 +19,6 @@ export const TextField: React.FC<ITextFieldProps> = (props) => {
         <span>{label}</span>
         <Input {...props} />
       </Styled.Label>
-      {isSelect && <Icon type="arrowBottom" />}
     </Styled.Wrapper>
   );
 };

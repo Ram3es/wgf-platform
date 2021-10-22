@@ -23,6 +23,10 @@ export const HeaderStyles = {
       position: static;
     `}
 
+    ${Media.mobile`
+      padding: 22px 20px;
+    `}
+
     button {
       padding: 1px 3px;
       color: ${COLORS.white};
