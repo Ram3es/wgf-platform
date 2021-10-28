@@ -24,4 +24,5 @@ export const ERRORS = {
     alreadySent: 'You have already sent a request to this student today.',
     alreadyExist: 'This student has already been added to you.',
   },
+  bulkInvite: 'Bulk Invite Error',
 };

@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Button } from '@components/button';
 import { DropBox } from '@components/drop-box';
@@ -78,17 +78,11 @@ export const BulkInvite: FC = () => {
       group: item.group || 'Unassigned',
     }));
 
-    console.log(filteredUserList);
-
     setTimeout(() => {
       setUserList(filteredUserList);
       setIsFileUploading(false);
     }, 3000);
   };
-
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
 
   return (
     <Styled.Wrapper>
