@@ -12,7 +12,7 @@ import { useIndividualInviteState } from './individual-invite.state';
 
 import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
-import { ROLES } from '@constants/user.roles';
+import { ROLES } from '@constants/user-roles';
 import {
     groupTypeOptions, individualInviteFormItems, IndividualInviteFormSchema, individualInviteLabels,
     initialIndividualInviteState

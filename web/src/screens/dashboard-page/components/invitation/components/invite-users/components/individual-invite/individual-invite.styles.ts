@@ -31,5 +31,9 @@ export const IndividualInviteStyled = {
     right: 0;
     top: 50%;
     width: calc(70% - 10px);
+
+    ${Media.mobile`
+      width: 100%;
+    `}
   `,
 };

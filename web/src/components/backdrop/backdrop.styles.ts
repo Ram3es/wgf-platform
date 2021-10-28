@@ -10,8 +10,9 @@ export const BackdropStyles = {
     background: ${COLORS.backdropBg};
     box-shadow: inset 0px -13.5px 13.5px rgba(136, 130, 129, 0.1),
       inset 0px 13.5px 27px rgba(255, 255, 255, 0.15);
-    min-height: calc(100vh - 95px);
-    top: 0;
+    height: calc(100vh - 95px);
+    min-height: 700px;
+    top: 95px;
     bottom: 0;
     left: 0;
     right: 0;

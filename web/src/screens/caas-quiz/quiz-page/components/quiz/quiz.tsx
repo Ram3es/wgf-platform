@@ -11,7 +11,7 @@ import { useQuizState } from './quiz.state';
 
 import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
-import { ROLES } from '@constants/user.roles';
+import { ROLES } from '@constants/user-roles';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { QuizStyles as Styled } from './quiz.styles';

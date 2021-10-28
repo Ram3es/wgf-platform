@@ -11,6 +11,7 @@ import {
     errorMessage, studentInviteSuccessMessage, trainerInviteSuccessMessage, userInviteSuccessMessage
 } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
+import { ROLES } from '@constants/user-roles';
 import { initialIndividualInviteState } from './individual-invite.constants';
 
 export const useIndividualInviteState = () => {
@@ -38,8 +39,10 @@ export const useIndividualInviteState = () => {
   }, []);
 
   useEffect(() => {
-    getGroups();
-  }, [getGroups]);
+    if (user.role === ROLES.trainerAdmin) {
+      getGroups();
+    }
+  }, [getGroups, user.role]);
 
   const handleChangeInviteData = (event: ChangeEvent<HTMLInputElement>) => {
     updateState({ [event.target.name]: event.target.value });
