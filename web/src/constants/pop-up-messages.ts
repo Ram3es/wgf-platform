@@ -88,6 +88,22 @@ export const imageError = () =>
     confirmButtonColor: `${COLORS.blue}`,
   });
 
+export const fileError = {
+  format: Swal.mixin({
+    icon: 'error',
+    title: 'Bad file format...',
+    text: 'Please, choose another file.',
+    confirmButtonColor: `${COLORS.blue}`,
+  }),
+  data: Swal.mixin({
+    icon: 'error',
+    title: 'Bad file...',
+    text: `Incorrect data in the CSV file. 
+    Please download the sample file and stick to the format specified in it.`,
+    confirmButtonColor: `${COLORS.blue}`,
+  }),
+};
+
 export const downloadMessage = (
   file: string,
   fileName: string,

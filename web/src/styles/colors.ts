@@ -12,6 +12,7 @@ export const COLORS = {
   yellow: '#FFD530',
   pink: '#EF60A2',
   blue: '#00AEEF',
+  liteBlue: '#2693e6',
   violet: '#5448A9',
   bgGrey: '#f2f2f3',
   line: '#A7A9AC',

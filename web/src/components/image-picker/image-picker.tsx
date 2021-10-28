@@ -50,6 +50,7 @@ export const ImagePicker: React.FC<IImagePickerProps> = ({ setValue }) => {
         type="file"
         name="image"
         onChange={imageChange}
+        accept="image/*"
       />
       <ImagePickerStyles.Button onClick={handleClick}>
         <Icon type="imagesPicker" />

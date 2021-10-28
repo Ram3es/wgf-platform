@@ -30,6 +30,8 @@ export const Quiz: React.FC = () => {
     isShowModal,
     isLastPage,
     downloadCsv,
+    isShowLatestResult,
+    isLatestAnswers,
   } = useQuizState();
 
   if (isShowModal) {
@@ -37,55 +39,54 @@ export const Quiz: React.FC = () => {
   }
 
   return (
-    <div>
-      <Styled.Wrapper>
-        {user.role === ROLES['superAdmin'] && (
-          <Loader area={PROMISES_AREA.getCaasCsv}>
-            <Styled.DownloadButton>
-              <Button
-                title={STRINGS.button.downloadCsv}
-                onClick={downloadCsv}
-                color={COLORS.greenLite}
-              />
-            </Styled.DownloadButton>
-          </Loader>
-        )}
-        <TitleStyles.h2>
-          {STRINGS.form.title} {user.firstName}
-        </TitleStyles.h2>
-        <ProgressBar percent={percent} />
-        <Loader area={PROMISES_AREA.getCaasQuestionList}>
-          <QuestionList
-            list={questionList}
-            setState={updateState}
-            currentQuestionList={questionListForPage}
-            errorRef={errorRef}
-          />
-        </Loader>
-        <Loader area={PROMISES_AREA.sendCaasAnswers}>
-          <Styled.ControlPanel>
-            {currentPage === 1 ? (
-              <div />
-            ) : (
-              <Button
-                title={STRINGS.button.back}
-                onClick={decrementPage}
-                color={COLORS.greenLite}
-                iconType="back"
-                iconLocation="left"
-              />
-            )}
+    <Styled.Wrapper>
+      {user.role === ROLES['superAdmin'] && (
+        <Loader area={PROMISES_AREA.getCaasCsv}>
+          <Styled.DownloadButton>
             <Button
-              title={isLastPage ? STRINGS.button.submit : STRINGS.button.next}
-              onClick={onSubmit}
+              title={STRINGS.button.downloadCsv}
+              onClick={downloadCsv}
               color={COLORS.greenLite}
-              iconType="next"
-              iconLocation="right"
-              type="submit"
             />
-          </Styled.ControlPanel>
+          </Styled.DownloadButton>
         </Loader>
-      </Styled.Wrapper>
-    </div>
+      )}
+      <TitleStyles.h2>
+        {STRINGS.form.title} {user.firstName}
+      </TitleStyles.h2>
+      <ProgressBar percent={percent} />
+      <QuestionList
+        list={questionList}
+        setState={updateState}
+        currentQuestionList={questionListForPage}
+        errorRef={errorRef}
+        isShowLatestResult={isShowLatestResult}
+        isLatestAnswers={isLatestAnswers}
+        currentPage={currentPage}
+      />
+      <Loader area={PROMISES_AREA.sendCaasAnswers}>
+        <Styled.ControlPanel>
+          {currentPage === 1 ? (
+            <div />
+          ) : (
+            <Button
+              title={STRINGS.button.back}
+              onClick={decrementPage}
+              color={COLORS.greenLite}
+              iconType="back"
+              iconLocation="left"
+            />
+          )}
+          <Button
+            title={isLastPage ? STRINGS.button.submit : STRINGS.button.next}
+            onClick={onSubmit}
+            color={COLORS.greenLite}
+            iconType="next"
+            iconLocation="right"
+            type="submit"
+          />
+        </Styled.ControlPanel>
+      </Loader>
+    </Styled.Wrapper>
   );
 };

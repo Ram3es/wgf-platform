@@ -11,7 +11,7 @@ export const QuestionListStyles = {
 
   Text: styled.p`
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
 
     ${Media.mobile(css`
       font-size: ${FONTS.sizes[15]};
@@ -38,5 +38,17 @@ export const QuestionListStyles = {
   ItemRadioWrapper: styled.div`
     display: flex;
     padding-top: 20px;
+  `,
+
+  SwitchAnswers: styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      margin-bottom: 20px;
+      font-size: ${FONTS.sizes[15]};
+      color: ${COLORS.grey};
+    }
   `,
 };

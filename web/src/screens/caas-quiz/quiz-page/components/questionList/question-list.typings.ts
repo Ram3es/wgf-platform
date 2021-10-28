@@ -7,4 +7,7 @@ export interface IQuestionListProps {
   currentQuestionList: IQuestionListItem[];
   setState(data: TUpdateStateData<IQuizState>): void;
   errorRef: React.MutableRefObject<React.RefObject<HTMLDivElement>[]>;
+  isShowLatestResult: boolean;
+  isLatestAnswers: boolean;
+  currentPage: number;
 }

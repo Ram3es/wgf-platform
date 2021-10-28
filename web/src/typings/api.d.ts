@@ -72,7 +72,7 @@ interface IQuestionListItem extends IQuestionRes {
   category: string;
   type: string;
   order: number;
-  answers: IAnswer[];
+  answers: IAnswer[] | [];
   isError?: boolean;
 }
 

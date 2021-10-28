@@ -185,6 +185,7 @@ export const STRINGS = {
     confirm: 'Confirm',
     sendRequest: 'Send Request',
     invite: 'Invite',
+    uploadFile: 'Upload File',
   },
 
   input: {
@@ -237,6 +238,7 @@ export const STRINGS = {
 
   invitation: {
     individualInvite: 'INDIVIDUAL INVITE',
+    bulkInvite: 'BULK INVITE',
     inviteUsersTitle: {
       superAdmin: 'Invite Users/Trainers',
       trainerAdmin: 'Invite Users',

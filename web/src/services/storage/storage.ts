@@ -38,7 +38,10 @@ class StorageService {
     return data ? JSON.parse(data) : null;
   };
 
-  public setQuestionList = (data: IQuestionListItem[], quizTitle: string) => {
+  public setQuestionList = (
+    data: IQuestionListItem[] | [],
+    quizTitle: string
+  ) => {
     const quizItems = this.getQuizItems();
 
     switch (quizTitle) {

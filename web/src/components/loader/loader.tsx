@@ -5,10 +5,14 @@ import { ILoaderProps } from './loader.typings';
 
 import { LoaderStyles } from './loader.styles';
 
-export const Loader: React.FC<ILoaderProps> = ({ area, children }) => {
+export const Loader: React.FC<ILoaderProps> = ({
+  area,
+  children,
+  isWithoutArea,
+}) => {
   const { promiseInProgress } = usePromiseTracker({ area });
 
-  if (!promiseInProgress) {
+  if (!promiseInProgress && !isWithoutArea) {
     return <>{children}</>;
   }
 

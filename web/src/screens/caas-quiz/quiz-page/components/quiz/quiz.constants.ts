@@ -7,4 +7,6 @@ export const initialState: IQuizState = {
   questionListForPage: [],
   percent: 0,
   isShowModal: false,
+  isShowLatestResult: false,
+  isLatestAnswers: false,
 };

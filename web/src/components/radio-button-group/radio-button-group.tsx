@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Icon } from '@components/icon';
 
 import { IRadioButtonProps } from './radio-button-group.typings';
 
-import { RadioButtonGroupStyles as Styled } from './radio-button-group.styles';
+import { RadioButtonGroupStyled as Styled } from './radio-button-group.styles';
 
 export const RadioButtonGroup: React.FC<IRadioButtonProps> = ({
   onChange,
@@ -16,12 +16,16 @@ export const RadioButtonGroup: React.FC<IRadioButtonProps> = ({
   containerWidth,
   initValue,
 }) => {
-  const [radioValue, setRadioValue] = useState(initValue || '');
+  const [radioValue, setRadioValue] = useState(initValue);
 
   const changeHandler = (value: string | number) => () => {
     setRadioValue(value);
     onChange(value);
   };
+
+  useEffect(() => {
+    setRadioValue(initValue);
+  }, [initValue]);
 
   return (
     <>

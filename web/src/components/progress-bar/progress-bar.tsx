@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IProgressBarProps } from './progress-bar.typings';
 
-import { ProgressBarStyles as Styled } from './progress-bar.styles';
+import { ProgressBarStyled as Styled } from './progress-bar.styles';
 
 export const ProgressBar: React.FC<IProgressBarProps> = ({ percent }) => (
   <Styled.Wrapper>

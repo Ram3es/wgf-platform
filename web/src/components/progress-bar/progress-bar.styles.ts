@@ -6,7 +6,7 @@ import { Media } from '@styles/media';
 
 import { IProgressBarProps } from './progress-bar.typings';
 
-export const ProgressBarStyles = {
+export const ProgressBarStyled = {
   Wrapper: styled.div`
     padding: 40px 0;
     position: sticky;

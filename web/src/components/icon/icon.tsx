@@ -4,7 +4,9 @@ import { ReactComponent as arrowBottom } from '@assets/img/arrow-bottom.svg';
 import { ReactComponent as check } from '@assets/img/check.svg';
 import { ReactComponent as Dashboard } from '@assets/img/dashboard.svg';
 import { ReactComponent as disconnect } from '@assets/img/disconnect.svg';
+import { ReactComponent as dropBox } from '@assets/img/drop-box.svg';
 import { ReactComponent as edit } from '@assets/img/edit.svg';
+import { ReactComponent as file } from '@assets/img/file.svg';
 import { ReactComponent as History } from '@assets/img/history.svg';
 import { ReactComponent as imagesPicker } from '@assets/img/images-picker.svg';
 import { ReactComponent as inviteUsers } from '@assets/img/invite-users.svg';
@@ -41,10 +43,12 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   check,
   question,
   shape,
+  file,
   options,
   disconnect,
   requestTrainer,
   invite,
+  dropBox,
 };
 
 export const Icon = (props: {

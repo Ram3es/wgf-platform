@@ -6,7 +6,7 @@ import { Media } from '@styles/media';
 
 import { IRadioButtonPropsStyles } from './radio-button-group.typings';
 
-export const RadioButtonGroupStyles = {
+export const RadioButtonGroupStyled = {
   Wrapper: styled.div<IRadioButtonPropsStyles>`
     display: flex;
     flex-direction: ${({ isVariantQuiz }) =>

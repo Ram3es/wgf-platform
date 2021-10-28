@@ -38,7 +38,27 @@ export const useQuizState = () => {
           PROMISES_AREA.getCaasQuestionList
         );
 
-        const list = data.questions.sort((a, b) => a.order - b.order);
+        const listWithAnswers: IQuestionListItem[] = data.questions.sort(
+          (a, b) => a.order - b.order
+        );
+
+        const isLatestAnswers = listWithAnswers.every(
+          (item) => item.answers.length > 0
+        );
+
+        updateState({ isLatestAnswers });
+
+        const listWithoutAnswers: IQuestionListItem[] = listWithAnswers.map(
+          (item) => ({
+            ...item,
+            answers: [],
+          })
+        );
+
+        const list = state.isShowLatestResult
+          ? listWithAnswers
+          : listWithoutAnswers;
+
         storageService.setQuestionList(list, quiz?.title || '');
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -57,7 +77,7 @@ export const useQuizState = () => {
       questionList: storageService.getQuestionList(quiz?.title || ''),
       currentPage: storageService.getCurrentPage(quiz?.title || ''),
     });
-  }, []);
+  }, [state.isShowLatestResult]);
 
   useEffect(() => {
     createQuestionList();
@@ -104,7 +124,7 @@ export const useQuizState = () => {
     storageService.setCurrentPage(state.currentPage, quiz?.title || '');
 
     storageService.setQuestionList(state.questionList, quiz?.title || '');
-  }, [state.currentPage, state.questionList]);
+  }, [state.currentPage, state.questionList, state.isShowLatestResult]);
 
   const handleError = () => {
     const { firstQuestionIndex, lastQuestionIndex } = getIndexForSlice();
