@@ -46,7 +46,7 @@ export const useQuizState = () => {
           (item) => item.answers.length > 0
         );
 
-        updateState({ isLatestAnswers });
+        storageService.setIsLatestAnswers(isLatestAnswers);
 
         const listWithoutAnswers: IQuestionListItem[] = listWithAnswers.map(
           (item) => ({
@@ -76,6 +76,7 @@ export const useQuizState = () => {
     updateState({
       questionList: storageService.getQuestionList(quiz?.title || ''),
       currentPage: storageService.getCurrentPage(quiz?.title || ''),
+      isLatestAnswers: storageService.getIsLatestAnswers() == 'true',
     });
   }, [state.isShowLatestResult]);
 

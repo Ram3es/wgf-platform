@@ -7,6 +7,7 @@ export const SESSION_STORAGE = {
   quizItems: 'quizItems',
   currentPage: 'currentPage',
   results: 'results',
+  isLatestAnswers: 'isLatestAnswers',
 };
 
 class StorageService {
@@ -33,9 +34,16 @@ class StorageService {
     return data ? JSON.parse(data) : null;
   };
 
-  public setQuizItems = (): IQuizItems => {
-    const data = localStorage.getItem(SESSION_STORAGE.quizItems);
-    return data ? JSON.parse(data) : null;
+  public getIsLatestAnswers = (): string => {
+    const data = sessionStorage.getItem(SESSION_STORAGE.isLatestAnswers);
+    return data || 'false';
+  };
+
+  public setIsLatestAnswers = (data: boolean) => {
+    sessionStorage.setItem(
+      SESSION_STORAGE.isLatestAnswers,
+      JSON.stringify(data)
+    );
   };
 
   public setQuestionList = (
