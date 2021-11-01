@@ -8,8 +8,9 @@ const baseHeaders = [
   'User Name',
   'Email',
   'Report date and time',
+  'Is Latest Version',
   'Job Status',
-  'Is Email Subscriber?',
+  'Is Email Subscriber',
 ];
 
 interface IUsersData {
@@ -22,6 +23,7 @@ interface IUsersData {
       score: number;
     };
   };
+  isLastResult: boolean;
 }
 
 export const createCsvCaasQuiz = async (
@@ -47,6 +49,7 @@ export const createCsvCaasQuiz = async (
       `${item.user.firstName} ${item.user.lastName}`,
       item.user.email,
       item.reportCreated.toLocaleString('en-US', DATE_OPTIONS),
+      item.isLastResult,
       item.user.jobStatus,
       item.user.isSubscriber,
       ...answers,

@@ -1,8 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+    Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn
+} from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { QuizEntity } from 'src/quiz/entities/quiz.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
+import { AnswerEntity } from './answer.entity';
 
 @Entity('result')
 export class ResultEntity {
@@ -12,7 +15,7 @@ export class ResultEntity {
 
   @UpdateDateColumn()
   @ApiProperty({ example: new Date() })
-  updated: Date;
+  created: Date;
 
   @Column()
   @ApiProperty({ example: '25%/Completed' })
@@ -27,4 +30,7 @@ export class ResultEntity {
     onDelete: 'CASCADE',
   })
   quiz: QuizEntity;
+
+  @OneToMany(() => AnswerEntity, (data) => data.result)
+  answers: AnswerEntity[];
 }

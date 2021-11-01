@@ -10,6 +10,7 @@ import { storageService } from '@services/storage/storage';
 
 import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
+import { ROUTES } from '@constants/routes';
 import { initialState } from './quiz.constants';
 
 export const useQuizState = () => {
@@ -46,7 +47,7 @@ export const useQuizState = () => {
           (item) => item.answers.length > 0
         );
 
-        storageService.setIsLatestAnswers(isLatestAnswers);
+        storageService.setIsQuizLatestAnswers(isLatestAnswers, quiz.title);
 
         const listWithoutAnswers: IQuestionListItem[] = listWithAnswers.map(
           (item) => ({
@@ -76,7 +77,6 @@ export const useQuizState = () => {
     updateState({
       questionList: storageService.getQuestionList(quiz?.title || ''),
       currentPage: storageService.getCurrentPage(quiz?.title || ''),
-      isLatestAnswers: storageService.getIsLatestAnswers() == 'true',
     });
   }, [state.isShowLatestResult]);
 
@@ -179,19 +179,13 @@ export const useQuizState = () => {
           PROMISES_AREA.sendCaasAnswers
         );
 
-        const { data } = await getQuestions({
-          quizId: quiz?.id ?? '',
-        });
-
-        const list = data.questions.sort((a, b) => a.order - b.order);
-
-        storageService.setQuestionList(
-          list,
-          storageService.getQuiz()?.title || ''
-        );
-        updateState({
-          isShowModal: true,
-        });
+        if (user.isSubscriber) {
+          push(ROUTES.results);
+        } else {
+          updateState({
+            isShowModal: true,
+          });
+        }
 
         return;
       } catch (error) {
@@ -266,5 +260,6 @@ export const useQuizState = () => {
     isLastPage,
     downloadCsv,
     user,
+    quiz,
   };
 };

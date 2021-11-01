@@ -6,5 +6,4 @@ export interface IQuizState {
   questionListForPage: IQuestionListItem[];
   isShowModal: boolean;
   isShowLatestResult: boolean;
-  isLatestAnswers: boolean;
 }

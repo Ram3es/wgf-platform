@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
+import { ResultEntity } from 'src/answer/entities/result.entity';
 import { QuestionEntity } from 'src/question/entities/question.entity';
 import { QuizEntity } from 'src/quiz/entities/quiz.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -29,4 +30,9 @@ export class AnswerEntity {
     onDelete: 'CASCADE',
   })
   question: QuestionEntity;
+
+  @ManyToOne(() => ResultEntity, (data) => data.answers, {
+    onDelete: 'CASCADE',
+  })
+  result: ResultEntity;
 }

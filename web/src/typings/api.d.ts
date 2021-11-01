@@ -114,6 +114,7 @@ interface IQuizItem {
   questionList: IQuestionListItem[];
   currentPage: number;
   result: IResults;
+  isLatestAnswers: boolean;
 }
 
 interface IUpdateResetedPassword {

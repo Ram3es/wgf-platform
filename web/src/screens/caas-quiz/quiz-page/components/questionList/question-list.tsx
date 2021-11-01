@@ -62,8 +62,8 @@ export const QuestionList: React.FC<IQuestionListProps> = ({
           <Styled.SwitchAnswers>
             <span>
               {isShowLatestResult
-                ? 'Hide Latest Answers'
-                : 'Show Latest Answers'}
+                ? 'Hide latest answers'
+                : 'Auto-populate latest answers'}
             </span>
             <Switcher
               handleChange={toogleLatestAnswers}

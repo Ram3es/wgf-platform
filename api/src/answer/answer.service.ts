@@ -30,22 +30,11 @@ export class AnswerService {
     const user = await this.userService.getUserById(userId);
     const quiz = await this.quizRepository.findOne(body.answers[0].quizId);
 
-    const result = await this.resultRepository.findOne({
-      where: {
-        user: {
-          id: userId,
-        },
-        quiz: {
-          id: quiz.id,
-        },
-      },
+    const result = await this.resultRepository.save({
+      user,
+      quiz,
+      status: body.status,
     });
-
-    if (result) {
-      await this.resultRepository.delete(result.id);
-    }
-
-    await this.resultRepository.save({ user, quiz, status: body.status });
 
     body.answers.forEach(async (answer) => {
       const question = await this.questionRepository.findOne(answer.questionId);
@@ -54,16 +43,13 @@ export class AnswerService {
         throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
       }
 
-      if (answer.id) {
-        await this.answerRepository.save(answer);
-      } else {
-        await this.answerRepository.save({
-          value: answer.value,
-          user,
-          question,
-          quiz,
-        });
-      }
+      await this.answerRepository.save({
+        value: answer.value,
+        user,
+        question,
+        quiz,
+        result,
+      });
     });
 
     return {
@@ -71,10 +57,29 @@ export class AnswerService {
     };
   }
 
-  async getQuizAnswersByUserId(quizId: string, userId: string) {
+  async getQuizAnswersByUserId(
+    quizId: string,
+    userId: string,
+    resultId?: string
+  ) {
     await this.userService.getUserById(userId);
 
+    const lastResult = await this.getLastResult(userId, quizId);
+
     const answers = await this.answerRepository.find({
+      where: {
+        result: {
+          id: resultId || lastResult.id,
+        },
+      },
+      relations: ['question'],
+    });
+
+    return answers;
+  }
+
+  async getLastResult(userId: string, quizId: string) {
+    const results = await this.resultRepository.find({
       where: {
         user: {
           id: userId,
@@ -83,9 +88,10 @@ export class AnswerService {
           id: quizId,
         },
       },
-      relations: ['question'],
     });
 
-    return answers;
+    return results.sort(
+      (first, second) => second.created.getTime() - first.created.getTime()
+    )[0];
   }
 }

@@ -29,7 +29,7 @@ export class QuizService {
     private readonly configService: ConfigService
   ) {}
 
-  async getQuizQuestions(userId: string, quizId: string) {
+  async getQuizQuestions(userId: string, quizId: string, resultId?: string) {
     await this.userService.getUserById(userId);
     const quiz = await this.quizRepository.findOne(quizId);
 
@@ -37,16 +37,17 @@ export class QuizService {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
 
+    const lastResult = await this.answerService.getLastResult(userId, quizId);
+
     return this.quizRepository
       .createQueryBuilder('quiz')
       .leftJoinAndSelect('quiz.questions', 'question')
       .leftJoinAndSelect(
         'question.answers',
         'answer',
-        'answer.userId = (:userId) AND answer.quizId = (:quizId)',
+        'answer.resultId = (:resultId)',
         {
-          userId,
-          quizId,
+          resultId: resultId || lastResult?.id,
         }
       )
       .where('quiz.id = (:quizId)', { quizId })
@@ -56,7 +57,8 @@ export class QuizService {
   async getQuizCaasResult(body: getResultDto) {
     const answers = await this.answerService.getQuizAnswersByUserId(
       body.quizId,
-      body.userId
+      body.userId,
+      body.resultId
     );
 
     const categoriesObj = answers.reduce((acc: ICategoryObj, val) => {
@@ -147,16 +149,27 @@ export class QuizService {
 
     const users = await Promise.all(
       data.map(async (item) => {
-        const quiz = await this.getQuizQuestions(item.user.id, body.quizId);
+        const quiz = await this.getQuizQuestions(
+          item.user.id,
+          body.quizId,
+          item.id
+        );
+
+        const lastResult = await this.answerService.getLastResult(
+          item.user.id,
+          body.quizId
+        );
 
         return {
           user: item.user,
-          reportCreated: item.updated,
+          reportCreated: item.created,
           questions: quiz.questions,
           resultCategories: await this.getQuizCaasResult({
             userId: item.user.id,
             quizId: body.quizId,
+            resultId: item.id,
           }),
+          isLastResult: lastResult?.id === item.id,
         };
       })
     );

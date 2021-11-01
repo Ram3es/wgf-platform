@@ -1,5 +1,5 @@
 import parse from 'html-react-parser';
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '@components/button';
@@ -14,13 +14,16 @@ import { updateUser } from '@services/user.service';
 
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
+import { userRadioGroup } from './pop-up.constants';
 
-import { IPopUpProps, IUserRadioList } from './pop-up.typings';
+import { IPopUpProps } from './pop-up.typings';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { PopUpStyles as Styled } from './pop-up.styles';
 
-export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
+export const PopUp: React.FC<IPopUpProps> = (props) => {
+  const { user, setState } = props;
+  const [jobStatus, setJobStatus] = useState('');
   const history = useHistory();
 
   const dispatch = useAppDispatch();
@@ -36,41 +39,35 @@ export const PopUp: React.FC<IPopUpProps> = ({ user, setState }) => {
       isSubscriber: user.isSubscriber,
     });
     setState({ isShowModal: false });
+    dispatch(updateUserJobStatus({ jobStatus }));
     history.push(ROUTES.results);
   };
 
   const closeModal = () => setState({ isShowModal: false });
 
-  const userRadioGroup: IUserRadioList[] = [
-    {
-      label: 'Student',
-      value: 'Student',
-    },
-    {
-      label: 'Working Professional',
-      value: 'Working Professional',
-    },
-  ];
-
   const handleChangeJobStatus = (value: string) => {
-    dispatch(updateUserJobStatus({ jobStatus: value }));
+    setJobStatus(value);
   };
 
   return (
     <Container>
       <Styled.BackDrop onClick={closeModal} />
       <Styled.Wrapper>
-        <p>{STRINGS.popUp.radioWrapperLabel}</p>
-        <Styled.RadioGroupWrapper>
-          <RadioButtonGroup
-            initValue={user.jobStatus || 'Student'}
-            isImage
-            onChange={handleChangeJobStatus}
-            radioGroup={userRadioGroup}
-            radioWidth="24px"
-            radioHeight="24px"
-          />
-        </Styled.RadioGroupWrapper>
+        {!user.jobStatus && (
+          <>
+            <p>{STRINGS.popUp.radioWrapperLabel}</p>
+            <Styled.RadioGroupWrapper>
+              <RadioButtonGroup
+                initValue={user.jobStatus || 'Student'}
+                isImage
+                onChange={handleChangeJobStatus}
+                radioGroup={userRadioGroup}
+                radioWidth="24px"
+                radioHeight="24px"
+              />
+            </Styled.RadioGroupWrapper>
+          </>
+        )}
         <Styled.Title>
           <TitleStyles.h2 color={COLORS.greenLite} textAlign="left">
             {STRINGS.popUp.title}

@@ -8,5 +8,4 @@ export const initialState: IQuizState = {
   percent: 0,
   isShowModal: false,
   isShowLatestResult: false,
-  isLatestAnswers: false,
 };

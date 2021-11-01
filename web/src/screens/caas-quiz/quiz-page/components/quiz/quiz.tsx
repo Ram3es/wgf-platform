@@ -7,6 +7,7 @@ import { COLORS } from '@styles/colors';
 import { PopUp } from '../pop-up';
 import { QuestionList } from '../questionList';
 
+import { storageService } from '@services/storage/storage';
 import { useQuizState } from './quiz.state';
 
 import { PROMISES_AREA } from '@constants/promises-area';
@@ -31,7 +32,7 @@ export const Quiz: React.FC = () => {
     isLastPage,
     downloadCsv,
     isShowLatestResult,
-    isLatestAnswers,
+    quiz,
   } = useQuizState();
 
   if (isShowModal) {
@@ -61,7 +62,9 @@ export const Quiz: React.FC = () => {
         currentQuestionList={questionListForPage}
         errorRef={errorRef}
         isShowLatestResult={isShowLatestResult}
-        isLatestAnswers={isLatestAnswers}
+        isLatestAnswers={
+          storageService.getIsQuizLatestAnswers(quiz?.title || '') || false
+        }
         currentPage={currentPage}
       />
       <Loader area={PROMISES_AREA.sendCaasAnswers}>

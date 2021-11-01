@@ -34,16 +34,56 @@ class StorageService {
     return data ? JSON.parse(data) : null;
   };
 
-  public getIsLatestAnswers = (): string => {
-    const data = sessionStorage.getItem(SESSION_STORAGE.isLatestAnswers);
-    return data || 'false';
+  public getIsQuizLatestAnswers = (quizTitle: string): boolean | null => {
+    const quizItems = this.getQuizItems();
+    let data;
+
+    switch (quizTitle) {
+      case 'caas-quiz': {
+        data = quizItems?.caas?.isLatestAnswers;
+        break;
+      }
+      case 'caas-cooperation-quiz': {
+        data = quizItems?.caasCooperation?.isLatestAnswers;
+        break;
+      }
+    }
+
+    return data || null;
   };
 
-  public setIsLatestAnswers = (data: boolean) => {
-    sessionStorage.setItem(
-      SESSION_STORAGE.isLatestAnswers,
-      JSON.stringify(data)
-    );
+  public setIsQuizLatestAnswers = (data: boolean, quizTitle: string) => {
+    const quizItems = this.getQuizItems();
+
+    switch (quizTitle) {
+      case 'caas-quiz': {
+        const newDataCaas = {
+          ...quizItems,
+          caas: { ...quizItems?.caas, isLatestAnswers: data },
+        };
+
+        return sessionStorage.setItem(
+          SESSION_STORAGE.quizItems,
+          JSON.stringify(newDataCaas)
+        );
+      }
+      case 'caas-cooperation-quiz': {
+        const newData = {
+          ...quizItems,
+          caasCooperation: {
+            ...quizItems?.caasCooperation,
+            isLatestAnswers: data,
+          },
+        };
+
+        return sessionStorage.setItem(
+          SESSION_STORAGE.quizItems,
+          JSON.stringify(newData)
+        );
+      }
+      default:
+        return;
+    }
   };
 
   public setQuestionList = (
@@ -53,7 +93,7 @@ class StorageService {
     const quizItems = this.getQuizItems();
 
     switch (quizTitle) {
-      case 'caas-quiz':
+      case 'caas-quiz': {
         const newDataCaas = {
           ...quizItems,
           caas: { ...quizItems?.caas, questionList: data },
@@ -63,7 +103,8 @@ class StorageService {
           SESSION_STORAGE.quizItems,
           JSON.stringify(newDataCaas)
         );
-      case 'caas-cooperation-quiz':
+      }
+      case 'caas-cooperation-quiz': {
         const newData = {
           ...quizItems,
           caasCooperation: {
@@ -76,6 +117,7 @@ class StorageService {
           SESSION_STORAGE.quizItems,
           JSON.stringify(newData)
         );
+      }
       default:
         return;
     }
@@ -86,12 +128,14 @@ class StorageService {
     let data;
 
     switch (quizTitle) {
-      case 'caas-quiz':
+      case 'caas-quiz': {
         data = quizItems?.caas?.questionList;
         break;
-      case 'caas-cooperation-quiz':
+      }
+      case 'caas-cooperation-quiz': {
         data = quizItems?.caasCooperation?.questionList;
         break;
+      }
     }
 
     return data && data.length >= 1 ? data : [];
@@ -111,7 +155,7 @@ class StorageService {
     let newData;
 
     switch (quizTitle) {
-      case 'caas-quiz':
+      case 'caas-quiz': {
         newData = {
           ...quizItems,
           caas: { ...quizItems?.caas, currentPage: data },
@@ -120,7 +164,8 @@ class StorageService {
           SESSION_STORAGE.quizItems,
           JSON.stringify(newData)
         );
-      case 'caas-cooperation-quiz':
+      }
+      case 'caas-cooperation-quiz': {
         newData = {
           ...quizItems,
           caasCooperation: { ...quizItems?.caasCooperation, currentPage: data },
@@ -129,6 +174,7 @@ class StorageService {
           SESSION_STORAGE.quizItems,
           JSON.stringify(newData)
         );
+      }
       default:
         return;
     }
@@ -139,12 +185,14 @@ class StorageService {
     let data;
 
     switch (quizTitle) {
-      case 'caas-quiz':
+      case 'caas-quiz': {
         data = quizItems?.caas?.currentPage;
         break;
-      case 'caas-cooperation-quiz':
+      }
+      case 'caas-cooperation-quiz': {
         data = quizItems?.caasCooperation?.currentPage;
         break;
+      }
     }
 
     return data ? data : 1;
@@ -155,7 +203,7 @@ class StorageService {
     let newData;
 
     switch (quizTitle) {
-      case 'caas-quiz':
+      case 'caas-quiz': {
         newData = {
           ...quizItems,
           caas: { ...quizItems?.caas, result: data },
@@ -164,7 +212,8 @@ class StorageService {
           SESSION_STORAGE.quizItems,
           JSON.stringify(newData)
         );
-      case 'caas-cooperation-quiz':
+      }
+      case 'caas-cooperation-quiz': {
         newData = {
           ...quizItems,
           caasCooperation: { ...quizItems?.caasCooperation, result: data },
@@ -173,6 +222,7 @@ class StorageService {
           SESSION_STORAGE.quizItems,
           JSON.stringify(newData)
         );
+      }
       default:
         return;
     }
@@ -183,12 +233,14 @@ class StorageService {
     let data;
 
     switch (quizTitle) {
-      case 'caas-quiz':
+      case 'caas-quiz': {
         data = quizItems?.caas?.result;
         break;
-      case 'caas-cooperation-quiz':
+      }
+      case 'caas-cooperation-quiz': {
         data = quizItems?.caasCooperation?.result;
         break;
+      }
     }
 
     return data ? data : null;
