@@ -198,54 +198,6 @@ class StorageService {
     return data ? data : 1;
   };
 
-  public setResults = (data: IResults, quizTitle: string) => {
-    const quizItems = this.getQuizItems();
-    let newData;
-
-    switch (quizTitle) {
-      case 'caas-quiz': {
-        newData = {
-          ...quizItems,
-          caas: { ...quizItems?.caas, result: data },
-        };
-        return sessionStorage.setItem(
-          SESSION_STORAGE.quizItems,
-          JSON.stringify(newData)
-        );
-      }
-      case 'caas-cooperation-quiz': {
-        newData = {
-          ...quizItems,
-          caasCooperation: { ...quizItems?.caasCooperation, result: data },
-        };
-        return sessionStorage.setItem(
-          SESSION_STORAGE.quizItems,
-          JSON.stringify(newData)
-        );
-      }
-      default:
-        return;
-    }
-  };
-
-  public getResults = (quizTitle: string): IResults | null => {
-    const quizItems = this.getQuizItems();
-    let data;
-
-    switch (quizTitle) {
-      case 'caas-quiz': {
-        data = quizItems?.caas?.result;
-        break;
-      }
-      case 'caas-cooperation-quiz': {
-        data = quizItems?.caasCooperation?.result;
-        break;
-      }
-    }
-
-    return data ? data : null;
-  };
-
   public clearStorage = () => {
     return localStorage.clear();
   };

@@ -33,7 +33,6 @@ export const useResultState = () => {
       storageService.getQuiz()?.title || query.get('quizTitle')!;
     const quizId = storageService.getQuiz()?.id || query.get('quizId')!;
     const userId = userInfo?.id || query.get('userId')!;
-    const results = storageService.getResults(quizTitle);
 
     if (!quizId || !quizTitle) {
       return replace('/');
@@ -45,10 +44,6 @@ export const useResultState = () => {
     };
 
     updateState({ quiz: { id: quizId, title: quizTitle }, user });
-
-    if (results) {
-      return updateState({ results });
-    }
     try {
       const { data } = await trackPromise(
         getResults({
@@ -58,12 +53,7 @@ export const useResultState = () => {
         PROMISES_AREA.getCaasResult
       );
 
-      if (data) {
-        const quizTitle =
-          storageService.getQuiz()?.title || query.get('quizTitle')!;
-        storageService.setResults(data, quizTitle);
-        return updateState({ results: data });
-      }
+      return updateState({ results: data });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return errorMessage(error?.response?.data.message).fire();
