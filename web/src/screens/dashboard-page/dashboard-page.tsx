@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import { Header } from '@components/header';
 import { Dashboard } from './components/dashboard';
@@ -9,34 +10,25 @@ import { Trainer } from './components/trainer';
 
 import { useAppSelector } from '@services/hooks/redux';
 
+import { ROUTES } from '@constants/routes';
+
 import { DashboardPageStyles as Styled } from './dashboard-page.styles';
 
 export const DashboardPage: React.FC = () => {
   const { user } = useAppSelector((state) => state);
 
-  const [activeDashboarItem, setActiveDashboarItem] = useState('Dashboard');
-  const setActiveItem = (item: string) => () => {
-    setActiveDashboarItem(item);
-  };
-
-  const NAVIGATION_HASH_MAPS: Record<string, React.ReactNode> = {
-    Dashboard: <Dashboard />,
-    Profile: <Profile />,
-    Trainer: <Trainer />,
-    ['Invite Users/Trainers']: <Invitation />,
-    ['Invite Users']: <Invitation />,
-  };
-
   return (
     <>
       <Header />
       <Styled.Wrapper>
-        <NavigationBar
-          setActiveItem={setActiveItem}
-          activeDashboardItem={activeDashboarItem}
-          user={user}
-        />
-        {NAVIGATION_HASH_MAPS[activeDashboarItem] || <Dashboard />}
+        <NavigationBar user={user} />
+        <Switch>
+          <Route path={ROUTES.dashboard} component={Dashboard} />
+          <Route path={ROUTES.profile} component={Profile} />
+          <Route path={ROUTES.trainer} component={Trainer} />
+          <Route path={ROUTES.invitation} component={Invitation} />
+          <Route path={ROUTES.platform} component={Dashboard} />
+        </Switch>
       </Styled.Wrapper>
     </>
   );

@@ -9,11 +9,7 @@ import { INavigationBarProps } from './navigation-bar.typings';
 
 import { NavigationBarStyles as Styled } from './navigation-bar.styles';
 
-export const NavigationBar: React.FC<INavigationBarProps> = ({
-  activeDashboardItem,
-  setActiveItem,
-  user,
-}) => {
+export const NavigationBar: React.FC<INavigationBarProps> = ({ user }) => {
   const [isActiveBurger, setisActiveBurger] = useState<boolean>(false);
 
   const toogleActive = () => setisActiveBurger((prev) => !prev);
@@ -37,17 +33,17 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
             {section.items.map((item, index) => (
               <Styled.Item
                 key={index}
-                isActive={item === activeDashboardItem}
-                onClick={setActiveItem(item)}
                 section={section.title}
                 color={sectionColors[section.title]}
+                to={item.route}
+                activeClassName="selected"
               >
                 {section.title === 'Assessment' ? (
-                  <img src={IMAGES[item]} />
+                  <img src={IMAGES[item.title]} />
                 ) : (
-                  <Icon type={item} />
+                  <Icon type={item.title} />
                 )}
-                <span>{item}</span>
+                <span>{item.title}</span>
               </Styled.Item>
             ))}
           </Styled.Section>

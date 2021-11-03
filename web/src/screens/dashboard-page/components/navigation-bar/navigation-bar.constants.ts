@@ -1,20 +1,53 @@
 import { COLORS } from '@styles/colors';
 
+import { ROUTES } from '@constants/routes';
+
 import { INavigationRoles } from './navigation-bar.typings';
 
-const HOME_TABS = ['Dashboard', 'History', 'Profile'];
+const HOME_TABS = [
+  {
+    title: 'Dashboard',
+    route: ROUTES.dashboard,
+  },
+  {
+    title: 'History',
+    route: ROUTES.history,
+  },
+  {
+    title: 'Profile',
+    route: ROUTES.profile,
+  },
+];
 const ASSESSMENT_TABS = [
-  'CareerFlex',
-  'Career Design Game',
-  'Career Design Canvas',
-  'My Career Adventure',
+  {
+    title: 'CareerFlex',
+    route: ROUTES.careerFlex,
+  },
+  {
+    title: 'Career Design Game',
+    route: ROUTES.careerDesignGame,
+  },
+  {
+    title: 'Career Design Canvas',
+    route: ROUTES.careerDesignCanvas,
+  },
+  {
+    title: 'My Career Adventure',
+    route: ROUTES.myCareerAdventure,
+  },
 ];
 
 export const navigationRoles: INavigationRoles = {
   user: [
     {
       title: 'Home',
-      items: [...HOME_TABS, 'Trainer'],
+      items: [
+        ...HOME_TABS,
+        {
+          title: 'Trainer',
+          route: ROUTES.trainer,
+        },
+      ],
     },
     {
       title: 'Assessment',
@@ -28,7 +61,20 @@ export const navigationRoles: INavigationRoles = {
     },
     {
       title: 'Users',
-      items: ['Invite Users', 'Manage Users', 'Manage Group'],
+      items: [
+        {
+          title: 'Invite Users',
+          route: ROUTES.invitation,
+        },
+        {
+          title: 'Manage Users',
+          route: ROUTES.manageUser,
+        },
+        {
+          title: 'Manage Group',
+          route: ROUTES.manageGroup,
+        },
+      ],
     },
     {
       title: 'Assessment',
@@ -43,10 +89,22 @@ export const navigationRoles: INavigationRoles = {
     {
       title: 'Users',
       items: [
-        'Invite Users/Trainers',
-        'Manage Users',
-        'Manage Trainers',
-        'Manage Group',
+        {
+          title: 'Invite Users/Trainers',
+          route: ROUTES.invitation,
+        },
+        {
+          title: 'Manage Users',
+          route: ROUTES.manageUser,
+        },
+        {
+          title: 'Manage Trainers',
+          route: ROUTES.manageTrainers,
+        },
+        {
+          title: 'Manage Group',
+          route: ROUTES.manageGroup,
+        },
       ],
     },
     {

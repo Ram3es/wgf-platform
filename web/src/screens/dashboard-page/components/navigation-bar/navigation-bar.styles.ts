@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
@@ -5,6 +6,11 @@ import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import { Z_INDEX } from '@constants/z-indexes';
+
+interface IStyledNavLink {
+  section: string;
+  color: string;
+}
 
 export const NavigationBarStyles = {
   Wrapper: styled.div<{ isActiveMenu: boolean }>`
@@ -61,7 +67,7 @@ export const NavigationBarStyles = {
       `)}
     }
   `,
-  Item: styled.div<{ isActive: boolean; section: string; color: string }>`
+  Item: styled(NavLink)<IStyledNavLink>`
     display: flex;
     align-items: center;
     padding: 7.5px 10px 7.5px 25px;
@@ -69,6 +75,8 @@ export const NavigationBarStyles = {
     position: relative;
 
     :hover {
+      opacity: 1;
+
       svg {
         path {
           stroke: ${({ section }) =>
@@ -102,46 +110,45 @@ export const NavigationBarStyles = {
       margin-right: 7px;
     }
 
-    ${({ isActive, section, color }) =>
-      isActive &&
-      css`
-        background-color: ${COLORS.white};
-        border-radius: 7px 0px 0px 7px;
+    &.selected {
+      background-color: ${COLORS.white};
+      border-radius: 7px 0px 0px 7px;
 
-        ${Media.tablet(css`
-          background: linear-gradient(
-            to right,
-            ${COLORS.white} 80%,
-            transparent 20%
-          );
-        `)}
+      ${Media.tablet(css`
+        background: linear-gradient(
+          to right,
+          ${COLORS.white} 80%,
+          transparent 20%
+        );
+      `)}
 
-        ::after {
-          content: '';
-          display: block;
-          position: absolute;
-          background: ${color};
-          border-radius: 0px 7px 7px 0px;
-          top: 0;
-          bottom: 0;
-          width: 10px;
-          right: -10px;
+      ::after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: ${({ color }) => color};
+        border-radius: 0px 7px 7px 0px;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        right: -10px;
 
-          ${Media.tablet`
+        ${Media.tablet`
             right: calc(20% - 5px);
           `}
-        }
+      }
 
-        & > svg {
-          path {
-            stroke: ${section === 'assessment' ? 'none' : COLORS.black};
-          }
+      & > svg {
+        path {
+          stroke: ${({ section }) =>
+            section === 'assessment' ? 'none' : COLORS.black};
         }
+      }
 
-        span {
-          color: ${COLORS.black};
-        }
-      `}
+      span {
+        color: ${COLORS.black};
+      }
+    }
   `,
   BurgerMenu: styled.div`
     position: relative;

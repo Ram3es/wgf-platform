@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
 import { RoleGuard } from 'src/shared/guards/role.guard';
 import { AssignUsersToGroupDto } from './dto/assign-users-to-group.dto';
@@ -15,6 +15,7 @@ import { GroupService } from './group.service';
 import { QUESTION_ROUTES } from 'src/question/question.constants';
 import { GROUP_ROUTES } from './group.constants';
 
+@ApiTags(GROUP_ROUTES.main)
 @Controller(GROUP_ROUTES.main)
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
