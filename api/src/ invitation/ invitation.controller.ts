@@ -4,7 +4,7 @@ import {
     Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res, UseGuards
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
 import { RoleGuard } from '../shared/guards/role.guard';
@@ -14,6 +14,7 @@ import { InvitationEntity } from './entities/ invitation.entity';
 
 import { INVITATION_ROUTES } from './invitation.constants';
 
+@ApiTags(INVITATION_ROUTES.main)
 @Controller(INVITATION_ROUTES.main)
 export class InvitationController {
   constructor(
