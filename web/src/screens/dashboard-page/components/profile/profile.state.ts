@@ -87,7 +87,9 @@ export const useProfileState = () => {
             .finally(() => push('/sign-in'));
         }
 
-        return errorMessage(error?.response?.data.message).fire();
+        errorMessage(error?.response?.data.message).fire();
+
+        return 'error';
       }
     }
   };
@@ -151,14 +153,18 @@ export const useProfileState = () => {
   };
 
   const handleSubmitProfileForm = async () => {
+    const data = await updateUserApi();
+
+    if (data === 'error') {
+      return;
+    }
+
     updateState({
       initialProfileData: state.profileData,
       isProfileEdit: false,
     });
 
     dispatch(updateUserProfile(state.profileData!));
-
-    await updateUserApi();
   };
 
   const updateSelectedCountry = (selected: string) => {

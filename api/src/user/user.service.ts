@@ -168,6 +168,20 @@ export class UserService {
   async updateUser(body: UpdateUserDto) {
     const user = await this.getUserById(body.id);
 
+    const email = body.email ? body.email.toLowerCase() : null;
+
+    if (email && email !== user.email) {
+      const userByEmail = await this.userRepository.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (userByEmail) {
+        throw new HttpException(ERRORS.user.alreadyExist, HttpStatus.CONFLICT);
+      }
+    }
+
     if (!user) {
       throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
