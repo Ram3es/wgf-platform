@@ -20,8 +20,8 @@ export const createPdf = async (
   const page = await browser.newPage();
 
   await page.goto(url, {
-    waitUntil: 'networkidle2',
-    timeout: 15000,
+    waitUntil: 'load',
+    timeout: 0,
   });
 
   const pdf = await page.pdf({
