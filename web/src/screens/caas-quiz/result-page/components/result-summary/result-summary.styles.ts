@@ -12,8 +12,7 @@ export const ResultSummaryStyles = {
     align-items: baseline;
     justify-content: center;
     margin: 0 -10px;
-
-    break-before: always;
+    page-break-inside: avoid;
 
     @media print {
       -webkit-print-color-adjust: exact;
@@ -133,6 +132,7 @@ export const ResultSummaryStyles = {
     padding: ${({ quiz }) =>
       quiz === 'caas-quiz' ? '25px 20px' : '25px 10px'};
     margin-bottom: 15px;
+    page-break-inside: avoid;
 
     @media print {
       padding: ${({ quiz }) =>

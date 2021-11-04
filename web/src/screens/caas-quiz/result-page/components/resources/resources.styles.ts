@@ -8,6 +8,7 @@ export const ResourcesStyles = {
     h1 {
       padding: 20px 0;
     }
+    page-break-inside: avoid;
   `,
   TextBlock: styled.div`
     padding: 20px 15px;
@@ -16,6 +17,7 @@ export const ResourcesStyles = {
     min-height: 150px;
     margin-bottom: 40px;
     font-size: ${FONTS.sizes[16]};
+    page-break-inside: avoid;
 
     ${Media.mobile(css`
       font-size: ${FONTS.sizes[12]};

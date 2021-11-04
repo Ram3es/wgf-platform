@@ -1,23 +1,36 @@
 import { existsSync, unlinkSync } from 'fs';
 import { join } from 'path';
 
-import { UserEntity } from 'src/user/entities/user.entity';
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const puppeteer = require('puppeteer');
 
-export const createPdf = async (
-  user: UserEntity,
-  file: string,
-  url: string
-) => {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    defaultViewport: { width: 1600, height: 1500 },
-  });
+export class Pdf {
+  private static instance: Pdf;
 
-  const page = await browser.newPage();
+  constructor() {
+    if (!Pdf.instance) {
+      Pdf.instance = this;
+    }
+    return Pdf.instance;
+  }
+
+  public static getInstance(): Pdf {
+    return this.instance;
+  }
+
+  public async getBrowser() {
+    return puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      defaultViewport: { width: 1600, height: 1500 },
+    });
+  }
+}
+
+export const browser = new Pdf();
+
+export const createPdf = async (file: string, url: string) => {
+  const page = await (await browser.getBrowser()).newPage();
 
   await page.goto(url, {
     waitUntil: 'load',
@@ -33,7 +46,7 @@ export const createPdf = async (
 
   const base64 = pdf.toString('base64');
 
-  await browser.close();
+  await page.close();
 
   setTimeout(() => {
     if (existsSync(join(process.cwd(), file))) {

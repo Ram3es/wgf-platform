@@ -10,7 +10,7 @@ export const QuickSummaryStyles = {
   Wrapper: styled.div`
     padding: 10px;
     margin: 0 -10px 20px;
-    break-inside: avoid-page;
+    page-break-inside: avoid;
 
     @media print {
       -webkit-print-color-adjust: exact;
@@ -23,6 +23,7 @@ export const QuickSummaryStyles = {
   `,
   Overflow: styled.div`
     overflow-x: auto;
+    page-break-inside: avoid;
   `,
   Heading: styled.div<{ quiz: string }>`
     display: flex;
@@ -34,6 +35,7 @@ export const QuickSummaryStyles = {
   `,
   Content: styled.div`
     min-width: 1100px;
+    page-break-inside: avoid;
   `,
   HeadingItem: styled.div`
     display: flex;

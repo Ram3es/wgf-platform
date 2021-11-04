@@ -118,7 +118,7 @@ export class QuizService {
     }
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
-    const base64 = await createPdf(user, fileName, url);
+    const base64 = await createPdf(fileName, url);
 
     const payload = quizMessage[quiz.title](user, base64);
 
