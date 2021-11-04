@@ -4,17 +4,20 @@ import { join } from 'path';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const puppeteer = require('puppeteer');
 
-export class Pdf {
-  private static instance: Pdf;
+export class Browser {
+  private static instance: Browser;
 
   constructor() {
-    if (!Pdf.instance) {
-      Pdf.instance = this;
+    console.log(Browser.instance);
+
+    if (!Browser.instance) {
+      Browser.instance = this;
     }
-    return Pdf.instance;
+
+    return Browser.instance;
   }
 
-  public static getInstance(): Pdf {
+  public static getInstance(): Browser {
     return this.instance;
   }
 
@@ -27,10 +30,9 @@ export class Pdf {
   }
 }
 
-export const browser = new Pdf();
-
 export const createPdf = async (file: string, url: string) => {
-  const page = await (await browser.getBrowser()).newPage();
+  const instance = Browser.getInstance();
+  const page = await (await instance.getBrowser()).newPage();
 
   await page.goto(url, {
     waitUntil: 'load',
