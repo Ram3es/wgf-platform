@@ -1,4 +1,4 @@
-FROM node:14.17.0 as builder
+FROM node:latest as builder
 
 WORKDIR /app
 
@@ -9,8 +9,6 @@ RUN npm install
 COPY . /app 
 
 RUN npm run build
-
-
 
 FROM nginx
 
