@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   fonts-liberation \
   gconf-service \
   git \
-  libappindicator1 \
   libasound2 \
   libatk1.0-0 \
   libc6 \
