@@ -47,7 +47,6 @@ export const ResultSummaryStyles = {
     position: relative;
     padding: 10px;
     flex: 0 1 ${({ quiz }) => (quiz === 'caas-quiz' ? '25%' : '20%')};
-
     page-break-inside: avoid;
 
     @media print {

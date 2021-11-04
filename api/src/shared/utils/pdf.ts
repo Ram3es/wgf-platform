@@ -1,31 +1,30 @@
 import { existsSync, unlinkSync } from 'fs';
 import { join } from 'path';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const puppeteer = require('puppeteer');
+import { browser } from 'src/main';
 
-export class Browser {
-  private static instance: Browser;
+// export class Browser {
+//   private static instance: Browser;
 
-  constructor() {
-    if (!Browser.instance) {
-      Browser.instance = this;
-    }
+//   constructor() {
+//     if (!Browser.instance) {
+//       Browser.instance = this;
+//     }
 
-    return Browser.instance;
-  }
+//     return Browser.instance;
+//   }
 
-  static async getBrowser() {
-    return puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      defaultViewport: { width: 1600, height: 1500 },
-    });
-  }
-}
+//   static async getBrowser() {
+//     return puppeteer.launch({
+//       headless: true,
+//       args: ['--no-sandbox', '--disable-setuid-sandbox'],
+//       defaultViewport: { width: 1600, height: 1500 },
+//     });
+//   }
+// }
 
 export const createPdf = async (file: string, url: string) => {
-  const page = await (await Browser.getBrowser()).newPage();
+  const page = await (await browser).newPage();
 
   await page.goto(url, {
     waitUntil: 'load',

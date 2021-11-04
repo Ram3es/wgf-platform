@@ -9,6 +9,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { SWAGGER } from './constants/etc';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const puppeteer = require('puppeteer');
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
@@ -42,3 +45,13 @@ async function bootstrap() {
   await app.listen(PORT || 8080);
 }
 bootstrap();
+
+const createBrowser = async () => {
+  return puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    defaultViewport: { width: 1600, height: 1500 },
+  });
+};
+
+export const browser = createBrowser();

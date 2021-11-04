@@ -8,6 +8,7 @@ export const ResourcesStyles = {
     h1 {
       padding: 20px 0;
     }
+
     page-break-inside: avoid;
   `,
   TextBlock: styled.div`
