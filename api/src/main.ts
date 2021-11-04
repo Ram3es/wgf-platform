@@ -1,6 +1,7 @@
 import { json, urlencoded } from 'body-parser';
 import * as rateLimit from 'express-rate-limit';
 import * as helmet from 'helmet';
+import { launch } from 'puppeteer-core';
 
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -49,7 +50,12 @@ bootstrap();
 const createBrowser = async () => {
   return puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--disable-gpu',
+      '--disable-dev-shm-usage',
+      '--disable-setuid-sandbox',
+      '--no-sandbox',
+    ],
     defaultViewport: { width: 1600, height: 1500 },
   });
 };

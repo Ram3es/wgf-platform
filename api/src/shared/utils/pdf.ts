@@ -1,5 +1,6 @@
 import { existsSync, unlinkSync } from 'fs';
 import { join } from 'path';
+import { Browser, Page } from 'puppeteer-core';
 
 import { browser } from 'src/main';
 
@@ -24,7 +25,9 @@ import { browser } from 'src/main';
 // }
 
 export const createPdf = async (file: string, url: string) => {
-  const page = await (await browser).newPage();
+  const browserCreated: Browser = await browser;
+
+  const page: Page = await browserCreated.newPage();
 
   await page.goto(url, {
     waitUntil: 'load',
@@ -47,6 +50,8 @@ export const createPdf = async (file: string, url: string) => {
       return unlinkSync(join(process.cwd(), file));
     }
   }, 20000);
+
+  console.log((await browserCreated.pages()).length, 'pages');
 
   return base64;
 };
