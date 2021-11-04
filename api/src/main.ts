@@ -59,5 +59,4 @@ const createBrowser = async () => {
     defaultViewport: { width: 1600, height: 1500 },
   });
 };
-
 export const browser = createBrowser();

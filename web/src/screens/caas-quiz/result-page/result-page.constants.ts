@@ -1,5 +1,3 @@
-
-
 import { IResultState } from './result-page.typings';
 
 export const initialResultState: IResultState = {
