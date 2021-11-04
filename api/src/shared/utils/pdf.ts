@@ -8,8 +8,6 @@ export class Browser {
   private static instance: Browser;
 
   constructor() {
-    console.log(Browser.instance);
-
     if (!Browser.instance) {
       Browser.instance = this;
     }
@@ -17,11 +15,7 @@ export class Browser {
     return Browser.instance;
   }
 
-  public static getInstance(): Browser {
-    return this.instance;
-  }
-
-  public async getBrowser() {
+  static async getBrowser() {
     return puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -31,8 +25,7 @@ export class Browser {
 }
 
 export const createPdf = async (file: string, url: string) => {
-  const instance = Browser.getInstance();
-  const page = await (await instance.getBrowser()).newPage();
+  const page = await (await Browser.getBrowser()).newPage();
 
   await page.goto(url, {
     waitUntil: 'load',
