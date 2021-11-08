@@ -55,6 +55,7 @@ const createBrowser = async () => {
       '--disable-dev-shm-usage',
       '--disable-setuid-sandbox',
       '--no-sandbox',
+      '--disable-dev-shm-usage',
     ],
     defaultViewport: { width: 1600, height: 1500 },
   });
