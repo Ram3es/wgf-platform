@@ -118,7 +118,6 @@ export const registrationMessage = (user: UserEntity): IMessage => ({
     <p>First Name: ${user.firstName}</p>
     <p>Last Name: ${user.lastName}</p>
     <p>Email: ${user.email}</p>
-    <p>Password: ${user.password}</p>
     <p>Please log in and complete your assessments <a href=${WEB_BASE_URL}sign-in>here</a> to get your results.</p>
     <p>Bests,<br/>Jac at Avid Adventures</p>
   `,

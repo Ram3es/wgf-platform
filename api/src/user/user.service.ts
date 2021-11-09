@@ -75,10 +75,7 @@ export class UserService {
 
     const token = await this.createToken(newUser);
 
-    const payload = registrationMessage({
-      ...newUser,
-      password: body.password,
-    });
+    const payload = registrationMessage(newUser);
 
     sendMail(payload);
 
