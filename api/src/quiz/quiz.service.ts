@@ -120,17 +120,15 @@ export class QuizService {
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
 
-    console.log(url);
-
     const fullUrl = `https://ish6byobdk.execute-api.us-east-1.amazonaws.com/default/lambdaPuppeteer-dev-getPdfFile?url=${url}`;
 
-    const response = await this.httpService.get(fullUrl).toPromise();
+    const { data } = await this.httpService.get(fullUrl).toPromise();
 
-    const payload = quizMessage[quiz.title](user, response.data);
+    const payload = quizMessage[quiz.title](user, data);
 
     sendMail(payload);
 
-    return { file: response.data, name: fileName };
+    return { file: data, name: fileName };
   }
 
   getPdfPageUrl(user: UserEntity, quiz: QuizEntity) {
@@ -141,9 +139,9 @@ export class QuizService {
       `quizTitle=${quiz.title}`,
     ];
 
-    return `https://platform.witgritfit.com/caas-quiz/results?${QUERIES.join(
-      '&'
-    )}`;
+    return `${this.configService.get(
+      'WEB_BASE_URL'
+    )}caas-quiz/results?${QUERIES.join('&')}`;
   }
 
   async getCsv(body: { quizId: string }) {

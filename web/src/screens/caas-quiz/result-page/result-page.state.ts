@@ -34,11 +34,7 @@ export const useResultState = () => {
     const quizId = storageService.getQuiz()?.id || query.get('quizId')!;
     const userId = userInfo?.id || query.get('userId')!;
 
-    console.log(query);
-
     if (!quizId || !quizTitle) {
-      console.log('replace');
-
       return replace('/');
     }
 
