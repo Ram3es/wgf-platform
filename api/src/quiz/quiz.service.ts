@@ -120,7 +120,9 @@ export class QuizService {
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
 
-    const fullUrl = `https://ish6byobdk.execute-api.us-east-1.amazonaws.com/default/lambdaPuppeteer-dev-getPdfFile?url=${url}`;
+    const encodedUrl = encodeURI(url);
+
+    const fullUrl = `https://ish6byobdk.execute-api.us-east-1.amazonaws.com/default/lambdaPuppeteer-dev-getPdfFile?url=${encodedUrl}`;
 
     const { data } = await this.httpService.get(fullUrl).toPromise();
 
