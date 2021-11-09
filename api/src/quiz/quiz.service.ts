@@ -1,5 +1,6 @@
 import { Repository } from 'typeorm';
 
+import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,7 +8,6 @@ import { AnswerService } from 'src/answer/answer.service';
 import { ERRORS } from 'src/constants/errors';
 import { sendMail } from 'src/shared/utils/email';
 import { quizMessage } from 'src/shared/utils/messages';
-import { createPdf } from 'src/shared/utils/pdf';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { ResultEntity } from '../answer/entities/result.entity';
@@ -26,7 +26,8 @@ export class QuizService {
     private readonly resultRepository: Repository<ResultEntity>,
     private readonly answerService: AnswerService,
     private readonly userService: UserService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly httpService: HttpService
   ) {}
 
   async getQuizQuestions(userId: string, quizId: string, resultId?: string) {
@@ -118,13 +119,18 @@ export class QuizService {
     }
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
-    const base64 = await createPdf(fileName, url);
 
-    const payload = quizMessage[quiz.title](user, base64);
+    console.log(url);
+
+    const fullUrl = `https://ish6byobdk.execute-api.us-east-1.amazonaws.com/default/lambdaPuppeteer-dev-getPdfFile?url=${url}`;
+
+    const response = await this.httpService.get(fullUrl).toPromise();
+
+    const payload = quizMessage[quiz.title](user, response.data);
 
     sendMail(payload);
 
-    return { file: base64, name: fileName };
+    return { file: response.data, name: fileName };
   }
 
   getPdfPageUrl(user: UserEntity, quiz: QuizEntity) {
@@ -135,9 +141,9 @@ export class QuizService {
       `quizTitle=${quiz.title}`,
     ];
 
-    return `${this.configService.get(
-      'WEB_BASE_URL'
-    )}caas-quiz/results?${QUERIES.join('&')}`;
+    return `https://platform.witgritfit.com/caas-quiz/results?${QUERIES.join(
+      '&'
+    )}`;
   }
 
   async getCsv(body: { quizId: string }) {

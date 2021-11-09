@@ -1,7 +1,6 @@
 import { json, urlencoded } from 'body-parser';
 import * as rateLimit from 'express-rate-limit';
 import * as helmet from 'helmet';
-import { launch } from 'puppeteer-core';
 
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -11,7 +10,6 @@ import { AppModule } from './app.module';
 import { SWAGGER } from './constants/etc';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const puppeteer = require('puppeteer');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -46,18 +44,3 @@ async function bootstrap() {
   await app.listen(PORT || 8080);
 }
 bootstrap();
-
-const createBrowser = async () => {
-  return puppeteer.launch({
-    headless: true,
-    args: [
-      '--disable-gpu',
-      '--disable-dev-shm-usage',
-      '--disable-setuid-sandbox',
-      '--no-sandbox',
-      '--disable-dev-shm-usage',
-    ],
-    defaultViewport: { width: 1600, height: 1500 },
-  });
-};
-export const browser = createBrowser();

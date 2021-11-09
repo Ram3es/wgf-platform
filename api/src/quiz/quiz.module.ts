@@ -1,3 +1,4 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -15,6 +16,7 @@ import { QuizService } from './quiz.service';
     UserModule,
     ConfigModule,
     AnswerModule,
+    HttpModule,
   ],
   controllers: [QuizController],
   providers: [QuizService],
