@@ -25,4 +25,5 @@ export const ERRORS = {
     alreadyExist: 'This student has already been added to you.',
   },
   bulkInvite: 'Bulk Invite Error',
+  pdf: 'Error download, try again',
 };

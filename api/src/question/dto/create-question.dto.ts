@@ -10,6 +10,14 @@ export class CreateQuestionDto {
   @ApiProperty({ example: 'Concern' })
   category: string;
 
+  @ApiProperty({ example: 'LOGIC' })
+  @IsOptional()
+  subcategory: string;
+
+  @ApiProperty({ example: 'E.g. text' })
+  @IsOptional()
+  placeholder: string;
+
   @ApiProperty({ example: 1 })
   order: number;
 
