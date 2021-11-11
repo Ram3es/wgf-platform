@@ -20,9 +20,17 @@ export class QuestionEntity {
   @ApiProperty({ example: 'What are you?' })
   title: string;
 
+  @Column({ nullable: true })
+  @ApiProperty({ example: 'LOGIC' })
+  subcategory: string;
+
   @Column()
-  @ApiProperty({ example: 'Concern', nullable: true })
+  @ApiProperty({ example: 'Concern' })
   category: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({ example: 'E.g. text' })
+  placeholder: string;
 
   @Column()
   @ApiProperty({ example: 1 })

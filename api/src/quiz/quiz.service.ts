@@ -115,16 +115,22 @@ export class QuizService {
     if (quiz.title === 'caas-quiz' || quiz.title === 'caas-cooperation-quiz') {
       url = this.getPdfPageUrl(user, quiz);
     } else {
-      url = `${WEB_BASE_URL}${quiz.title}/pdf?id=${body.userId}`;
+      url = `${WEB_BASE_URL}${quiz.title}/results?id=${body.userId}`;
     }
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
 
     const encodedUrl = encodeURI(url);
 
-    const fullUrl = `https://ish6byobdk.execute-api.us-east-1.amazonaws.com/default/lambdaPuppeteer-dev-getPdfFile?url=${encodedUrl}`;
+    const fullUrl = `${this.configService.get(
+      'AWS_CHROME_LAMBDA'
+    )}?url=${encodedUrl}`;
 
     const { data } = await this.httpService.get(fullUrl).toPromise();
+
+    if (!data) {
+      throw new HttpException(ERRORS.pdf, HttpStatus.NOT_FOUND);
+    }
 
     const payload = quizMessage[quiz.title](user, data);
 
