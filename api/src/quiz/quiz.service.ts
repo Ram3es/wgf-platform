@@ -119,9 +119,7 @@ export class QuizService {
     }
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
-
     const encodedUrl = encodeURI(url);
-
     const fullUrl = `${this.configService.get(
       'AWS_CHROME_LAMBDA'
     )}?url=${encodedUrl}`;
