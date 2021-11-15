@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Button } from '@components/button';
+import { DropDown } from '@components/drop-down';
 import { Icon } from '@components/icon';
 import { Loader } from '@components/loader';
 import { Modal } from '@components/modal';
-import { Select } from '@components/select';
 import { COLORS } from '@styles/colors';
 import { FlexCenter } from '@styles/components/flex-center';
 
@@ -56,7 +56,7 @@ export const TrainerViewing: React.FC = () => {
                       </Styled.Icon>
                       {isActiveOptions && trainer.id === selectedTrainer && (
                         <Styled.OptionsWrapper>
-                          <Select
+                          <DropDown
                             options={SELECT_TRAINER_OPTIONS}
                             setSelected={handleSelect}
                             setIsActive={handleActiveOptions}

@@ -4,11 +4,11 @@ import { Icon } from '@components/icon';
 
 import { loginedOptions } from '@components/header/header.constants';
 
-import { ISelectProps } from './select.typings';
+import { IDropDownProps } from './drop-down.typings';
 
-import { SelectStyled } from './select.styles';
+import { DropDownStyled } from './drop-down.styles';
 
-export const Select: React.FC<ISelectProps> = (props) => {
+export const DropDown: React.FC<IDropDownProps> = (props) => {
   const {
     options,
     selected,
@@ -41,22 +41,22 @@ export const Select: React.FC<ISelectProps> = (props) => {
   }, []);
 
   return (
-    <SelectStyled.Wrapper isFullWidth={isFullWidth} maxWidth={maxWidth}>
-      <SelectStyled.Content maxHeight={maxHeight}>
+    <DropDownStyled.Wrapper isFullWidth={isFullWidth} maxWidth={maxWidth}>
+      <DropDownStyled.Content maxHeight={maxHeight}>
         {options.map((selectedItem) => (
-          <SelectStyled.Item
+          <DropDownStyled.Item
             key={selectedItem}
             onClick={selectedChange(selectedItem)}
           >
             {selected === selectedItem && <Icon type="selected" />}
-            <SelectStyled.Label>
+            <DropDownStyled.Label>
               {selectedItem === loginedOptions.logout && <Icon type="logout" />}
               <span>{selectedItem}</span>
-            </SelectStyled.Label>
-          </SelectStyled.Item>
+            </DropDownStyled.Label>
+          </DropDownStyled.Item>
         ))}
-      </SelectStyled.Content>
-      <SelectStyled.BackDrop onClick={toggleActive} />
-    </SelectStyled.Wrapper>
+      </DropDownStyled.Content>
+      <DropDownStyled.BackDrop onClick={toggleActive} />
+    </DropDownStyled.Wrapper>
   );
 };

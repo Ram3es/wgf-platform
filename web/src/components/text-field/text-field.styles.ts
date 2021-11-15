@@ -6,6 +6,15 @@ import { Media } from '@styles/media';
 
 import { ITextFieldStylesProps } from './text-field.typings';
 
+const labelToTopCss = css`
+  flex-wrap: wrap;
+
+  span {
+    flex: 0 1 100%;
+    margin-bottom: 5px;
+  }
+`;
+
 export const TextFieldStyled = {
   Wrapper: styled.div<{ isSelect?: boolean }>`
     position: relative;
@@ -31,7 +40,7 @@ export const TextFieldStyled = {
     span {
       flex: 0 1 30%;
       margin-right: 20px;
-      font-size: ${FONTS.sizes[15]};
+      font-size: ${({ labelFontSize }) => labelFontSize || FONTS.sizes[15]};
       color: ${({ isValue, isReadOnly, error }) =>
         isValue && !isReadOnly && !error
           ? COLORS.default
@@ -40,13 +49,10 @@ export const TextFieldStyled = {
           : COLORS.grey};
     }
 
-    ${Media.mobile`
-      flex-wrap: wrap;
-      
-      span {
-        flex: 0 1 100%;
-        margin-bottom: 5px;
-      }
-    `}
+    ${({ isLabelTop }) => isLabelTop && labelToTopCss}
+
+    ${Media.mobile(css`
+      ${labelToTopCss}
+    `)}
   `,
 };

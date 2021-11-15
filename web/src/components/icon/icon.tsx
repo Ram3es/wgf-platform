@@ -1,6 +1,7 @@
 import React, { FunctionComponent, SVGProps } from 'react';
 
 import { ReactComponent as arrowBottom } from '@assets/img/arrow-bottom.svg';
+import { ReactComponent as back } from '@assets/img/back-arrow.svg';
 import { ReactComponent as check } from '@assets/img/check.svg';
 import { ReactComponent as Dashboard } from '@assets/img/dashboard.svg';
 import { ReactComponent as disconnect } from '@assets/img/disconnect.svg';
@@ -15,6 +16,7 @@ import { ReactComponent as logout } from '@assets/img/logout.svg';
 import { ReactComponent as manageGroup } from '@assets/img/manage-group.svg';
 import { ReactComponent as manageTrainers } from '@assets/img/manage-trainers.svg';
 import { ReactComponent as manageUsers } from '@assets/img/manage-users.svg';
+import { ReactComponent as next } from '@assets/img/next-arrow.svg';
 import { ReactComponent as options } from '@assets/img/options.svg';
 import { ReactComponent as Profile } from '@assets/img/profile.svg';
 import { ReactComponent as question } from '@assets/img/question-icon.svg';
@@ -49,6 +51,8 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   requestTrainer,
   invite,
   dropBox,
+  next,
+  back,
 };
 
 export const Icon = (props: {

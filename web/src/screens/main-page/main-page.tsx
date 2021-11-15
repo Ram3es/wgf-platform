@@ -53,7 +53,7 @@ export const MainPage: React.FC = () => {
             <Styled.ButtonContainer>
               <Button
                 title={STRINGS.button.quizCaas}
-                iconLocation="right"
+                isIconRight
                 iconType="next"
                 onClick={redirectToCaasQuiz}
                 color={COLORS.greenLite}
@@ -61,7 +61,7 @@ export const MainPage: React.FC = () => {
               <Button
                 title={STRINGS.button.quizCooperation}
                 iconType="next"
-                iconLocation="right"
+                isIconRight
                 onClick={redirectToCaasCooperationQuiz}
                 color={COLORS.greenLite}
               />

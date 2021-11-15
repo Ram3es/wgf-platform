@@ -67,7 +67,6 @@ export const TrainerRequest: React.FC = () => {
                       title={STRINGS.button.sendRequest}
                       color={COLORS.blue}
                       iconType="requestTrainer"
-                      iconLocation="left"
                       type="submit"
                     />
                   </Loader>

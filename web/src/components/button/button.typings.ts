@@ -7,7 +7,8 @@ export interface IButtonStylesProps {
   minWidth?: number;
   color?: string;
   iconType?: string;
-  iconLocation?: 'left' | 'right';
+  isIconRight?: boolean;
+  borderRadius?: string;
 }
 
 export interface IButtonProps extends IButtonStylesProps {

@@ -7,6 +7,7 @@ import { IButtonStylesProps } from './button.typings';
 
 export const ButtonStyles = styled.button<IButtonStylesProps>`
   display: flex;
+  flex-direction: ${({ isIconRight }) => (isIconRight ? 'row-reverse' : 'row')};
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -14,7 +15,7 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   min-width: ${({ isFullWidth, minWidth }) =>
     isFullWidth ? '100%' : minWidth ? `${minWidth}px` : '130px'};
   min-height: ${({ variant }) => (variant === 'text' ? 'auto' : '40px')};
-  border-radius: 20px;
+  border-radius: ${({ borderRadius }) => borderRadius || '20px'};
   border: ${({ variant }) =>
     `1px solid ${variant === 'cancel' ? COLORS.grey : 'transparent'}`};
   color: ${({ variant }) =>
