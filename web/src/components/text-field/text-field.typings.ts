@@ -11,6 +11,8 @@ export interface ITextFieldStylesProps {
   label?: string;
   isReadOnly?: boolean;
   isValue?: boolean;
+  isLabelTop?: boolean;
+  labelFontSize?: string;
 }
 
 export interface ITextFieldProps extends ITextFieldStylesProps {
@@ -18,8 +20,13 @@ export interface ITextFieldProps extends ITextFieldStylesProps {
   type: string;
   name: string;
   tabIndex?: number;
-  onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
-  onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
+  onChange?(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void;
+  onBlur?(
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void;
   autoCapitalize?: string;
   onClick?(): void;
+  variant?: 'textarea' | 'input';
 }

@@ -2,7 +2,7 @@ import { Formik } from 'formik';
 import React, { useState } from 'react';
 
 import { Button } from '@components/button';
-import { Select } from '@components/select';
+import { DropDown } from '@components/drop-down';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
@@ -103,7 +103,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
                     />
                     {isDropdownActive && (
                       <Styled.SelectWrapper>
-                        <Select
+                        <DropDown
                           isFullWidth
                           options={countryList}
                           selected={selectedCountry}

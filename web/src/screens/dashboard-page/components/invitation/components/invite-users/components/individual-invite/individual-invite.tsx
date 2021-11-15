@@ -2,8 +2,8 @@ import { Formik } from 'formik';
 import React from 'react';
 
 import { Button } from '@components/button';
+import { DropDown } from '@components/drop-down';
 import { Loader } from '@components/loader';
-import { Select } from '@components/select';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 import { FlexCenter } from '@styles/components/flex-center';
@@ -102,7 +102,7 @@ export const IndividualInvite: React.FC = () => {
                   />
                   {isActiveDropdown && (
                     <Styled.SelectWrapper>
-                      <Select
+                      <DropDown
                         isFullWidth
                         options={assignGroupsOptions}
                         selected={state.assignGroup}
@@ -129,7 +129,7 @@ export const IndividualInvite: React.FC = () => {
                   />
                   {isActiveDropdown && (
                     <Styled.SelectWrapper>
-                      <Select
+                      <DropDown
                         isFullWidth
                         options={groupTypeOptions}
                         selected={state.groupType}
@@ -155,7 +155,6 @@ export const IndividualInvite: React.FC = () => {
                     type="submit"
                     isDisabled={!isValid}
                     iconType="invite"
-                    iconLocation="left"
                   />
                 </Loader>
               </FlexCenter>

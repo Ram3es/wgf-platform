@@ -1,13 +1,15 @@
-export interface ISelectStylesProps {
-  isDisabled?: boolean;
-  maxWidth?: string;
-  maxHeight?: string;
-  isFullWidth?: boolean;
+export interface ISelectProps {
+  placeholder: string;
+  label: string;
+  options: ISelectOption[];
+  selected: ISelectOption[];
+  onBlur: () => void;
+  setSelected: React.Dispatch<React.SetStateAction<ISelectOption[]>>;
+  maxSelected?: number;
+  error?: string;
 }
 
-export interface ISelectProps extends ISelectStylesProps {
-  options: string[];
-  selected?: string;
-  setSelected: (selected: string) => void;
-  setIsActive: (value: boolean) => void;
+export interface ISelectOption {
+  value: string;
+  label: string;
 }

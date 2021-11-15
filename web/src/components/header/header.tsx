@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Button } from '@components/button';
+import { DropDown } from '@components/drop-down';
 import { Loader } from '@components/loader';
-import { Select } from '@components/select';
 import { COLORS } from '@styles/colors';
 
 import { useHeaderState } from './header.state';
@@ -48,7 +48,7 @@ export const Header: React.FC = () => {
             </Styled.LoginedContent>
             {isDropdownActive && (
               <Styled.LoginDropdown>
-                <Select
+                <DropDown
                   options={loginedOptionsList}
                   setSelected={selectedChange}
                   isFullWidth

@@ -51,7 +51,7 @@ export const ResultPage: React.FC = () => {
                 color={COLORS.black}
                 onClick={generatePdf}
                 iconType="next"
-                iconLocation="right"
+                isIconRight
               />
             </Loader>
           </FlexCenter>
