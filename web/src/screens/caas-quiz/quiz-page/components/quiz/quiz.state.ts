@@ -193,7 +193,7 @@ export const useQuizState = () => {
           if (error.response?.status === 401) {
             return unAutorizedError()
               .fire()
-              .finally(() => push('/sign-in'));
+              .finally(() => push(ROUTES.signIn));
           }
 
           return errorMessage(error?.response?.data.message).fire();

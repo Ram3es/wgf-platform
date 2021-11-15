@@ -118,6 +118,20 @@ class StorageService {
           JSON.stringify(newData)
         );
       }
+      case 'career-canvas': {
+        const newData = {
+          ...quizItems,
+          careerCanvas: {
+            ...quizItems?.careerCanvas,
+            questionList: data,
+          },
+        };
+
+        return sessionStorage.setItem(
+          SESSION_STORAGE.quizItems,
+          JSON.stringify(newData)
+        );
+      }
       default:
         return;
     }
@@ -134,6 +148,10 @@ class StorageService {
       }
       case 'caas-cooperation-quiz': {
         data = quizItems?.caasCooperation?.questionList;
+        break;
+      }
+      case 'career-canvas': {
+        data = quizItems?.careerCanvas?.questionList;
         break;
       }
     }

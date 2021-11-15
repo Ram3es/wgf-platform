@@ -1,8 +1,6 @@
 export const IMAGES: Record<string, string> = {
   companyLogo: require('../assets/img/company-logo.svg').default,
   productLogo: require('../assets/img/product-logo.svg').default,
-  back: require('../assets/img/back-arrow.svg').default,
-  next: require('../assets/img/next-arrow.svg').default,
   mainPage: require('../assets/img/main-page.jpg').default,
   bannerResultMobile: require('../assets/img/banner-result-mobile.png').default,
   bannerResultLandscape: require('../assets/img/banner-result-landscape.png')
@@ -39,4 +37,13 @@ export const IMAGES: Record<string, string> = {
     .default,
   ['Career Design Canvas']: require('../assets/img/my-career-adventure.png')
     .default,
+  sectionLogo: require('../assets/img/logo-section.png').default,
+  WORD: require('../assets/img/word-icon.png').default,
+  LOGIC: require('../assets/img/logic-icon.png').default,
+  SELF: require('../assets/img/self-icon.png').default,
+  PEOPLE: require('../assets/img/people-icon.png').default,
+  MUSIC: require('../assets/img/music-icon.png').default,
+  BODY: require('../assets/img/body-icon.png').default,
+  PICTURE: require('../assets/img/picture-icon.png').default,
+  NATURE: require('../assets/img/nature-icon.png').default,
 };

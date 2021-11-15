@@ -14,8 +14,14 @@ export const COLORS = {
   blue: '#00AEEF',
   liteBlue: '#2693e6',
   violet: '#5448A9',
+  violetLite: '#7f3f98',
   bgGrey: '#f2f2f3',
   line: '#A7A9AC',
+  orange: '#FAB141',
+  redLite: '#f16707',
+  pinkDark: '#DA1C5C',
+  blueDark: '#4B6FAC',
+  ocean: '#00ACC5',
 
   levelResult: {
     Low: '#F664C5',

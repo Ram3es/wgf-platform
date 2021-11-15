@@ -66,14 +66,22 @@ interface ISignUpResponse {
   user: IUser;
 }
 
+interface IAnswerOption {
+  id: string;
+  text: string;
+}
+
 interface IQuestionListItem extends IQuestionRes {
   id: string;
   title: string;
   category: string;
   type: string;
   order: number;
-  answers: IAnswer[] | [];
+  answers: IAnswer[];
   isError?: boolean;
+  subcategory?: string;
+  placeholder?: string;
+  answerOptions?: IAnswerOption[];
 }
 
 interface IAnswer {
@@ -108,6 +116,7 @@ interface IQuizRequest {
 interface IQuizItems {
   caas: IQuizItem;
   caasCooperation: IQuizItem;
+  careerCanvas: IQuizItem;
 }
 
 interface IQuizItem {

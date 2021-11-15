@@ -22,6 +22,11 @@ export const AppRouter: React.FC = () => (
     <Route exact path={ROUTES.signIn} component={SignIn} />
     <Route exact path={ROUTES.signUp} component={SignUp} />
     <Route exact path={ROUTES.resetPassword} component={ResetPassword} />
+    {/* <PrivateRoute
+      exact
+      path={ROUTES.careerDesignCanvas}
+      component={CanvasQuizPage}
+    /> */}
     <Route
       exact
       path={ROUTES.updatePassword}

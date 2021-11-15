@@ -20,7 +20,7 @@ export class QuestionEntity {
   @ApiProperty({ example: 'What are you?' })
   title: string;
 
-  @Column({ nullable: true })
+  @Column({ default: '', nullable: true })
   @ApiProperty({ example: 'LOGIC' })
   subcategory: string;
 
@@ -28,7 +28,7 @@ export class QuestionEntity {
   @ApiProperty({ example: 'Concern' })
   category: string;
 
-  @Column({ nullable: true })
+  @Column({ default: '', nullable: true })
   @ApiProperty({ example: 'E.g. text' })
   placeholder: string;
 
