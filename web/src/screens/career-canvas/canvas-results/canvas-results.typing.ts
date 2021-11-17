@@ -1,0 +1,9 @@
+export interface IResultQuestion {
+  title: string;
+  value: string;
+  color?: string;
+}
+
+export interface IResultPageProps {
+  questions: IResultQuestion[];
+}

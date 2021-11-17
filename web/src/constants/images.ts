@@ -55,4 +55,8 @@ export const IMAGES: Record<string, string> = {
   'Service/ dedication to a cause': require('../assets/img/service-icon.png')
     .default,
   'Pure Challenge': require('../assets/img/pure-challenge-icon.png').default,
+  witResultLogo: require('../assets/img/wit-result.png').default,
+  gritResultLogo: require('../assets/img/grit-result.png').default,
+  fitResultLogo: require('../assets/img/fit-result.png').default,
+  avidAdventures: require('../assets/img/avid-adventures-logo.png').default,
 };
