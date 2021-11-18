@@ -30,7 +30,7 @@ export const QUESTION_SECTIONS = {
     color: COLORS.violetLite,
     categories: ['practicalityCheck'],
   },
-} as const;
+};
 
 export const initialQuestionsState: IInitialQuestionsState = {
   questionList: [],

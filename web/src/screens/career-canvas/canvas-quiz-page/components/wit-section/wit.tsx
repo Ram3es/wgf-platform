@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { FC } from 'react';
 
 import { Button } from '@components/button';
 import { InputRange } from '@components/input-range';
@@ -14,23 +14,7 @@ import { HeaderSectionStyled } from '../header-section.styles';
 import { WitStyled as Styled } from './wit.styles';
 
 export const Wit: FC<IWitProps> = (props) => {
-  const { questionListForSection, onSubmitSection, updateState } = props;
-
-  const onChangeRange =
-    (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
-      updateState((prev) => ({
-        questionList: prev.questionList.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              answers: [{ ...item.answers[0], value: event.target.value }],
-              isError: false,
-            };
-          }
-          return item;
-        }),
-      }));
-    };
+  const { questionListForSection, onSubmitSection, onChangeRange } = props;
 
   return (
     <div>
