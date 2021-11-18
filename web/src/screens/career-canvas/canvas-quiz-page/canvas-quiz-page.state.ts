@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
@@ -22,6 +22,7 @@ export const useCanvasQuizState = () => {
   const { state, updateState } = useUpdateState(initialQuestionsState);
   const [isFirst, setIsFirst] = useState(true);
   const [activeSection, setActiveSection] = useState('WIT');
+
   const setActiveItem = (item: string) => () => {
     setActiveSection(item);
   };
@@ -33,6 +34,24 @@ export const useCanvasQuizState = () => {
   storageService.setQuiz(canvasQuiz);
 
   const { user } = useAppSelector((state) => state);
+
+  const checkComletedSections = (questionList: IQuestionListItem[]) => {
+    QUESTION_SECTION_TITLES.forEach((section) => {
+      const sectionList = questionList.filter((question) =>
+        categoriesListForSection[section].includes(question.category)
+      );
+
+      const isAnswers = sectionList.every(
+        (question) => question.answers[0]?.value
+      );
+
+      setCompletedSections((prev) =>
+        isAnswers
+          ? Array.from(new Set([...prev, section]))
+          : prev.filter((item) => item !== section)
+      );
+    });
+  };
 
   const createAnswersForInputRange = (questionList: IQuestionListItem[]) => {
     return questionList.map((question) => {
@@ -69,6 +88,7 @@ export const useCanvasQuizState = () => {
 
   const createQuestionList = useCallback(async () => {
     const listStorage = storageService.getQuestionList(canvasQuiz?.title || '');
+    checkComletedSections(listStorage);
 
     if (listStorage.length < 1) {
       try {
@@ -79,12 +99,9 @@ export const useCanvasQuizState = () => {
           PROMISES_AREA.getCaasQuestionList
         );
 
-        const questionWithAnswers = createAnswersForInputRange(data.questions);
+        checkComletedSections(data.questions);
 
-        storageService.setQuestionList(
-          questionWithAnswers,
-          canvasQuiz?.title || ''
-        );
+        storageService.setQuestionList(data.questions, canvasQuiz?.title || '');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 401) {
@@ -123,10 +140,11 @@ export const useCanvasQuizState = () => {
     storageService.setQuestionList(state.questionList, canvasQuiz?.title || '');
   }, [state.questionList]);
 
-  const handleError = () => {
-    const errorList = state.questionList.map((elem) =>
-      !elem.answers[0]?.value ? { ...elem, isError: true } : elem
-    );
+  const handleError = (questionList: IQuestionListItem[]) => {
+    const errorList = questionList.map((elem) => ({
+      ...elem,
+      isError: !elem.answers[0]?.value,
+    }));
 
     const currentList = errorList.filter((question) =>
       categoriesListForSection[activeSection].includes(question.category)
@@ -143,7 +161,13 @@ export const useCanvasQuizState = () => {
   };
 
   const onSubmitSection = () => {
-    if (handleError()) {
+    const listWithAnswers = createAnswersForInputRange(state.questionList);
+
+    updateState({
+      questionList: listWithAnswers,
+    });
+
+    if (handleError(listWithAnswers)) {
       return;
     }
 
@@ -158,7 +182,7 @@ export const useCanvasQuizState = () => {
   };
 
   const onSubmitLastSection = async () => {
-    if (handleError()) {
+    if (handleError(state.questionList)) {
       return;
     }
 
@@ -199,6 +223,22 @@ export const useCanvasQuizState = () => {
     status: 'Completed',
   });
 
+  const onChangeRange =
+    (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
+      updateState((prev) => ({
+        questionList: prev.questionList.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              answers: [{ ...item.answers[0], value: event.target.value }],
+              isError: false,
+            };
+          }
+          return item;
+        }),
+      }));
+    };
+
   return {
     ...state,
     updateState,
@@ -208,5 +248,6 @@ export const useCanvasQuizState = () => {
     setActiveItem,
     onSubmitSection,
     onSubmitLastSection,
+    onChangeRange,
   };
 };

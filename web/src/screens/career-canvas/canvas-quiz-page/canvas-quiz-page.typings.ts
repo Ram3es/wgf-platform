@@ -6,3 +6,10 @@ export interface IInitialQuestionsState {
   questionList: IQuestionListItem[];
   questionListForSection: IQuestionListItem[];
 }
+
+export type TSections =
+  | 'WIT'
+  | 'FIT'
+  | 'GRIT'
+  | 'MY SKILLS'
+  | 'PRACTICALITY CHECK';

@@ -5,6 +5,7 @@ import { Icon } from '@components/icon';
 import { QUESTION_SECTIONS } from '../../canvas-quiz-page.constants';
 import { QUESTION_SECTION_TITLES } from './questions-navigation.constants';
 
+import { TSections } from '../../canvas-quiz-page.typings';
 import { IQuestionsNavigationProps } from './questions-navigation.typings';
 
 import { QuestionNavigationStyled as Styled } from './questions-navigation.styles';
@@ -19,7 +20,7 @@ export const QuestionsNavigation: FC<IQuestionsNavigationProps> = (props) => {
         return (
           <Styled.SectionItem
             key={item}
-            color={QUESTION_SECTIONS[item].color}
+            color={QUESTION_SECTIONS[item as TSections].color}
             isActive={activeSection === item}
             onClick={setActiveItem(item)}
             isCompleted={isCompleted}
