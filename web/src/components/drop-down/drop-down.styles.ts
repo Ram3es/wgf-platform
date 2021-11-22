@@ -73,5 +73,6 @@ export const DropDownStyled = {
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: ${Z_INDEX.low};
   `,
 };

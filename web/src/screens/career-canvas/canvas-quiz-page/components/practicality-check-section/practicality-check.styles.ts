@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const PracticalityCheckStyled = {
-  Content: styled.div`
+  Control: styled.div`
     display: flex;
+    justify-content: flex-end;
   `,
 };
