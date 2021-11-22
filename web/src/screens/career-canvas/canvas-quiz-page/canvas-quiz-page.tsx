@@ -49,7 +49,13 @@ export const CanvasQuizPage: FC = () => {
       />
     ),
     'MY SKILLS': <MySkills />,
-    'PRACTICALITY CHECK': <PracticalityCheck />,
+    'PRACTICALITY CHECK': (
+      <PracticalityCheck
+        onChangeAnswer={onChangeAnswer}
+        questionListForSection={questionListForSection}
+        onSubmitSection={onSubmitSection}
+      />
+    ),
   };
 
   return (

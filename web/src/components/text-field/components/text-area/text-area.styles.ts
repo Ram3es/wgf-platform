@@ -41,6 +41,7 @@ export const TextAreaStyled = {
     transition: 0.3s;
     resize: none;
     overflow-y: auto;
+    cursor: ${({ isSelect }) => (isSelect ? 'pointer' : 'text')};
 
     ${({ error }) =>
       error &&
@@ -48,8 +49,9 @@ export const TextAreaStyled = {
         border: 1px solid ${COLORS.red};
         color: ${COLORS.red};
       `}
-    ${({ readOnly }) =>
+    ${({ readOnly, isSelect }) =>
       readOnly &&
+      !isSelect &&
       css`
         border: 1px solid ${COLORS.grey};
         color: ${COLORS.grey};
@@ -62,7 +64,6 @@ export const TextAreaStyled = {
     :focus,
     :focus-visible {
       outline: none;
-      -webkit-outline: none;
 
       ${({ readOnly, error }) =>
         !readOnly &&

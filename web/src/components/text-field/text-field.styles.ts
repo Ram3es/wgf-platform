@@ -35,14 +35,15 @@ export const TextFieldStyled = {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    cursor: ${({ isReadOnly }) => (isReadOnly ? 'text' : 'pointer')};
+    cursor: ${({ isReadOnly, isSelect }) =>
+      isReadOnly && !isSelect ? 'text' : 'pointer'};
 
     span {
       flex: 0 1 30%;
       margin-right: 20px;
       font-size: ${({ labelFontSize }) => labelFontSize || FONTS.sizes[15]};
-      color: ${({ isValue, isReadOnly, error }) =>
-        isValue && !isReadOnly && !error
+      color: ${({ isValue, isSelect, isReadOnly, error }) =>
+        (isValue && isSelect) || !isReadOnly
           ? COLORS.default
           : error
           ? COLORS.red

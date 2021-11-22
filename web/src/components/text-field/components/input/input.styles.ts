@@ -60,6 +60,7 @@ export const InputStyled = {
     box-shadow: 1.8px 5.4px 14.4px rgba(45, 45, 55, 0.1);
     padding: ${({ type }) =>
       type === 'password' ? '13px 13px 13px 37px' : '13px'};
+    cursor: ${({ isSelect }) => (isSelect ? 'pointer' : 'text')};
 
     ${({ error }) =>
       error &&
@@ -68,8 +69,9 @@ export const InputStyled = {
         color: ${COLORS.red};
       `}
 
-    ${({ readOnly }) =>
+    ${({ readOnly, isSelect }) =>
       readOnly &&
+      !isSelect &&
       css`
         border: 1px solid ${COLORS.grey};
         color: ${COLORS.grey};
@@ -83,10 +85,10 @@ export const InputStyled = {
     :focus,
     :focus-visible {
       outline: none;
-      -webkit-outline: none;
 
-      ${({ readOnly, error }) =>
-        !readOnly &&
+      ${({ readOnly, error, isSelect }) =>
+        readOnly &&
+        !isSelect &&
         css`
           box-shadow: 0px 6px 17px rgba(0, 0, 0, 0.2);
           ${error &&

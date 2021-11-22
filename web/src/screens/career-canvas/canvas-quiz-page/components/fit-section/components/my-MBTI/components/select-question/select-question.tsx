@@ -27,6 +27,7 @@ export const SelectQuestion: FC<ISelectQuestion> = (props) => {
         onClick={openDropdown}
         isAutoCompleteOff
         isSelect
+        readOnly
       />
       {isActiveDropdown && (
         <Styled.SelectWrapper>
