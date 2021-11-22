@@ -112,7 +112,7 @@ export const TrainerViewing: React.FC = () => {
             <Button
               onClick={confirmDisconnectTrainer}
               title={STRINGS.button.confirm}
-              color={COLORS.blue}
+              color={COLORS.liteBlue}
             />
             <Button
               onClick={closeDisconnectPopUp}

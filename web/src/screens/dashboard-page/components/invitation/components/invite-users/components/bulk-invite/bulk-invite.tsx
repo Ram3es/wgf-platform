@@ -112,7 +112,7 @@ export const BulkInvite: FC = () => {
               <Button
                 onClick={uploadFile}
                 title={STRINGS.button.uploadFile}
-                color={COLORS.blue}
+                color={COLORS.liteBlue}
                 minWidth={165}
               />
             </>

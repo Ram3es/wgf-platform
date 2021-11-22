@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { Button } from '@components/button';
 import { Loader } from '@components/loader';
@@ -19,10 +19,22 @@ import { FitStyled as Styled } from './fit.styles';
 export const Fit: FC<IFitProps> = (props) => {
   const { questionListForSection, onSubmitSection, onChangeAnswer } = props;
 
-  const questionListForCategory = (category: string) =>
+  const questionListForCategories = useMemo(() => {
+    const categoriesHashMaps: Record<string, IQuestionListItem[]> = {
+      myValues: [],
+      myCareerAnchors: [],
+      myMBTI: [],
+      myIdealEnvironment: [],
+      myHollandCode: [],
+    };
     questionListForSection
-      .filter((item) => item.category === category)
-      .sort((first, second) => first.order - second.order);
+      .sort((first, second) => first.order - second.order)
+      .forEach((question) => {
+        const category = categoriesHashMaps[question.category];
+        category.push(question);
+      });
+    return categoriesHashMaps;
+  }, [questionListForSection]);
 
   return (
     <div>
@@ -31,29 +43,29 @@ export const Fit: FC<IFitProps> = (props) => {
         <HeaderSectionStyled.SectionLogo>FIT</HeaderSectionStyled.SectionLogo>
       </HeaderSectionStyled.TitleWrapper>
       <MyValues
-        questionList={questionListForCategory('myValues')}
+        questionList={questionListForCategories['myValues']}
         onChangeAnswer={onChangeAnswer}
       />
       <MyCareerAnchors
-        questionList={questionListForCategory('myCareerAnchors')}
+        questionList={questionListForCategories['myCareerAnchors']}
         onChangeAnswer={onChangeAnswer}
       />
       <HeaderSectionStyled.TitleWrapper>
         <h1>My PERSONALITY</h1>
       </HeaderSectionStyled.TitleWrapper>
       <MyMBTI
-        questionList={questionListForCategory('myMBTI')}
+        questionList={questionListForCategories['myMBTI']}
         onChangeAnswer={onChangeAnswer}
       />
       <MyHollandCode
-        questionList={questionListForCategory('myHollandCode')}
+        questionList={questionListForCategories['myHollandCode']}
         onChangeAnswer={onChangeAnswer}
       />
       <HeaderSectionStyled.TitleWrapper>
         <h1>MY IDEAL ENVIRONMENT</h1>
       </HeaderSectionStyled.TitleWrapper>
       <MyIdealEnvironment
-        questionList={questionListForCategory('myIdealEnvironment')}
+        questionList={questionListForCategories['myIdealEnvironment']}
         onChangeAnswer={onChangeAnswer}
       />
       <Styled.Control>

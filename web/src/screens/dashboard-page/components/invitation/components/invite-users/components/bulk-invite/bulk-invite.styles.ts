@@ -9,7 +9,7 @@ export const BulkInviteStyled = {
     padding: 20px 40px 20px 60px;
   `,
   Title: styled.h3`
-    color: ${COLORS.blue};
+    color: ${COLORS.liteBlue};
     font-weight: 900;
     font-size: ${FONTS.sizes[14]};
     margin-bottom: 20px;
@@ -64,7 +64,7 @@ export const BulkInviteStyled = {
     ::after {
       content: '';
       position: absolute;
-      background-color: ${COLORS.blue};
+      background-color: ${COLORS.liteBlue};
       height: 100%;
       animation: progres 3s infinite linear;
     }

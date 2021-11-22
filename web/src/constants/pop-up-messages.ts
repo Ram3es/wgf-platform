@@ -10,21 +10,21 @@ export const UserErrorMessages = {
     html: `<p>Wrong email or/and password</p>
     <a href="${ROUTES.resetPassword}">Forget Password?</a>`,
     footer: `<p>Not a member? <a href="${ROUTES.signUp}">Sign up now</a></p>`,
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   }),
   '409': Swal.mixin({
     icon: 'error',
     title: 'Already Exist',
     text: `User with this email is already registered`,
     footer: `<p>Try to <a href="${ROUTES.signIn}">sign in</a></p>`,
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   }),
   '404': Swal.mixin({
     icon: 'error',
     title: 'Not Exist...',
     text: 'Sorry pls check the email as this user doesn’t exist.',
     footer: `<p>Not a member? <a href="${ROUTES.signUp}">Sign up now</a></p>`,
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   }),
 };
 
@@ -33,35 +33,35 @@ export const trainerRequestErrorMessage = (text: string) =>
     icon: 'error',
     title: 'Trainer Request Failed',
     text,
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   });
 
 export const trainerRequestSuccessMessage = Swal.mixin({
   icon: 'success',
   title: 'Trainer Request Sent',
   text: `Your request has been sent to the trainer.`,
-  confirmButtonColor: `${COLORS.blue}`,
+  confirmButtonColor: `${COLORS.liteBlue}`,
 });
 
 export const studentInviteSuccessMessage = Swal.mixin({
   icon: 'success',
   title: 'Invitation Student Sent',
   text: `Your invitation has been sent to the student.`,
-  confirmButtonColor: `${COLORS.blue}`,
+  confirmButtonColor: `${COLORS.liteBlue}`,
 });
 
 export const userInviteSuccessMessage = Swal.mixin({
   icon: 'success',
   title: 'Invitation User Sent',
   text: `Your invitation has been sent to the user.`,
-  confirmButtonColor: `${COLORS.blue}`,
+  confirmButtonColor: `${COLORS.liteBlue}`,
 });
 
 export const trainerInviteSuccessMessage = Swal.mixin({
   icon: 'success',
   title: 'Invitation Trainer Sent',
   text: `Your invitation has been sent to the trainer.`,
-  confirmButtonColor: `${COLORS.blue}`,
+  confirmButtonColor: `${COLORS.liteBlue}`,
 });
 
 export const errorMessage = (text: string) =>
@@ -69,7 +69,7 @@ export const errorMessage = (text: string) =>
     icon: 'error',
     title: 'Oops...',
     text,
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   });
 
 export const unAutorizedError = () =>
@@ -77,7 +77,7 @@ export const unAutorizedError = () =>
     icon: 'error',
     title: 'Unautorized...',
     text: 'The session has been expired. Please, login.',
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   });
 
 export const imageError = () =>
@@ -85,7 +85,7 @@ export const imageError = () =>
     icon: 'error',
     title: 'Bad file format...',
     text: 'Please, choose another image.',
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   });
 
 export const fileError = {
@@ -93,14 +93,14 @@ export const fileError = {
     icon: 'error',
     title: 'Bad file format...',
     text: 'Please, choose another file.',
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   }),
   data: Swal.mixin({
     icon: 'error',
     title: 'Bad file...',
     text: `Incorrect data in the CSV file. 
     Please download the sample file and stick to the format specified in it.`,
-    confirmButtonColor: `${COLORS.blue}`,
+    confirmButtonColor: `${COLORS.liteBlue}`,
   }),
 };
 

@@ -4,7 +4,6 @@ export type TQuestionSections = keyof typeof QUESTION_SECTIONS;
 
 export interface IInitialQuestionsState {
   questionList: IQuestionListItem[];
-  questionListForSection: IQuestionListItem[];
 }
 
 export type TSections =

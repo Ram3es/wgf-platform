@@ -12,8 +12,8 @@ export const Switcher: FC<{
       <Switch
         checked={isChecked}
         onChange={handleChange}
-        onColor={COLORS.blue}
-        onHandleColor={COLORS.liteBlue}
+        onColor={COLORS.liteBlue}
+        onHandleColor={COLORS.blue}
         handleDiameter={30}
         uncheckedIcon={false}
         checkedIcon={false}

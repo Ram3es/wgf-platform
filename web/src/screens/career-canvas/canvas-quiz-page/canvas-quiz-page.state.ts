@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
@@ -111,14 +111,6 @@ export const useCanvasQuizState = () => {
   }, [createQuestionList]);
 
   useEffect(() => {
-    updateState({
-      questionListForSection: state.questionList.filter((question) =>
-        categoriesListForSection[activeSection].includes(question.category)
-      ),
-    });
-  }, [state.questionList, activeSection]);
-
-  useEffect(() => {
     if (isFirst) {
       return setIsFirst(false);
     }
@@ -222,6 +214,14 @@ export const useCanvasQuizState = () => {
     }));
   };
 
+  const questionListForSection = useMemo(
+    () =>
+      state.questionList.filter((question) =>
+        categoriesListForSection[activeSection].includes(question.category)
+      ),
+    [state.questionList, activeSection]
+  );
+
   return {
     ...state,
     updateState,
@@ -231,5 +231,6 @@ export const useCanvasQuizState = () => {
     setActiveItem,
     onSubmitSection,
     onChangeAnswer,
+    questionListForSection,
   };
 };

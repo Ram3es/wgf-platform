@@ -117,5 +117,5 @@ export const navigationRoles: INavigationRoles = {
 export const sectionColors = {
   Home: COLORS.greenLite,
   Assessment: COLORS.pink,
-  Users: COLORS.blue,
+  Users: COLORS.liteBlue,
 };

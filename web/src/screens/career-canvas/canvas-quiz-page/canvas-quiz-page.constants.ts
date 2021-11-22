@@ -6,7 +6,7 @@ export const QUESTION_SECTIONS = {
   WIT: { title: 'WIT', color: COLORS.greenLite, categories: ['mySmarts'] },
   GRIT: {
     title: 'GRIT',
-    color: COLORS.blue,
+    color: COLORS.liteBlue,
     categories: ['myPerfomanceCharacter'],
   },
   FIT: {
@@ -34,7 +34,6 @@ export const QUESTION_SECTIONS = {
 
 export const initialQuestionsState: IInitialQuestionsState = {
   questionList: [],
-  questionListForSection: [],
 };
 
 export const canvasQuiz = {
