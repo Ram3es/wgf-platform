@@ -12,4 +12,5 @@ export const PROMISES_AREA = {
   getGroupsByTrainer: 'get-groups-by-trainer',
   inviteStudent: 'invite-student',
   inviteFromSuperAdmin: 'invite-from-super-admin',
+  sendCanvasAnswers: 'send-canvas-answers',
 };

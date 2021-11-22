@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import { Button } from '@components/button';
 import { InputRange } from '@components/input-range';
+import { Loader } from '@components/loader';
+import { COLORS } from '@styles/colors';
 
+import { PROMISES_AREA } from '@constants/promises-area';
 import { QUESTION_SECTIONS } from '../../canvas-quiz-page.constants';
-import { QUESTION_COLORS } from './grit.constants';
 
 import { IGritProps } from './grit.typings';
 
@@ -13,7 +15,12 @@ import { HeaderSectionStyled } from '../header-section.styles';
 import { GritStyled as Styled } from './grit.styles';
 
 export const Grit: FC<IGritProps> = (props) => {
-  const { questionListForSection, onSubmitSection, onChangeRange } = props;
+  const { questionListForSection, onSubmitSection, onChangeAnswer } = props;
+
+  const handleChange =
+    (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
+      onChangeAnswer(id, event.target.value);
+    };
 
   return (
     <div>
@@ -32,30 +39,32 @@ export const Grit: FC<IGritProps> = (props) => {
       </Styled.DescriptionWrapper>
       {questionListForSection
         .sort((first, second) => first.order - second.order)
-        .map((question, index) => (
+        .map((question) => (
           <div key={question.id}>
             <Styled.Title>
-              <TitleStyles.h3 color={QUESTION_COLORS[index]} textAlign="left">
+              <TitleStyles.h3 color={question.color} textAlign="left">
                 {question.title}
               </TitleStyles.h3>
             </Styled.Title>
             <InputRange
-              onChange={onChangeRange(question.id)}
+              onChange={handleChange(question.id)}
               minRange={1}
               maxRange={10}
               value={+question.answers[0]?.value || 5}
-              color={QUESTION_COLORS[index]}
+              color={question.color || COLORS.blue}
               variant="number"
             />
           </div>
         ))}
       <Styled.Control>
-        <Button
-          title="Save & Next Section"
-          borderRadius="8px"
-          color={QUESTION_SECTIONS.GRIT.color}
-          onClick={onSubmitSection}
-        />
+        <Loader area={PROMISES_AREA.sendCanvasAnswers}>
+          <Button
+            title="Save & Next Section"
+            borderRadius="8px"
+            color={QUESTION_SECTIONS.GRIT.color}
+            onClick={onSubmitSection}
+          />
+        </Loader>
       </Styled.Control>
     </div>
   );

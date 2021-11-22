@@ -1,7 +1,5 @@
-import { ChangeEvent } from 'react';
-
 export interface IWitProps {
   questionListForSection: IQuestionListItem[];
-  onChangeRange: (id: string) => (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAnswer: (id: string, value: string) => void;
   onSubmitSection: () => void;
 }

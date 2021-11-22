@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
@@ -53,38 +53,24 @@ export const useCanvasQuizState = () => {
     });
   };
 
-  const createAnswersForInputRange = (questionList: IQuestionListItem[]) => {
-    return questionList.map((question) => {
-      switch (question.category) {
-        case 'myPerformanceCharacter':
-        case 'mySmarts': {
-          return {
+  const createAnswersForInputRange = (
+    questionList: IQuestionListItem[],
+    categories: string[],
+    value: string
+  ) =>
+    questionList.map((question) =>
+      categories.includes(question.category)
+        ? {
             ...question,
             answers: [
               {
                 ...question.answers[0],
-                value: question.answers[0]?.value || '5',
+                value: question.answers[0]?.value || value,
               },
             ],
-          };
-        }
-        case 'myCareerAnchors':
-        case 'myHollandCode': {
-          return {
-            ...question,
-            answers: [
-              {
-                ...question.answers[0],
-                value: question.answers[0]?.value || '3',
-              },
-            ],
-          };
-        }
-        default:
-          return question;
-      }
-    });
-  };
+          }
+        : question
+    );
 
   const createQuestionList = useCallback(async () => {
     const listStorage = storageService.getQuestionList(canvasQuiz?.title || '');
@@ -140,66 +126,58 @@ export const useCanvasQuizState = () => {
     storageService.setQuestionList(state.questionList, canvasQuiz?.title || '');
   }, [state.questionList]);
 
-  const handleError = (questionList: IQuestionListItem[]) => {
-    const errorList = questionList.map((elem) => ({
-      ...elem,
-      isError: !elem.answers[0]?.value,
-    }));
-
-    const currentList = errorList.filter((question) =>
-      categoriesListForSection[activeSection].includes(question.category)
-    );
-
-    updateState({
-      questionListForSection: currentList,
-      questionList: errorList,
-    });
-
-    const isError = currentList.some((elem) => elem.isError);
-
-    return isError;
-  };
-
-  const onSubmitSection = () => {
-    const listWithAnswers = createAnswersForInputRange(state.questionList);
+  const onSubmitSection = async () => {
+    let listWithAnswers: IQuestionListItem[];
+    switch (activeSection) {
+      case 'WIT': {
+        listWithAnswers = createAnswersForInputRange(
+          state.questionList,
+          ['mySmarts'],
+          '5'
+        );
+        break;
+      }
+      case 'GRIT': {
+        listWithAnswers = createAnswersForInputRange(
+          state.questionList,
+          ['myPerformanceCharacter'],
+          '5'
+        );
+        break;
+      }
+      case 'FIT': {
+        listWithAnswers = createAnswersForInputRange(
+          state.questionList,
+          ['myCareerAnchors', 'myHollandCode'],
+          '3'
+        );
+        break;
+      }
+      default:
+        listWithAnswers = state.questionList;
+    }
 
     updateState({
       questionList: listWithAnswers,
     });
 
-    if (handleError(listWithAnswers)) {
-      return;
-    }
+    const currentCompletedSections = Array.from(
+      new Set([...completedSections, activeSection])
+    );
 
-    setCompletedSections((prev) => [...prev, activeSection]);
+    setCompletedSections(currentCompletedSections);
 
     const currentIndexSection = QUESTION_SECTION_TITLES.findIndex(
       (value) => value === activeSection
     );
     const nextSectionIndex = +currentIndexSection + 1;
-
-    setActiveSection(QUESTION_SECTION_TITLES[nextSectionIndex]);
-  };
-
-  const onSubmitLastSection = async () => {
-    if (handleError(state.questionList)) {
-      return;
-    }
-
-    updateState({
-      questionList: state.questionList.map((elem) => ({
-        ...elem,
-        isError: false,
-      })),
-    });
+    const status = currentCompletedSections.length * 20;
 
     try {
       await trackPromise(
-        postAnswers(getAnswersRequestBody()),
-        PROMISES_AREA.sendCaasAnswers
+        postAnswers(getAnswersRequestBody(listWithAnswers, status)),
+        PROMISES_AREA.sendCanvasAnswers
       );
-
-      return;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
@@ -211,33 +189,38 @@ export const useCanvasQuizState = () => {
         return errorMessage(error?.response?.data.message).fire();
       }
     }
+
+    setActiveSection(QUESTION_SECTION_TITLES[nextSectionIndex]);
   };
 
-  const getAnswersRequestBody = () => ({
-    answers: state.questionList.map((item) => ({
-      questionId: item.id,
-      id: item.answers[0].id,
-      value: item.answers[0].value,
-      quizId: storageService.getQuiz()?.id || '',
-    })),
-    status: 'Completed',
+  const getAnswersRequestBody = (
+    questionList: IQuestionListItem[],
+    status: number
+  ) => ({
+    answers: questionList
+      .filter((elem) => elem.answers[0]?.value)
+      .map((item) => ({
+        questionId: item.id,
+        id: item.answers[0].id,
+        value: item.answers[0].value,
+        quizId: canvasQuiz?.id || '',
+      })),
+    status: status === 100 ? 'Completed' : `${status}%`,
   });
 
-  const onChangeRange =
-    (id: string) => (event: ChangeEvent<HTMLInputElement>) => {
-      updateState((prev) => ({
-        questionList: prev.questionList.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              answers: [{ ...item.answers[0], value: event.target.value }],
-              isError: false,
-            };
-          }
-          return item;
-        }),
-      }));
-    };
+  const onChangeAnswer = (id: string, value: string) => {
+    updateState((prev) => ({
+      questionList: prev.questionList.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            answers: [{ ...item.answers[0], value }],
+          };
+        }
+        return item;
+      }),
+    }));
+  };
 
   return {
     ...state,
@@ -247,7 +230,6 @@ export const useCanvasQuizState = () => {
     activeSection,
     setActiveItem,
     onSubmitSection,
-    onSubmitLastSection,
-    onChangeRange,
+    onChangeAnswer,
   };
 };

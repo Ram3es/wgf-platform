@@ -35,7 +35,7 @@ export const TextAreaStyled = {
     font-size: ${FONTS.sizes[14]};
     font-weight: 700;
     font-family: ${FONTS.family.frutigerBold};
-    min-width: 100%;
+    width: 100%;
     height: ${({ height }) => height || 'auto'};
     color: ${COLORS.default};
     transition: 0.3s;
@@ -79,6 +79,7 @@ export const TextAreaStyled = {
       color: ${({ error }) => (error ? COLORS.red : COLORS.grey)};
       font-weight: 400;
       font-family: ${FONTS.family.frutigerNormal};
+      font-size: ${FONTS.sizes[16]};
     }
   `,
 

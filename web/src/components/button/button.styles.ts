@@ -16,15 +16,25 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
     isFullWidth ? '100%' : minWidth ? `${minWidth}px` : '130px'};
   min-height: ${({ variant }) => (variant === 'text' ? 'auto' : '40px')};
   border-radius: ${({ borderRadius }) => borderRadius || '20px'};
-  border: ${({ variant }) =>
-    `1px solid ${variant === 'cancel' ? COLORS.grey : 'transparent'}`};
-  color: ${({ variant }) =>
-    variant === 'cancel' ? COLORS.grey : COLORS.white};
+  border: ${({ variant, color }) =>
+    `2px solid ${
+      variant === 'cancel'
+        ? COLORS.grey
+        : variant === 'underline'
+        ? color
+        : 'transparent'
+    }`};
+  color: ${({ variant, color }) =>
+    variant === 'cancel'
+      ? COLORS.grey
+      : variant === 'underline'
+      ? color
+      : COLORS.white};
   font-size: ${FONTS.sizes[18]};
   font-weight: 700;
   font-family: ${FONTS.family.frutigerBold};
   background-color: ${({ color, variant }) =>
-    variant === 'cancel' ? COLORS.white : color};
+    variant === 'cancel' || variant === 'underline' ? COLORS.white : color};
   transition: 0.3s;
   white-space: nowrap;
 
@@ -41,31 +51,35 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
       background-color: transparent;
     `}
 
-  ${({ isDisabled, variant }) => {
-    if (!isDisabled && variant !== 'text') {
-      return `
-        :hover {
-          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
-        }
-      `;
+  ${({ isDisabled, variant, color }) => {
+    if (isDisabled) {
+      return;
     }
 
-    if (variant === 'text') {
-      return `
-        :hover {
+    switch (variant) {
+      case 'text': {
+        return css`
+          :hover {
             opacity: 0.4;
           }
-      `;
+        `;
+      }
+      case 'underline': {
+        return css`
+          :hover {
+            background-color: ${color};
+            color: ${COLORS.white};
+          }
+        `;
+      }
+      default: {
+        return css`
+          :hover {
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+          }
+        `;
+      }
     }
-
-    return `
-        cursor: not-allowed;
-        opacity: 0.4;
-
-        :hover {
-          opacity: 0.4;
-        }
-      `;
   }};
 
   span {

@@ -10,6 +10,7 @@ export const HeaderSectionStyled = {
   TitleWrapper: styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
 
     h1 {
       font-family: ${FONTS.family.absideSmooth};

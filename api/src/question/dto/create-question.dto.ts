@@ -18,6 +18,10 @@ export class CreateQuestionDto {
   @IsOptional()
   placeholder: string;
 
+  @ApiProperty({ example: '#ffffff' })
+  @IsOptional()
+  color: string;
+
   @ApiProperty({ example: 1 })
   order: number;
 

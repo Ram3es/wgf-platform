@@ -23,6 +23,7 @@ export const GritStyled = {
     h3 {
       font-family: ${FONTS.family.frutigerNormal};
       font-weight: 400;
+      text-transform: uppercase;
 
       ${Media.mobile(css`
         font-size: ${FONTS.sizes[18]};

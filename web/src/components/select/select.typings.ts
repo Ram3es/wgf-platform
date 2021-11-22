@@ -3,8 +3,8 @@ export interface ISelectProps {
   label: string;
   options: ISelectOption[];
   selected: ISelectOption[];
-  onBlur: () => void;
-  setSelected: React.Dispatch<React.SetStateAction<ISelectOption[]>>;
+  setSelected: (selected: ISelectOption[]) => void;
+  onBlur?: () => void;
   maxSelected?: number;
   error?: string;
 }

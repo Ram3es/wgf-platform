@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const FitStyled = {
-  Content: styled.div`
+  Control: styled.div`
     display: flex;
+    justify-content: flex-end;
   `,
 };

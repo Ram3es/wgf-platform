@@ -32,6 +32,10 @@ export class QuestionEntity {
   @ApiProperty({ example: 'E.g. text' })
   placeholder: string;
 
+  @Column({ default: '' })
+  @ApiProperty({ example: '#ffffff' })
+  color: string;
+
   @Column()
   @ApiProperty({ example: 1 })
   order: number;

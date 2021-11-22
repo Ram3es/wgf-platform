@@ -43,6 +43,7 @@ export class QuizService {
     return this.quizRepository
       .createQueryBuilder('quiz')
       .leftJoinAndSelect('quiz.questions', 'question')
+      .leftJoinAndSelect('question.answerOptions', 'answerOption')
       .leftJoinAndSelect(
         'question.answers',
         'answer',

@@ -9,7 +9,7 @@ import { IQuestionsNavigationStylesProps } from './questions-navigation.typings'
 export const QuestionNavigationStyled = {
   Wrapper: styled.div`
     flex: 0 1 25%;
-    background: ${COLORS.authBg};
+    background: ${COLORS.sectionBg};
     height: fit-content;
 
     ${Media.smallLandscape`

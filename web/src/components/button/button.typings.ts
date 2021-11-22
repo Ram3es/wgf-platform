@@ -1,4 +1,4 @@
-export type TButtonVariant = 'primary' | 'text' | 'cancel';
+export type TButtonVariant = 'primary' | 'text' | 'cancel' | 'underline';
 
 export interface IButtonStylesProps {
   variant?: TButtonVariant;

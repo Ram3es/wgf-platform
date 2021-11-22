@@ -32,14 +32,6 @@ body {
   font-size: 18px;
   min-width: 320px;
   color: #333;
-
-  @media screen (max-width: 600px) {
-    font-size: 15px;
-  }
-
-  @media print {
-    font-size: 18px;
-  }
 }
 
 body.hidden {

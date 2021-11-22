@@ -22,6 +22,8 @@ export const COLORS = {
   pinkDark: '#DA1C5C',
   blueDark: '#4B6FAC',
   ocean: '#00ACC5',
+  sectionBg: '#F6F6F6',
+  inputRange: '#e2e6de',
 
   levelResult: {
     Low: '#F664C5',

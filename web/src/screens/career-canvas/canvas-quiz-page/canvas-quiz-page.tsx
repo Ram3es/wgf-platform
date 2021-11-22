@@ -23,25 +23,31 @@ export const CanvasQuizPage: FC = () => {
     questionListForSection,
     setActiveItem,
     onSubmitSection,
-    onChangeRange,
+    onChangeAnswer,
   } = useCanvasQuizState();
 
   const NAVIGATION_HASH_MAPS: Record<string, React.ReactNode> = {
     WIT: (
       <Wit
         questionListForSection={questionListForSection}
-        onChangeRange={onChangeRange}
+        onChangeAnswer={onChangeAnswer}
         onSubmitSection={onSubmitSection}
       />
     ),
     GRIT: (
       <Grit
         questionListForSection={questionListForSection}
-        onChangeRange={onChangeRange}
+        onChangeAnswer={onChangeAnswer}
         onSubmitSection={onSubmitSection}
       />
     ),
-    FIT: <Fit />,
+    FIT: (
+      <Fit
+        onChangeAnswer={onChangeAnswer}
+        questionListForSection={questionListForSection}
+        onSubmitSection={onSubmitSection}
+      />
+    ),
     'MY SKILLS': <MySkills />,
     'PRACTICALITY CHECK': <PracticalityCheck />,
   };

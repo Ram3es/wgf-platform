@@ -78,6 +78,7 @@ interface IQuestionListItem extends IQuestionRes {
   type: string;
   order: number;
   answers: IAnswer[];
+  color?: string;
   isError?: boolean;
   subcategory?: string;
   placeholder?: string;

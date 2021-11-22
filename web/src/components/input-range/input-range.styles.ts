@@ -39,7 +39,7 @@ const getPositionStyle = (position: number) => {
 
 const trackCss = css`
   height: 10px;
-  background-color: ${COLORS.greyLite};
+  background-color: ${COLORS.inputRange};
   border-radius: 5px;
 `;
 
@@ -93,6 +93,7 @@ export const InputRangeStyled = {
     position: relative;
     width: 100%;
     appearance: none;
+    border-radius: 5px;
 
     ::-webkit-slider-runnable-track {
       ${trackCss}

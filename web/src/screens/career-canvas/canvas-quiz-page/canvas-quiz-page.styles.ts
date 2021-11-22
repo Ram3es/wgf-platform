@@ -35,7 +35,7 @@ export const CanvasQuizPageStyled = {
     border-style: solid;
     border-width: 9px 0 9px 0;
     border-color: ${({ color }) => color};
-    background-color: ${COLORS.authBg};
+    background-color: ${COLORS.sectionBg};
     padding: 30px;
     margin-left: 15px;
     margin-bottom: 20px;

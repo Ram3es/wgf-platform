@@ -67,6 +67,7 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
         styles={styles}
         placeholder={placeholder}
         onBlur={onBlur}
+        value={selected}
       />
     </Styled.Wrapper>
   );
