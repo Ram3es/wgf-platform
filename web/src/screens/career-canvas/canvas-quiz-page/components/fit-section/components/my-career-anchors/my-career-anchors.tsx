@@ -57,7 +57,7 @@ export const MyCareerAnchors: FC<IPropsMyCareerAnchors> = (props) => {
               minRange={1}
               maxRange={5}
               value={+RANGE_HASH_MAPS[question.answers[0]?.value] || 3}
-              color={question.color || COLORS.blue}
+              color={question.color || COLORS.liteBlue}
               variant="label"
             />
           </Styled.RangeWrapper>

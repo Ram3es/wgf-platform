@@ -44,7 +44,7 @@ export const MyHollandCode: FC<IPropsMyHollandCode> = (props) => {
               minRange={1}
               maxRange={6}
               value={+question.answers[0]?.value || 3}
-              color={COLORS.blue}
+              color={COLORS.liteBlue}
               variant="number"
             />
           </Styled.RangeWrapper>

@@ -67,7 +67,7 @@ export const AccountForm: React.FC<IAccountFormProps> = ({
             })}
             <Styled.FormControl>
               <Button
-                color={COLORS.blue}
+                color={COLORS.liteBlue}
                 title={STRINGS.button.save}
                 onClick={handleSubmit}
                 type="submit"

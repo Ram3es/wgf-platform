@@ -24,7 +24,7 @@ export const InputStyled = {
       flex: 0 1 100%;
     `}
 
-    svg {
+      svg {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -59,7 +59,7 @@ export const InputStyled = {
     transition: 0.3s;
     box-shadow: 1.8px 5.4px 14.4px rgba(45, 45, 55, 0.1);
     padding: ${({ type }) =>
-      type === 'password' ? '13px 13px 13px 37px' : '13px'};
+      type === 'password' ? '13px 13px 13px 37px' : '13px 28px 13px 13px'};
     cursor: ${({ isSelect }) => (isSelect ? 'pointer' : 'text')};
 
     ${({ error }) =>

@@ -146,7 +146,7 @@ export const UpdateResetedPassword: React.FC = () => {
                     <Button
                       title={STRINGS.button.updatePassword}
                       onClick={handleSubmit}
-                      color={COLORS.blue}
+                      color={COLORS.liteBlue}
                       type="submit"
                       isDisabled={!isValid}
                     />
@@ -154,7 +154,7 @@ export const UpdateResetedPassword: React.FC = () => {
                       title={STRINGS.button.cancel}
                       onClick={redirectToSignIn}
                       variant="cancel"
-                      color={COLORS.blue}
+                      color={COLORS.liteBlue}
                     />
                   </Styled.Footer>
                 </Styled.Wrapper>

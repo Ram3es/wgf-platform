@@ -65,7 +65,7 @@ export const TrainerRequest: React.FC = () => {
                       isDisabled={!isValid}
                       onClick={handleSubmit}
                       title={STRINGS.button.sendRequest}
-                      color={COLORS.blue}
+                      color={COLORS.liteBlue}
                       iconType="requestTrainer"
                       type="submit"
                     />

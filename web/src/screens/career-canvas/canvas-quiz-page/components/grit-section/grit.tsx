@@ -51,7 +51,7 @@ export const Grit: FC<IGritProps> = (props) => {
               minRange={1}
               maxRange={10}
               value={+question.answers[0]?.value || 5}
-              color={question.color || COLORS.blue}
+              color={question.color || COLORS.liteBlue}
               variant="number"
             />
           </div>

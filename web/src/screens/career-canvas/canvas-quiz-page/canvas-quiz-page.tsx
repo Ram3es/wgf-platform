@@ -18,44 +18,26 @@ import { CanvasQuizPageStyled as Styled } from './canvas-quiz-page.styles';
 
 export const CanvasQuizPage: FC = () => {
   const {
+    questionListForSection,
     activeSection,
     completedSections,
-    questionListForSection,
     setActiveItem,
     onSubmitSection,
     onChangeAnswer,
   } = useCanvasQuizState();
 
+  const props = {
+    questionListForSection: questionListForSection,
+    onChangeAnswer: onChangeAnswer,
+    onSubmitSection: onSubmitSection,
+  };
+
   const NAVIGATION_HASH_MAPS: Record<string, React.ReactNode> = {
-    WIT: (
-      <Wit
-        questionListForSection={questionListForSection}
-        onChangeAnswer={onChangeAnswer}
-        onSubmitSection={onSubmitSection}
-      />
-    ),
-    GRIT: (
-      <Grit
-        questionListForSection={questionListForSection}
-        onChangeAnswer={onChangeAnswer}
-        onSubmitSection={onSubmitSection}
-      />
-    ),
-    FIT: (
-      <Fit
-        onChangeAnswer={onChangeAnswer}
-        questionListForSection={questionListForSection}
-        onSubmitSection={onSubmitSection}
-      />
-    ),
-    'MY SKILLS': <MySkills />,
-    'PRACTICALITY CHECK': (
-      <PracticalityCheck
-        onChangeAnswer={onChangeAnswer}
-        questionListForSection={questionListForSection}
-        onSubmitSection={onSubmitSection}
-      />
-    ),
+    WIT: <Wit {...props} />,
+    GRIT: <Grit {...props} />,
+    FIT: <Fit {...props} />,
+    'MY SKILLS': <MySkills {...props} />,
+    'PRACTICALITY CHECK': <PracticalityCheck {...props} />,
   };
 
   return (

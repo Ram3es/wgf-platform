@@ -117,7 +117,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
                 {isProfileEdit && (
                   <Styled.FormControl>
                     <Button
-                      color={COLORS.blue}
+                      color={COLORS.liteBlue}
                       title={STRINGS.button.save}
                       onClick={handleSubmit}
                       type="submit"

@@ -9,6 +9,7 @@ export const DropDownStyled = {
     width: ${({ isFullWidth, maxWidth }) =>
       isFullWidth ? '100%' : maxWidth || '400px'};
     position: relative;
+    min-width: 140px;
   `,
   Content: styled.div<{ maxHeight?: string }>`
     position: absolute;
@@ -22,7 +23,7 @@ export const DropDownStyled = {
     font-weight: 500;
     color: ${COLORS.grey};
     max-height: ${({ maxHeight }) => maxHeight || '400px'};
-    overflow-y: auto;
+    overflow: auto;
     border-radius: 8px;
   `,
   Item: styled.div`
