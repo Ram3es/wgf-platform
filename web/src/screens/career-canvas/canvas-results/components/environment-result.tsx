@@ -17,7 +17,7 @@ export const EnvironmentResult = (props: IResultPageProps) => {
     <ResultPage header={{ title: 'My IDEAL ENVIRONMENT', paddingLeft: '5px' }}>
       <TextsContainer>
         {questions.map(({ title, value }) => (
-          <ResultText key={title} title={title} value={value} height="70px" />
+          <ResultText key={title} title={title} value={value} height="85px" />
         ))}
       </TextsContainer>
     </ResultPage>

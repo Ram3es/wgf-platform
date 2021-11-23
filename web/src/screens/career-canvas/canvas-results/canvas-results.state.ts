@@ -39,6 +39,7 @@ const categorizeResults = (questionsArray: IQuestionListItem[]) => {
           : question.title,
       value: question.answers[0]?.value,
       color: question.color,
+      type: question.type,
     })
   );
 
