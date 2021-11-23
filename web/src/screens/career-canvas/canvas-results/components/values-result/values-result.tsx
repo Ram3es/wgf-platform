@@ -16,8 +16,13 @@ export const ValuesResult = (props: IProps) => {
   return (
     <ResultPage header={{ title: 'My VALUES' }}>
       <Styled.PageContainer>
-        {valuesQuestions.map(({ title, value }) => (
-          <ResultText key={title} title={title} value={value} height="50px" />
+        {valuesQuestions.map(({ title, value, type }) => (
+          <ResultText
+            key={title}
+            title={title}
+            value={value}
+            height={type === 'options' ? 'auto' : '50px'}
+          />
         ))}
 
         <div>
