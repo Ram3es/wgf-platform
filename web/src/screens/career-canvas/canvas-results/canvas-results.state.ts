@@ -11,27 +11,18 @@ import { canvasQuiz } from '../canvas-quiz-page/canvas-quiz-page.constants';
 
 import { IResultQuestion } from './canvas-results.typing';
 
-const INIT_CATEGORIES_MAP: Record<string, IResultQuestion[]> = {
-  mySmarts: [],
-  myPerformanceCharacter: [],
-  myValues: [],
-  myCareerAnchors: [],
-  myMBTI: [],
-  myHollandCode: [],
-  myIdealEnvironment: [],
-  coreCriticalSkills: [],
-  technicalSkills: [],
-  practicalityCheck: [],
-};
-
 const categorizeResults = (questionsArray: IQuestionListItem[]) => {
-  const categoriesMap = { ...INIT_CATEGORIES_MAP };
+  const categoriesMap: Record<string, IResultQuestion[]> = {};
 
   const sortedQuestions = [...questionsArray].sort(
     (first, second) => first.order - second.order
   );
 
-  sortedQuestions.forEach((question) =>
+  sortedQuestions.forEach((question) => {
+    if (!categoriesMap[question.category]) {
+      categoriesMap[question.category] = [];
+    }
+
     categoriesMap[question.category].push({
       title:
         question.category === 'mySmarts'
@@ -40,8 +31,8 @@ const categorizeResults = (questionsArray: IQuestionListItem[]) => {
       value: question.answers[0]?.value,
       color: question.color,
       type: question.type,
-    })
-  );
+    });
+  });
 
   return categoriesMap;
 };
