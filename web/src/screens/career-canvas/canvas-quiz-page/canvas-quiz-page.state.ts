@@ -65,7 +65,11 @@ export const useCanvasQuizState = () => {
             answers: [
               {
                 ...question.answers[0],
-                value: question.answers[0]?.value || value,
+                value:
+                  question.answers[0]?.value ||
+                  question.category === 'myCareerAnchors'
+                    ? 'Moderately Important'
+                    : value,
               },
             ],
           }
@@ -180,6 +184,13 @@ export const useCanvasQuizState = () => {
 
         return errorMessage(error?.response?.data.message).fire();
       }
+    }
+
+    if (
+      activeSection ===
+      QUESTION_SECTION_TITLES[QUESTION_SECTION_TITLES.length - 1]
+    ) {
+      return push(ROUTES.careerDesignCanvasResults);
     }
 
     setActiveSection(QUESTION_SECTION_TITLES[nextSectionIndex]);

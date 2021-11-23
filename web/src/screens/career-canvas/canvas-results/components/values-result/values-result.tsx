@@ -1,7 +1,8 @@
 import { COLORS } from '@styles/colors';
 import { IResultQuestion } from '../../canvas-results.typing';
-
 import { ResultImportance, ResultPage, ResultText } from '../common';
+
+import { RANGE_HASH_MAPS } from '@screens/career-canvas/career-canvas.constants';
 
 import { ValuesResultStyled as Styled } from './values-result.styles';
 
@@ -39,7 +40,7 @@ export const ValuesResult = (props: IProps) => {
               <ResultImportance
                 key={title}
                 title={title}
-                value={+value}
+                value={+RANGE_HASH_MAPS[value]}
                 color={color || COLORS.liteBlue}
               />
             ))}

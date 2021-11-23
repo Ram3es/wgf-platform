@@ -6,7 +6,8 @@ import { COLORS } from '@styles/colors';
 import { AnswerAliases } from './answer-aliases';
 
 import { IMAGES } from '@constants/images';
-import { RANGE_HASH_MAPS, reverseRangeHashMap } from './me-career-anchors.constants';
+import { RANGE_HASH_MAPS } from '@screens/career-canvas/career-canvas.constants';
+import { reverseRangeHashMap } from './me-career-anchors.constants';
 
 import { IPropsMyCareerAnchors } from './my-career-anchors.typings';
 

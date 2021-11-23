@@ -1,10 +1,4 @@
-export const RANGE_HASH_MAPS: Record<string, string> = {
-  ['Not Important']: '1',
-  ['Slightly Important']: '2',
-  ['Moderately Important']: '3',
-  ['Important']: '4',
-  ['Very Important']: '5',
-};
+import { RANGE_HASH_MAPS } from '@screens/career-canvas/career-canvas.constants';
 
 export const reverseRangeHashMap = () => {
   const result: { [key: string]: string } = {};

@@ -29,7 +29,7 @@ export const AppRouter: React.FC = () => (
       path={ROUTES.careerDesignCanvas}
       component={CanvasQuizPage}
     />
-    <PrivateRoute
+    <Route
       exact
       path={ROUTES.careerDesignCanvasResults}
       component={CanvasResults}
