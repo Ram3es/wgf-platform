@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import Select, { ActionMeta, OnChangeValue } from 'react-select';
 
-// import CreatableSelect from 'react-select/creatable';
 import { animatedComponents } from './select.constants';
 
 import { ISelectOption, ISelectProps } from './select.typings';
@@ -20,9 +19,11 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
     onBlur,
   } = props;
 
-  const [newOptions, setNewOptions] = useState<ISelectOption[] | null>(null);
+  const [newOptions, setNewOptions] = useState<ISelectOption[]>([]);
 
   const handleChange = (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     newValue:
       | OnChangeValue<ISelectOption, true>
       | OnChangeValue<ISelectOption, false>,
@@ -63,6 +64,8 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
           maxSelected ? selected.length >= maxSelected - 1 : false
         }
         isSearchable
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         isOptionDisabled={(option: ISelectOption) =>
           option.value === 'manySelected'
         }
@@ -70,6 +73,8 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
         placeholder={placeholder}
         onBlur={onBlur}
         value={selected}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         onChange={handleChange}
       />
     </Styled.Wrapper>
