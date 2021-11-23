@@ -1,22 +1,18 @@
 import { Loader } from '@components/loader';
-import { PROMISES_AREA } from '@constants/promises-area';
-
 import {
-  WitResult,
-  GritResult,
-  SkillsResult,
-  FitResult,
-  EnvironmentResult,
-  PracticalityResult,
-  ResultButtons,
-  ResultTip,
+    EnvironmentResult, FitResult, GritResult, PracticalityResult, ResultButtons, ResultTip,
+    SkillsResult, WitResult
 } from './components';
 import { ValuesResult } from './components/values-result';
+
 import { useCanvasResults } from './canvas-results.state';
+
+import { PROMISES_AREA } from '@constants/promises-area';
+
 import { CanvasResultsStyled as Styled } from './canvas-results.styles';
 
 export const CanvasResults = () => {
-  const { results } = useCanvasResults();
+  const { results, generatePdf } = useCanvasResults();
 
   return (
     <Styled.Root>
@@ -63,8 +59,11 @@ export const CanvasResults = () => {
           </Styled.ResultsContainer>
         )}
       </Loader>
-
-      <ResultButtons />
+      <Styled.ButtonsContainer>
+        <Loader area={PROMISES_AREA.printCareerCanvasPdf}>
+          <ResultButtons downloadPdf={generatePdf} />
+        </Loader>
+      </Styled.ButtonsContainer>
     </Styled.Root>
   );
 };

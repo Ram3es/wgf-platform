@@ -36,11 +36,6 @@ export const initialQuestionsState: IInitialQuestionsState = {
   questionList: [],
 };
 
-export const canvasQuiz = {
-  id: 'bd4bc168-77a5-4ea9-975b-16d1eebef55f',
-  title: 'career-canvas',
-};
-
 export const categoriesListForSection: Record<string, string[]> = {
   WIT: ['mySmarts'],
   GRIT: ['myPerformanceCharacter'],

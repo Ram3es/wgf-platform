@@ -1,6 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
 import { RoleGuard } from 'src/shared/guards/role.guard';
 import { getQuizDto } from './dto/get-quiz.dto';
@@ -24,12 +23,8 @@ export class QuizController {
     type: QuizEntity,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthenticationGuard)
-  public async getQuizQuestions(
-    @User('id') id: string,
-    @Body() body: getQuizDto
-  ) {
-    return this.quizService.getQuizQuestions(id, body.quizId);
+  public async getQuizQuestions(@Body() body: getQuizDto) {
+    return this.quizService.getQuizQuestions(body);
   }
 
   @Post(QUIZ_ROUTES.getResult)

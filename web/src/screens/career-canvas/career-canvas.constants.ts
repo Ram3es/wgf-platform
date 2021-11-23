@@ -5,3 +5,8 @@ export const RANGE_HASH_MAPS: Record<string, string> = {
   ['Important']: '4',
   ['Very Important']: '5',
 };
+
+export const canvasQuiz = {
+  id: 'bd4bc168-77a5-4ea9-975b-16d1eebef55f',
+  title: 'career-canvas',
+};

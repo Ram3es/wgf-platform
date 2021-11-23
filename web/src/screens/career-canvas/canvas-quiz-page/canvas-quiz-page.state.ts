@@ -11,9 +11,8 @@ import { storageService } from '@services/storage/storage';
 import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
-import {
-    canvasQuiz, categoriesListForSection, initialQuestionsState
-} from './canvas-quiz-page.constants';
+import { canvasQuiz } from '../career-canvas.constants';
+import { categoriesListForSection, initialQuestionsState } from './canvas-quiz-page.constants';
 import {
     QUESTION_SECTION_TITLES
 } from './components/questions-navigation/questions-navigation.constants';
@@ -55,43 +54,43 @@ export const useCanvasQuizState = () => {
 
   const createAnswersForInputRange = (
     questionList: IQuestionListItem[],
-    categories: string[],
+    category: string,
     value: string
   ) =>
-    questionList.map((question) =>
-      categories.includes(question.category)
-        ? {
-            ...question,
-            answers: [
-              {
-                ...question.answers[0],
-                value:
-                  question.answers[0]?.value ||
-                  question.category === 'myCareerAnchors'
-                    ? 'Moderately Important'
-                    : value,
-              },
-            ],
-          }
-        : question
-    );
+    questionList.map((question) => {
+      if (question.category === category) {
+        console.log(question.category, value);
+        return {
+          ...question,
+          answers: [
+            {
+              ...question.answers[0],
+              value: question.answers[0]?.value || value,
+            },
+          ],
+        };
+      }
+
+      return question;
+    });
 
   const createQuestionList = useCallback(async () => {
-    const listStorage = storageService.getQuestionList(canvasQuiz?.title || '');
+    const listStorage = storageService.getQuestionList(canvasQuiz.title);
     checkComletedSections(listStorage);
 
     if (listStorage.length < 1) {
       try {
         const { data } = await trackPromise(
           getQuestions({
-            quizId: canvasQuiz?.id ?? '',
+            quizId: canvasQuiz.id,
+            userId: user.id,
           }),
           PROMISES_AREA.getCaasQuestionList
         );
 
         checkComletedSections(data.questions);
 
-        storageService.setQuestionList(data.questions, canvasQuiz?.title || '');
+        storageService.setQuestionList(data.questions, canvasQuiz.title);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           if (error.response?.status === 401) {
@@ -99,14 +98,13 @@ export const useCanvasQuizState = () => {
               .fire()
               .finally(() => push(ROUTES.signIn));
           }
-
           return errorMessage(error?.response?.data.message).fire();
         }
       }
     }
 
     updateState({
-      questionList: storageService.getQuestionList(canvasQuiz?.title || ''),
+      questionList: storageService.getQuestionList(canvasQuiz.title),
     });
   }, []);
 
@@ -119,7 +117,7 @@ export const useCanvasQuizState = () => {
       return setIsFirst(false);
     }
 
-    storageService.setQuestionList(state.questionList, canvasQuiz?.title || '');
+    storageService.setQuestionList(state.questionList, canvasQuiz.title);
   }, [state.questionList]);
 
   const onSubmitSection = async () => {
@@ -128,7 +126,7 @@ export const useCanvasQuizState = () => {
       case 'WIT': {
         listWithAnswers = createAnswersForInputRange(
           state.questionList,
-          ['mySmarts'],
+          'mySmarts',
           '5'
         );
         break;
@@ -136,7 +134,7 @@ export const useCanvasQuizState = () => {
       case 'GRIT': {
         listWithAnswers = createAnswersForInputRange(
           state.questionList,
-          ['myPerformanceCharacter'],
+          'myPerformanceCharacter',
           '5'
         );
         break;
@@ -144,8 +142,13 @@ export const useCanvasQuizState = () => {
       case 'FIT': {
         listWithAnswers = createAnswersForInputRange(
           state.questionList,
-          ['myCareerAnchors', 'myHollandCode'],
+          'myHollandCode',
           '3'
+        );
+        listWithAnswers = createAnswersForInputRange(
+          listWithAnswers,
+          'myCareerAnchors',
+          'Moderately Important'
         );
         break;
       }
@@ -169,20 +172,23 @@ export const useCanvasQuizState = () => {
     const nextSectionIndex = +currentIndexSection + 1;
     const status = currentCompletedSections.length * 20;
 
-    try {
-      await trackPromise(
-        postAnswers(getAnswersRequestBody(listWithAnswers, status)),
-        PROMISES_AREA.sendCanvasAnswers
-      );
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          return unAutorizedError()
-            .fire()
-            .finally(() => push(ROUTES.signIn));
-        }
+    const payload = getAnswersRequestBody(listWithAnswers, status);
+    if (payload.answers.length) {
+      try {
+        await trackPromise(
+          postAnswers(payload),
+          PROMISES_AREA.sendCanvasAnswers
+        );
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            return unAutorizedError()
+              .fire()
+              .finally(() => push(ROUTES.signIn));
+          }
 
-        return errorMessage(error?.response?.data.message).fire();
+          return errorMessage(error?.response?.data.message).fire();
+        }
       }
     }
 
@@ -206,7 +212,7 @@ export const useCanvasQuizState = () => {
         questionId: item.id,
         id: item.answers[0].id,
         value: item.answers[0].value,
-        quizId: canvasQuiz?.id || '',
+        quizId: canvasQuiz.id,
       })),
     status: status === 100 ? 'Completed' : `${status}%`,
   });

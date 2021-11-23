@@ -179,3 +179,8 @@ interface ILocationState {
     pathname: string;
   };
 }
+
+interface IPdf {
+  file: string;
+  name: string;
+}

@@ -7,8 +7,8 @@ export const postAnswers = (data: ICreateResult) =>
     data
   );
 
-export const getQuestions = (data: { quizId: string }) =>
-  POST<IQuizResponse, { quizId: string }>(
+export const getQuestions = (data: { quizId: string; userId: string }) =>
+  POST<IQuizResponse, { quizId: string; userId: string }>(
     `${ENDPOINTS.quiz}/get-questions-by-quiz`,
     data
   );

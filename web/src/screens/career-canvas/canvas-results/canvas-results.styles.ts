@@ -80,4 +80,7 @@ export const CanvasResultsStyled = {
       flex-direction: column;
     `}
   `,
+  ButtonsContainer: styled.div`
+    margin-top: 40px;
+  `,
 };

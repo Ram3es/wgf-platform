@@ -12,6 +12,7 @@ import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { ResultEntity } from '../answer/entities/result.entity';
 import { createCsvCaasQuiz } from '../shared/utils/csv-format';
+import { getQuizDto } from './dto/get-quiz.dto';
 import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
 
@@ -30,15 +31,18 @@ export class QuizService {
     private readonly httpService: HttpService
   ) {}
 
-  async getQuizQuestions(userId: string, quizId: string, resultId?: string) {
-    await this.userService.getUserById(userId);
-    const quiz = await this.quizRepository.findOne(quizId);
+  async getQuizQuestions(body: getQuizDto, resultId?: string) {
+    await this.userService.getUserById(body.userId);
+    const quiz = await this.quizRepository.findOne(body.quizId);
 
     if (!quiz) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
 
-    const lastResult = await this.answerService.getLastResult(userId, quizId);
+    const lastResult = await this.answerService.getLastResult(
+      body.userId,
+      body.quizId
+    );
 
     return this.quizRepository
       .createQueryBuilder('quiz')
@@ -52,7 +56,7 @@ export class QuizService {
           resultId: resultId || lastResult?.id,
         }
       )
-      .where('quiz.id = (:quizId)', { quizId })
+      .where('quiz.id = (:quizId)', { quizId: body.quizId })
       .getOne();
   }
 
@@ -116,7 +120,7 @@ export class QuizService {
     if (quiz.title === 'caas-quiz' || quiz.title === 'caas-cooperation-quiz') {
       url = this.getPdfPageUrl(user, quiz);
     } else {
-      url = `${WEB_BASE_URL}${quiz.title}/results?id=${body.userId}`;
+      url = `${WEB_BASE_URL}${quiz.title}/results?userId=${body.userId}&quizId=${quiz.id}`;
     }
 
     const fileName = `${user.firstName}-${quiz.title}-results-${user.id}.pdf`;
@@ -124,6 +128,8 @@ export class QuizService {
     const fullUrl = `${this.configService.get(
       'AWS_CHROME_LAMBDA'
     )}?url=${encodedUrl}`;
+
+    console.log(encodedUrl);
 
     const { data } = await this.httpService.get(fullUrl).toPromise();
 
@@ -161,8 +167,10 @@ export class QuizService {
     const users = await Promise.all(
       data.map(async (item) => {
         const quiz = await this.getQuizQuestions(
-          item.user.id,
-          body.quizId,
+          {
+            userId: item.user.id,
+            quizId: body.quizId,
+          },
           item.id
         );
 

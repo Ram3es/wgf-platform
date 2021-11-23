@@ -13,4 +13,5 @@ export const PROMISES_AREA = {
   inviteStudent: 'invite-student',
   inviteFromSuperAdmin: 'invite-from-super-admin',
   sendCanvasAnswers: 'send-canvas-answers',
+  printCareerCanvasPdf: 'print-career-canvas-pdf',
 };

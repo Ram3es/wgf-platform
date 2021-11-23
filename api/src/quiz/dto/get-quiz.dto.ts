@@ -6,4 +6,7 @@ export class getQuizDto {
   @ApiProperty()
   @IsNotEmpty()
   quizId: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  userId: string;
 }

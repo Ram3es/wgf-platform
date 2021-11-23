@@ -12,7 +12,7 @@ import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-
 import { PROMISES_AREA } from '@constants/promises-area';
 import { initialResultState } from './result-page.constants';
 
-import { IPdf, IResultState } from './result-page.typings';
+import { IResultState } from './result-page.typings';
 
 export const useResultState = () => {
   const { state, updateState } =

@@ -35,6 +35,7 @@ export const useQuizState = () => {
         const { data } = await trackPromise(
           getQuestions({
             quizId: quiz?.id ?? '',
+            userId: user.id,
           }),
           PROMISES_AREA.getCaasQuestionList
         );
