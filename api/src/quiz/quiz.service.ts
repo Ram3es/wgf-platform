@@ -129,8 +129,6 @@ export class QuizService {
       'AWS_CHROME_LAMBDA'
     )}?url=${encodedUrl}`;
 
-    console.log(encodedUrl);
-
     const { data } = await this.httpService.get(fullUrl).toPromise();
 
     if (!data) {

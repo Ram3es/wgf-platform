@@ -25,6 +25,10 @@ export const CanvasResultsStyled = {
       flex-direction: column;
     `}
 
+    @media print {
+      box-shadow: none;
+    }
+
     > *:not(:first-child) {
       border-left: 2px solid ${COLORS.black};
 
