@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { ActionMeta, MultiValue, SingleValue } from 'react-select';
+import Select, { ActionMeta, OnChangeValue } from 'react-select';
 
-import CreatableSelect from 'react-select/creatable';
-
+// import CreatableSelect from 'react-select/creatable';
 import { animatedComponents } from './select.constants';
 
 import { ISelectOption, ISelectProps } from './select.typings';
@@ -24,8 +23,10 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
   const [newOptions, setNewOptions] = useState<ISelectOption[] | null>(null);
 
   const handleChange = (
-    newValue: MultiValue<ISelectOption> | SingleValue<ISelectOption>,
-    _: ActionMeta<ISelectOption>
+    newValue:
+      | OnChangeValue<ISelectOption, true>
+      | OnChangeValue<ISelectOption, false>,
+    actionMeta: ActionMeta<ISelectOption>
   ) => {
     setSelected(newValue as ISelectOption[]);
   };
@@ -54,7 +55,7 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
     <Styled.Wrapper>
       <Styled.Label error={error}>{label}</Styled.Label>
       {error && <Styled.ErrorBlock>{error}</Styled.ErrorBlock>}
-      <CreatableSelect
+      <Select
         components={animatedComponents}
         options={newOptions || options}
         isMulti
@@ -62,12 +63,14 @@ export const MultiSelect: FC<ISelectProps> = (props) => {
           maxSelected ? selected.length >= maxSelected - 1 : false
         }
         isSearchable
-        onChange={handleChange}
-        isOptionDisabled={(option) => option.value === 'manySelected'}
+        isOptionDisabled={(option: ISelectOption) =>
+          option.value === 'manySelected'
+        }
         styles={styles}
         placeholder={placeholder}
         onBlur={onBlur}
         value={selected}
+        onChange={handleChange}
       />
     </Styled.Wrapper>
   );
