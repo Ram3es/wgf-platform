@@ -12,10 +12,11 @@ import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { canvasQuiz } from '../career-canvas.constants';
-import { categoriesListForSection, initialQuestionsState } from './canvas-quiz-page.constants';
 import {
-    QUESTION_SECTION_TITLES
-} from './components/questions-navigation/questions-navigation.constants';
+  categoriesListForSection,
+  initialQuestionsState,
+} from './canvas-quiz-page.constants';
+import { QUESTION_SECTION_TITLES } from './components/questions-navigation/questions-navigation.constants';
 
 export const useCanvasQuizState = () => {
   const { state, updateState } = useUpdateState(initialQuestionsState);
@@ -59,7 +60,6 @@ export const useCanvasQuizState = () => {
   ) =>
     questionList.map((question) => {
       if (question.category === category) {
-        console.log(question.category, value);
         return {
           ...question,
           answers: [
