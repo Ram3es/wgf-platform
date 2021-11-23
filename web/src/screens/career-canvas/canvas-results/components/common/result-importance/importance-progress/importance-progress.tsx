@@ -10,7 +10,7 @@ export const ImportanceProgress = (props: IImportanceProgressProps) => {
 
   const numberValue = isNaN(value) ? 0 : value;
 
-  const percent = numberValue * 10;
+  const percent = (numberValue / 5) * 100;
   const offset = percent > 100 ? 100 : percent < 0 ? 0 : percent;
 
   return (
