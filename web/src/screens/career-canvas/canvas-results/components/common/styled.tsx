@@ -11,6 +11,11 @@ export const CanvasResultsStyled = {
     font-size: ${FONTS.sizes[12]};
     font-weight: 400;
     color: ${COLORS.grey};
+
+    @media print {
+      font-family: ${FONTS.family.poppinsBold};
+      color: ${COLORS.default};
+    }
   `,
   PageTitle: styled.h3<{ paddingLeft?: string }>`
     ${({ paddingLeft }) => paddingLeft && `padding-left: ${paddingLeft}`};

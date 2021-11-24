@@ -4,6 +4,7 @@ export const FONTS = {
     frutigerBold: 'FrutigerBold',
     absideSmooth: 'AbsideSmooth',
     poppinsRegular: 'PoppinsRegular',
+    poppinsBold: 'PoppinsBold',
   },
   sizes: {
     [9]: '9px',

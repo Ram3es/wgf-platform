@@ -17,6 +17,10 @@
   font-family: PoppinsRegular;
   src: url('../../assets/fonts/Poppins-Regular.ttf');
 }
+@font-face {
+  font-family: PoppinsBold;
+  src: url('../../assets/fonts/Poppins-Bold.ttf');
+}
 
 * {
   box-sizing: border-box;

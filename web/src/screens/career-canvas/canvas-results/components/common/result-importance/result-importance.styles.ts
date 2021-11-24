@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 
 export const ResultImportanceStyled = {
@@ -18,6 +19,11 @@ export const ResultImportanceStyled = {
   `,
   Title: styled.b`
     font-weight: 400;
+
+    @media print {
+      font-family: ${FONTS.family.frutigerBold};
+      color: ${COLORS.default};
+    }
   `,
   ImageContainer: styled.div`
     display: flex;

@@ -21,7 +21,7 @@ export const ResultPageStyled = {
     `}
   `,
   LogoContainer: styled.div<{ paddingLeft?: string }>`
-    ${({ paddingLeft }) => `padding-left: ${paddingLeft}`};
+    ${({ paddingLeft }) => paddingLeft && `padding-left: ${paddingLeft}`};
   `,
   BgContainer: styled.div<IBgContainerProps>`
     display: flex;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
+import { FONTS } from '@styles/fonts';
 
 export const SkillsResultStyled = {
   HeightContainer: styled.div`
@@ -19,6 +20,13 @@ export const SkillsResultStyled = {
     padding: 10px;
     background-color: ${COLORS.yellowLight};
     font-size: 8.5px;
+
+    dt {
+      @media print {
+        font-family: ${FONTS.family.frutigerBold};
+        color: ${COLORS.default};
+      }
+    }
   `,
   CriticalSkillsSection: styled.div`
     flex: 1;

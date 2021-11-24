@@ -23,6 +23,10 @@ export const ResultButtonsStyled = {
         margin-top: 20px;
       }
     `}
+
+    @media print {
+      display: none;
+    }
   `,
   Button: styled(Button)`
     width: 250px;
