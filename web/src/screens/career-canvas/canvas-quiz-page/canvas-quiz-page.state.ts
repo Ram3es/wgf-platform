@@ -112,6 +112,13 @@ export const useCanvasQuizState = () => {
   }, [createQuestionList]);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [activeSection]);
+
+  useEffect(() => {
     if (isFirst) {
       return setIsFirst(false);
     }
