@@ -10,7 +10,7 @@ export const Styled = {
     font-size: ${FONTS.sizes[12]};
 
     @media print {
-      font-family: ${FONTS.family.poppinsBold};
+      font-family: ${FONTS.family.frutigerBold};
       color: ${COLORS.default};
     }
 
@@ -24,7 +24,7 @@ export const Styled = {
     font-size: ${FONTS.sizes[12]};
 
     @media print {
-      font-family: ${FONTS.family.poppinsBold};
+      font-family: ${FONTS.family.frutigerBold};
       color: ${COLORS.default};
     }
   `,

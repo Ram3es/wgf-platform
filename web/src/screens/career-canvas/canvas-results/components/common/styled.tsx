@@ -13,7 +13,7 @@ export const CanvasResultsStyled = {
     color: ${COLORS.grey};
 
     @media print {
-      font-family: ${FONTS.family.poppinsBold};
+      font-family: ${FONTS.family.frutigerBold};
       color: ${COLORS.default};
     }
   `,
