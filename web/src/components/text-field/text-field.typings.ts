@@ -13,6 +13,7 @@ export interface ITextFieldStylesProps {
   isValue?: boolean;
   isLabelTop?: boolean;
   labelFontSize?: string;
+  maxLength?: number;
 }
 
 export interface ITextFieldProps extends ITextFieldStylesProps {

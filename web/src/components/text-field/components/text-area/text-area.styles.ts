@@ -31,7 +31,7 @@ export const TextAreaStyled = {
     border: 1px solid transparent;
     border-radius: 8px;
     box-shadow: 0 0 10px 2px rgb(0 0 0 / 10%);
-    padding: 10px 15px;
+    padding: 15px;
     font-size: ${FONTS.sizes[14]};
     font-weight: 700;
     font-family: ${FONTS.family.frutigerBold};
@@ -93,5 +93,12 @@ export const TextAreaStyled = {
     font-weight: 400;
     border-radius: 5px;
     z-index: ${Z_INDEX.low};
+  `,
+  ValueBlock: styled.div`
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: ${FONTS.sizes[12]};
+    color: ${COLORS.grey};
   `,
 };

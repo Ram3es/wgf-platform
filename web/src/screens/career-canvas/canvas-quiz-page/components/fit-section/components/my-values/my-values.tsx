@@ -18,10 +18,14 @@ export const MyValues: FC<IPropsMyValues> = (props) => {
     (question) => question.type === 'single'
   );
 
-  const options = multiSelectQuestion?.answerOptions?.sort().map((item) => ({
-    label: item.text,
-    value: item.text,
-  }));
+  const options = multiSelectQuestion?.answerOptions
+    ?.sort((first, second) =>
+      first.text > second.text ? 1 : first.text === second.text ? 0 : -1
+    )
+    .map((item) => ({
+      label: item.text,
+      value: item.text,
+    }));
 
   const onChangeTextField = (event: ChangeEvent<HTMLTextAreaElement>) => {
     onChangeAnswer(textareaQuestion?.id || '', event.target.value);
