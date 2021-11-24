@@ -30,6 +30,12 @@ export class AnswerService {
     const user = await this.userService.getUserById(userId);
     const quiz = await this.quizRepository.findOne(body.answers[0].quizId);
 
+    const lastResult = await this.getLastResult(userId, quiz.id);
+
+    if (lastResult && lastResult.status !== 'Completed') {
+      await this.resultRepository.delete(lastResult.id);
+    }
+
     const result = await this.resultRepository.save({
       user,
       quiz,

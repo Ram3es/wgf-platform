@@ -13,6 +13,10 @@ export const CanvasResultsStyled = {
     ${Media.smallLandscape`
       margin-bottom: 50px;
     `}
+
+    @media print {
+      margin: 50px auto 20px;
+    }
   `,
   ResultsContainer: styled.div`
     display: flex;
