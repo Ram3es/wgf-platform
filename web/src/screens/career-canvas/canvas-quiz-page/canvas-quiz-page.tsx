@@ -75,7 +75,9 @@ export const CanvasQuizPage: FC = () => {
           <Styled.SectionWrapper
             color={QUESTION_SECTIONS[activeSection as TQuestionSections].color}
           >
-            {NAVIGATION_HASH_MAPS[activeSection]}
+            <Loader area={PROMISES_AREA.getCaasQuestionList}>
+              {NAVIGATION_HASH_MAPS[activeSection]}
+            </Loader>
           </Styled.SectionWrapper>
         </Styled.Wrapper>
       </Styled.Container>

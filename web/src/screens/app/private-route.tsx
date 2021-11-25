@@ -16,8 +16,6 @@ export const PrivateRoute: FunctionComponent<IPrivateRouteProps> = ({
 }) => {
   const { location } = useHistory();
 
-  console.log(location);
-
   const isToken = storageService.getToken();
 
   if (!isToken) {
