@@ -1,19 +1,17 @@
 import { writeToBuffer } from '@fast-csv/format';
+import { baseHeaders, CareerCanvasQuestionsHeaders } from 'src/constants/csv-headers';
 import { DATE_OPTIONS } from 'src/constants/date';
 import { QuestionEntity } from 'src/question/entities/question.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
 
-const baseHeaders = [
-  'User Account ID',
-  'User Name',
-  'Email',
-  'Report date and time',
-  'Is Latest Version',
-  'Job Status',
-  'Is Email Subscriber',
-];
+interface IUsersCareerCanvasCsvData {
+  user: UserEntity;
+  reportCreated: Date;
+  questions: QuestionEntity[];
+  isLastResult: boolean;
+}
 
-interface IUsersData {
+interface IUsersCaasCsvData {
   user: UserEntity;
   reportCreated: Date;
   questions: QuestionEntity[];
@@ -27,7 +25,7 @@ interface IUsersData {
 }
 
 export const createCsvCaasQuiz = async (
-  users: IUsersData[],
+  users: IUsersCaasCsvData[],
   questions: QuestionEntity[]
 ) => {
   const questionHeaders = questions
@@ -38,7 +36,13 @@ export const createCsvCaasQuiz = async (
     ...Object.keys(item.resultCategories),
   ]);
 
-  const headers = [...baseHeaders, ...questionHeaders, ...categorieHeaders[0]];
+  const headers = [
+    ...baseHeaders,
+    'Job Status',
+    'Is Email Subscriber',
+    ...questionHeaders,
+    ...categorieHeaders[0],
+  ];
   const rows = users.map((item) => {
     const answers = item.questions
       .sort((a, b) => a.order - b.order)
@@ -58,6 +62,63 @@ export const createCsvCaasQuiz = async (
       item.resultCategories.concern.level,
       item.resultCategories.confidence.level,
       item.resultCategories.cooperation?.level,
+    ];
+  });
+
+  const data = await writeToBuffer(rows, {
+    headers,
+  });
+
+  return data.toString('base64');
+};
+
+export const createCsvCareerCanvasQuiz = async (
+  users: IUsersCareerCanvasCsvData[]
+) => {
+  const headers = [...baseHeaders, ...CareerCanvasQuestionsHeaders];
+
+  const rows = users.map((item) => {
+    const CATEGORY_HASH_MAPS: Record<string, string[]> = {};
+
+    item.questions
+      .sort((a, b) => a.order - b.order)
+      .forEach((item) => {
+        if (!CATEGORY_HASH_MAPS[item.category]) {
+          CATEGORY_HASH_MAPS[item.category] = [];
+        }
+        const answer = item.answers[0]?.value || '-';
+
+        if (item.title === 'My top 4 values:') {
+          const splitValues = answer.split('/');
+
+          if (splitValues.length !== 4) {
+            const prevLength = splitValues.length;
+            splitValues.length = 4;
+            const newAnswers = splitValues.fill('-', prevLength);
+            return CATEGORY_HASH_MAPS[item.category].push(...newAnswers);
+          }
+
+          return CATEGORY_HASH_MAPS[item.category].push(...splitValues);
+        }
+        CATEGORY_HASH_MAPS[item.category].push(answer);
+      });
+
+    return [
+      item.user.id,
+      `${item.user.firstName} ${item.user.lastName}`,
+      item.user.email,
+      item.reportCreated.toLocaleString('en-US', DATE_OPTIONS),
+      item.isLastResult,
+      ...CATEGORY_HASH_MAPS.mySmarts,
+      ...CATEGORY_HASH_MAPS.myPerformanceCharacter,
+      ...CATEGORY_HASH_MAPS.myValues,
+      ...CATEGORY_HASH_MAPS.myCareerAnchors,
+      ...CATEGORY_HASH_MAPS.myMBTI,
+      ...CATEGORY_HASH_MAPS.myHollandCode,
+      ...CATEGORY_HASH_MAPS.myIdealEnvironment,
+      ...CATEGORY_HASH_MAPS.coreCriticalSkills,
+      ...CATEGORY_HASH_MAPS.technicalSkills,
+      ...CATEGORY_HASH_MAPS.practicalityCheck,
     ];
   });
 

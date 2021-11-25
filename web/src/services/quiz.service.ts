@@ -21,5 +21,14 @@ export const getPdf = (data: IQuizRequest) =>
     `${ENDPOINTS.quiz}/get-pdf`,
     data
   );
-export const getCsv = (data: { quizId: string }) =>
-  POST<{ file: string }, { quizId: string }>(`${ENDPOINTS.quiz}/get-csv`, data);
+export const getCaasCsv = (data: { quizId: string }) =>
+  POST<{ file: string }, { quizId: string }>(
+    `${ENDPOINTS.quiz}/get-caas-csv`,
+    data
+  );
+
+export const getCareerCanvasCsv = (data: { quizId: string }) =>
+  POST<{ file: string }, { quizId: string }>(
+    `${ENDPOINTS.quiz}/get-career-canvas-csv`,
+    data
+  );

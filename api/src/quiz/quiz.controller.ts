@@ -50,15 +50,27 @@ export class QuizController {
     return this.quizService.getPdf(body);
   }
 
-  @Post(QUIZ_ROUTES.getCsv)
-  @ApiOperation({ summary: QUIZ_ROUTES.getCsv })
+  @Post(QUIZ_ROUTES.getCaasCsv)
+  @ApiOperation({ summary: QUIZ_ROUTES.getCaasCsv })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: QUIZ_ROUTES.getCsv,
+    description: QUIZ_ROUTES.getCaasCsv,
   })
   @HttpCode(HttpStatus.OK)
   @UseGuards(new RoleGuard(['superAdmin']))
-  public async getCsv(@Body() body: { quizId: string }) {
-    return this.quizService.getCsv(body);
+  public async getCaasCsv(@Body() body: { quizId: string }) {
+    return this.quizService.getCaasCsv(body);
+  }
+
+  @Post(QUIZ_ROUTES.getCareerCanvasCsv)
+  @ApiOperation({ summary: QUIZ_ROUTES.getCareerCanvasCsv })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: QUIZ_ROUTES.getCareerCanvasCsv,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async getCareerCanvasCsv(@Body() body: { quizId: string }) {
+    return this.quizService.getCareerCanvasCsv(body);
   }
 }

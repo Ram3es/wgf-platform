@@ -49,4 +49,9 @@ export const CanvasQuizPageStyled = {
       padding: 20px;
     `}
   `,
+  CsvButtonContainer: styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  `,
 };

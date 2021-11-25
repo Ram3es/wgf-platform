@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { getCsv, getQuestions, postAnswers } from '@services/quiz.service';
+import { getCaasCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
 import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
@@ -228,7 +228,7 @@ export const useQuizState = () => {
   const downloadCsv = async () => {
     try {
       const { data } = await trackPromise(
-        getCsv({
+        getCaasCsv({
           quizId: storageService.getQuiz()?.id || '',
         }),
         PROMISES_AREA.getCaasCsv

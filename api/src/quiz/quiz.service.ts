@@ -11,7 +11,7 @@ import { quizMessage } from 'src/shared/utils/messages';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { ResultEntity } from '../answer/entities/result.entity';
-import { createCsvCaasQuiz } from '../shared/utils/csv-format';
+import { createCsvCaasQuiz, createCsvCareerCanvasQuiz } from '../shared/utils/csv-format';
 import { getQuizDto } from './dto/get-quiz.dto';
 import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
@@ -155,7 +155,7 @@ export class QuizService {
     )}caas-quiz/results?${QUERIES.join('&')}`;
   }
 
-  async getCsv(body: { quizId: string }) {
+  async getCaasCsv(body: { quizId: string }) {
     const data = await this.getUsersWithCompletedQuiz(body.quizId);
 
     if (!data) {
@@ -203,13 +203,48 @@ export class QuizService {
     };
   }
 
+  async getCareerCanvasCsv(body: { quizId: string }) {
+    const data = await this.getUsersWithCompletedQuiz(body.quizId);
+
+    if (!data) {
+      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+    }
+
+    const users = await Promise.all(
+      data.map(async (item) => {
+        const quiz = await this.getQuizQuestions(
+          {
+            userId: item.user.id,
+            quizId: body.quizId,
+          },
+          item.id
+        );
+
+        const lastResult = await this.answerService.getLastResult(
+          item.user.id,
+          body.quizId
+        );
+
+        return {
+          user: item.user,
+          reportCreated: item.created,
+          questions: quiz.questions,
+          isLastResult: lastResult?.id === item.id,
+        };
+      })
+    );
+
+    return {
+      file: await createCsvCareerCanvasQuiz(users),
+    };
+  }
+
   async getUsersWithCompletedQuiz(quizId: string) {
     return this.resultRepository.find({
       where: {
         quiz: {
           id: quizId,
         },
-        status: 'Completed',
       },
       relations: ['user'],
     });

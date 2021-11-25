@@ -3,7 +3,8 @@ export const QUIZ_ROUTES = {
   getQuestions: 'get-questions-by-quiz',
   getResult: 'get-result-by-quiz',
   getPdf: 'get-pdf',
-  getCsv: 'get-csv',
+  getCaasCsv: 'get-caas-csv',
+  getCareerCanvasCsv: 'get-career-canvas-csv',
 };
 
 export interface ICategoryObj {

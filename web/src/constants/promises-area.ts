@@ -7,6 +7,7 @@ export const PROMISES_AREA = {
   getCaasResult: 'get-caas-results',
   sendCaasAnswers: 'send-caas-answers',
   getCaasCsv: 'get-caas-csv',
+  getCareerCanvasCsv: 'get-career-canvas-csv',
   getUserTrainers: 'get-user-trainers',
   requestTrainer: 'request-trainer',
   getGroupsByTrainer: 'get-groups-by-trainer',

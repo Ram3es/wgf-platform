@@ -5,10 +5,10 @@ import { useHistory } from 'react-router-dom';
 
 import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { getQuestions, postAnswers } from '@services/quiz.service';
+import { getCareerCanvasCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
-import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
+import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { canvasQuiz } from '../career-canvas.constants';
@@ -245,6 +245,32 @@ export const useCanvasQuizState = () => {
     [state.questionList, activeSection]
   );
 
+  const downloadCsv = async () => {
+    try {
+      const { data } = await trackPromise(
+        getCareerCanvasCsv({
+          quizId: canvasQuiz.id,
+        }),
+        PROMISES_AREA.getCaasCsv
+      );
+
+      downloadMessage(
+        `data:application/csv;base64,${data.file}`,
+        `${canvasQuiz.title}.csv`
+      ).fire();
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push(ROUTES.signIn));
+        }
+
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
+  };
+
   return {
     ...state,
     updateState,
@@ -255,5 +281,6 @@ export const useCanvasQuizState = () => {
     onSubmitSection,
     onChangeAnswer,
     questionListForSection,
+    downloadCsv,
   };
 };
