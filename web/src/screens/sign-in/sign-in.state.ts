@@ -19,7 +19,7 @@ import { initialSignInState } from './sign-in.constants';
 import { ISignInState } from './sign-in.typings';
 
 export const useSignInState = () => {
-  const { replace } = useHistory();
+  const { replace, goBack } = useHistory();
 
   const location = useLocation<ILocationState>();
 
@@ -40,7 +40,7 @@ export const useSignInState = () => {
     const token = storageService.getToken();
 
     if (token && user) {
-      return replace(location?.state?.from.pathname || '/');
+      return location.state ? replace(location.state?.from.pathname) : goBack();
     }
   }, [user]);
 

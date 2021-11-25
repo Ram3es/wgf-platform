@@ -113,7 +113,7 @@ export const downloadMessage = (
     icon: 'question',
     html: `
     ${html || ''}
-    <p>Do you want to download file?</p>
+    <p>Do you want to download the file?</p>
     `,
     footer: `<a href="${file}" download="${fileName}">Download</a>`,
     showConfirmButton: false,
