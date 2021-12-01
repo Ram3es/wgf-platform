@@ -133,7 +133,7 @@ export const SignUp: React.FC = () => {
                   <Loader area={PROMISES_AREA.auth}>
                     <Styled.Footer>
                       <Button
-                        title={STRINGS.button.signIn}
+                        title={STRINGS.button.signUp}
                         onClick={handleSubmit}
                         color={COLORS.liteBlue}
                         type="submit"
