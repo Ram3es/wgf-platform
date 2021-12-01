@@ -52,7 +52,7 @@ export const useSignInState = () => {
     try {
       const { data } = await trackPromise(
         signIn(state.signInData),
-        PROMISES_AREA.signIn
+        PROMISES_AREA.auth
       );
 
       Toast.fire({

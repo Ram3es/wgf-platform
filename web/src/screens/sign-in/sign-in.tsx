@@ -6,6 +6,7 @@ import { Button } from '@components/button';
 import { Checkbox } from '@components/checkbox';
 import { Header } from '@components/header';
 import { Loader } from '@components/loader';
+import { SocialAuth } from '@components/social-auth';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
@@ -102,23 +103,23 @@ export const SignIn: React.FC = () => {
                       />
                     </FormStyles.Item>
                   </FormStyles.Form>
-                  <Styled.Settings>
-                    <Checkbox
-                      label={STRINGS.signIn.checkRemember}
-                      onChange={checkboxHandler}
-                      isChecked={isRemember}
-                      boxWidth={20}
-                      boxHeight={20}
-                      alignItems="center"
-                    />
-                    <Button
-                      title={STRINGS.button.forgotPassword}
-                      onClick={redirectToResetPassword}
-                      color={COLORS.liteBlue}
-                      variant="text"
-                    />
-                  </Styled.Settings>
-                  <Loader area={PROMISES_AREA.signIn}>
+                  <Loader area={PROMISES_AREA.auth}>
+                    <Styled.Settings>
+                      <Checkbox
+                        label={STRINGS.signIn.checkRemember}
+                        onChange={checkboxHandler}
+                        isChecked={isRemember}
+                        boxWidth={20}
+                        boxHeight={20}
+                        alignItems="center"
+                      />
+                      <Button
+                        title={STRINGS.button.forgotPassword}
+                        onClick={redirectToResetPassword}
+                        color={COLORS.liteBlue}
+                        variant="text"
+                      />
+                    </Styled.Settings>
                     <Button
                       title={STRINGS.button.signIn}
                       onClick={handleSubmit}
@@ -136,6 +137,7 @@ export const SignIn: React.FC = () => {
                         variant="text"
                       />
                     </Styled.Footer>
+                    <SocialAuth />
                   </Loader>
                 </Styled.Wrapper>
               </FormStyles.Wrapper>

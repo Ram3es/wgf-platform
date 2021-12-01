@@ -3,9 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
 import { RoleGuard } from '../shared/guards/role.guard';
-import { CreateUserDto } from './dto/create-user.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
-import { SignInDto } from './dto/sign-in.dto';
 import { UpdatePassWordDTO } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserIdDto } from './dto/user-by-id.dto';
@@ -19,30 +17,6 @@ import { USER_ROUTES } from './user.constants';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post(USER_ROUTES.signUp)
-  @ApiOperation({ summary: USER_ROUTES.signUp })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: USER_ROUTES.signUp,
-    type: UserEntity,
-  })
-  @HttpCode(HttpStatus.OK)
-  public async signUp(@Body() body: CreateUserDto) {
-    return await this.userService.signUp(body);
-  }
-
-  @Post(USER_ROUTES.signIn)
-  @ApiOperation({ summary: USER_ROUTES.signIn })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: USER_ROUTES.signIn,
-    type: UserEntity,
-  })
-  @HttpCode(HttpStatus.OK)
-  public async signIn(@Body() body: SignInDto) {
-    return await this.userService.signIn(body);
-  }
-
   @Put(USER_ROUTES.update)
   @ApiOperation({ summary: USER_ROUTES.update })
   @ApiResponse({
@@ -54,18 +28,6 @@ export class UserController {
   @UseGuards(JwtAuthenticationGuard)
   public async updateUser(@Body() body: UpdateUserDto) {
     return await this.userService.updateUser(body);
-  }
-
-  @Put(USER_ROUTES.logOut)
-  @ApiOperation({ summary: USER_ROUTES.logOut })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: USER_ROUTES.logOut,
-  })
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthenticationGuard)
-  public async logout(@User('id') id: string) {
-    return await this.userService.logOut(id);
   }
 
   @Post(USER_ROUTES.getUserById)

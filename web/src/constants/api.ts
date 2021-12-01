@@ -5,4 +5,6 @@ export const ENDPOINTS = {
   pdf: 'pdf',
   group: 'group',
   invitation: 'invitation',
+  facebook: 'facebook',
+  google: 'google',
 };

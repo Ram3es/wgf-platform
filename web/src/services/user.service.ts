@@ -4,6 +4,12 @@ import { POST, UPDATE } from '@services/api';
 export const signUp = (data: IUserSignUp) =>
   POST<ISignUpResponse, IUserSignUp>(`${ENDPOINTS.user}/sign-up`, data);
 
+export const facebookAuth = (data: IFacebookAuth) =>
+  POST<ISignUpResponse, IFacebookAuth>(`${ENDPOINTS.facebook}/auth`, data);
+
+export const googleAuth = (data: { token: string }) =>
+  POST<ISignUpResponse, { token: string }>(`${ENDPOINTS.google}/auth`, data);
+
 export const getUserByToken = () =>
   POST<IUser>(`${ENDPOINTS.user}/get-user-by-token`);
 

@@ -184,3 +184,11 @@ interface IPdf {
   file: string;
   name: string;
 }
+
+interface IFacebookAuth {
+  firstName: string;
+  lastName: string;
+  email: string;
+  token: string;
+  avatar?: string;
+}

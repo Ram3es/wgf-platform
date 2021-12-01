@@ -46,7 +46,7 @@ export const useSignUpState = () => {
           firstName: state.firstName.trim(),
           lastName: state.lastName.trim(),
         }),
-        PROMISES_AREA.signUp
+        PROMISES_AREA.auth
       );
 
       Toast.fire({

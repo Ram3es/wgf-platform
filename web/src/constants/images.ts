@@ -59,4 +59,5 @@ export const IMAGES: Record<string, string> = {
   gritResultLogo: require('../assets/img/grit-result.png').default,
   fitResultLogo: require('../assets/img/fit-result.png').default,
   avidAdventures: require('../assets/img/avid-adventures-logo.png').default,
+  facebook: require('../assets/img/facebook-icon.svg').default,
 };

@@ -6,10 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvitationEntity } from 'src/ invitation/entities/ invitation.entity';
 import { AnswerEntity } from 'src/answer/entities/answer.entity';
 import { ResultEntity } from 'src/answer/entities/result.entity';
+import { JwtStrategy } from '../auth/jwt.strategy';
 import { GroupModule } from '../group/group.module';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
-import { JwtStrategy } from './jwt.strategy';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 

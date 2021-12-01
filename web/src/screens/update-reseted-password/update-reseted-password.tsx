@@ -25,6 +25,7 @@ import { UpdateResetedPasswordStyles as Styled } from './update-reseted-password
 
 export const UpdateResetedPassword: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);
+  const { replace } = useHistory();
 
   useEffect(() => {
     if (!query.get('token')) {
@@ -36,10 +37,8 @@ export const UpdateResetedPassword: React.FC = () => {
     updatePasswordInitial
   );
 
-  const { replace } = useHistory();
-
   const redirectToSignIn = () => {
-    replace(ROUTES.signIn);
+    replace(ROUTES.main);
   };
 
   const resetPasswordHandler = async () => {

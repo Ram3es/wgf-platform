@@ -5,6 +5,7 @@ import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Header } from '@components/header';
 import { Loader } from '@components/loader';
+import { SocialAuth } from '@components/social-auth';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
@@ -129,10 +130,10 @@ export const SignUp: React.FC = () => {
                       />
                     </FormStyles.Item>
                   </FormStyles.Form>
-                  <Loader area={PROMISES_AREA.signUp}>
+                  <Loader area={PROMISES_AREA.auth}>
                     <Styled.Footer>
                       <Button
-                        title={STRINGS.button.signUp}
+                        title={STRINGS.button.signIn}
                         onClick={handleSubmit}
                         color={COLORS.liteBlue}
                         type="submit"
@@ -146,6 +147,7 @@ export const SignUp: React.FC = () => {
                         color={COLORS.liteBlue}
                       />
                     </Styled.Footer>
+                    <SocialAuth />
                   </Loader>
                 </Styled.Wrapper>
               </FormStyles.Wrapper>

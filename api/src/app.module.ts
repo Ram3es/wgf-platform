@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'src/constants/config';
 import { InvitationModule } from './ invitation/ invitation.module';
 import { AnswerModule } from './answer/answer.module';
+import { AuthModule } from './auth/auth.module';
+import { FacebookAuthModule } from './auth/facebook-auth/facebook-auth.module';
+import { GoogleAuthModule } from './auth/google-auth/google-auth.module';
 import { GroupModule } from './group/group.module';
 import { QuestionModule } from './question/question.module';
 import { QuizModule } from './quiz/quiz.module';
@@ -28,6 +31,9 @@ import { UserModule } from './user/user.module';
     AnswerModule,
     GroupModule,
     InvitationModule,
+    AuthModule,
+    GoogleAuthModule,
+    FacebookAuthModule,
   ],
   providers: [
     {

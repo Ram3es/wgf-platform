@@ -37,7 +37,7 @@ export class UserEntity {
   @ApiProperty({ example: 'Smith' })
   lastName: string;
 
-  @Column()
+  @Column({ nullable: true })
   @Exclude()
   password: string;
 

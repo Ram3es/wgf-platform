@@ -7,15 +7,19 @@ import { ReactComponent as Dashboard } from '@assets/img/dashboard.svg';
 import { ReactComponent as disconnect } from '@assets/img/disconnect.svg';
 import { ReactComponent as dropBox } from '@assets/img/drop-box.svg';
 import { ReactComponent as edit } from '@assets/img/edit.svg';
+import { ReactComponent as facebook } from '@assets/img/facebook-icon.svg';
 import { ReactComponent as file } from '@assets/img/file.svg';
+import { ReactComponent as google } from '@assets/img/google-icon.svg';
 import { ReactComponent as History } from '@assets/img/history.svg';
 import { ReactComponent as imagesPicker } from '@assets/img/images-picker.svg';
 import { ReactComponent as inviteUsers } from '@assets/img/invite-users.svg';
 import { ReactComponent as invite } from '@assets/img/invite.svg';
+import { ReactComponent as linkedin } from '@assets/img/linkedin-icon.svg';
 import { ReactComponent as logout } from '@assets/img/logout.svg';
 import { ReactComponent as manageGroup } from '@assets/img/manage-group.svg';
 import { ReactComponent as manageTrainers } from '@assets/img/manage-trainers.svg';
 import { ReactComponent as manageUsers } from '@assets/img/manage-users.svg';
+import { ReactComponent as microsoft } from '@assets/img/microsoft-icon.svg';
 import { ReactComponent as next } from '@assets/img/next-arrow.svg';
 import { ReactComponent as options } from '@assets/img/options.svg';
 import { ReactComponent as Profile } from '@assets/img/profile.svg';
@@ -53,6 +57,10 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   dropBox,
   next,
   back,
+  google,
+  facebook,
+  linkedin,
+  microsoft,
 };
 
 export const Icon = (props: {

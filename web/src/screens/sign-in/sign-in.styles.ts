@@ -25,7 +25,7 @@ export const SignInStyles = {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     & > * {
       font-size: ${FONTS.sizes[14]};
