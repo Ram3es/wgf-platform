@@ -42,6 +42,10 @@ export const FacebookButton = () => {
     const firstName: string = name?.split(' ')[0] || '';
     const lastName: string = name?.split(' ')[1] || '';
 
+    console.log(email, 'email');
+
+    console.log(userInfo, 'userInfo');
+
     if (!email) {
       return errorMessage(
         'No email was found in your facebook account, link your email address to facebook or sign in another way'
