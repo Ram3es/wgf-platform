@@ -118,7 +118,10 @@ export class UserService {
   async updateProfilePassword(id: string, body: UpdatePassWordDTO) {
     const user = await this.getUserById(id);
 
-    if (!(await bcrypt.compare(body.password, user.password))) {
+    if (
+      !user.password ||
+      !(await bcrypt.compare(body.password, user.password))
+    ) {
       throw new HttpException(ERRORS.user.wrongPassword, HttpStatus.FORBIDDEN);
     }
 
