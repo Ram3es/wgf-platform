@@ -25,8 +25,6 @@ export const FacebookButton = () => {
   const appId = process.env.REACT_APP_FACEBOOK_AUTH_APP_ID;
   const dispatch = useAppDispatch();
 
-  console.log(window.location.href);
-
   const responseFacebook = async (
     userInfo:
       | ReactFacebookLoginInfo
