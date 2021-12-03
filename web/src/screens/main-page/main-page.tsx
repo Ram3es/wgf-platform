@@ -34,6 +34,10 @@ export const MainPage: React.FC = () => {
     push(ROUTES.quiz);
   };
 
+  const redirectToCareerCanvasQuiz = () => {
+    push(ROUTES.careerDesignCanvas);
+  };
+
   return (
     <>
       <Header />
@@ -64,6 +68,13 @@ export const MainPage: React.FC = () => {
                 isIconRight
                 onClick={redirectToCaasCooperationQuiz}
                 color={COLORS.greenLite}
+              />
+              <Button
+                title={'Go to Career Canvas'}
+                iconType="next"
+                isIconRight
+                onClick={redirectToCareerCanvasQuiz}
+                color={COLORS.yellow}
               />
             </Styled.ButtonContainer>
           </Styled.BannerDescription>

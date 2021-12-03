@@ -23,10 +23,13 @@ export const StyledSocialAuth = {
   WrapperButtons: styled.div`
     display: flex;
     justify-content: center;
+    align-items: center;
   `,
 };
 
 export const StyledIcon = styled.div`
+  display: flex;
+  position: relative;
   width: max-content;
   margin: 0 10px;
   cursor: pointer;

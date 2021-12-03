@@ -69,7 +69,7 @@ export const MainPageStyles = {
     justify-content: space-between;
 
     & > * {
-      margin-bottom: 10px;
+      margin: 0 auto 10px;
     }
   `,
 };

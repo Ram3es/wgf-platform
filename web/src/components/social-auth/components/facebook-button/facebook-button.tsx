@@ -2,16 +2,18 @@ import FacebookLogin, {
     ReactFacebookFailureResponse, ReactFacebookLoginInfo
 } from 'react-facebook-login';
 import { trackPromise } from 'react-promise-tracker';
+import styled from 'styled-components';
 
+import { Icon } from '@components/icon';
 import { loginUser } from '@store/reducers/user.slice';
 
 import { useAppDispatch } from '@services/hooks/redux';
 import { storageService } from '@services/storage/storage';
 import { facebookAuth } from '@services/user.service';
 
-import { IMAGES } from '@constants/images';
 import { errorMessage } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
+import { Z_INDEX } from '@constants/z-indexes';
 
 import { StyledIcon } from '@components/social-auth/social-auth.styles';
 
@@ -20,6 +22,14 @@ interface IFacebookErrorResponce extends Partial<ReactFacebookLoginInfo> {
     code: string;
   };
 }
+
+const StyledIconWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 export const FacebookButton = () => {
   const appId = process.env.REACT_APP_FACEBOOK_AUTH_APP_ID;
@@ -71,17 +81,19 @@ export const FacebookButton = () => {
         callback={responseFacebook}
         textButton=""
         buttonStyle={{
+          position: 'relative',
           backgroundColor: 'transparent',
           border: 0,
-          backgroundImage: `url(${IMAGES.facebook})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'contain',
           width: 33,
           height: 33,
           padding: 0,
+          zIndex: Z_INDEX.medium,
         }}
         redirectUri={window.location.href}
       />
+      <StyledIconWrapper>
+        <Icon type="facebook" />
+      </StyledIconWrapper>
     </StyledIcon>
   );
 };

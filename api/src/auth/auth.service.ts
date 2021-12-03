@@ -103,7 +103,7 @@ export class AuthService {
       throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
 
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!user.password || !(await bcrypt.compare(password, user.password))) {
       throw new HttpException(ERRORS.user.loginError, HttpStatus.BAD_REQUEST);
     }
 
