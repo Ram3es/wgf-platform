@@ -27,39 +27,18 @@ export const caasQuizResultMessage = (
 
   subject: 'Quiz Completion',
 
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>Thanks for completing The Career Adapt-Abilities Assessment.</p>
-    <p>You’re all set! Please refer to the attachment to view your results.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
-  `,
-
-  attachments: [
-    {
-      filename: `${user.firstName}-caas-quiz-results.pdf`,
-      content: pdf,
-      encoding: 'base64',
-    },
-  ],
-});
-
-export const caasCooperationQuizResultMessage = (
-  user: UserEntity,
-  pdf: string
-): IMessage => ({
-  from: `Avid Adventures <${EMAIL_FROM}>`,
-
-  to: `${user.firstName} ${user.lastName}<${user.email}>`,
-  bcc: user.email,
-
-  subject: 'Quiz Completion',
-
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>Thanks for completing The Career Adapt-Abilities + Cooperation Assessment.</p>
-    <p>You’re all set! Please refer to the attachment to view your results.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
-  `,
+  html: createEmailTemplateHtml(
+    `<p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      Thanks for competing the Career Flex quiz.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      You are all set! You can identify your career adaptability superpowers, and shows you how you could flex your career, bringing it to the next level!
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      Please refer to the attachment to view your result or log in to your account.
+    </p>`,
+    user.firstName
+  ),
 
   attachments: [
     {
@@ -81,12 +60,13 @@ export const ccQuizResultMessage = (
 
   subject: 'Quiz Completion',
 
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>Thanks for completing The Career Canvas</p>
-    <p>You’re all set! Please refer to the attachment to view your results.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p>Thanks for completing The Career Canvas quiz</p>
+    <p>You’re all set! Please refer to the attachment to view your result or log in to your account..</p>
   `,
+    user.firstName
+  ),
 
   attachments: [
     {
@@ -99,7 +79,7 @@ export const ccQuizResultMessage = (
 
 export const quizMessage = {
   ['caas-quiz']: caasQuizResultMessage,
-  ['caas-cooperation-quiz']: caasCooperationQuizResultMessage,
+  ['caas-cooperation-quiz']: caasQuizResultMessage,
   ['career-canvas']: ccQuizResultMessage,
 };
 
@@ -111,30 +91,38 @@ export const registrationMessage = (user: UserEntity): IMessage => ({
 
   subject: 'Registration',
 
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>You have successfully registered with Avid Adventures.</p>
-    <p>Here are your account details:</p>
-    <p>First Name: ${user.firstName}</p>
-    <p>Last Name: ${user.lastName}</p>
-    <p>Email: ${user.email}</p>
-    <p>Please log in and complete your assessments <a href=${WEB_BASE_URL}sign-in>here</a> to get your results.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      You have successfully registered with Wit Grit Fit by Avid Adventures.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      Please log in and complete your assessments to get your results.
+    </p>
   `,
+    user.firstName
+  ),
 });
 
-export const createPasswordMail = (user: UserEntity, token: string) => ({
+export const resetPasswordMail = (user: UserEntity, token: string) => ({
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: user.email,
   bcc: user.email,
   subject: 'Update password link',
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>We're sending you this email because you requested a password reset.</p>
-    <p>Click  <a href=${WEB_BASE_URL}password/?token=${token}>here </a> to reset your password on Avid Adventures.</p>
-    <p>If you didn't request a password reset, you can ignore this email. Your password will not be changed.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      We have received a request to reset your password for your Wit Grit Fit account.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      Click <a href=${WEB_BASE_URL}password/?token=${token}>here </a> to reset your password.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      If you did not request a password reset, you can ignore this email. Your password will not be changed. 
+    </p>
   `,
+    user.firstName
+  ),
 });
 
 export const trainerToExistingStudentMail = (
@@ -146,12 +134,17 @@ export const trainerToExistingStudentMail = (
   to: user.email,
   bcc: user.email,
   subject: 'Invitation from Trainer',
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>We're sending you this email because you get invitation from Trainer: ${trainerName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to accept invitation.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You received an invite from <strong>${trainerName}</strong> to join his/her group.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Click <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to view or accept the invite. 
+    </p>
   `,
+    user.firstName
+  ),
 });
 
 export const trainerToStudentMail = (
@@ -164,12 +157,17 @@ export const trainerToStudentMail = (
   to: email,
   bcc: email,
   subject: 'Invitation from Trainer',
-  html: `
-    <p>Hi <b>${userName},</b></p>
-    <p>We're sending you this email because you get invitation from Trainer: ${trainerName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invitation and complete registration.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You received an invite from <strong>${trainerName}</strong> to to set up an account with Wit Grit Fit by Avid Adventures and join his/her group.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to view or accept the invite. 
+    </p>
   `,
+    userName
+  ),
 });
 
 export const adminToExistingTrainerMail = (
@@ -181,12 +179,17 @@ export const adminToExistingTrainerMail = (
   to: user.email,
   bcc: user.email,
   subject: 'Invitation from Super Admin',
-  html: `
-    <p>Hi <b>${user.firstName},</b></p>
-    <p>We're sending you this email because you get invitation to become a trainer admin from Super Admin: ${superAdminName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}>here </a> to accept invitation.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You received an invite from <strong>${superAdminName}</strong> to become trainer admin with Wit Grit Fit by Avid Adventures.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Click <a href=${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}>here </a> to accept the invite. 
+    </p>
   `,
+    user.firstName
+  ),
 });
 
 export const adminToTrainerMail = (
@@ -199,12 +202,17 @@ export const adminToTrainerMail = (
   to: email,
   bcc: email,
   subject: 'Invitation from Super Admin',
-  html: `
-    <p>Hi <b>${userName},</b></p>
-    <p>We're sending you this email because you get invitation to become a trainer admin from Super Admin: ${superAdminName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invitation and complete registration.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You received an invite from <strong>${superAdminName}</strong> to set up an account as a trainer admin with Wit Grit Fit by Avid Adventures.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept the invite and set up the account. 
+    </p>
   `,
+    userName
+  ),
 });
 
 export const studentToTrainerMail = (
@@ -216,12 +224,17 @@ export const studentToTrainerMail = (
   to: trainer.email,
   bcc: trainer.email,
   subject: 'Request from Student',
-  html: `
-    <p>Hi <b>${trainer.firstName},</b></p>
-    <p>We're sending you this email because you get request from Student: ${studentName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-request-trainer/${token}>here </a> to accept request.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You received a trainer request from student: ${studentName}
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Click <a href=${API_BASE_URL}invitation/accept-request-trainer/${token}>here </a> to view or accept the request. 
+    </p>
   `,
+    trainer.firstName
+  ),
 });
 
 export const adminToUserMail = (
@@ -233,11 +246,137 @@ export const adminToUserMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: email,
   bcc: email,
-  subject: 'Invite from Admin',
-  html: `
-    <p>Hi <b>${userName},</b></p>
-    <p>We're sending you this email because you get invite to registration from Admin: ${adminName}.</p>
-    <p>Click  <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept invite and complete registration.</p>
-    <p>Bests,<br/>Jac at Avid Adventures</p>
+  subject: 'Request to set up an account with Wit Grit Fit by Avid Adventures',
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      You received an invite from <strong>${adminName}</strong> to set up an account with Wit Grit Fit by Avid Adventures.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to view or accept the invite. 
+    </p>
   `,
+    userName
+  ),
 });
+
+const createEmailTemplateHtml = (emailBody: string, name: string) =>
+  `<!doctype html>
+  <html>
+  <head>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="format-detection" content="telephone=no">
+  <style>
+  @media only screen and (max-width:500px) {
+    table[class=body] p,
+    table[class=body] ul,
+    table[class=body] ol,
+    table[class=body] td,
+    table[class=body] span,
+    table[class=body] a {
+      font-size: 15px !important;
+    }
+
+    table[class=body] .content_wrapper {
+      padding: 20px !important;
+    }
+
+    table[class=body] .button_mobile {
+      padding: 13px 30px !important;
+    }
+
+    table[class=body] .logo {
+      text-align: center !important;
+    }
+  }
+  @media only screen and (max-width:700px) {
+    table[class=body] .container {
+      width: 100% !important;
+    }
+
+    table[class=body] .main {
+      border-left-width: 0 !important;
+      border-radius: 0 !important;
+      border-right-width: 0 !important;
+    }
+
+    table[class=body] .mobile_paragraph {
+      width: 90% !important;
+    }
+  }
+</style>
+  </head>
+  <body style="background-color: #f6f6f6; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family: 'Arial', sans-serif;">
+  <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+  <tr>
+  <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+  <td class="container" style="font-size: 14px; vertical-align: top; display: block; max-width: 600px; width: 600px; margin: 0 auto;" width="600" valign="top">
+  <div class="content" style="box-sizing:border-box;display:block;margin:0 auto;max-width:600px; padding:10px;background:#F7F8FB">
+  <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+  <tr>
+  <td style="font-size: 14px; vertical-align: top;" valign="top">
+  <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%;min-width:100%;background: #f1f1f2; background:linear-gradient(90deg, rgba(0,174,239,0.10) 0%, rgba(239,96,163,0.10) 50%, rgba(141,198,63,0.10) 100%); padding: 35px 40px 30px;box-sizing:border-box;" width="100%">
+  <tr>
+  <th style="text-align:left;width:100%" align="left" valign="top" class="logo">
+  <img alt="T@" src="https://i.ibb.co/6RrhGTj/WGF-Logo.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+  </th>
+  </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding: 40px; width: 100%; max-width: 100%;" width="100%">
+  <tr>
+  <td style="font-size: 14px; vertical-align: top;" valign="top">
+  <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph"> 
+  Hi <strong>${name}</strong>,
+  </p>
+  ${emailBody}
+  <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px; padding-top: 30px;" class="mobile_paragraph">
+  Thank you!
+  </p>
+  <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+  Jac at Wit Grit Fit  
+  </p>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; padding: 10px 0;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">
+<a style="margin-right:10px;text-decoration:none" href="${WEB_BASE_URL}">
+<img alt="website" src="https://i.ibb.co/StLpw9x/website.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; undefined: display; undefined: inline-block; height: 20px; width: 20px;" width="20" height="20">
+</a>
+<a style="margin-right:10px;text-decoration:none" href="https://www.facebook.com/avidadventures/">
+<img alt="facebook" src="https://i.ibb.co/QcqHRDC/facebook.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; undefined: display; undefined: inline-block; height: 20px; width: 20px;" width="20" height="20">
+</a>
+<a style="margin-right:10px;text-decoration:none" href="https://sg.linkedin.com/company/witgritfit">
+<img alt="linkedin" src="https://i.ibb.co/kySWwh6/linkedin.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; undefined: display; undefined: inline-block; height: 20px; width: 20px;" width="20" height="20">
+</a>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 45px 0;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">
+<a class="button_mobile" href="${WEB_BASE_URL}sign-in" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
+Sing In Now
+</a>
+</td>
+</tr>
+</table>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 30px 0;" width="100%">
+  <tr>
+  <td style="font-size: 14px; vertical-align: top;" valign="top">
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+  </div>
+  </td>
+  <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+  </tr>
+  </table>
+  </body>
+  </html>
+  `;

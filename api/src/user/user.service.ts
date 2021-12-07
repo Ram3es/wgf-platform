@@ -12,7 +12,7 @@ import { ERRORS } from 'src/constants/errors';
 import { EXPIRE_LINK_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
 import { sendMail } from 'src/shared/utils/email';
-import { createPasswordMail } from 'src/shared/utils/messages';
+import { resetPasswordMail } from 'src/shared/utils/messages';
 import { GroupService } from '../group/group.service';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
@@ -107,7 +107,7 @@ export class UserService {
       token,
     });
 
-    const payload = createPasswordMail(user, token);
+    const payload = resetPasswordMail(user, token);
     sendMail(payload);
 
     return {
