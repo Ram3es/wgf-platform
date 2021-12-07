@@ -33,7 +33,6 @@ export const SignIn: React.FC = () => {
   return (
     <>
       <Header />
-      <Backdrop />
       <Formik
         initialValues={signInData}
         validateOnChange
@@ -57,6 +56,7 @@ export const SignIn: React.FC = () => {
 
           return (
             <FormStyles.Section>
+              <Backdrop />
               <FormStyles.Wrapper>
                 <Styled.Wrapper>
                   <TitleStyles.h1

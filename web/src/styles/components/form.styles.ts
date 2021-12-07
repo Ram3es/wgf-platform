@@ -7,12 +7,12 @@ import { Z_INDEX } from '@constants/z-indexes';
 
 export const FormStyles = {
   Section: styled.div`
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 95px);
-    min-height: 610px;
-    padding: 0 20px;
+    min-height: calc(100vh - 95px);
+    padding: 20px;
   `,
   Wrapper: styled.div`
     position: relative;
