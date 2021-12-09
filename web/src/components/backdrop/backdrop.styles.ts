@@ -21,14 +21,14 @@ export const BackdropStyles = {
   Circle: styled.div`
     position: absolute;
     z-index: ${Z_INDEX.low};
-    right: 10%;
+    right: 0;
     top: 0;
   `,
   StarTop: styled.div`
     position: absolute;
     z-index: ${Z_INDEX.low};
-    left: 5%;
-    top: 10%;
+    left: 0;
+    top: 0;
   `,
   Oval: styled.div`
     position: absolute;
