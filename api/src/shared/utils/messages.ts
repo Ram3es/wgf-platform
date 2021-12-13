@@ -37,7 +37,10 @@ export const caasQuizResultMessage = (
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
       Please refer to the attachment to view your result or log in to your account.
     </p>`,
-    user.firstName
+    user.firstName,
+    `<th style="box-sizing: border-box;text-align: right; width: 50%">
+    <img alt="T@" src="https://i.ibb.co/fXq9Zwv/career-flex.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 
   attachments: [
@@ -65,7 +68,10 @@ export const ccQuizResultMessage = (
     <p>Thanks for completing The Career Canvas quiz</p>
     <p>You’re all set! Please refer to the attachment to view your result or log in to your account..</p>
   `,
-    user.firstName
+    user.firstName,
+    `<th style="box-sizing: border-box;text-align: right; width: 50%; padding: 10px 20px;">
+    <img alt="T@" src="https://i.ibb.co/vcnCq0h/career-canvas.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 
   attachments: [
@@ -100,7 +106,10 @@ export const registrationMessage = (user: UserEntity): IMessage => ({
       Please log in and complete your assessments to get your results.
     </p>
   `,
-    user.firstName
+    user.firstName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%">
+    <img alt="T@" src="https://i.ibb.co/bzbgC2j/wgf-home.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -121,7 +130,10 @@ export const resetPasswordMail = (user: UserEntity, token: string) => ({
       If you did not request a password reset, you can ignore this email. Your password will not be changed. 
     </p>
   `,
-    user.firstName
+    user.firstName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -143,7 +155,10 @@ export const trainerToExistingStudentMail = (
     Click <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to view or accept the invite. 
     </p>
   `,
-    user.firstName
+    user.firstName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -166,7 +181,10 @@ export const trainerToStudentMail = (
     Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to view or accept the invite. 
     </p>
   `,
-    userName
+    userName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -188,7 +206,10 @@ export const adminToExistingTrainerMail = (
     Click <a href=${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}>here </a> to accept the invite. 
     </p>
   `,
-    user.firstName
+    user.firstName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -211,7 +232,10 @@ export const adminToTrainerMail = (
     Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept the invite and set up the account. 
     </p>
   `,
-    userName
+    userName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -233,7 +257,10 @@ export const studentToTrainerMail = (
     Click <a href=${API_BASE_URL}invitation/accept-request-trainer/${token}>here </a> to view or accept the request. 
     </p>
   `,
-    trainer.firstName
+    trainer.firstName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
@@ -256,11 +283,18 @@ export const adminToUserMail = (
       Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to view or accept the invite. 
     </p>
   `,
-    userName
+    userName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 
-const createEmailTemplateHtml = (emailBody: string, name: string) =>
+const createEmailTemplateHtml = (
+  emailBody: string,
+  name: string,
+  imageRow?: string
+) =>
   `<!doctype html>
   <html>
   <head>
@@ -316,11 +350,12 @@ const createEmailTemplateHtml = (emailBody: string, name: string) =>
   <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
   <tr>
   <td style="font-size: 14px; vertical-align: top;" valign="top">
-  <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%;min-width:100%;background: #f1f1f2; background:linear-gradient(90deg, rgba(0,174,239,0.10) 0%, rgba(239,96,163,0.10) 50%, rgba(141,198,63,0.10) 100%); padding: 35px 40px 30px;box-sizing:border-box;" width="100%">
-  <tr>
-  <th style="text-align:left;width:100%" align="left" valign="top" class="logo">
-  <img alt="T@" src="https://i.ibb.co/6RrhGTj/WGF-Logo.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+  <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%; background: #f1f1f2; background: linear-gradient(90deg, rgba(0,174,239,0.07) 0%, rgba(239,96,163,0.07) 50%, rgba(141,198,63,0.07) 100%); box-sizing: border-box;" width="100%">
+  <tr style="box-sizing: border-box;">
+  <th style="box-sizing: border-box; font-size: 0; padding: 0 20px; width: 50%; padding: 30px 20px;" class="logo">
+  <img alt="T@" src="https://i.ibb.co/6RrhGTj/WGF-Logo.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
   </th>
+  ${imageRow}
   </tr>
   </table>
   <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding: 40px; width: 100%; max-width: 100%;" width="100%">

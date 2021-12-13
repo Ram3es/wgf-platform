@@ -131,9 +131,9 @@ export class QuizService {
 
     const { data } = await this.httpService.get(fullUrl).toPromise();
 
-    if (!data) {
-      throw new HttpException(ERRORS.pdf, HttpStatus.NOT_FOUND);
-    }
+    // if (!data) {
+    //   throw new HttpException(ERRORS.pdf, HttpStatus.NOT_FOUND);
+    // }
 
     const payload = quizMessage[quiz.title](user, data);
 
