@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { QuizPage } from '../caas-quiz/quiz-page';
-import { ResultPage } from '../caas-quiz/result-page';
-import { CanvasQuizPage } from '../career-canvas/canvas-quiz-page';
-import { CanvasResults } from '../career-canvas/canvas-results';
-import { DashboardPage } from '../dashboard-page';
-import { MainPage } from '../main-page';
-import { ResetPassword } from '../reset-password';
-import { SignIn } from '../sign-in';
-import { SignUp } from '../sign-up';
-import { UpdateResetedPassword } from '../update-reseted-password';
+import { QuizPage } from '@screens/caas-quiz/quiz-page';
+import { ResultPage } from '@screens/caas-quiz/result-page';
+import { CanvasQuizPage } from '@screens/career-canvas/canvas-quiz-page';
+import { CanvasResults } from '@screens/career-canvas/canvas-results';
+import { MainPage } from '@screens/main-page';
+import { PlatformPage } from '@screens/platform-page';
+import { ResetPassword } from '@screens/reset-password';
+import { SignIn } from '@screens/sign-in';
+import { SignUp } from '@screens/sign-up';
+import { UpdateResetedPassword } from '@screens/update-reseted-password';
 import { PrivateRoute } from './private-route';
 
 import { ROUTES } from '@constants/routes';
@@ -19,7 +19,7 @@ export const AppRouter: React.FC = () => (
   <Switch>
     <Route exact path={ROUTES.main} component={MainPage} />
     <PrivateRoute exact path={ROUTES.quiz} component={QuizPage} />
-    <PrivateRoute path={ROUTES.platform} component={DashboardPage} />
+    <PrivateRoute path={ROUTES.platform} component={PlatformPage} />
     <Route exact path={ROUTES.results} component={ResultPage} />
     <Route exact path={ROUTES.signIn} component={SignIn} />
     <Route exact path={ROUTES.signUp} component={SignUp} />

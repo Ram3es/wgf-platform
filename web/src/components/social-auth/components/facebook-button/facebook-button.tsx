@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import { Icon } from '@components/icon';
 import { loginUser } from '@store/reducers/user.slice';
+import { Z_INDEX } from '@styles/z-indexes';
 
 import { useAppDispatch } from '@services/hooks/redux';
 import { storageService } from '@services/storage/storage';
@@ -13,7 +14,6 @@ import { facebookAuth } from '@services/user.service';
 
 import { errorMessage } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
-import { Z_INDEX } from '@constants/z-indexes';
 
 import { StyledIcon } from '@components/social-auth/social-auth.styles';
 

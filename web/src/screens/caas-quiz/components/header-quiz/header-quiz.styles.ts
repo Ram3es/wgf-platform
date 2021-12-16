@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 import { Media } from '@styles/media';
-
-import { Z_INDEX } from '@constants/z-indexes';
+import { Z_INDEX } from '@styles/z-indexes';
 
 export const HeaderStyles = {
   Wrapper: styled.div`

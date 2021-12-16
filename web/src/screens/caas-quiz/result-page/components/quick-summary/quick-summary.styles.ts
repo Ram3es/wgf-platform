@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
-
-import { Z_INDEX } from '@constants/z-indexes';
+import { Z_INDEX } from '@styles/z-indexes';
 
 export const QuickSummaryStyles = {
   Wrapper: styled.div`

@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
-
-import { Z_INDEX } from '@constants/z-indexes';
+import { Z_INDEX } from '@styles/z-indexes';
 
 import { ISelectOption } from './select.typings';
 

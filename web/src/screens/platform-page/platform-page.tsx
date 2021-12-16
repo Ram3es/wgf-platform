@@ -12,9 +12,9 @@ import { useAppSelector } from '@services/hooks/redux';
 
 import { ROUTES } from '@constants/routes';
 
-import { DashboardPageStyles as Styled } from './dashboard-page.styles';
+import { PlatformPageStyles as Styled } from './platform-page.styles';
 
-export const DashboardPage: React.FC = () => {
+export const PlatformPage: React.FC = () => {
   const { user } = useAppSelector((state) => state);
 
   return (

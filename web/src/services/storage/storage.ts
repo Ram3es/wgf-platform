@@ -11,9 +11,6 @@ export const SESSION_STORAGE = {
 };
 
 class StorageService {
-  getUser() {
-    throw new Error('Method not implemented.');
-  }
   public getToken = () => {
     return (
       localStorage.getItem(TOKEN_STORAGE_KEY) ||

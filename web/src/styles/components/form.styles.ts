@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { Media } from '@styles/media';
-
-import { Z_INDEX } from '@constants/z-indexes';
+import { Z_INDEX } from '@styles/z-indexes';
 
 export const FormStyles = {
   Section: styled.div`

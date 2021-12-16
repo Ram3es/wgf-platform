@@ -63,16 +63,12 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   microsoft,
 };
 
-export const Icon = (props: {
-  type: string;
-
-  className?: string;
-}) => {
+export const Icon = (props: { type: string }) => {
   const NewIcon = ICONS[props.type];
 
   if (!NewIcon) {
     return null;
   }
 
-  return <NewIcon className={props.className} />;
+  return <NewIcon />;
 };

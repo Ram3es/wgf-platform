@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
-
-import { Z_INDEX } from '@constants/z-indexes';
+import { Z_INDEX } from '@styles/z-indexes';
 
 export const DropDownStyled = {
   Wrapper: styled.div<{ isFullWidth?: boolean; maxWidth?: string }>`
