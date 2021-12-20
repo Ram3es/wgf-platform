@@ -6,11 +6,18 @@ import { Media } from '@styles/media';
 
 export const IndividualInviteStyled = {
   Wrapper: styled.div`
-    flex: 0 1 55%;
+    width: 65%;
+    min-width: 600px;
     padding: 20px 60px 20px 40px;
+
+    ${Media.landscape`
+      width: 100%;
+      min-width: auto;
+    `}
 
     ${Media.tablet`
       padding: 20px;
+      width: 100%;
     `}
 
     ${Media.mobile`

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { COLORS } from '@styles/colors';
+import { BulkInvite } from './components/bulk-invite';
 import { IndividualInvite } from './components/individual-invite';
 
 import { useAppSelector } from '@services/hooks/redux';
@@ -17,10 +18,10 @@ export const InviteUsers: React.FC = () => {
       <TitleStyles.h2 color={COLORS.grey} textAlign="left">
         {STRINGS.invitation.inviteUsersTitle[user.role]}
       </TitleStyles.h2>
-      <Styled.Content>
+      <div>
         <IndividualInvite />
-        <Styled.Separator />
-      </Styled.Content>
+        <BulkInvite />
+      </div>
     </Styled.Wrapper>
   );
 };

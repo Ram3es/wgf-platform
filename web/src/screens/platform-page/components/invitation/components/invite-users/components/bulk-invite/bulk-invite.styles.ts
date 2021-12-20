@@ -2,17 +2,49 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 
 export const BulkInviteStyled = {
   Wrapper: styled.div`
-    flex: 0 1 45%;
-    padding: 20px 40px 20px 60px;
+    padding: 20px 60px;
+    width: 65%;
+    min-width: 600px;
+
+    ${Media.landscape`
+      width: 100%;
+      min-width: auto;
+    `}
+
+    ${Media.tablet`
+      padding: 20px;
+      width: 100%;
+    `}
+
+    ${Media.mobile`
+      padding: 20px 0;
+    `}
   `,
   Title: styled.h3`
     color: ${COLORS.liteBlue};
     font-weight: 900;
     font-size: ${FONTS.sizes[14]};
     margin-bottom: 20px;
+  `,
+  ContentWrapper: styled.div`
+    display: flex;
+    justify-content: flex-end;
+
+    > * {
+      width: 70%;
+
+      ${Media.tablet`
+        width: 67%;
+      `}
+
+      ${Media.mobile`
+        width: 100%;
+      `}
+    }
   `,
   Content: styled.div`
     padding: 30px;
