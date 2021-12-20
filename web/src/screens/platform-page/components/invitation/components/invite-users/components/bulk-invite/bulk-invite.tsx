@@ -23,8 +23,11 @@ interface IBulkInviteData {
   name: string;
   email: string;
   id: string;
+  typeOfInvitation: TInvitationType;
   group?: string;
 }
+
+const typeOfInvitationForSuperAdmin = ['user', 'trainer'];
 
 const keys = ['name', 'email'];
 
@@ -66,6 +69,7 @@ export const BulkInvite: FC = () => {
   const onHandleFiles = (files: File[]) => {
     try {
       setIsLoading(true);
+      setCsvFileData(null);
       const reader = new FileReader();
       reader.readAsText(files[0]);
 
@@ -93,7 +97,8 @@ export const BulkInvite: FC = () => {
     const results: Papa.ParseResult<IBulkInviteData> = Papa.parse(file!.csv!, {
       header: true,
       skipEmptyLines: 'greedy',
-      transformHeader: (header) => header.toLowerCase(),
+      transformHeader: (header) =>
+        header === 'typeOfInvitation' ? header : header.toLowerCase(),
     });
 
     const data = results.data.filter((item) =>
@@ -110,6 +115,7 @@ export const BulkInvite: FC = () => {
 
     const filteredUserList = data.map((item) => {
       let trainerGroup;
+      let typeOfInvitation = 'student' as TInvitationType;
 
       if (user.role === ROLES.trainerAdmin) {
         trainerGroup =
@@ -117,9 +123,16 @@ export const BulkInvite: FC = () => {
           'Unassigned';
       }
 
+      if (user.role === 'superAdmin') {
+        typeOfInvitation = (typeOfInvitationForSuperAdmin.find(
+          (elem) => elem === item.typeOfInvitation?.toLowerCase()
+        ) || 'user') as TInvitationType;
+      }
+
       return {
         ...item,
         id: uuidv4(),
+        typeOfInvitation,
         group: trainerGroup,
       };
     });
@@ -129,6 +142,10 @@ export const BulkInvite: FC = () => {
       setIsFileUploading(false);
     }, 3000);
   };
+
+  useEffect(() => {
+    console.log(csvFileData);
+  }, [csvFileData]);
 
   if (csvFileData && file) {
     return (
