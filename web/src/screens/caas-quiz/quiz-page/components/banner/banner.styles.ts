@@ -34,7 +34,7 @@ export const BannerStyles = {
     font-size: ${FONTS.sizes[60]};
     font-weight: 700;
     font-family: ${FONTS.family.frutigerBold};
-    color: ${COLORS.greyLite};
+    color: ${COLORS.greyLight};
     padding-left: 100px;
 
     ${Media.desktop`

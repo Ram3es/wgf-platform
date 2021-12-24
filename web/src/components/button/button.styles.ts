@@ -10,7 +10,7 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
   flex-direction: ${({ isIconRight }) => (isIconRight ? 'row-reverse' : 'row')};
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   padding: 7px 15px;
   min-width: ${({ isFullWidth, minWidth }) =>
     isFullWidth ? '100%' : minWidth ? `${minWidth}px` : '130px'};
@@ -81,6 +81,12 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
       }
     }
   }};
+
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      opacity: 0.6;
+    `}
 
   span {
     padding: 0 10px;

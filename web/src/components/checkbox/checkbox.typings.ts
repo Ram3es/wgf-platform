@@ -7,6 +7,7 @@ export interface ICheckboxProps {
   boxHeight?: number;
   boxWidth?: number;
   alignItems?: TFlexContent;
+  isMonoColor?: boolean;
 }
 
 export type ICheckboxStyles = Partial<ICheckboxProps>;

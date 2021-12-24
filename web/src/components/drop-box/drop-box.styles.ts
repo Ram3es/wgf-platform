@@ -16,7 +16,7 @@ const getColor = (props: IDropBoxStyles) => {
     return COLORS.red;
   }
   if (props.isDragActive) {
-    return COLORS.liteBlue;
+    return COLORS.lightBlue;
   }
   return COLORS.white;
 };
@@ -45,7 +45,7 @@ export const StyledDropBox = {
     strong {
       text-align: center;
       font-weight: 400;
-      color: ${COLORS.liteBlue};
+      color: ${COLORS.lightBlue};
       text-decoration: underline;
     }
   `,

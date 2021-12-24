@@ -1,160 +1,72 @@
-import axios from 'axios';
-import Papa from 'papaparse';
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { trackPromise } from 'react-promise-tracker';
-import { v4 as uuidv4 } from 'uuid';
+import { FC } from 'react';
 
 import { Button } from '@components/button';
 import { DropBox } from '@components/drop-box';
 import { Icon } from '@components/icon';
+import { Loader } from '@components/loader';
 import { COLORS } from '@styles/colors';
+import { InvitationTable } from './components/invitation-table';
+import { ResultInvitationTable } from './components/result-invitation-table';
 
-import { useAppSelector } from '@services/hooks/redux';
-import { getGroupsByTrainer } from '@services/trainer.service';
+import { useBulkInviteState } from './bulk-invite.state';
 
-import { errorMessage, fileError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
 import { ROLES } from '@constants/user-roles';
+import { SuperAdminCsvSample, TrainerCsvSample } from './bulk-invite.constants';
 
-import { BulkInviteStyled as Styled } from './bulk-invite.styles';
-
-interface IBulkInviteData {
-  name: string;
-  email: string;
-  id: string;
-  typeOfInvitation: TInvitationType;
-  group?: string;
-}
-
-const typeOfInvitationForSuperAdmin = ['user', 'trainer'];
-
-const keys = ['name', 'email'];
+import { BulkInviteStyled as Styled, InvitationTableCommonStyled } from './bulk-invite.styles';
 
 export const BulkInvite: FC = () => {
-  const [file, setFile] = useState<null | {
-    name: string;
-    csv: string | null;
-  }>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isFileUploading, setIsFileUploading] = useState<boolean>(false);
-  const [csvFileData, setCsvFileData] = useState<IBulkInviteData[] | null>(
-    null
-  );
-  const { user } = useAppSelector((state) => state);
+  const {
+    file,
+    inviteCsvData,
+    setInviteCsvData,
+    isFileUploading,
+    cancelUpload,
+    uploadFile,
+    onHandleFiles,
+    isLoading,
+    groups,
+    isShownResultInvite,
+    handleResultTableClose,
+    onSubmitInvite,
+    user,
+  } = useBulkInviteState();
 
-  const [groups, setGroups] = useState<IGroup[] | []>([]);
-
-  const getGroups = useCallback(async () => {
-    try {
-      const { data } = await trackPromise(
-        getGroupsByTrainer({ trainerId: user.id }),
-        PROMISES_AREA.getGroupsByTrainer
-      );
-
-      setGroups(data);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return errorMessage(error?.response?.data.message).fire();
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (user.role === ROLES.trainerAdmin) {
-      getGroups();
-    }
-  }, [getGroups, user.role]);
-
-  const onHandleFiles = (files: File[]) => {
-    try {
-      setIsLoading(true);
-      setCsvFileData(null);
-      const reader = new FileReader();
-      reader.readAsText(files[0]);
-
-      reader.onloadend = () => {
-        const csv = reader.result?.toString() || null;
-
-        setFile((prev) => ({ ...prev!, name: files[0].name, csv }));
-
-        setIsLoading(false);
-      };
-    } catch {
-      fileError.format.fire();
-      setIsLoading(false);
-    }
-  };
-
-  const cancelUpload = () => {
-    setIsFileUploading(false);
-    setFile(null);
-  };
-
-  const uploadFile = () => {
-    setIsFileUploading(true);
-
-    const results: Papa.ParseResult<IBulkInviteData> = Papa.parse(file!.csv!, {
-      header: true,
-      skipEmptyLines: 'greedy',
-      transformHeader: (header) =>
-        header === 'typeOfInvitation' ? header : header.toLowerCase(),
-    });
-
-    const data = results.data.filter((item) =>
-      keys.every(
-        (key) => item.hasOwnProperty(key) && item[key as keyof IBulkInviteData]
-      )
-    );
-
-    if (!data.length) {
-      setIsFileUploading(false);
-      setFile(null);
-      return fileError.data.fire();
-    }
-
-    const filteredUserList = data.map((item) => {
-      let trainerGroup;
-      let typeOfInvitation = 'student' as TInvitationType;
-
-      if (user.role === ROLES.trainerAdmin) {
-        trainerGroup =
-          groups.find((group) => group.name === item.group)?.name ||
-          'Unassigned';
-      }
-
-      if (user.role === 'superAdmin') {
-        typeOfInvitation = (typeOfInvitationForSuperAdmin.find(
-          (elem) => elem === item.typeOfInvitation?.toLowerCase()
-        ) || 'user') as TInvitationType;
-      }
-
-      return {
-        ...item,
-        id: uuidv4(),
-        typeOfInvitation,
-        group: trainerGroup,
-      };
-    });
-
-    setTimeout(() => {
-      setCsvFileData(filteredUserList);
-      setIsFileUploading(false);
-    }, 3000);
-  };
-
-  useEffect(() => {
-    console.log(csvFileData);
-  }, [csvFileData]);
-
-  if (csvFileData && file) {
+  if (isShownResultInvite) {
     return (
-      <Styled.Wrapper>
+      <Styled.TableWrapper>
+        <Styled.Title>{STRINGS.invitation.bulkInvite} RESULTS</Styled.Title>
+        <InvitationTableCommonStyled.TableShadow>
+          <ResultInvitationTable invitationList={inviteCsvData!} />
+          <Button
+            title="Return to Bulk Invite"
+            onClick={handleResultTableClose}
+            color={COLORS.lightBlue}
+            iconType="back"
+          />
+        </InvitationTableCommonStyled.TableShadow>
+      </Styled.TableWrapper>
+    );
+  }
+
+  if (inviteCsvData && file) {
+    return (
+      <Styled.TableWrapper>
         <Styled.Title>{STRINGS.invitation.bulkInvite}</Styled.Title>
-        <Styled.ContentWrapper>
-          <Styled.Content></Styled.Content>
-        </Styled.ContentWrapper>
-      </Styled.Wrapper>
+        <Loader area={PROMISES_AREA.bulkInvite}>
+          <InvitationTableCommonStyled.TableShadow>
+            <InvitationTable
+              invitationList={inviteCsvData!}
+              setInvitationList={setInviteCsvData}
+              groups={groups}
+              onSubmit={onSubmitInvite}
+              handleCloseTable={handleResultTableClose}
+            />
+          </InvitationTableCommonStyled.TableShadow>
+        </Loader>
+      </Styled.TableWrapper>
     );
   }
 
@@ -187,7 +99,7 @@ export const BulkInvite: FC = () => {
                 <Button
                   onClick={uploadFile}
                   title={STRINGS.button.uploadFile}
-                  color={COLORS.liteBlue}
+                  color={COLORS.lightBlue}
                   minWidth={165}
                 />
               </>
@@ -201,6 +113,18 @@ export const BulkInvite: FC = () => {
   return (
     <Styled.Wrapper>
       <Styled.Title>{STRINGS.invitation.bulkInvite}</Styled.Title>
+      <Styled.DownloadSample>
+        <a
+          href={
+            user.role === ROLES.superAdmin
+              ? SuperAdminCsvSample
+              : TrainerCsvSample
+          }
+          download
+        >
+          Download sample file
+        </a>
+      </Styled.DownloadSample>
       <Styled.ContentWrapper>
         <DropBox
           onHandleFile={onHandleFiles}

@@ -56,7 +56,7 @@ export const Wit: FC<IWitProps> = (props) => {
               </Styled.Visual>
               <Styled.Label>
                 <TitleStyles.h3
-                  color={question.color || COLORS.liteBlue}
+                  color={question.color || COLORS.lightBlue}
                   textAlign="left"
                 >
                   {question?.subcategory}
@@ -69,7 +69,7 @@ export const Wit: FC<IWitProps> = (props) => {
               minRange={1}
               maxRange={10}
               value={+question.answers[0]?.value || 5}
-              color={question.color || COLORS.liteBlue}
+              color={question.color || COLORS.lightBlue}
               variant="number"
             />
           </div>

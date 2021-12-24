@@ -7,7 +7,11 @@ import { COLORS } from '@styles/colors';
 
 import { STRINGS } from '@constants/strings';
 import { initialAccountData } from '../../profile.constants';
-import { AccountFormItems, AccountFormSchema, accountLabels } from './account-form.constants';
+import {
+  AccountFormItems,
+  AccountFormSchema,
+  accountLabels,
+} from './account-form.constants';
 
 import { IAccountFormProps } from './account-form.typings';
 
@@ -67,7 +71,7 @@ export const AccountForm: React.FC<IAccountFormProps> = ({
             })}
             <Styled.FormControl>
               <Button
-                color={COLORS.liteBlue}
+                color={COLORS.lightBlue}
                 title={STRINGS.button.save}
                 onClick={handleSubmit}
                 type="submit"

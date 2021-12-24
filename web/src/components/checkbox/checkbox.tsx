@@ -13,17 +13,20 @@ export const Checkbox: React.FC<ICheckboxProps> = ({
   boxHeight,
   boxWidth,
   alignItems,
+  isMonoColor,
 }) => (
   <Styled.Wrapper
     boxHeight={boxHeight}
     boxWidth={boxWidth}
     alignItems={alignItems}
+    isMonoColor={isMonoColor}
   >
     <Styled.RadioItem
       onClick={onChange}
       isChecked={isChecked}
       boxHeight={boxHeight}
       boxWidth={boxWidth}
+      isMonoColor={isMonoColor}
     >
       {isChecked && <Icon type="check" />}
     </Styled.RadioItem>

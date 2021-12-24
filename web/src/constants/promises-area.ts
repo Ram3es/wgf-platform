@@ -14,4 +14,5 @@ export const PROMISES_AREA = {
   inviteFromSuperAdmin: 'invite-from-super-admin',
   sendCanvasAnswers: 'send-canvas-answers',
   printCareerCanvasPdf: 'print-career-canvas-pdf',
+  bulkInvite: 'bulk-invite',
 };

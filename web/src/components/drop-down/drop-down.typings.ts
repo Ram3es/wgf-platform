@@ -10,4 +10,5 @@ export interface IDropDownProps extends IDropDownStylesProps {
   selected?: string;
   setSelected: (selected: string) => void;
   setIsActive: (value: boolean) => void;
+  handleUserActive?: (value: string) => void;
 }

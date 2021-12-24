@@ -28,7 +28,7 @@ export const FitResult = (props: IProps) => {
               {MBTIQuestions.map(({ value, color }, index) => (
                 <MBTIOption
                   key={index}
-                  color={color || COLORS.liteBlue}
+                  color={color || COLORS.lightBlue}
                   value={value}
                 />
               ))}
@@ -45,7 +45,7 @@ export const FitResult = (props: IProps) => {
                     title={title}
                     value={+value}
                     maxValue={6}
-                    color={color || COLORS.liteBlue}
+                    color={color || COLORS.lightBlue}
                     circleSize={16}
                   />
                 ))}

@@ -29,6 +29,8 @@ import { ReactComponent as selected } from '@assets/img/selected.svg';
 import { ReactComponent as shape } from '@assets/img/shape.svg';
 import { ReactComponent as submitPhoto } from '@assets/img/submit-photo.svg';
 import { ReactComponent as Trainer } from '@assets/img/trainer.svg';
+import { ReactComponent as bin } from '@assets/img/bin.svg';
+import { ReactComponent as bulkInvite } from '@assets/img/bulk-invite.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -61,6 +63,8 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   facebook,
   linkedin,
   microsoft,
+  bin,
+  bulkInvite,
 };
 
 export const Icon = (props: { type: string }) => {

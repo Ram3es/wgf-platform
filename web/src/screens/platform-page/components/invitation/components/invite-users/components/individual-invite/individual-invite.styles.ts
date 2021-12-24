@@ -25,7 +25,7 @@ export const IndividualInviteStyled = {
     `}
   `,
   Title: styled.h3`
-    color: ${COLORS.liteBlue};
+    color: ${COLORS.lightBlue};
     font-weight: 900;
     font-size: ${FONTS.sizes[14]};
     margin-bottom: 20px;

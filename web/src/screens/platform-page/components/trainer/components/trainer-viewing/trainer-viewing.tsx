@@ -13,11 +13,15 @@ import { useTrainerViewingState } from './trainer-viewing.state';
 import { IMAGES } from '@constants/images';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
-import { SELECT_TRAINER_OPTIONS, TRAINERS_INFO } from './trainer-viewing.constants';
+import {
+  SELECT_TRAINER_OPTIONS,
+  TRAINERS_INFO,
+} from './trainer-viewing.constants';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import {
-    DisconnectPopUpStyled as PopUpStyled, TrainerViewingStyled as Styled
+  DisconnectPopUpStyled as PopUpStyled,
+  TrainerViewingStyled as Styled,
 } from './trainer-viewing.styles';
 
 export const TrainerViewing: React.FC = () => {
@@ -112,7 +116,7 @@ export const TrainerViewing: React.FC = () => {
             <Button
               onClick={confirmDisconnectTrainer}
               title={STRINGS.button.confirm}
-              color={COLORS.liteBlue}
+              color={COLORS.lightBlue}
             />
             <Button
               onClick={closeDisconnectPopUp}

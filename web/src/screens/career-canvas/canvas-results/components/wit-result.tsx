@@ -30,7 +30,7 @@ export const WitResult = (props: IResultPageProps) => {
               key={title}
               title={title}
               value={+value}
-              color={color || COLORS.liteBlue}
+              color={color || COLORS.lightBlue}
             />
           ))}
         </Styled.RangesGrid>

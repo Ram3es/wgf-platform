@@ -149,7 +149,7 @@ export const IndividualInvite: React.FC = () => {
                   }
                 >
                   <Button
-                    color={COLORS.liteBlue}
+                    color={COLORS.lightBlue}
                     title={STRINGS.button.invite}
                     onClick={handleSubmit}
                     type="submit"

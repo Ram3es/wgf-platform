@@ -135,7 +135,7 @@ export const SignUp: React.FC = () => {
                       <Button
                         title={STRINGS.button.signUp}
                         onClick={handleSubmit}
-                        color={COLORS.liteBlue}
+                        color={COLORS.lightBlue}
                         type="submit"
                         isDisabled={!isValid}
                         minWidth={150}
@@ -144,7 +144,7 @@ export const SignUp: React.FC = () => {
                         title={STRINGS.button.returnSignIn}
                         onClick={redirectToSignIn}
                         variant="text"
-                        color={COLORS.liteBlue}
+                        color={COLORS.lightBlue}
                       />
                     </Styled.Footer>
                     <SocialAuth />

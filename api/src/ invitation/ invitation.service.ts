@@ -114,7 +114,7 @@ export class InvitationService {
     const admin = await this.userRepository.findOne(adminId);
 
     const isSend = await this.invitationRepository.findOne({
-      where: { to: email, from: admin.id },
+      where: { to: email, from: admin.id, type: 'user' },
     });
 
     if (
@@ -346,7 +346,7 @@ export class InvitationService {
     });
 
     const isSend = await this.invitationRepository.findOne({
-      where: { to: email, from: superAdminId },
+      where: { to: email, from: superAdminId, type: 'trainer' },
     });
 
     if (

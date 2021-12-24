@@ -18,18 +18,30 @@ export const DropDown: React.FC<IDropDownProps> = (props) => {
     isFullWidth,
     maxWidth,
     setIsActive,
+    handleUserActive,
   } = props;
 
-  const toggleActive = () => !isDisabled && setIsActive(false);
+  const closeActive = () => {
+    if (!isDisabled) {
+      if (handleUserActive) {
+        handleUserActive('');
+      }
+      setIsActive(false);
+    }
+  };
 
   const selectedChange = (selected: string) => () => {
     setSelected(selected);
-    toggleActive();
+    closeActive();
   };
 
   const escPress = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
-      setIsActive(false);
+      closeActive();
+
+      if (handleUserActive) {
+        handleUserActive('');
+      }
     }
   };
 
@@ -56,7 +68,7 @@ export const DropDown: React.FC<IDropDownProps> = (props) => {
           </DropDownStyled.Item>
         ))}
       </DropDownStyled.Content>
-      <DropDownStyled.BackDrop onClick={toggleActive} />
+      <DropDownStyled.BackDrop onClick={closeActive} />
     </DropDownStyled.Wrapper>
   );
 };

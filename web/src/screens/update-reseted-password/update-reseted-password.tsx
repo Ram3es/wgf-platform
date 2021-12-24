@@ -16,7 +16,8 @@ import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { Toast } from '@constants/toasts';
 import {
-    UpdatePasswordFormSchema, updatePasswordInitial
+  UpdatePasswordFormSchema,
+  updatePasswordInitial,
 } from './update-reseted-password.constants';
 
 import { FormStyles } from '@styles/components/form.styles';
@@ -145,7 +146,7 @@ export const UpdateResetedPassword: React.FC = () => {
                     <Button
                       title={STRINGS.button.updatePassword}
                       onClick={handleSubmit}
-                      color={COLORS.liteBlue}
+                      color={COLORS.lightBlue}
                       type="submit"
                       isDisabled={!isValid}
                     />
@@ -153,7 +154,7 @@ export const UpdateResetedPassword: React.FC = () => {
                       title={STRINGS.button.cancel}
                       onClick={redirectToSignIn}
                       variant="cancel"
-                      color={COLORS.liteBlue}
+                      color={COLORS.lightBlue}
                     />
                   </Styled.Footer>
                 </Styled.Wrapper>

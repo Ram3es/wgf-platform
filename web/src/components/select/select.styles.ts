@@ -56,7 +56,7 @@ export const selectCustomStyles = (
     backgroundColor: COLORS.white,
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: COLORS.greyLite,
+    borderColor: COLORS.greyLight,
     color: COLORS.grey,
 
     '@media (max-width: 600px)': {

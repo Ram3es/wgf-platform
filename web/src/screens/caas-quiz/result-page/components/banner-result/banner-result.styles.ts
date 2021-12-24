@@ -44,7 +44,7 @@ export const BannerStyles = {
     z-index: ${Z_INDEX.low};
     font-weight: 700;
     font-family: ${FONTS.family.frutigerBold};
-    color: ${COLORS.greyLite};
+    color: ${COLORS.greyLight};
     margin-bottom: 150px;
     font-size: ${FONTS.sizes[60]};
     padding-left: 100px;

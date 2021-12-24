@@ -7,7 +7,11 @@ import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
 import { STRINGS } from '@constants/strings';
-import { ProfileFormItems, ProfileFormSchema, profileLabels } from './profile-form.constants';
+import {
+  ProfileFormItems,
+  ProfileFormSchema,
+  profileLabels,
+} from './profile-form.constants';
 
 import { IProfileFormProps } from './profile-form.typings';
 
@@ -117,7 +121,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
                 {isProfileEdit && (
                   <Styled.FormControl>
                     <Button
-                      color={COLORS.liteBlue}
+                      color={COLORS.lightBlue}
                       title={STRINGS.button.save}
                       onClick={handleSubmit}
                       type="submit"

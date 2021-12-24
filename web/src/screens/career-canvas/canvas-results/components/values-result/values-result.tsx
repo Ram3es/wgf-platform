@@ -41,7 +41,7 @@ export const ValuesResult = (props: IProps) => {
                 key={title}
                 title={title}
                 value={+RANGE_HASH_MAPS[value]}
-                color={color || COLORS.liteBlue}
+                color={color || COLORS.lightBlue}
               />
             ))}
           </Styled.RangesContainer>

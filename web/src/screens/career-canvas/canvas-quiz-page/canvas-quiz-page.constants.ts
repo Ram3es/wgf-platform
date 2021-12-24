@@ -6,7 +6,7 @@ export const QUESTION_SECTIONS = {
   WIT: { title: 'WIT', color: COLORS.greenLite, categories: ['mySmarts'] },
   GRIT: {
     title: 'GRIT',
-    color: COLORS.liteBlue,
+    color: COLORS.lightBlue,
     categories: ['myPerfomanceCharacter'],
   },
   FIT: {
@@ -27,7 +27,7 @@ export const QUESTION_SECTIONS = {
   },
   'PRACTICALITY CHECK': {
     title: 'PRACTICALITY CHECK',
-    color: COLORS.violetLite,
+    color: COLORS.violetLight,
     categories: ['practicalityCheck'],
   },
 };

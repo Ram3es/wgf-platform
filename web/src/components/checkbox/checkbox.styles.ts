@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 
@@ -9,9 +9,18 @@ export const CheckboxStyles = {
     display: flex;
     align-items: ${({ alignItems }) => alignItems || 'flex-start'};
     margin-bottom: 20px;
+
     svg {
       width: ${({ boxWidth }) => (boxWidth ? `${boxWidth - 6}px` : '16px')};
       height: ${({ boxHeight }) => (boxHeight ? `${boxHeight - 8}px` : '14px')};
+
+      ${({ isMonoColor }) =>
+        isMonoColor &&
+        css`
+          path {
+            fill: ${COLORS.grey};
+          }
+        `}
     }
   `,
   RadioItem: styled.div<ICheckboxStyles>`
@@ -24,8 +33,14 @@ export const CheckboxStyles = {
     border-radius: 4px;
     margin-right: 10px;
     border: 1px solid
-      ${({ isChecked }) => (isChecked ? COLORS.greenLite : COLORS.default)};
-    ${({ isChecked }) => isChecked && `background-color: ${COLORS.greenLite};`}
+      ${({ isChecked, isMonoColor }) =>
+        isChecked && !isMonoColor
+          ? COLORS.greenLite
+          : isMonoColor
+          ? COLORS.grey
+          : COLORS.default};
+    background-color: ${({ isChecked, isMonoColor }) =>
+      isChecked && !isMonoColor ? COLORS.greenLite : COLORS.white};
   `,
 
   Label: styled.span`
