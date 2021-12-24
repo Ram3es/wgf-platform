@@ -201,7 +201,7 @@ export const InvitationTableCommonStyled = {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      top: -85px;
+      top: -53px;
 
       > div > :first-child {
         position: relative;
@@ -273,7 +273,7 @@ export const InvitationTableCommonStyled = {
     font-family: ${FONTS.family.frutigerNormal};
     font-size: ${FONTS.sizes[14]};
     padding: ${({ isEditable }) =>
-      isEditable ? '0 5px' : '10px 5px 10px 25px'};
+      isEditable ? '0 5px' : '22px 5px 22px 25px'};
     word-break: break-word;
     margin-left: 5px;
 

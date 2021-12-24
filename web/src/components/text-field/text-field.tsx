@@ -12,7 +12,7 @@ export const TextField: React.FC<ITextFieldProps> = (props) => {
     isSelect,
     label,
     value,
-    readOnly,
+    isReadOnly,
     error,
     isLabelTop,
     variant = 'input',
@@ -27,7 +27,7 @@ export const TextField: React.FC<ITextFieldProps> = (props) => {
     <Styled.Wrapper isSelect={isSelect}>
       <Styled.Label
         isValue={!!value}
-        isReadOnly={readOnly}
+        isReadOnly={isReadOnly}
         error={error}
         isLabelTop={isLabelTop}
         labelFontSize={labelFontSize}

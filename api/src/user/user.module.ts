@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvitationEntity } from 'src/ invitation/entities/ invitation.entity';
 import { AnswerEntity } from 'src/answer/entities/answer.entity';
 import { ResultEntity } from 'src/answer/entities/result.entity';
+import { GroupEntity } from 'src/group/entities/group.entity';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { GroupModule } from '../group/group.module';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
@@ -21,6 +22,7 @@ import { UserService } from './user.service';
       ResetPasswordEntity,
       ResultEntity,
       InvitationEntity,
+      GroupEntity,
     ]),
     JwtModule.register({}),
     PassportModule.register({}),

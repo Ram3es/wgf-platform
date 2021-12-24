@@ -7,11 +7,7 @@ import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
 import { STRINGS } from '@constants/strings';
-import {
-  ProfileFormItems,
-  ProfileFormSchema,
-  profileLabels,
-} from './profile-form.constants';
+import { ProfileFormItems, ProfileFormSchema, profileLabels } from './profile-form.constants';
 
 import { IProfileFormProps } from './profile-form.typings';
 
@@ -83,7 +79,9 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
                               ? errors[key]
                               : ''
                           }
-                          readOnly={item === 'created' ? true : !isProfileEdit}
+                          isReadOnly={
+                            item === 'created' ? true : !isProfileEdit
+                          }
                           withBorder
                           height="38px"
                           label={profileLabels[item]}
@@ -98,7 +96,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
                       type="text"
                       name="country"
                       value={profileData.country || ''}
-                      readOnly={!isProfileEdit}
+                      isReadOnly={!isProfileEdit}
                       withBorder
                       height="38px"
                       onClick={isProfileEdit ? openDropdown : undefined}

@@ -158,7 +158,7 @@ export const useBulkInviteState = () => {
           await inviteTrainer({
             to: usersData[i].email,
             type: 'trainer',
-            name: usersData[i].name,
+            name: usersData[i].name.trim(),
           });
         }
 
@@ -166,7 +166,7 @@ export const useBulkInviteState = () => {
           await inviteUser({
             to: usersData[i].email,
             type: 'user',
-            name: usersData[i].name,
+            name: usersData[i].name.trim(),
           });
         }
       } catch (error) {
@@ -201,7 +201,7 @@ export const useBulkInviteState = () => {
           to: usersData[i].email,
           type: 'student',
           groupId,
-          name: usersData[i].name,
+          name: usersData[i].name.trim(),
         });
       } catch (error) {
         if (axios.isAxiosError(error)) {

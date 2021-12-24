@@ -4,7 +4,6 @@ export interface ITextFieldStylesProps {
   height?: string;
   isFullWidth?: boolean;
   placeholder?: string;
-  readOnly?: boolean;
   withBorder?: boolean;
   isAutoCompleteOff?: boolean;
   isSelect?: boolean;

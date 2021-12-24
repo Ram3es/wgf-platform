@@ -11,6 +11,7 @@ import { InvitationEntity } from 'src/ invitation/entities/ invitation.entity';
 import { ERRORS } from 'src/constants/errors';
 import { EXPIRE_LINK_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
+import { GroupEntity } from 'src/group/entities/group.entity';
 import { sendMail } from 'src/shared/utils/email';
 import { resetPasswordMail } from 'src/shared/utils/messages';
 import { GroupService } from '../group/group.service';
@@ -31,6 +32,8 @@ export class UserService {
     private jwtService: JwtService,
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(GroupEntity)
+    private readonly groupRepository: Repository<GroupEntity>,
     @InjectRepository(InvitationEntity)
     private readonly invitationRepository: Repository<InvitationEntity>,
     @InjectRepository(ResetPasswordEntity)
@@ -183,6 +186,19 @@ export class UserService {
       ...user,
       role: ROLES.trainerAdmin,
     });
+
+    const group = await this.groupRepository.findOne({
+      where: {
+        name: UNASSIGNED_GROUP,
+        trainerId: user.id,
+      },
+    });
+
+    if (group) {
+      return {
+        message: 'Success',
+      };
+    }
 
     await this.groupService.createGroup({
       name: UNASSIGNED_GROUP,

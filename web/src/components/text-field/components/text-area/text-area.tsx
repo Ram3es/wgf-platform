@@ -13,6 +13,7 @@ export const TextArea: React.FC<ITextFieldProps> = (props) => {
     isLabelTop,
     value,
     maxLength = 500,
+    isReadOnly,
   } = props;
   return (
     <Styled.FormItem
@@ -25,6 +26,7 @@ export const TextArea: React.FC<ITextFieldProps> = (props) => {
         {...props}
         autoComplete={isAutoCompleteOff ? 'off' : 'on'}
         maxLength={maxLength}
+        readOnly={isReadOnly}
       />
       <Styled.ValueBlock>
         {value.toString().length}/{maxLength}

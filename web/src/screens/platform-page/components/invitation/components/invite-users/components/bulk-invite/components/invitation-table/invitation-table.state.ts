@@ -85,14 +85,35 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
   };
 
   const onEditUser = (id: string) => () => {
+    if (formikRef.current) {
+      return setInvitationList((prev) =>
+        prev!.map((user) =>
+          user.id === id
+            ? {
+                ...user,
+                isEditable: !formikRef.current?.isValid
+                  ? user.isEditable
+                  : !user.isEditable,
+              }
+            : {
+                ...user,
+                isEditable: !formikRef.current?.isValid
+                  ? user.isEditable
+                  : false,
+              }
+        )
+      );
+    }
+
     setInvitationList((prev) =>
       prev!.map((user) =>
         user.id === id
           ? {
               ...user,
-              isEditable: !formikRef.current?.isValid ? true : !user.isEditable,
+
+              isEditable: !user.isEditable,
             }
-          : { ...user, isEditable: false }
+          : user
       )
     );
   };
@@ -104,7 +125,13 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
     setInvitationList((prev) =>
       prev!.map((user) =>
         user.id === id
-          ? { ...user, [event.target.name]: event.target.value }
+          ? {
+              ...user,
+              [event.target.name]:
+                event.target.name === 'email'
+                  ? event.target.value.trim()
+                  : event.target.value,
+            }
           : user
       )
     );

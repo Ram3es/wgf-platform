@@ -30,6 +30,14 @@ export class GroupService {
       throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
     }
 
+    const group = this.groupRepository.findOne({
+      where: body,
+    });
+
+    if (group) {
+      return new HttpException(ERRORS.alreadyExist, HttpStatus.FORBIDDEN);
+    }
+
     return this.groupRepository.save(body);
   }
 
