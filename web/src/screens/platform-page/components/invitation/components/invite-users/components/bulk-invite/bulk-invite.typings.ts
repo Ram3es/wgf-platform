@@ -13,10 +13,13 @@ export interface IDataColumnPropsStyles {
   isBigBox?: boolean;
   isEditable?: boolean;
   isCapitalized?: boolean;
+  isErrorColumn?: boolean;
+  isError?: boolean;
 }
 
 export interface IDataRowPropsStyles {
   error?: string;
   isActive?: boolean;
   isSelected?: boolean;
+  isResultsTable?: boolean;
 }

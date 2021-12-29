@@ -173,7 +173,7 @@ export const InvitationTableCommonStyled = {
     min-width: 700px;
 
     ${Media.smallLandscape`
-      min-width: 570px;
+      min-width: 575px;
     `}
   `,
   DataWrapper: styled.div`
@@ -184,28 +184,26 @@ export const InvitationTableCommonStyled = {
       > div > :first-child {
         max-height: 120px;
         box-shadow: 0px 0px 0px 5px rgb(0 174 239 / 20%);
-        top: 0;
       }
     }
 
     > :first-child span + div {
       top: 10px;
+      transform: translateY(0);
 
-      > div > :first-child {
+      > div > div {
         top: 0;
         transform: translateY(0);
       }
     }
 
     > :last-child span + div {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      top: -53px;
+      top: -70px;
+      transform: translateY(0);
 
-      > div > :first-child {
-        position: relative;
-        transform: translateY(0);
+      > div > div {
+        top: 100%;
+        transform: translateY(-100%);
       }
     }
   `,
@@ -257,8 +255,20 @@ export const InvitationTableCommonStyled = {
       margin-left: 0;
     }
 
-    ${({ error }) =>
+    ${({ error, isResultsTable }) =>
       error &&
+      !isResultsTable &&
+      css`
+        padding-bottom: 10px;
+
+        ${Media.smallLandscape`
+          padding-bottom: 15px;
+        `}
+      `}
+
+    ${({ error, isResultsTable }) =>
+      error &&
+      isResultsTable &&
       css`
         color: ${COLORS.red};
       `}
@@ -272,8 +282,7 @@ export const InvitationTableCommonStyled = {
     min-width: 160px;
     font-family: ${FONTS.family.frutigerNormal};
     font-size: ${FONTS.sizes[14]};
-    padding: ${({ isEditable }) =>
-      isEditable ? '0 5px' : '22px 5px 22px 25px'};
+    padding: 22px 5px 22px 25px;
     word-break: break-word;
     margin-left: 5px;
 
@@ -298,9 +307,7 @@ export const InvitationTableCommonStyled = {
     ${({ isEditable }) =>
       isEditable
         ? css`
-            ${Media.smallLandscape(css`
-              padding: 0px;
-            `)}
+            padding: 0;
           `
         : css`
             ${Media.smallLandscape(css`
@@ -308,12 +315,18 @@ export const InvitationTableCommonStyled = {
             `)}
           `}
 
-    * {
-      margin: 0;
-    }
+    ${({ isErrorColumn, isError }) =>
+      isErrorColumn &&
+      isError &&
+      css`
+        & {
+          font-size: ${FONTS.sizes[12]};
 
-    input {
-      font-size: inherit;
-    }
+          ${Media.smallLandscape(css`
+            font-size: ${FONTS.sizes[10]};
+            min-width: 140px;
+          `)}
+        }
+      `}
   `,
 };

@@ -1,3 +1,4 @@
+import { FormikProps } from 'formik';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -40,6 +41,11 @@ interface ISelectColumnProps {
   group: string;
   id: string;
   handleUserActive: (id: string) => void;
+  formikRef: React.RefObject<
+    FormikProps<{
+      users: IBulkInviteData[];
+    }>
+  >;
 }
 
 export const SelectColumn = (props: ISelectColumnProps) => {
@@ -50,6 +56,7 @@ export const SelectColumn = (props: ISelectColumnProps) => {
     typeOfInvitation,
     id,
     handleUserActive,
+    formikRef,
   } = props;
   const { user } = useAppSelector((state) => state);
   const [isActiveDropdown, setIsActiveDropdown] = useState(false);
@@ -57,8 +64,11 @@ export const SelectColumn = (props: ISelectColumnProps) => {
   const groupsOptions = existingTrainerGroups.map((group) => group.name);
 
   const openDropdown = () => {
+    setTimeout(() => {
+      handleUserActive(id);
+    }, 0);
+
     setIsActiveDropdown(true);
-    handleUserActive(id);
   };
 
   const changeGroupUser = (id: string) => (groupName: string) => {
@@ -67,6 +77,12 @@ export const SelectColumn = (props: ISelectColumnProps) => {
         user.id === id ? { ...user, group: groupName } : user
       )
     );
+
+    formikRef.current?.values.users.forEach((item, index) => {
+      if (item.id === id) {
+        formikRef.current?.setFieldValue(`users.${index}.group`, groupName);
+      }
+    });
   };
 
   const changeTypeOfInvitation = (id: string) => (type: string) => {
@@ -77,6 +93,15 @@ export const SelectColumn = (props: ISelectColumnProps) => {
           : user
       )
     );
+
+    formikRef.current?.values.users.forEach((item, index) => {
+      if (item.id === id) {
+        formikRef.current?.setFieldValue(
+          `users.${index}.typeOfInvitation`,
+          type
+        );
+      }
+    });
   };
 
   return user.role === ROLES.trainerAdmin ? (

@@ -1,10 +1,10 @@
-import { Formik } from 'formik';
+import { FieldArray, Formik, FormikErrors, FormikTouched } from 'formik';
 import { ChangeEvent, useEffect } from 'react';
 
 import { Button } from '@components/button';
 import { Checkbox } from '@components/checkbox';
 import { Icon } from '@components/icon';
-import { Input } from '@components/text-field/components/input';
+import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 import { SelectColumn } from './components/select-column';
 
@@ -13,6 +13,7 @@ import { useInvitationTableState } from './invitation-table.state';
 import { ROLES } from '@constants/user-roles';
 import { InvitationTableFormSchema } from './invitation-table.constants';
 
+import { IBulkInviteData } from '../../bulk-invite.typings';
 import { IInvitationTableProps } from './invitation.typings';
 
 import { InvitationTableCommonStyled as CommonStyled } from '../../bulk-invite.styles';
@@ -27,7 +28,6 @@ export const InvitationTable = (props: IInvitationTableProps) => {
     onSelectUser,
     onEditUser,
     onDeleteUser,
-    handleUserChange,
     selectedUsersCount,
     formikRef,
     setIsDisabled,
@@ -39,6 +39,7 @@ export const InvitationTable = (props: IInvitationTableProps) => {
     isActiveUser,
     handleUserActive,
     handleCloseTable,
+    handleUserChange,
   } = useInvitationTableState(props);
 
   return (
@@ -71,128 +72,163 @@ export const InvitationTable = (props: IInvitationTableProps) => {
             </CommonStyled.HeaderColumn>
           </CommonStyled.HeaderRow>
           <CommonStyled.DataWrapper>
-            {invitationList.map(
-              ({
-                id,
-                name,
-                email,
-                group,
-                typeOfInvitation,
-                isSelected,
-                isEditable,
-              }) => (
-                <CommonStyled.DataRow
-                  key={id}
-                  isActive={isActiveUser === id}
-                  isSelected={isSelected}
-                >
-                  <Styled.ControlColumn>
-                    <Checkbox
-                      isMonoColor
-                      label=""
-                      onChange={onSelectUser(id)}
-                      isChecked={isSelected}
-                      boxWidth={16}
-                      boxHeight={16}
-                      alignItems="center"
-                    />
-                  </Styled.ControlColumn>
-                  <Styled.ControlColumn>
-                    <Styled.ControlWrapper onClick={onEditUser(id)}>
-                      <Icon type="edit" />
-                    </Styled.ControlWrapper>
-                  </Styled.ControlColumn>
-                  <Styled.ControlColumn>
-                    <Styled.ControlWrapper onClick={onDeleteUser(id)}>
-                      <Icon type="bin" />
-                    </Styled.ControlWrapper>
-                  </Styled.ControlColumn>
-                  {isEditable ? (
-                    <Formik
-                      initialValues={{ name, email }}
-                      validateOnChange
-                      onSubmit={onSubmit}
-                      validationSchema={InvitationTableFormSchema}
-                      innerRef={formikRef}
-                      validateOnBlur
-                    >
-                      {({
-                        errors,
-                        touched,
-                        handleBlur,
-                        handleChange,
-                        isValid,
-                      }) => {
-                        useEffect(() => {
-                          setIsDisabled(!isValid);
-                        }, [isValid]);
+            <Formik
+              initialValues={{ users: invitationList }}
+              validateOnChange
+              onSubmit={onSubmit}
+              validationSchema={InvitationTableFormSchema}
+              innerRef={formikRef}
+              validateOnBlur
+            >
+              {({
+                errors,
+                touched,
+                handleBlur,
+                handleChange,
+                isValid,
+                values,
+              }) => {
+                useEffect(() => {
+                  setIsDisabled(!isValid);
+                }, [isValid]);
 
-                        const handleUserDataChange =
-                          (id: string) =>
-                          (event: ChangeEvent<HTMLInputElement>) => {
+                return (
+                  <FieldArray
+                    name="users"
+                    render={(arrayHeplers) => {
+                      return values.users.map(
+                        (
+                          {
+                            id,
+                            name,
+                            email,
+                            group,
+                            typeOfInvitation,
+                            isSelected,
+                            isEditable,
+                          },
+                          index
+                        ) => {
+                          const handleDeleteUser = () => {
+                            onDeleteUser(id);
+                            arrayHeplers.remove(index);
+                          };
+
+                          const onChange = (
+                            event: ChangeEvent<HTMLInputElement>
+                          ) => {
                             handleChange(event);
                             handleUserChange(id, event);
                           };
-                        return (
-                          <>
-                            <CommonStyled.DataColumn isEditable={isEditable}>
-                              <Input
-                                type="text"
-                                value={name}
-                                onChange={handleUserDataChange(id)}
-                                name="name"
-                                withBorder
-                                height="32px"
-                                error={
-                                  touched.name && errors.name ? errors.name : ''
-                                }
-                                onBlur={handleBlur}
-                              />
-                            </CommonStyled.DataColumn>
-                            <CommonStyled.DataColumn
-                              isBigBox
-                              isEditable={isEditable}
+                          const errorType = errors.users
+                            ? (errors.users[
+                                index
+                              ] as FormikErrors<IBulkInviteData>)
+                            : { name: '', email: '' };
+
+                          const touchedType = touched.users
+                            ? (touched.users[
+                                index
+                              ] as FormikTouched<IBulkInviteData>)
+                            : { name: '', email: '' };
+
+                          const emailError =
+                            touchedType?.email && errorType?.email
+                              ? errorType?.email
+                              : '';
+
+                          const nameError =
+                            touchedType?.name && errorType?.name
+                              ? errorType?.name
+                              : '';
+
+                          return (
+                            <CommonStyled.DataRow
+                              isActive={isActiveUser === id}
+                              isSelected={isSelected}
+                              error={nameError || emailError}
+                              key={id}
                             >
-                              <Input
-                                type="text"
-                                value={email}
-                                onChange={handleUserDataChange(id)}
-                                name="email"
-                                withBorder
-                                height="32px"
-                                error={
-                                  touched.email && errors.email
-                                    ? errors.email
-                                    : ''
-                                }
-                                onBlur={handleBlur}
+                              <Styled.ControlColumn>
+                                <Checkbox
+                                  isMonoColor
+                                  label=""
+                                  onChange={onSelectUser(id)}
+                                  isChecked={isSelected}
+                                  boxWidth={16}
+                                  boxHeight={16}
+                                  alignItems="center"
+                                />
+                              </Styled.ControlColumn>
+                              <Styled.ControlColumn>
+                                <Styled.ControlWrapper onClick={onEditUser(id)}>
+                                  <Icon type="edit" />
+                                </Styled.ControlWrapper>
+                              </Styled.ControlColumn>
+                              <Styled.ControlColumn>
+                                <Styled.ControlWrapper
+                                  onClick={handleDeleteUser}
+                                >
+                                  <Icon type="bin" />
+                                </Styled.ControlWrapper>
+                              </Styled.ControlColumn>
+                              <CommonStyled.DataColumn
+                                isEditable
+                                onDoubleClick={onEditUser(id)}
+                              >
+                                <Styled.InputWrapper>
+                                  <TextField
+                                    type="text"
+                                    value={name}
+                                    onChange={onChange}
+                                    name={`users.${index}.name`}
+                                    withBorder
+                                    height="32px"
+                                    error={nameError}
+                                    onBlur={handleBlur}
+                                    data-name="name"
+                                    isTableReadOnly={!isEditable}
+                                  />
+                                </Styled.InputWrapper>
+                              </CommonStyled.DataColumn>
+                              <CommonStyled.DataColumn
+                                isBigBox
+                                isEditable
+                                onDoubleClick={onEditUser(id)}
+                              >
+                                <Styled.InputWrapper>
+                                  <TextField
+                                    type="text"
+                                    value={email}
+                                    onChange={onChange}
+                                    name={`users.${index}.email`}
+                                    withBorder
+                                    height="32px"
+                                    error={emailError}
+                                    onBlur={handleBlur}
+                                    data-name="email"
+                                    isTableReadOnly={!isEditable}
+                                  />
+                                </Styled.InputWrapper>
+                              </CommonStyled.DataColumn>
+                              <SelectColumn
+                                existingTrainerGroups={groups}
+                                group={group || ''}
+                                setInvitationList={setInvitationList}
+                                typeOfInvitation={typeOfInvitation}
+                                id={id}
+                                handleUserActive={handleUserActive}
+                                formikRef={formikRef}
                               />
-                            </CommonStyled.DataColumn>
-                          </>
-                        );
-                      }}
-                    </Formik>
-                  ) : (
-                    <>
-                      <CommonStyled.DataColumn isEditable={isEditable}>
-                        {name}
-                      </CommonStyled.DataColumn>
-                      <CommonStyled.DataColumn isBigBox isEditable={isEditable}>
-                        {email}
-                      </CommonStyled.DataColumn>
-                    </>
-                  )}
-                  <SelectColumn
-                    existingTrainerGroups={groups}
-                    group={group || ''}
-                    setInvitationList={setInvitationList}
-                    typeOfInvitation={typeOfInvitation}
-                    id={id}
-                    handleUserActive={handleUserActive}
+                            </CommonStyled.DataRow>
+                          );
+                        }
+                      );
+                    }}
                   />
-                </CommonStyled.DataRow>
-              )
-            )}
+                );
+              }}
+            </Formik>
           </CommonStyled.DataWrapper>
         </CommonStyled.Table>
       </CommonStyled.TableWrapper>

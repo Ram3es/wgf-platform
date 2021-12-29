@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import { useAppSelector } from '@services/hooks/redux';
 
+import { IBulkInviteData } from '../../bulk-invite.typings';
 import { IInvitationTableProps } from './invitation.typings';
 
 export const useInvitationTableState = (props: IInvitationTableProps) => {
@@ -16,40 +17,24 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
   const { user } = useAppSelector((state) => state);
   const [isSelectedAll, setSelectedAll] = useState(false);
 
-  const formikRef = useRef<FormikProps<{ name: string; email: string }>>(null);
+  const formikRef = useRef<FormikProps<{ users: IBulkInviteData[] }>>(null);
 
   const [isDisabled, setIsDisabled] = useState(false);
-
-  const isEditUser = invitationList.some((user) => user.isEditable);
 
   const tableRef = useRef<HTMLDivElement>(null);
 
   const [isActiveUser, setIsActiveUser] = useState<string>('');
 
-  const handleUserActive = (id: string) => setIsActiveUser(id);
+  const handleUserActive = (id: string) => {
+    setIsActiveUser(id);
+  };
 
   const onBackdropClick = (event: MouseEvent): void => {
-    if (isEditUser) {
+    if (formikRef.current?.values.users.some((user) => user.isEditable)) {
       if (!tableRef.current?.contains(event.target as HTMLDivElement)) {
         cancelEdit();
       }
     }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', onBackdropClick);
-    return () => {
-      document.removeEventListener('click', onBackdropClick);
-    };
-  }, [isEditUser]);
-
-  const cancelEdit = () => {
-    if (!formikRef.current?.isValid) {
-      return;
-    }
-    setInvitationList((prev) =>
-      prev!.map((user) => ({ ...user, isEditable: false }))
-    );
   };
 
   const onPressEnter = (event: KeyboardEvent) => {
@@ -65,7 +50,39 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    document.addEventListener('click', onBackdropClick);
+    return () => {
+      document.removeEventListener('click', onBackdropClick);
+    };
+  }, []);
+
+  const cancelEdit = () => {
+    if (!formikRef.current?.isValid) {
+      return;
+    }
+
+    formikRef.current?.values.users.forEach((item, index) => {
+      if (item.isEditable) {
+        formikRef.current?.setFieldValue(`users.${index}.isEditable`, false);
+      }
+    });
+
+    setInvitationList((prev) =>
+      prev!.map((user) => ({ ...user, isEditable: false }))
+    );
+  };
+
   const onSelectUser = (id: string) => () => {
+    formikRef.current?.values.users.forEach((item, index) => {
+      if (item.id === id) {
+        formikRef.current?.setFieldValue(
+          `users.${index}.isSelected`,
+          !item.isSelected
+        );
+      }
+    });
+
     setInvitationList((prev) =>
       prev!.map((user) =>
         user.id === id ? { ...user, isSelected: !user.isSelected } : user
@@ -75,48 +92,53 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
 
   const onSelectAll = () => {
     setSelectedAll((prev) => !prev);
+    formikRef.current?.values.users.forEach((item, index) => {
+      formikRef.current?.setFieldValue(
+        `users.${index}.isSelected`,
+        !isSelectedAll
+      );
+    });
     setInvitationList((prev) =>
       prev!.map((user) => ({ ...user, isSelected: !isSelectedAll }))
     );
   };
 
-  const onDeleteUser = (id: string) => () => {
+  const onDeleteUser = (id: string) => {
     setInvitationList((prev) => prev!.filter((user) => user.id !== id));
   };
 
   const onEditUser = (id: string) => () => {
-    if (formikRef.current) {
-      return setInvitationList((prev) =>
+    formikRef.current?.values.users.forEach((item, index) => {
+      if (item.isEditable) {
+        formikRef.current?.setFieldValue(
+          `users.${index}.isEditable`,
+          !formikRef.current?.isValid ? item.isEditable : false
+        );
+      }
+
+      if (item.id === id) {
+        formikRef.current?.setFieldValue(
+          `users.${index}.isEditable`,
+          !formikRef.current?.isValid ? item.isEditable : !item.isEditable
+        );
+      }
+
+      setInvitationList((prev) =>
         prev!.map((user) =>
           user.id === id
             ? {
                 ...user,
-                isEditable: !formikRef.current?.isValid
-                  ? user.isEditable
-                  : !user.isEditable,
+                isEditable: !user.isEditable,
               }
-            : {
-                ...user,
-                isEditable: !formikRef.current?.isValid
-                  ? user.isEditable
-                  : false,
-              }
+            : user
         )
       );
-    }
-
-    setInvitationList((prev) =>
-      prev!.map((user) =>
-        user.id === id
-          ? {
-              ...user,
-
-              isEditable: !user.isEditable,
-            }
-          : user
-      )
-    );
+    });
   };
+
+  const selectedUsersCount = invitationList.filter(
+    (user) => user.isSelected
+  ).length;
 
   const handleUserChange = (
     id: string,
@@ -127,19 +149,12 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
         user.id === id
           ? {
               ...user,
-              [event.target.name]:
-                event.target.name === 'email'
-                  ? event.target.value.trim()
-                  : event.target.value,
+              [event.target.dataset.name || '']: event.target.value,
             }
           : user
       )
     );
   };
-
-  const selectedUsersCount = invitationList.filter(
-    (user) => user.isSelected
-  ).length;
 
   return {
     onSelectAll,
@@ -149,7 +164,6 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
     onSelectUser,
     onEditUser,
     onDeleteUser,
-    handleUserChange,
     selectedUsersCount,
     formikRef,
     setIsDisabled,
@@ -161,5 +175,6 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
     isActiveUser,
     handleUserActive,
     handleCloseTable,
+    handleUserChange,
   };
 };

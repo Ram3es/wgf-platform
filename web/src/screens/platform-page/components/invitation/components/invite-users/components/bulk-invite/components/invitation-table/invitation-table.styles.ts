@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
+import { Z_INDEX } from '@styles/z-indexes';
 
 export const InvitationTableStyled = {
   CheckboxWrapper: styled.div`
@@ -54,9 +55,11 @@ export const InvitationTableStyled = {
   SelectWrapper: styled.div`
     position: absolute;
     right: 0;
-    top: 50%;
     width: 100%;
     height: 120px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: ${Z_INDEX.medium};
   `,
 
   ControlPanel: styled.div`
@@ -75,5 +78,17 @@ export const InvitationTableStyled = {
         margin-bottom: 20px;
       }
     `}
+  `,
+
+  InputWrapper: styled.div`
+    width: 100%;
+
+    * {
+      margin: 0;
+    }
+
+    input {
+      font-size: inherit;
+    }
   `,
 };

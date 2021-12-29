@@ -30,8 +30,8 @@ export const ResultInvitationTable = (props: {
           <CommonStyled.DataWrapper>
             {props.invitationList.map(
               ({ id, name, email, typeOfInvitation, error, group }) => (
-                <CommonStyled.DataRow key={id} error={error}>
-                  <CommonStyled.DataColumn>
+                <CommonStyled.DataRow key={id} error={error} isResultsTable>
+                  <CommonStyled.DataColumn isErrorColumn isError={!!error}>
                     {error || 'Sent'}
                   </CommonStyled.DataColumn>
                   <CommonStyled.DataColumn>{name}</CommonStyled.DataColumn>

@@ -149,7 +149,13 @@ export const useBulkInviteState = () => {
       return;
     }
 
-    const usersData = inviteCsvData.filter((user) => user.isSelected);
+    const usersData = inviteCsvData
+      .filter((user) => user.isSelected)
+      .map((user) => ({
+        ...user,
+        email: user.email.trim(),
+        name: user.name.trim(),
+      }));
     setInviteCsvData(usersData);
 
     for (let i = 0; i < usersData?.length; i++) {
@@ -158,7 +164,7 @@ export const useBulkInviteState = () => {
           await inviteTrainer({
             to: usersData[i].email,
             type: 'trainer',
-            name: usersData[i].name.trim(),
+            name: usersData[i].name,
           });
         }
 
@@ -166,7 +172,7 @@ export const useBulkInviteState = () => {
           await inviteUser({
             to: usersData[i].email,
             type: 'user',
-            name: usersData[i].name.trim(),
+            name: usersData[i].name,
           });
         }
       } catch (error) {
@@ -189,7 +195,13 @@ export const useBulkInviteState = () => {
       return;
     }
 
-    const usersData = inviteCsvData.filter((user) => user.isSelected);
+    const usersData = inviteCsvData
+      .filter((user) => user.isSelected)
+      .map((user) => ({
+        ...user,
+        email: user.email.trim(),
+        name: user.name.trim(),
+      }));
 
     setInviteCsvData(usersData);
 
@@ -201,7 +213,7 @@ export const useBulkInviteState = () => {
           to: usersData[i].email,
           type: 'student',
           groupId,
-          name: usersData[i].name.trim(),
+          name: usersData[i].name,
         });
       } catch (error) {
         if (axios.isAxiosError(error)) {

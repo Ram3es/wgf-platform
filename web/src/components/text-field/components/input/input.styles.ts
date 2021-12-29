@@ -61,6 +61,15 @@ export const InputStyled = {
       type === 'password' ? '13px 13px 13px 37px' : '13px 28px 13px 13px'};
     cursor: ${({ isSelect }) => (isSelect ? 'pointer' : 'text')};
 
+    :-webkit-autofill,
+    :-webkit-autofill:hover,
+    :-webkit-autofill:focus,
+    :-webkit-autofill:active,
+    :-webkit-autofill {
+      box-shadow: 0 0 0 30px ${COLORS.white} inset !important;
+      border-color: ${({ isTableReadOnly }) => isTableReadOnly && COLORS.white};
+    }
+
     ${({ error }) =>
       error &&
       css`
@@ -68,8 +77,8 @@ export const InputStyled = {
         color: ${COLORS.red};
       `}
 
-    ${({ readOnly, isSelect }) =>
-      readOnly &&
+    ${({ isReadOnly, isSelect }) =>
+      isReadOnly &&
       !isSelect &&
       css`
         border: 1px solid ${COLORS.grey};
@@ -85,9 +94,10 @@ export const InputStyled = {
     :focus-visible {
       outline: none;
 
-      ${({ readOnly, error, isSelect }) =>
-        readOnly &&
+      ${({ isReadOnly, error, isSelect, isTableReadOnly }) =>
+        !isReadOnly &&
         !isSelect &&
+        !isTableReadOnly &&
         css`
           box-shadow: 0px 6px 17px rgba(0, 0, 0, 0.2);
           ${error &&
@@ -102,6 +112,19 @@ export const InputStyled = {
       font-weight: 400;
       font-family: ${FONTS.family.frutigerNormal};
     }
+
+    ${({ isTableReadOnly, error }) =>
+      isTableReadOnly &&
+      !error &&
+      css`
+        outline: none;
+        border-color: transparent;
+        color: ${COLORS.default};
+        box-shadow: none;
+        font-family: ${FONTS.family.frutigerNormal};
+        font-weight: 400;
+        background-color: transparent;
+      `}
   `,
 
   ErrorBlock: styled.div`

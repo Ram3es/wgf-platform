@@ -27,7 +27,7 @@ export const ProfileFormSchema = yup.object().shape({
     .string()
     .max(50)
     .trim()
-    .email('This field should be a email')
+    .email('This field should be an email')
     .required('This field cannot be empty'),
   organisation: yup.string().nullable().max(50).trim(),
   occupation: yup.string().nullable().max(50).trim(),

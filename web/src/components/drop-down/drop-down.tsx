@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { Icon } from '@components/icon';
 
@@ -21,12 +21,27 @@ export const DropDown: React.FC<IDropDownProps> = (props) => {
     handleUserActive,
   } = props;
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const onBackdropClick = (event: MouseEvent): void => {
+    if (!dropdownRef.current?.contains(event.target as HTMLDivElement)) {
+      closeActive();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', onBackdropClick);
+    return () => {
+      document.removeEventListener('click', onBackdropClick);
+    };
+  }, []);
+
   const closeActive = () => {
     if (!isDisabled) {
+      setIsActive(false);
       if (handleUserActive) {
         handleUserActive('');
       }
-      setIsActive(false);
     }
   };
 
@@ -53,7 +68,11 @@ export const DropDown: React.FC<IDropDownProps> = (props) => {
   }, []);
 
   return (
-    <DropDownStyled.Wrapper isFullWidth={isFullWidth} maxWidth={maxWidth}>
+    <DropDownStyled.Wrapper
+      isFullWidth={isFullWidth}
+      maxWidth={maxWidth}
+      ref={dropdownRef}
+    >
       <DropDownStyled.Content maxHeight={maxHeight}>
         {options.map((selectedItem) => (
           <DropDownStyled.Item
@@ -68,7 +87,6 @@ export const DropDown: React.FC<IDropDownProps> = (props) => {
           </DropDownStyled.Item>
         ))}
       </DropDownStyled.Content>
-      <DropDownStyled.BackDrop onClick={closeActive} />
     </DropDownStyled.Wrapper>
   );
 };

@@ -68,7 +68,7 @@ export class InvitationService {
         EXPIRE_INVITE_TIME &&
       isSend.status === INVITATION_STATUS.pending
     ) {
-      throw new HttpException(ERRORS.trainer.alreadySent, HttpStatus.FORBIDDEN);
+      throw new HttpException(ERRORS.alreadySentInvite, HttpStatus.FORBIDDEN);
     }
 
     if (isSend) {
@@ -123,7 +123,7 @@ export class InvitationService {
         EXPIRE_INVITE_TIME &&
       isSend.status === INVITATION_STATUS.pending
     ) {
-      throw new HttpException(ERRORS.student.alreadySent, HttpStatus.FORBIDDEN);
+      throw new HttpException(ERRORS.alreadySentInvite, HttpStatus.FORBIDDEN);
     }
 
     if (isSend) {
@@ -182,7 +182,7 @@ export class InvitationService {
         EXPIRE_INVITE_TIME &&
       isSend.status === INVITATION_STATUS.pending
     ) {
-      throw new HttpException(ERRORS.student.alreadySent, HttpStatus.FORBIDDEN);
+      throw new HttpException(ERRORS.alreadySentInvite, HttpStatus.FORBIDDEN);
     }
 
     if (isSend) {
@@ -355,7 +355,7 @@ export class InvitationService {
         EXPIRE_INVITE_TIME &&
       isSend.status === INVITATION_STATUS.pending
     ) {
-      throw new HttpException(ERRORS.student.alreadySent, HttpStatus.FORBIDDEN);
+      throw new HttpException(ERRORS.alreadySentInvite, HttpStatus.FORBIDDEN);
     }
 
     if (isSend) {

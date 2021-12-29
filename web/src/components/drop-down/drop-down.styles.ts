@@ -7,7 +7,6 @@ export const DropDownStyled = {
   Wrapper: styled.div<{ isFullWidth?: boolean; maxWidth?: string }>`
     width: ${({ isFullWidth, maxWidth }) =>
       isFullWidth ? '100%' : maxWidth || '400px'};
-    position: relative;
     min-width: 140px;
   `,
   Content: styled.div<{ maxHeight?: string }>`
@@ -66,13 +65,5 @@ export const DropDownStyled = {
         transition: 0.3s;
       }
     }
-  `,
-  BackDrop: styled.div`
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: ${Z_INDEX.low};
   `,
 };

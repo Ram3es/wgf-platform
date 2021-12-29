@@ -16,14 +16,14 @@ export const ERRORS = {
   },
   student: {
     trainerNotExist: 'Sorry pls check the email as this user doesn’t exist.',
-    alreadySent: 'You have already sent a request to this trainer today.',
     alreadyExist: 'This trainer has already been added to you.',
   },
   trainer: {
     studentNotExist: 'Sorry pls check the email as this student doesn’t exist.',
-    alreadySent: 'You have already sent a request to this student today.',
     alreadyExist: 'This student has already been added to you.',
   },
   bulkInvite: 'Bulk Invite Error',
   pdf: 'Error download, try again',
+  alreadySentInvite:
+    "You've already sent a request to this user within 24 hours.",
 };
