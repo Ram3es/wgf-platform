@@ -78,10 +78,9 @@ export class InvitationService {
     const group = await this.groupRepository.findOne(body.groupId);
 
     const invitation = await this.invitationRepository.save({
-      name: body.name,
+      ...body,
       from: trainerId,
-      to: body.to,
-      type: body.type,
+      to: email,
       group,
     });
 
@@ -131,10 +130,9 @@ export class InvitationService {
     }
 
     const invitation = await this.invitationRepository.save({
-      name: body.name,
+      ...body,
       from: adminId,
-      to: body.to,
-      type: body.type,
+      to: email,
     });
 
     const adminName = `${admin.firstName} ${admin.lastName}`;
@@ -193,6 +191,7 @@ export class InvitationService {
 
     const invitation = await this.invitationRepository.save({
       ...body,
+      to: email,
       from: userId,
     });
 
@@ -366,7 +365,7 @@ export class InvitationService {
       name: body.name,
       from: superAdminId,
       type: body.type,
-      to: body.to,
+      to: email,
     });
 
     const superAdmin = await this.userRepository.findOne(superAdminId);

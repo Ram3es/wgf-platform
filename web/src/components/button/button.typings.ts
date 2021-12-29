@@ -13,7 +13,7 @@ export interface IButtonStylesProps {
 
 export interface IButtonProps extends IButtonStylesProps {
   title: string;
-  onClick(): void;
+  onClick?(): void;
   type?: TButtonTypes;
 }
 

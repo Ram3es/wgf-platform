@@ -179,21 +179,12 @@ export const InvitationTableCommonStyled = {
   DataWrapper: styled.div`
     overflow-y: auto;
     max-height: 500px;
+    min-height: 140px;
 
     span + div {
       > div > :first-child {
         max-height: 120px;
         box-shadow: 0px 0px 0px 5px rgb(0 174 239 / 20%);
-      }
-    }
-
-    > :first-child span + div {
-      top: 10px;
-      transform: translateY(0);
-
-      > div > div {
-        top: 0;
-        transform: translateY(0);
       }
     }
 
@@ -204,6 +195,16 @@ export const InvitationTableCommonStyled = {
       > div > div {
         top: 100%;
         transform: translateY(-100%);
+      }
+    }
+
+    > :first-child span + div {
+      top: 10px;
+      transform: translateY(0);
+
+      > div > div {
+        top: 0;
+        transform: translateY(0);
       }
     }
   `,

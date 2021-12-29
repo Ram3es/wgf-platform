@@ -244,7 +244,11 @@ export const InvitationTable = (props: IInvitationTableProps) => {
         />
         <Button
           type="submit"
-          onClick={formikRef.current?.handleSubmit || onSubmit}
+          onClick={
+            isDisabled || !selectedUsersCount
+              ? undefined
+              : formikRef.current?.handleSubmit
+          }
           title="Bulk Invite"
           iconType="bulkInvite"
           color={COLORS.lightBlue}

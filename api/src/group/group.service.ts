@@ -30,7 +30,7 @@ export class GroupService {
       throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
     }
 
-    const group = this.groupRepository.findOne({
+    const group = await this.groupRepository.findOne({
       where: body,
     });
 
