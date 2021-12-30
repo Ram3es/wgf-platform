@@ -9,9 +9,9 @@
 
 ## General
 
-**Project name:** Avid Adventures.
+**Project name:** Wit Grit Fit Platform.
 
-**Project goal:** to help students simulate their career life and figure out what skills they need to be successful in different work sectors.
+**Project goal:** to help students figure out what skills they need to be successful in different work sectors.
 
 At Avid Adventures, we are all about helping students and working professionals navigate the rapidly changing and increasingly complex world of jobs.
 
