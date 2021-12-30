@@ -3,7 +3,7 @@
 1. [General](#general)
 2. [Tech stack](#tech-stack)
 3. [Running applications locally](#running-applications-locally)
-4. [Git Flow and deployment](#git-flow-and-deployment)
+4. [Git Flow](#git-flow)
 5. [Server](#server)
 6. [Sentry](#sentry)
 
@@ -39,7 +39,10 @@ For the successful run of the project applications and their further correct fun
     npm install
 ### Starting
 
-**web**: `npm run start`
+**web**: 
+```bash
+$ npm run start
+```
 **api**: 
 ```bash
 # development
