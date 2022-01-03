@@ -251,7 +251,7 @@ export const useCanvasQuizState = () => {
         getCareerCanvasCsv({
           quizId: canvasQuiz.id,
         }),
-        PROMISES_AREA.getCaasCsv
+        PROMISES_AREA.getCareerCanvasCsv
       );
 
       downloadMessage(

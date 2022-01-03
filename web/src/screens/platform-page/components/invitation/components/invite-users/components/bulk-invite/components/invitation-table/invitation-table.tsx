@@ -87,10 +87,18 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                 handleChange,
                 isValid,
                 values,
+                setFieldTouched,
               }) => {
                 useEffect(() => {
                   setIsDisabled(!isValid);
                 }, [isValid]);
+
+                useEffect(() => {
+                  values.users.forEach((_, index) => {
+                    setFieldTouched(`users.${index}.name`, true);
+                    setFieldTouched(`users.${index}.email`, true);
+                  });
+                }, []);
 
                 return (
                   <FieldArray
@@ -148,6 +156,7 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                               isSelected={isSelected}
                               error={nameError || emailError}
                               key={id}
+                              isEditable={isEditable}
                             >
                               <Styled.ControlColumn>
                                 <Checkbox
@@ -184,10 +193,13 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                     name={`users.${index}.name`}
                                     withBorder
                                     height="32px"
-                                    error={nameError}
+                                    error={!isEditable ? '' : nameError}
                                     onBlur={handleBlur}
                                     data-name="name"
                                     isTableReadOnly={!isEditable}
+                                    placeholder={
+                                      !isEditable && nameError ? '-' : ''
+                                    }
                                   />
                                 </Styled.InputWrapper>
                               </CommonStyled.DataColumn>
@@ -204,10 +216,13 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                     name={`users.${index}.email`}
                                     withBorder
                                     height="32px"
-                                    error={emailError}
+                                    error={!isEditable ? '' : emailError}
                                     onBlur={handleBlur}
                                     data-name="email"
                                     isTableReadOnly={!isEditable}
+                                    placeholder={
+                                      !isEditable && emailError ? '-' : ''
+                                    }
                                   />
                                 </Styled.InputWrapper>
                               </CommonStyled.DataColumn>

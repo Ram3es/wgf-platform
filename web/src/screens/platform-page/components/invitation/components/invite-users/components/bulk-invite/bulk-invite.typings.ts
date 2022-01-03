@@ -22,4 +22,5 @@ export interface IDataRowPropsStyles {
   isActive?: boolean;
   isSelected?: boolean;
   isResultsTable?: boolean;
+  isEditable?: boolean;
 }

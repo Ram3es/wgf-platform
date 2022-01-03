@@ -7,13 +7,13 @@ export const InvitationTableFormSchema = yup.object().shape({
         .string()
         .max(50, 'Too long name')
         .trim()
-        .required('Enter your name'),
+        .required("Enter user's name"),
       email: yup
         .string()
         .max(50, 'Too long email')
         .trim()
         .email('Enter valid email')
-        .required('Enter your email'),
+        .required("Enter user's email"),
     })
   ),
 });

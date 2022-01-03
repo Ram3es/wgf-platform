@@ -11,7 +11,7 @@ import { getGroupsByTrainer, inviteStudent } from '@services/trainer.service';
 import { errorMessage, fileError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROLES } from '@constants/user-roles';
-import { requiredCsvKeys, typeOfInvitationForSuperAdmin } from './bulk-invite.constants';
+import { typeOfInvitationForSuperAdmin } from './bulk-invite.constants';
 
 import { IBulkInviteData } from './bulk-invite.typings';
 
@@ -79,18 +79,12 @@ export const useBulkInviteState = () => {
   const uploadFile = () => {
     setIsFileUploading(true);
 
-    const results: Papa.ParseResult<IBulkInviteData> = Papa.parse(file!.csv!, {
+    const { data }: Papa.ParseResult<IBulkInviteData> = Papa.parse(file!.csv!, {
       header: true,
       skipEmptyLines: 'greedy',
       transformHeader: (header) =>
         header === 'typeOfInvitation' ? header : header.toLowerCase(),
     });
-
-    const data = results.data.filter((item) =>
-      requiredCsvKeys.every(
-        (key) => item.hasOwnProperty(key) && item[key as keyof IBulkInviteData]
-      )
-    );
 
     if (!data.length) {
       setIsFileUploading(false);

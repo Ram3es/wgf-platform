@@ -58,10 +58,6 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
   }, []);
 
   const cancelEdit = () => {
-    if (!formikRef.current?.isValid) {
-      return;
-    }
-
     formikRef.current?.values.users.forEach((item, index) => {
       if (item.isEditable) {
         formikRef.current?.setFieldValue(`users.${index}.isEditable`, false);
@@ -110,16 +106,13 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
   const onEditUser = (id: string) => () => {
     formikRef.current?.values.users.forEach((item, index) => {
       if (item.isEditable) {
-        formikRef.current?.setFieldValue(
-          `users.${index}.isEditable`,
-          !formikRef.current?.isValid ? item.isEditable : false
-        );
+        formikRef.current?.setFieldValue(`users.${index}.isEditable`, false);
       }
 
       if (item.id === id) {
         formikRef.current?.setFieldValue(
           `users.${index}.isEditable`,
-          !formikRef.current?.isValid ? item.isEditable : !item.isEditable
+          !item.isEditable
         );
       }
 

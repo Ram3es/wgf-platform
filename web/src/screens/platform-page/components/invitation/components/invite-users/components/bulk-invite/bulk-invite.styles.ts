@@ -256,7 +256,7 @@ export const InvitationTableCommonStyled = {
       margin-left: 0;
     }
 
-    ${({ error, isResultsTable }) =>
+    ${({ error, isResultsTable, isEditable }) =>
       error &&
       !isResultsTable &&
       css`
@@ -264,6 +264,24 @@ export const InvitationTableCommonStyled = {
 
         ${Media.smallLandscape`
           padding-bottom: 15px;
+        `}
+
+        ${!isEditable &&
+        css`
+          color: ${COLORS.red};
+
+          input {
+            color: ${COLORS.red};
+            ::placeholder {
+              color: ${COLORS.red};
+            }
+          }
+
+          svg {
+            path {
+              stroke: ${COLORS.red};
+            }
+          }
         `}
       `}
 
