@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+import { REGEXPS } from '@constants/regexp';
+
 import { IInitialIndividualInviteState } from './individual-invite.typings';
 
 export const initialIndividualInviteState: IInitialIndividualInviteState = {
@@ -21,12 +23,22 @@ export const individualInviteFormItems = Object.keys(individualInviteLabels);
 export const groupTypeOptions = ['User', 'Trainer'];
 
 export const IndividualInviteFormSchema = yup.object().shape({
-  firstName: yup.string().max(25).trim().required('This field cannot be empty'),
-  lastName: yup.string().max(25).trim().required('This field cannot be empty'),
+  firstName: yup
+    .string()
+    .max(25)
+    .trim()
+    .required('This field cannot be empty')
+    .matches(REGEXPS.name, 'Please enter valid name'),
+  lastName: yup
+    .string()
+    .max(25)
+    .trim()
+    .required('This field cannot be empty')
+    .matches(REGEXPS.name, 'Please enter valid surname'),
   email: yup
     .string()
     .max(50)
     .trim()
-    .email('This field should be an email')
-    .required('This field cannot be empty'),
+    .required('This field cannot be empty')
+    .matches(REGEXPS.email, 'Please enter valid email'),
 });

@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+import { REGEXPS } from '@constants/regexp';
 import { initialAccountData } from '../../profile.constants';
 
 export const accountLabels: Record<string, string> = {
@@ -15,7 +16,7 @@ export const AccountFormSchema = yup.object().shape({
     .string()
     .required('This field cannot be empty')
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      REGEXPS.password,
       'Must Contain 8 Characters,Upper & Lower case,Number and special case Character'
     ),
   confirmPassword: yup

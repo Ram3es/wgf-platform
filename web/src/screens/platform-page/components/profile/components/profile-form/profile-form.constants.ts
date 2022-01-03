@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+import { REGEXPS } from '@constants/regexp';
 import { initialProfileData } from '../../profile.constants';
 
 export const profileLabels: Record<string, string> = {
@@ -18,21 +19,39 @@ export const ProfileFormItems = Object.keys(initialProfileData).filter(
   (item) => item !== 'country'
 );
 
-const phoneRegExp = /^(\+\d{1,3}[- ]?)?\d{10}$/;
-
 export const ProfileFormSchema = yup.object().shape({
-  firstName: yup.string().max(25).trim().required('This field cannot be empty'),
-  lastName: yup.string().max(25).trim().required('This field cannot be empty'),
+  firstName: yup
+    .string()
+    .max(25)
+    .trim()
+    .required('This field cannot be empty')
+    .matches(REGEXPS.name, 'Please enter valid name'),
+  lastName: yup
+    .string()
+    .max(25)
+    .trim()
+    .required('This field cannot be empty')
+    .matches(REGEXPS.name, 'Please enter valid surname'),
   email: yup
     .string()
     .max(50)
     .trim()
-    .email('This field should be an email')
-    .required('This field cannot be empty'),
-  organisation: yup.string().nullable().max(50).trim(),
-  occupation: yup.string().nullable().max(50).trim(),
+    .required('This field cannot be empty')
+    .matches(REGEXPS.email, 'Please enter valid email'),
+  organisation: yup
+    .string()
+    .nullable()
+    .max(50)
+    .trim()
+    .matches(REGEXPS.name, 'Enter valid organization'),
+  occupation: yup
+    .string()
+    .nullable()
+    .max(50)
+    .trim()
+    .matches(REGEXPS.name, 'Enter valid occupation'),
   mobileNumber: yup
     .string()
-    .matches(phoneRegExp, 'Phone number is not valid')
+    .matches(REGEXPS.phone, 'Phone number is not valid')
     .nullable(),
 });

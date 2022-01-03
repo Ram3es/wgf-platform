@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+import { REGEXPS } from '@constants/regexp';
+
 export const initialSignUp = {
   firstName: '',
   lastName: '',
@@ -10,19 +12,29 @@ export const initialSignUp = {
 export const initialSignUpState: IUserSignUp = initialSignUp;
 
 export const UserFormSchema = yup.object().shape({
-  firstName: yup.string().max(25).trim().required('This field cannot be empty'),
-  lastName: yup.string().max(25).trim().required('This field cannot be empty'),
+  firstName: yup
+    .string()
+    .max(25)
+    .trim()
+    .required('This field cannot be empty')
+    .matches(REGEXPS.name, 'Please enter valid name'),
+  lastName: yup
+    .string()
+    .max(25)
+    .trim()
+    .required('This field cannot be empty')
+    .matches(REGEXPS.name, 'Please enter valid surname'),
   password: yup
     .string()
     .required('This field cannot be empty')
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      REGEXPS.password,
       'Must Contain 8 Characters,Upper & Lower case,Number and special case Character'
     ),
   email: yup
     .string()
     .max(50)
     .trim()
-    .email('This field should be an email')
-    .required('This field cannot be empty'),
+    .required('This field cannot be empty')
+    .matches(REGEXPS.email, 'Please enter valid email'),
 });
