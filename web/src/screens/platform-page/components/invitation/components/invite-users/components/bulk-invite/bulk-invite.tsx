@@ -43,7 +43,7 @@ export const BulkInvite: FC = () => {
           <Button
             title="Return to Bulk Invite"
             onClick={handleResultTableClose}
-            color={COLORS.lightBlue}
+            color="rgba(0,174,239,0.4)"
             iconType="back"
           />
         </InvitationTableCommonStyled.TableShadow>

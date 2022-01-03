@@ -191,7 +191,7 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                 <Styled.InputWrapper>
                                   <TextField
                                     type="text"
-                                    value={name}
+                                    value={name || ''}
                                     onChange={onChange}
                                     name={`users.${index}.name`}
                                     withBorder
@@ -214,7 +214,7 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                 <Styled.InputWrapper>
                                   <TextField
                                     type="text"
-                                    value={email}
+                                    value={email || ''}
                                     onChange={onChange}
                                     name={`users.${index}.email`}
                                     withBorder
@@ -257,16 +257,12 @@ export const InvitationTable = (props: IInvitationTableProps) => {
         <Button
           title="Return"
           onClick={handleCloseTable}
-          color={COLORS.lightBlue}
+          color="rgba(0,174,239,0.4)"
           iconType="back"
         />
         <Button
           type="submit"
-          onClick={
-            isDisabled || !selectedUsersCount
-              ? undefined
-              : formikRef.current?.handleSubmit
-          }
+          onClick={isDisabled || !selectedUsersCount ? undefined : onSubmit}
           title="Bulk Invite"
           iconType="bulkInvite"
           color={COLORS.lightBlue}
