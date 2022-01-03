@@ -31,7 +31,6 @@ export const InvitationTable = (props: IInvitationTableProps) => {
     selectedUsersCount,
     formikRef,
     setIsDisabled,
-    isDisabled,
     groups,
     setInvitationList,
     onSubmit,
@@ -40,6 +39,7 @@ export const InvitationTable = (props: IInvitationTableProps) => {
     handleUserActive,
     handleCloseTable,
     handleUserChange,
+    isDisabled,
   } = useInvitationTableState(props);
 
   return (
@@ -85,20 +85,23 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                 touched,
                 handleBlur,
                 handleChange,
-                isValid,
                 values,
                 setFieldTouched,
               }) => {
-                useEffect(() => {
-                  setIsDisabled(!isValid);
-                }, [isValid]);
-
                 useEffect(() => {
                   values.users.forEach((_, index) => {
                     setFieldTouched(`users.${index}.name`, true);
                     setFieldTouched(`users.${index}.email`, true);
                   });
                 }, []);
+
+                useEffect(() => {
+                  setIsDisabled(
+                    values.users.some(
+                      (user, index) => user.isSelected && errors.users?.[index]
+                    )
+                  );
+                }, [values.users, errors.users]);
 
                 return (
                   <FieldArray
