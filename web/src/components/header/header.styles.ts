@@ -18,12 +18,6 @@ export const HeaderStyles = {
     padding: 22px 30px;
     z-index: ${Z_INDEX.extraMedium};
 
-    @media print {
-      position: absolute;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-
     ${Media.tablet`
       position: relative;
     `}
