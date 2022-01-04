@@ -18,6 +18,12 @@ export const HeaderStyles = {
     padding: 22px 30px;
     z-index: ${Z_INDEX.extraMedium};
 
+    @media print {
+      position: absolute;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
     ${Media.tablet`
       position: relative;
     `}
@@ -85,6 +91,11 @@ export const HeaderStyles = {
     overflow: hidden;
     border-radius: 50%;
     margin-right: 10px;
+
+    @media print {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   `,
   LoginDropdown: styled.div`
     position: absolute;

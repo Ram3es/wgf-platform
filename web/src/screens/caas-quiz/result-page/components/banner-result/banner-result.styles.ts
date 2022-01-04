@@ -146,6 +146,7 @@ export const BannerStyles = {
       width: 75%;
       margin-top: -50px;
       margin-right: 50px;
+      margin-left: 20px;
     }
 
     p:first-of-type {
