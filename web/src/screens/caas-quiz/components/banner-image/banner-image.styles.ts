@@ -7,7 +7,7 @@ export const BannerImageStyles = styled.div`
   position: absolute;
   right: 50%;
   bottom: 100%;
-  margin-bottom: -300px;
+  margin-bottom: -395px;
   width: 50%;
   min-width: 620px;
 

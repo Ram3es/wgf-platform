@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Button } from '@components/button';
+import { Header } from '@components/header';
 import { Loader } from '@components/loader';
 import { COLORS } from '@styles/colors';
 import { Container } from '@styles/components/container';
@@ -28,6 +29,7 @@ export const ResultPage: React.FC = () => {
 
   return (
     <>
+      <Header />
       <HeaderQuiz />
       <BannerImage />
       <Container>

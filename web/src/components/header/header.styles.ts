@@ -19,7 +19,7 @@ export const HeaderStyles = {
     z-index: ${Z_INDEX.extraMedium};
 
     ${Media.tablet`
-      position: static;
+      position: relative;
     `}
 
     ${Media.mobile`
