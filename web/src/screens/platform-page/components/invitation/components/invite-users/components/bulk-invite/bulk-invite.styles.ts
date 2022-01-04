@@ -279,7 +279,7 @@ export const InvitationTableCommonStyled = {
 
           svg {
             path {
-              stroke: ${COLORS.red};
+              stroke: ${COLORS.red} !important;
             }
           }
         `}
