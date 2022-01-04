@@ -74,7 +74,7 @@ export const BannerStyles = {
     `)}
     
     ${Media.xsMobile(css`
-      font-size: ${FONTS.sizes[15]};
+      font-size: ${FONTS.sizes[30]};
     `)}
 
     @media print {

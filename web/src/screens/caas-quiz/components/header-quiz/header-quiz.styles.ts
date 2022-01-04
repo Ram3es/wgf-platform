@@ -24,6 +24,12 @@ export const HeaderStyles = {
       padding: 40px 0 0;
     `}
 
+    ${Media.mobile`
+      flex-direction: column-reverse;
+      align-items: center;
+      padding: 60px 0 0;
+    `}
+
     @media print {
       padding-bottom: 20px;
     }
