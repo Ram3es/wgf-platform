@@ -124,7 +124,7 @@ export const resetPasswordMail = (user: UserEntity, token: string) => ({
       We have received a request to reset your password for your Wit Grit Fit account.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Click <a href=${WEB_BASE_URL}password/?token=${token}>here </a> to reset your password.
+      Click the button below to reset your password.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
       If you did not request a password reset, you can ignore this email. Your password will not be changed. 
@@ -133,7 +133,9 @@ export const resetPasswordMail = (user: UserEntity, token: string) => ({
     user.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `password`
   ),
 });
 
@@ -152,13 +154,15 @@ export const trainerToExistingStudentMail = (
     You received an invite from <strong>${trainerName}</strong> to join his/her group.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click <a href=${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}>here </a> to view or accept the invite. 
+    Click the button below to accept the invite. 
     </p>
   `,
     user.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `invitation/accept-invitation-trainer-to-existing-student`
   ),
 });
 
@@ -178,13 +182,15 @@ export const trainerToStudentMail = (
     You received an invite from <strong>${trainerName}</strong> to to set up an account with Wit Grit Fit by Avid Adventures and join his/her group.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to view or accept the invite. 
+    Click the button below to accept the invite. 
     </p>
   `,
     userName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `invitation/accept-invitation-not-exist-user`
   ),
 });
 
@@ -203,13 +209,15 @@ export const adminToExistingTrainerMail = (
     You received an invite from <strong>${superAdminName}</strong> to become trainer admin with Wit Grit Fit by Avid Adventures.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click <a href=${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}>here </a> to accept the invite. 
+    Click the buttom below to accept the invite. 
     </p>
   `,
     user.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `invitation/accept-invitation-existing-trainer`
   ),
 });
 
@@ -229,13 +237,15 @@ export const adminToTrainerMail = (
     You received an invite from <strong>${superAdminName}</strong> to set up an account as a trainer admin with Wit Grit Fit by Avid Adventures.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to accept the invite and set up the account. 
+    Click the button below to accept the invite and set up the account. 
     </p>
   `,
     userName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `invitation/accept-invitation-not-exist-user`
   ),
 });
 
@@ -254,13 +264,15 @@ export const studentToTrainerMail = (
     You received a trainer request from student: ${studentName}
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click <a href=${API_BASE_URL}invitation/accept-request-trainer/${token}>here </a> to view or accept the request. 
+    Click the buttom below to accept the request. 
     </p>
   `,
     trainer.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `invitation/accept-request-trainer`
   ),
 });
 
@@ -280,20 +292,24 @@ export const adminToUserMail = (
       You received an invite from <strong>${adminName}</strong> to set up an account with Wit Grit Fit by Avid Adventures.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Click <a href=${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}>here </a> to view or accept the invite. 
+      Click the button below to accept the invite. 
     </p>
   `,
     userName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    token,
+    `invitation/accept-invitation-not-exist-user`
   ),
 });
 
 const createEmailTemplateHtml = (
   emailBody: string,
   name: string,
-  imageRow?: string
+  imageRow?: string,
+  token?: string,
+  redirectPath?: string
 ) =>
   `<!doctype html>
   <html>
@@ -389,7 +405,7 @@ const createEmailTemplateHtml = (
 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 45px 0;" width="100%">
 <tr>
 <td style="font-size: 14px; vertical-align: top;" valign="top">
-<a class="button_mobile" href="${WEB_BASE_URL}sign-in" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
+<a class="button_mobile" href="${API_BASE_URL}${redirectPath}/${token}" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
 Sing In Now
 </a>
 </td>
