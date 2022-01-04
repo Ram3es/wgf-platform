@@ -143,7 +143,7 @@ export const BannerStyles = {
     `}
 
     @media print {
-      width: 75%;
+      width: 72%;
       margin-top: -50px;
       margin-right: 50px;
       margin-left: 20px;
