@@ -338,12 +338,18 @@ export class InvitationService {
   async inviteTrainer(superAdminId: string, body: CreateInvitationDto) {
     const email = body.to.toLowerCase();
 
-    const trainer = await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         email,
       },
     });
 
+    if (user && user.role === ROLES.trainerAdmin) {
+      throw new HttpException(
+        ERRORS.superAdmin.alreadyExistsTrainer,
+        HttpStatus.FORBIDDEN
+      );
+    }
     const isSend = await this.invitationRepository.findOne({
       where: { to: email, from: superAdminId, type: 'trainer' },
     });
@@ -372,14 +378,12 @@ export class InvitationService {
 
     const superAdminName = `${superAdmin.firstName} ${superAdmin.lastName}`;
 
-    if (!trainer) {
+    if (!user) {
       sendMail(
         adminToTrainerMail(email, body.name, superAdminName, invitation.id)
       );
     } else {
-      sendMail(
-        adminToExistingTrainerMail(trainer, superAdminName, invitation.id)
-      );
+      sendMail(adminToExistingTrainerMail(user, superAdminName, invitation.id));
     }
 
     return invitation;

@@ -14,6 +14,9 @@ export const ERRORS = {
     alreadyExist: 'This user already exists',
     anotherRole: 'This user already has another role, not a student.',
   },
+  superAdmin: {
+    alreadyExistsTrainer: 'This trainer already exists',
+  },
   student: {
     trainerNotExist: 'Sorry pls check the email as this user doesn’t exist.',
     alreadyExist: 'This trainer has already been added to you.',

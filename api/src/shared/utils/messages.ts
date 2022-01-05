@@ -134,8 +134,8 @@ export const resetPasswordMail = (user: UserEntity, token: string) => ({
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `password`
+    `${WEB_BASE_URL}password/?token=${token}`,
+    `Reset password`
   ),
 });
 
@@ -158,11 +158,11 @@ export const trainerToExistingStudentMail = (
     </p>
   `,
     user.firstName,
-    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    `<th style="box-sizing: border-box;txt-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `invitation/accept-invitation-trainer-to-existing-student`
+    `${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}`,
+    `Accept and Sign in`
   ),
 });
 
@@ -189,8 +189,8 @@ export const trainerToStudentMail = (
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `invitation/accept-invitation-not-exist-user`
+    `${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}`,
+    `Sign up and Accept`
   ),
 });
 
@@ -216,8 +216,8 @@ export const adminToExistingTrainerMail = (
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `invitation/accept-invitation-existing-trainer`
+    `${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}`,
+    `Accept and Sign in`
   ),
 });
 
@@ -244,8 +244,8 @@ export const adminToTrainerMail = (
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `invitation/accept-invitation-not-exist-user`
+    `${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}`,
+    `Sign up and Accept`
   ),
 });
 
@@ -271,8 +271,8 @@ export const studentToTrainerMail = (
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `invitation/accept-request-trainer`
+    `${API_BASE_URL}invitation/accept-request-trainer/${token}`,
+    `Accept and Sign in`
   ),
 });
 
@@ -299,8 +299,8 @@ export const adminToUserMail = (
     `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    token,
-    `invitation/accept-invitation-not-exist-user`
+    `${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}`,
+    `Sign up and Accept`
   ),
 });
 
@@ -308,8 +308,8 @@ const createEmailTemplateHtml = (
   emailBody: string,
   name: string,
   imageRow?: string,
-  token?: string,
-  redirectPath?: string
+  redirectPath?: string,
+  buttonText?: string
 ) =>
   `<!doctype html>
   <html>
@@ -405,8 +405,8 @@ const createEmailTemplateHtml = (
 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 45px 0;" width="100%">
 <tr>
 <td style="font-size: 14px; vertical-align: top;" valign="top">
-<a class="button_mobile" href="${API_BASE_URL}${redirectPath}/${token}" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
-Sing In Now
+<a class="button_mobile" href="${redirectPath}" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
+${buttonText}
 </a>
 </td>
 </tr>

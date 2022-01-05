@@ -125,7 +125,7 @@ export const IndividualInvite: React.FC = () => {
                     onClick={openDropdown}
                     isAutoCompleteOff
                     isSelect
-                    label="Group Type"
+                    label="User Role"
                   />
                   {isActiveDropdown && (
                     <Styled.SelectWrapper>
