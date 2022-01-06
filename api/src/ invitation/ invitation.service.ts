@@ -209,6 +209,10 @@ export class InvitationService {
       throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
     }
 
+    if (invitation.status === INVITATION_STATUS.accepted) {
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.GONE);
+    }
+
     const user = await this.userRepository.findOne({
       where: {
         email: invitation.to,
@@ -241,6 +245,10 @@ export class InvitationService {
 
     if (!invitation) {
       throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
+    }
+
+    if (invitation.status === INVITATION_STATUS.accepted) {
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.GONE);
     }
 
     const student = await this.userRepository.findOne(invitation.from);
@@ -306,6 +314,10 @@ export class InvitationService {
       throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
     }
 
+    if (invitation.status === INVITATION_STATUS.accepted) {
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.GONE);
+    }
+
     await this.userService.createTrainerAdmin({ email: invitation.to });
 
     await this.invitationRepository.save({
@@ -323,6 +335,10 @@ export class InvitationService {
 
     if (!invitation) {
       throw new HttpException(ERRORS.linkExpired, HttpStatus.UNAUTHORIZED);
+    }
+
+    if (invitation.status === INVITATION_STATUS.accepted) {
+      throw new HttpException(ERRORS.linkExpired, HttpStatus.GONE);
     }
 
     await this.invitationRepository.save({

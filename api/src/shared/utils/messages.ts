@@ -103,13 +103,15 @@ export const registrationMessage = (user: UserEntity): IMessage => ({
       You have successfully registered with Wit Grit Fit by Avid Adventures.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Please log in and complete your assessments to get your results.
+      Please log in by clicking the button below and complete your assessments to get your results.
     </p>
   `,
     user.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%">
     <img alt="T@" src="https://i.ibb.co/bzbgC2j/wgf-home.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    `${WEB_BASE_URL}sign-in`,
+    `Sign in`
   ),
 });
 
