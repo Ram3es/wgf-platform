@@ -21,4 +21,5 @@ export const ROUTES = {
   manageUser: '/platform/manage-user',
   manageGroup: '/platform/manage-group',
   manageTrainers: '/platform/manage-trainers',
+  errorPage: '/error',
 };

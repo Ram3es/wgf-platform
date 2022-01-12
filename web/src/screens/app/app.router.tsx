@@ -5,6 +5,7 @@ import { QuizPage } from '@screens/caas-quiz/quiz-page';
 import { ResultPage } from '@screens/caas-quiz/result-page';
 import { CanvasQuizPage } from '@screens/career-canvas/canvas-quiz-page';
 import { CanvasResults } from '@screens/career-canvas/canvas-results';
+import { ErrorPage } from '@screens/error-page';
 import { MainPage } from '@screens/main-page';
 import { PlatformPage } from '@screens/platform-page';
 import { ResetPassword } from '@screens/reset-password';
@@ -23,6 +24,7 @@ export const AppRouter: React.FC = () => (
     <Route exact path={ROUTES.results} component={ResultPage} />
     <Route exact path={ROUTES.signIn} component={SignIn} />
     <Route exact path={ROUTES.signUp} component={SignUp} />
+    <Route exact path={ROUTES.errorPage} component={ErrorPage} />
     <Route exact path={ROUTES.resetPassword} component={ResetPassword} />
     <PrivateRoute
       exact

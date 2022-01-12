@@ -131,12 +131,18 @@ export class InvitationController {
     @Param() params: { token: string },
     @Res() res: Response
   ) {
-    await this.invitationService.acceptInvitationTrainerToStudent({
-      token: params.token,
-    });
     const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
     const link = `${WEB_BASE_URL}dashboard`;
-    return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    try {
+      await this.invitationService.acceptInvitationTrainerToStudent({
+        token: params.token,
+      });
+      return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    } catch (error) {
+      return res
+        .status(HttpStatus.MOVED_PERMANENTLY)
+        .redirect(`${WEB_BASE_URL}error?error=${error.response}`);
+    }
   }
 
   @Get(INVITATION_ROUTES.acceptInvitationExistingTrainer)
@@ -145,12 +151,18 @@ export class InvitationController {
     @Param() params: { token: string },
     @Res() res: Response
   ) {
-    await this.invitationService.acceptInvitationExistingTrainer({
-      token: params.token,
-    });
     const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
     const link = `${WEB_BASE_URL}dashboard`;
-    return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    try {
+      await this.invitationService.acceptInvitationExistingTrainer({
+        token: params.token,
+      });
+      return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    } catch (error) {
+      return res
+        .status(HttpStatus.MOVED_PERMANENTLY)
+        .redirect(`${WEB_BASE_URL}error?error=${error.response}`);
+    }
   }
 
   @Get(INVITATION_ROUTES.acceptInvitationNotExistUser)
@@ -159,12 +171,18 @@ export class InvitationController {
     @Param() params: { token: string },
     @Res() res: Response
   ) {
-    await this.invitationService.acceptInvitationNotExistUser({
-      token: params.token,
-    });
     const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
     const link = `${WEB_BASE_URL}sign-up`;
-    return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    try {
+      await this.invitationService.acceptInvitationNotExistUser({
+        token: params.token,
+      });
+      return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    } catch (error) {
+      return res
+        .status(HttpStatus.MOVED_PERMANENTLY)
+        .redirect(`${WEB_BASE_URL}error?error=${error.response}`);
+    }
   }
 
   @Get(INVITATION_ROUTES.acceptRequestTrainer)
@@ -173,11 +191,17 @@ export class InvitationController {
     @Param() params: { token: string },
     @Res() res: Response
   ) {
-    await this.invitationService.acceptRequestTrainer({
-      token: params.token,
-    });
     const WEB_BASE_URL = this.configService.get('WEB_BASE_URL');
     const link = WEB_BASE_URL;
-    return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    try {
+      await this.invitationService.acceptRequestTrainer({
+        token: params.token,
+      });
+      return res.status(HttpStatus.MOVED_PERMANENTLY).redirect(link);
+    } catch (error) {
+      return res
+        .status(HttpStatus.MOVED_PERMANENTLY)
+        .redirect(`${WEB_BASE_URL}error?error=${error.response}`);
+    }
   }
 }
