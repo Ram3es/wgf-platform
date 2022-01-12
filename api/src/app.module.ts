@@ -14,6 +14,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { DatabaseConfig } from './shared/configs/database.config';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { UserModule } from './user/user.module';
+import { LimitsModule } from './limits/limits.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UserModule } from './user/user.module';
     AuthModule,
     GoogleAuthModule,
     FacebookAuthModule,
+    LimitsModule,
   ],
   providers: [
     {
