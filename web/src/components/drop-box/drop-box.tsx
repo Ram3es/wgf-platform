@@ -17,7 +17,7 @@ export const DropBox: FC<IDropBoxProps> = ({
   isFileLoading,
   onHandleFile,
 }) => (
-  <Dropzone accept={acceptFiles} onDrop={onHandleFile}>
+  <Dropzone accept={acceptFiles} onDrop={onHandleFile} multiple={false}>
     {({
       getRootProps,
       getInputProps,
