@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { updateProfilePassword, updateUser } from '@services/user.service';
 
-import { DATE_OPTIONS } from '@constants/date';
+import { DATE_TIME_OPTIONS } from '@constants/date';
 import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { Toast } from '@constants/toasts';
 import { initialAccountData, initialProfileState } from './profile.constants';
@@ -29,7 +29,7 @@ export const useProfileState = () => {
 
     const created = new Date(user.created).toLocaleString(
       'en-US',
-      DATE_OPTIONS
+      DATE_TIME_OPTIONS
     );
 
     const data = {

@@ -31,6 +31,36 @@ interface IUserUpdate extends Partial<IUser> {
 
 type TRole = 'superAdmin' | 'trainerAdmin' | 'user';
 
+interface IUserGamesResults {
+  id: string;
+  status: string;
+  quiz: { title: string };
+  created: string;
+}
+
+interface IUserExistingAndInvited {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  created?: Date;
+  email?: string;
+  results?: IUserGamesResults[];
+  groups?: IGroupForUser[];
+  role?: TRole;
+  from?: string;
+  group?: IGroupForUser;
+  inviteDate?: Date;
+  name?: string;
+  status?: TInvitationStatus;
+  to?: string;
+  type?: TInvitationType;
+  isSelected?: boolean;
+}
+interface IGroupForUser extends Partial<IGroup> {
+  name: string;
+  trainerId: string;
+  trainerName: string;
+}
 interface IUser extends IProfileData {
   id: string;
   isSubscriber: boolean;
@@ -38,7 +68,6 @@ interface IUser extends IProfileData {
   jobStatus: string | null;
   avatar: string | null;
 }
-
 interface IProfileData {
   firstName: string;
   lastName: string;

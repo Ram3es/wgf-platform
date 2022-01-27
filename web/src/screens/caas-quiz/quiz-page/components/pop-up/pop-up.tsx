@@ -69,7 +69,7 @@ export const PopUp: React.FC<IPopUpProps> = (props) => {
           </>
         )}
         <Styled.Title>
-          <TitleStyles.h2 color={COLORS.greenLite} textAlign="left">
+          <TitleStyles.h2 color={COLORS.greenLight} textAlign="left">
             {STRINGS.popUp.title}
           </TitleStyles.h2>
         </Styled.Title>
@@ -83,7 +83,7 @@ export const PopUp: React.FC<IPopUpProps> = (props) => {
           <Button
             title={STRINGS.button.result}
             onClick={onClick}
-            color={COLORS.greenLite}
+            color={COLORS.greenLight}
             iconType="next"
             isIconRight
           />

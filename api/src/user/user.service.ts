@@ -15,6 +15,7 @@ import { GroupEntity } from 'src/group/entities/group.entity';
 import { sendMail } from 'src/shared/utils/email';
 import { resetPasswordMail } from 'src/shared/utils/messages';
 import { GroupService } from '../group/group.service';
+import { createCsvUsers, IUserCsv } from '../shared/utils/csv-format';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
 import { UpdatePassWordDTO } from './dto/update-password.dto';
@@ -236,7 +237,7 @@ export class UserService {
   }
 
   async getUsersByTrainer(trainerId: string) {
-    return this.userRepository
+    const existingStudents = await this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.results', 'result')
       .leftJoinAndSelect('result.quiz', 'quiz')
@@ -248,35 +249,107 @@ export class UserService {
         'user.id',
         'user.firstName',
         'user.lastName',
+        'user.role',
         'user.email',
         'user.created',
         'group.name',
-        'group.id',
+        'group.trainerId',
         'result.status',
-        'result.updated',
+        'result.created',
         'quiz.title',
       ])
       .getMany();
+
+    const invitedUsersByTrainer = await this.invitationRepository
+      .createQueryBuilder('invitation')
+      .where('invitation.type IN (:...types)', {
+        types: [INVITATION_TYPE.student],
+      })
+      .andWhere('invitation.from = (:from)', {
+        from: trainerId,
+      })
+      .andWhere('invitation.status IN (:...statuses)', {
+        statuses: [
+          INVITATION_STATUS.pending,
+          INVITATION_STATUS.registrationPending,
+        ],
+      })
+      .leftJoinAndSelect('invitation.group', 'group')
+      .getMany();
+    return [...existingStudents, ...invitedUsersByTrainer];
   }
 
   async getAllUsers() {
-    return this.userRepository
+    const users = await this.userRepository
       .createQueryBuilder('user')
+      .where('user.role = (:role)', {
+        role: ROLES.user,
+      })
       .leftJoinAndSelect('user.results', 'result')
-      .leftJoinAndSelect('result.quiz', 'quiz')
       .leftJoinAndSelect('user.groups', 'group')
+      .orderBy('group.name')
+      .leftJoinAndSelect('result.quiz', 'quiz')
       .select([
         'user.id',
         'user.firstName',
         'user.lastName',
+        'user.role',
         'user.email',
         'user.created',
         'group.name',
+        'group.trainerId',
         'result.status',
-        'result.updated',
+        'result.created',
         'quiz.title',
       ])
       .getMany();
+
+    const existingUsers = await Promise.all(
+      users.map(async (user) => {
+        if (!user.groups.length) {
+          return user;
+        }
+        const groups = await Promise.all(
+          user.groups.map(async (group) => {
+            const trainer = await this.getUserById(group.trainerId);
+            return {
+              ...group,
+              trainerName: `${trainer.firstName} ${trainer.lastName}`,
+            };
+          })
+        );
+        return { ...user, groups };
+      })
+    );
+
+    const invitedUsers = await this.invitationRepository
+      .createQueryBuilder('invitation')
+      .where('invitation.type IN (:...types)', {
+        types: [INVITATION_TYPE.student, INVITATION_TYPE.user],
+      })
+      .andWhere('invitation.status IN (:...statuses)', {
+        statuses: [
+          INVITATION_STATUS.pending,
+          INVITATION_STATUS.registrationPending,
+        ],
+      })
+      .leftJoinAndSelect('invitation.group', 'group')
+      .getMany();
+
+    const invitedUsersWithGroups = await Promise.all(
+      invitedUsers.map(async (invite) => {
+        if (!invite.group) {
+          return invite;
+        }
+        const trainer = await this.getUserById(invite.group.trainerId);
+        const group = {
+          ...invite.group,
+          trainerName: `${trainer.firstName} ${trainer.lastName}`,
+        };
+        return { ...invite, group };
+      })
+    );
+    return [...existingUsers, ...invitedUsersWithGroups];
   }
 
   async getAllTrainers() {
@@ -336,5 +409,19 @@ export class UserService {
     });
 
     return trainer;
+  }
+
+  async getAllUsersCsv() {
+    const users = await this.getAllUsers();
+    return {
+      file: await createCsvUsers(users as IUserCsv[]),
+    };
+  }
+
+  async getAllStudentsByTrainerCsv(id: string) {
+    const users = await this.getUsersByTrainer(id);
+    return {
+      file: await createCsvUsers(users as IUserCsv[]),
+    };
   }
 }

@@ -115,7 +115,7 @@ export const navigationRoles: INavigationRoles = {
 };
 
 export const sectionColors = {
-  Home: COLORS.greenLite,
+  Home: COLORS.greenLight,
   Assessment: COLORS.pink,
   Users: COLORS.lightBlue,
 };

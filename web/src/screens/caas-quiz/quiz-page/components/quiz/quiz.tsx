@@ -47,7 +47,7 @@ export const Quiz: React.FC = () => {
             <Button
               title={STRINGS.button.downloadCsv}
               onClick={downloadCsv}
-              color={COLORS.greenLite}
+              color={COLORS.greenLight}
             />
           </Styled.DownloadButton>
         </Loader>
@@ -75,14 +75,14 @@ export const Quiz: React.FC = () => {
             <Button
               title={STRINGS.button.back}
               onClick={decrementPage}
-              color={COLORS.greenLite}
+              color={COLORS.greenLight}
               iconType="back"
             />
           )}
           <Button
             title={isLastPage ? STRINGS.button.submit : STRINGS.button.next}
             onClick={onSubmit}
-            color={COLORS.greenLite}
+            color={COLORS.greenLight}
             iconType="next"
             isIconRight
             type="submit"

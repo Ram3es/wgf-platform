@@ -419,7 +419,6 @@ export class InvitationService {
             email: item.to,
           },
         });
-
         return {
           ...item,
           registeredOn: user.created || 'Pending',

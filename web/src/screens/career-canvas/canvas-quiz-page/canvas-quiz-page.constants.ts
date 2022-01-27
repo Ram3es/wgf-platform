@@ -3,7 +3,7 @@ import { COLORS } from '@styles/colors';
 import { IInitialQuestionsState } from './canvas-quiz-page.typings';
 
 export const QUESTION_SECTIONS = {
-  WIT: { title: 'WIT', color: COLORS.greenLite, categories: ['mySmarts'] },
+  WIT: { title: 'WIT', color: COLORS.greenLight, categories: ['mySmarts'] },
   GRIT: {
     title: 'GRIT',
     color: COLORS.lightBlue,

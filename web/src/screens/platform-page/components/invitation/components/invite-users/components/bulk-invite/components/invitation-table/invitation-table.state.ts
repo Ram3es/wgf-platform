@@ -57,6 +57,12 @@ export const useInvitationTableState = (props: IInvitationTableProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!invitationList.length) {
+      setSelectedAll(false);
+    }
+  }, [invitationList]);
+
   const cancelEdit = () => {
     formikRef.current?.values.users.forEach((item, index) => {
       if (item.isEditable) {

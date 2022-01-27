@@ -15,7 +15,8 @@ import { STRINGS } from '@constants/strings';
 import { ROLES } from '@constants/user-roles';
 import { SuperAdminCsvSample, TrainerCsvSample } from './bulk-invite.constants';
 
-import { BulkInviteStyled as Styled, InvitationTableCommonStyled } from './bulk-invite.styles';
+import { CommonStylesForTables } from '@screens/platform-page/platform-page.styles';
+import { BulkInviteStyled as Styled } from './bulk-invite.styles';
 
 export const BulkInvite: FC = () => {
   const {
@@ -36,9 +37,9 @@ export const BulkInvite: FC = () => {
 
   if (isShownResultInvite) {
     return (
-      <Styled.TableWrapper>
+      <CommonStylesForTables.TableWrapper>
         <Styled.Title>{STRINGS.invitation.bulkInvite} RESULTS</Styled.Title>
-        <InvitationTableCommonStyled.TableShadow>
+        <CommonStylesForTables.TableShadow ml={50}>
           <ResultInvitationTable invitationList={inviteCsvData!} />
           <Button
             title="Return to Bulk Invite"
@@ -46,17 +47,17 @@ export const BulkInvite: FC = () => {
             color="rgba(0,174,239,0.4)"
             iconType="back"
           />
-        </InvitationTableCommonStyled.TableShadow>
-      </Styled.TableWrapper>
+        </CommonStylesForTables.TableShadow>
+      </CommonStylesForTables.TableWrapper>
     );
   }
 
   if (inviteCsvData && file) {
     return (
-      <Styled.TableWrapper>
+      <CommonStylesForTables.TableWrapper>
         <Styled.Title>{STRINGS.invitation.bulkInvite}</Styled.Title>
         <Loader area={PROMISES_AREA.bulkInvite}>
-          <InvitationTableCommonStyled.TableShadow>
+          <CommonStylesForTables.TableShadow ml={50}>
             <InvitationTable
               invitationList={inviteCsvData!}
               setInvitationList={setInviteCsvData}
@@ -64,9 +65,9 @@ export const BulkInvite: FC = () => {
               onSubmit={onSubmitInvite}
               handleCloseTable={handleResultTableClose}
             />
-          </InvitationTableCommonStyled.TableShadow>
+          </CommonStylesForTables.TableShadow>
         </Loader>
-      </Styled.TableWrapper>
+      </CommonStylesForTables.TableWrapper>
     );
   }
 

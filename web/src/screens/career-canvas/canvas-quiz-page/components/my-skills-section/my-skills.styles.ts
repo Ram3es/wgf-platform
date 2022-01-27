@@ -48,8 +48,8 @@ export const MySkillsStyled = {
   `,
   HeaderRightBlock: styled.div`
     flex: 0 1 35%;
-    border-top: 1px solid ${COLORS.borderGreyLite};
-    border-right: 1px solid ${COLORS.borderGreyLite};
+    border-top: 1px solid ${COLORS.borderGreyLight};
+    border-right: 1px solid ${COLORS.borderGreyLight};
     border-bottom: 3px solid ${COLORS.black};
     box-shadow: inset 6px 0 4px 0 rgb(0 0 0 / 20%);
     padding: 15px;
@@ -62,7 +62,7 @@ export const MySkillsStyled = {
   Label: styled.div`
     flex: 0 1 75%;
     background: ${COLORS.borderGrey};
-    border-bottom: 1px solid ${COLORS.borderGreyLite};
+    border-bottom: 1px solid ${COLORS.borderGreyLight};
     padding: 10px 25px;
     font-size: ${FONTS.sizes[20]};
 
@@ -74,8 +74,8 @@ export const MySkillsStyled = {
   `,
   ValueItem: styled.div`
     flex: 0 1 35%;
-    border-bottom: 1px solid ${COLORS.borderGreyLite};
-    border-right: 1px solid ${COLORS.borderGreyLite};
+    border-bottom: 1px solid ${COLORS.borderGreyLight};
+    border-right: 1px solid ${COLORS.borderGreyLight};
     box-shadow: inset 6px 0 4px 0 rgb(0 0 0 / 20%);
     padding: 5px 10px;
 

@@ -13,7 +13,7 @@ import { typeOfInvitationForSuperAdmin } from '../../../../bulk-invite.constants
 
 import { IBulkInviteData } from '../../../../bulk-invite.typings';
 
-import { InvitationTableCommonStyled as CommonStyled } from '../../../../bulk-invite.styles';
+import { CommonStylesForTables } from '@screens/platform-page/platform-page.styles';
 import { InvitationTableStyled as Styled } from '../../invitation-table.styles';
 
 const TitleWrapper = styled.span`
@@ -105,7 +105,7 @@ export const SelectColumn = (props: ISelectColumnProps) => {
   };
 
   return user.role === ROLES.trainerAdmin ? (
-    <CommonStyled.DataColumn>
+    <CommonStylesForTables.DataColumn>
       <TitleWrapper onClick={openDropdown}>
         {group}
         <Icon type="arrowBottom" />
@@ -122,9 +122,9 @@ export const SelectColumn = (props: ISelectColumnProps) => {
           />
         </Styled.SelectWrapper>
       )}
-    </CommonStyled.DataColumn>
+    </CommonStylesForTables.DataColumn>
   ) : (
-    <CommonStyled.DataColumn isCapitalized>
+    <CommonStylesForTables.DataColumn isCapitalized>
       <TitleWrapper onClick={openDropdown}>
         {typeOfInvitation} <Icon type="arrowBottom" />
       </TitleWrapper>
@@ -140,6 +140,6 @@ export const SelectColumn = (props: ISelectColumnProps) => {
           />
         </Styled.SelectWrapper>
       )}
-    </CommonStyled.DataColumn>
+    </CommonStylesForTables.DataColumn>
   );
 };

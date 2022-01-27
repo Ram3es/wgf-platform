@@ -9,7 +9,7 @@ import { useAppSelector } from '@services/hooks/redux';
 import { ROUTES } from '@constants/routes';
 import { ROLES } from '@constants/user-roles';
 
-import { InvitationStyles as Styled } from './invitation.styles';
+import { CommonStylesForPages as CommonStyled } from '../../platform-page.styles';
 
 export const Invitation: React.FC = () => {
   const { user } = useAppSelector((state) => state);
@@ -23,11 +23,11 @@ export const Invitation: React.FC = () => {
   }, [user]);
 
   return (
-    <Styled.Wrapper>
+    <CommonStyled.Wrapper>
       <Backdrop />
-      <Styled.Content>
+      <CommonStyled.Content>
         <InviteUsers />
-      </Styled.Content>
-    </Styled.Wrapper>
+      </CommonStyled.Content>
+    </CommonStyled.Wrapper>
   );
 };

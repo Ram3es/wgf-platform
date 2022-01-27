@@ -308,7 +308,7 @@ export const ResultSummaryStyles = {
 
       :hover {
         path:first-of-type {
-          fill: ${COLORS.greenLite};
+          fill: ${COLORS.greenLight};
         }
       }
 

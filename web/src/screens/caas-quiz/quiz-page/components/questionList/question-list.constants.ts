@@ -30,7 +30,7 @@ export const RADIO_LIST_QUIZ: IRadioList[] = [
     label: 'VERY STRONG',
     value: 4,
     defaultChecked: false,
-    color: COLORS.greenLite,
+    color: COLORS.greenLight,
   },
   {
     label: 'STRONGEST',

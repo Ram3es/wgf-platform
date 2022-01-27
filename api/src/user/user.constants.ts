@@ -12,8 +12,11 @@ export const USER_ROUTES = {
   createTrainerAdmin: 'create-trainer-admin',
   getUsersByTrainer: 'get-users-by-trainer',
   getAllUsers: 'get-all-users',
+  getAllUsersRoleUser: 'get-all-users-role-user',
   getAllTrainers: 'get-all-trainers',
   getTrainersByUser: 'get-trainers-by-user',
   deleteUser: 'delete-user',
   deleteTrainer: 'delete-trainer',
+  getAllUsersCsv: 'get-all-users-csv',
+  getAllStudentsByTrainerCsv: 'get-all-students-by-trainer-csv',
 };

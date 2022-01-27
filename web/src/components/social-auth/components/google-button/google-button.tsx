@@ -38,7 +38,6 @@ export const GoogleButton = () => {
     <GoogleLogin
       clientId={clientId || ''}
       onSuccess={handleSuccess}
-      onFailure={handleSuccess}
       cookiePolicy={'single_host_origin'}
       render={(renderProps) => (
         <StyledIcon {...renderProps}>

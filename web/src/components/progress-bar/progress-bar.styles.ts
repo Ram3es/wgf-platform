@@ -31,9 +31,9 @@ export const ProgressBarStyled = {
   Line: styled.div<IProgressBarProps>`
     position: absolute;
     height: 12px;
-    background: ${COLORS.greenLite};
+    background: ${COLORS.greenLight};
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-    border: 1px solid ${COLORS.greenLite};
+    border: 1px solid ${COLORS.greenLight};
     border-radius: 6px;
     top: -1px;
     left: -2px;
@@ -72,7 +72,7 @@ export const ProgressBarStyled = {
     }};
     min-width: 50px;
     min-height: 50px;
-    background: ${COLORS.greenLite};
+    background: ${COLORS.greenLight};
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     border-radius: 50%;
 

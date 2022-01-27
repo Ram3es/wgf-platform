@@ -16,7 +16,7 @@ export const getCategoriesList = (results: IResults): IStepsCategorie[] => {
       title: STRINGS.nextSteps.categories.concern.title,
       level: results.concern.level,
       description: STRINGS.nextSteps.categories.concern.description,
-      color: COLORS.greenLite,
+      color: COLORS.greenLight,
     },
     {
       title: STRINGS.nextSteps.categories.control.title,

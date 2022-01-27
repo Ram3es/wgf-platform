@@ -12,7 +12,6 @@ import { useAppDispatch } from '@services/hooks/redux';
 import { storageService } from '@services/storage/storage';
 import { facebookAuth } from '@services/user.service';
 
-import { errorMessage } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 
 import { StyledIcon } from '@components/social-auth/social-auth.styles';
@@ -41,36 +40,26 @@ export const FacebookButton = () => {
       | ReactFacebookFailureResponse
       | IFacebookErrorResponce
   ) => {
-    if (
-      (userInfo as IFacebookErrorResponce)?.error ||
-      (userInfo as ReactFacebookFailureResponse).status === 'unknown'
-    ) {
-      return errorMessage('Try again, or sign in another way').fire();
-    }
     const { email, name, picture, accessToken } =
       userInfo as ReactFacebookLoginInfo;
     const firstName: string = name?.split(' ')[0] || '';
     const lastName: string = name?.split(' ')[1] || '';
 
-    if (!email) {
-      return errorMessage(
-        'No email was found in your facebook account, link your email address to facebook or sign in another way'
-      ).fire();
+    if (email) {
+      const { data } = await trackPromise(
+        facebookAuth({
+          email,
+          firstName,
+          lastName,
+          token: accessToken,
+          avatar: picture?.data?.url || '',
+        }),
+        PROMISES_AREA.auth
+      );
+
+      dispatch(loginUser(data.user));
+      return storageService.setToken(data.token, false);
     }
-
-    const { data } = await trackPromise(
-      facebookAuth({
-        email,
-        firstName,
-        lastName,
-        token: accessToken,
-        avatar: picture?.data?.url || '',
-      }),
-      PROMISES_AREA.auth
-    );
-
-    dispatch(loginUser(data.user));
-    return storageService.setToken(data.token, false);
   };
   return (
     <StyledIcon>

@@ -28,12 +28,12 @@ export const RadioButtonGroupStyled = {
       isVariantQuiz
         ? `border-radius: 8px; border: 3px solid ${color};margin-bottom: 15px;`
         : `border-radius: 4px; border: 1px solid ${
-            checked ? COLORS.greenLite : COLORS.default
+            checked ? COLORS.greenLight : COLORS.default
           };margin-right: 10px;`}
 
     ${({ checked, color, isVariantQuiz }) =>
       checked &&
-      ` background-color: ${isVariantQuiz ? color : COLORS.greenLite};`}
+      ` background-color: ${isVariantQuiz ? color : COLORS.greenLight};`}
 
       ${Media.mobile(css<IRadioButtonPropsStyles>`
       width: ${({ radioWidth }) => radioWidth || '28px'};

@@ -39,7 +39,7 @@ export const BannerImageStyles = styled.div`
       height: 100%;
 
       path {
-        fill: ${COLORS.greenLite};
+        fill: ${COLORS.greenLight};
       }
     }
   }

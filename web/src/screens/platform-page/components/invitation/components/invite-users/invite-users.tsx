@@ -8,20 +8,20 @@ import { useAppSelector } from '@services/hooks/redux';
 
 import { STRINGS } from '@constants/strings';
 
+import { CommonStylesForPages as CommonStyled } from '@screens/platform-page/platform-page.styles';
 import { TitleStyles } from '@styles/components/title-styles';
-import { InviteUsersStyled as Styled } from './invite-users.styles';
 
 export const InviteUsers: React.FC = () => {
   const { user } = useAppSelector((state) => state);
   return (
-    <Styled.Wrapper>
-      <TitleStyles.h2 color={COLORS.grey} textAlign="left">
+    <CommonStyled.InnerWrapper>
+      <TitleStyles.h2 color={COLORS.grey} textAlign="left" mb={15}>
         {STRINGS.invitation.inviteUsersTitle[user.role]}
       </TitleStyles.h2>
       <div>
         <IndividualInvite />
         <BulkInvite />
       </div>
-    </Styled.Wrapper>
+    </CommonStyled.InnerWrapper>
   );
 };

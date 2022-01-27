@@ -12,3 +12,9 @@ export const inviteTrainer = (body: IInvitationReq) =>
     `${ENDPOINTS.invitation}/invite-trainer`,
     body
   );
+
+export const getAllUsers = () =>
+  POST<IUserExistingAndInvited[]>(`${ENDPOINTS.user}/get-all-users`);
+
+export const getAllUsersCsv = () =>
+  POST<{ file: string }>(`${ENDPOINTS.user}/get-all-users-csv`);

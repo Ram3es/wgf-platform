@@ -12,7 +12,7 @@ export const BannerStyles = {
     position: relative;
     z-index: ${Z_INDEX.low};
     padding: 0 0 50px;
-    border-bottom: 2px solid ${COLORS.greenLite};
+    border-bottom: 2px solid ${COLORS.greenLight};
     margin-bottom: 50px;
 
     @media print {

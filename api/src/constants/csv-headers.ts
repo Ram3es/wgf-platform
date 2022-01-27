@@ -70,3 +70,13 @@ export const CareerCanvasQuestionsHeaders = [
   "Practicality check - Career progression','Practicality check - Level/type of responsibility I'd like",
   'Practicality check - Other personal considerations',
 ];
+
+export const allUsersHeaders = [
+  'Name',
+  'Group name',
+  'Registered',
+  'Email',
+  'CareerFlex',
+  'Career Flex Cooperation',
+  'Career Design Canvas',
+];

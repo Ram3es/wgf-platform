@@ -4,7 +4,7 @@ import { ROLES } from '@constants/user-roles';
 
 import { IBulkInviteData } from '../../bulk-invite.typings';
 
-import { InvitationTableCommonStyled as CommonStyled } from '../../bulk-invite.styles';
+import { CommonStylesForTables } from '@screens/platform-page/platform-page.styles';
 
 export const ResultInvitationTable = (props: {
   invitationList: IBulkInviteData[];
@@ -12,45 +12,60 @@ export const ResultInvitationTable = (props: {
   const { user } = useAppSelector((state) => state);
 
   return (
-    <CommonStyled.Wrapper>
-      <CommonStyled.TableWrapper>
-        <CommonStyled.Table>
-          <CommonStyled.HeaderRow>
-            <CommonStyled.HeaderColumn>invite status</CommonStyled.HeaderColumn>
-            <CommonStyled.HeaderColumn>name</CommonStyled.HeaderColumn>
-            <CommonStyled.HeaderColumn isBigBox>
+    <CommonStylesForTables.InnerWrapper>
+      <CommonStylesForTables.InnerTableWrapper>
+        <CommonStylesForTables.Table>
+          <CommonStylesForTables.HeaderRow>
+            <CommonStylesForTables.HeaderColumn>
+              invite status
+            </CommonStylesForTables.HeaderColumn>
+            <CommonStylesForTables.HeaderColumn>
+              name
+            </CommonStylesForTables.HeaderColumn>
+            <CommonStylesForTables.HeaderColumn isBigBox>
               email
-            </CommonStyled.HeaderColumn>
-            <CommonStyled.HeaderColumn>
+            </CommonStylesForTables.HeaderColumn>
+            <CommonStylesForTables.HeaderColumn>
               {user.role === ROLES.trainerAdmin
                 ? 'group name'
                 : 'type of invitation'}
-            </CommonStyled.HeaderColumn>
-          </CommonStyled.HeaderRow>
-          <CommonStyled.DataWrapper>
+            </CommonStylesForTables.HeaderColumn>
+          </CommonStylesForTables.HeaderRow>
+          <CommonStylesForTables.DataWrapper>
             {props.invitationList.map(
               ({ id, name, email, typeOfInvitation, error, group }) => (
-                <CommonStyled.DataRow key={id} error={error} isResultsTable>
-                  <CommonStyled.DataColumn isErrorColumn isError={!!error}>
+                <CommonStylesForTables.DataRow
+                  key={id}
+                  error={error}
+                  isResultsTable
+                >
+                  <CommonStylesForTables.DataColumn
+                    isErrorColumn
+                    isError={!!error}
+                  >
                     {error || 'Sent'}
-                  </CommonStyled.DataColumn>
-                  <CommonStyled.DataColumn>{name}</CommonStyled.DataColumn>
-                  <CommonStyled.DataColumn isBigBox>
+                  </CommonStylesForTables.DataColumn>
+                  <CommonStylesForTables.DataColumn>
+                    {name}
+                  </CommonStylesForTables.DataColumn>
+                  <CommonStylesForTables.DataColumn isBigBox>
                     {email}
-                  </CommonStyled.DataColumn>
+                  </CommonStylesForTables.DataColumn>
                   {user.role === ROLES.trainerAdmin ? (
-                    <CommonStyled.DataColumn>{group}</CommonStyled.DataColumn>
+                    <CommonStylesForTables.DataColumn>
+                      {group}
+                    </CommonStylesForTables.DataColumn>
                   ) : (
-                    <CommonStyled.DataColumn isCapitalized>
+                    <CommonStylesForTables.DataColumn isCapitalized>
                       {typeOfInvitation}
-                    </CommonStyled.DataColumn>
+                    </CommonStylesForTables.DataColumn>
                   )}
-                </CommonStyled.DataRow>
+                </CommonStylesForTables.DataRow>
               )
             )}
-          </CommonStyled.DataWrapper>
-        </CommonStyled.Table>
-      </CommonStyled.TableWrapper>
-    </CommonStyled.Wrapper>
+          </CommonStylesForTables.DataWrapper>
+        </CommonStylesForTables.Table>
+      </CommonStylesForTables.InnerTableWrapper>
+    </CommonStylesForTables.InnerWrapper>
   );
 };

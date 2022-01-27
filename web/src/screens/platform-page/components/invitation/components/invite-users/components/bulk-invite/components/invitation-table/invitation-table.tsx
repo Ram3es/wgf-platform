@@ -16,7 +16,7 @@ import { InvitationTableFormSchema } from './invitation-table.constants';
 import { IBulkInviteData } from '../../bulk-invite.typings';
 import { IInvitationTableProps } from './invitation.typings';
 
-import { InvitationTableCommonStyled as CommonStyled } from '../../bulk-invite.styles';
+import { CommonStylesForTables } from '@screens/platform-page/platform-page.styles';
 import { InvitationTableStyled as Styled } from './invitation-table.styles';
 
 export const InvitationTable = (props: IInvitationTableProps) => {
@@ -43,8 +43,8 @@ export const InvitationTable = (props: IInvitationTableProps) => {
   } = useInvitationTableState(props);
 
   return (
-    <CommonStyled.Wrapper>
-      <Styled.CheckboxWrapper>
+    <CommonStylesForTables.InnerWrapper>
+      <CommonStylesForTables.CheckboxWrapper>
         <Checkbox
           isMonoColor
           label="Select all"
@@ -54,24 +54,30 @@ export const InvitationTable = (props: IInvitationTableProps) => {
           boxHeight={16}
           alignItems="center"
         />
-      </Styled.CheckboxWrapper>
-      <CommonStyled.TableWrapper ref={tableRef}>
-        <CommonStyled.Table>
-          <CommonStyled.HeaderRow>
-            <Styled.ControlColumn />
-            <Styled.ControlColumn>Edit</Styled.ControlColumn>
-            <Styled.ControlColumn>Remove User</Styled.ControlColumn>
-            <CommonStyled.HeaderColumn>name</CommonStyled.HeaderColumn>
-            <CommonStyled.HeaderColumn isBigBox>
+      </CommonStylesForTables.CheckboxWrapper>
+      <CommonStylesForTables.InnerTableWrapper ref={tableRef}>
+        <CommonStylesForTables.Table>
+          <CommonStylesForTables.HeaderRow>
+            <CommonStylesForTables.ControlColumn />
+            <CommonStylesForTables.ControlColumn>
+              Edit
+            </CommonStylesForTables.ControlColumn>
+            <CommonStylesForTables.ControlColumn>
+              Remove User
+            </CommonStylesForTables.ControlColumn>
+            <CommonStylesForTables.HeaderColumn>
+              name
+            </CommonStylesForTables.HeaderColumn>
+            <CommonStylesForTables.HeaderColumn isBigBox>
               email
-            </CommonStyled.HeaderColumn>
-            <CommonStyled.HeaderColumn>
+            </CommonStylesForTables.HeaderColumn>
+            <CommonStylesForTables.HeaderColumn>
               {user.role === ROLES.trainerAdmin
                 ? 'group name'
                 : 'type of invitation'}
-            </CommonStyled.HeaderColumn>
-          </CommonStyled.HeaderRow>
-          <CommonStyled.DataWrapper>
+            </CommonStylesForTables.HeaderColumn>
+          </CommonStylesForTables.HeaderRow>
+          <CommonStylesForTables.DataWrapper>
             <Formik
               initialValues={{ users: invitationList }}
               validateOnChange
@@ -154,14 +160,14 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                               : '';
 
                           return (
-                            <CommonStyled.DataRow
+                            <CommonStylesForTables.DataRow
                               isActive={isActiveUser === id}
                               isSelected={isSelected}
                               error={nameError || emailError}
                               key={id}
                               isEditable={isEditable}
                             >
-                              <Styled.ControlColumn>
+                              <CommonStylesForTables.ControlColumn>
                                 <Checkbox
                                   isMonoColor
                                   label=""
@@ -171,24 +177,26 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                   boxHeight={16}
                                   alignItems="center"
                                 />
-                              </Styled.ControlColumn>
-                              <Styled.ControlColumn>
-                                <Styled.ControlWrapper onClick={onEditUser(id)}>
+                              </CommonStylesForTables.ControlColumn>
+                              <CommonStylesForTables.ControlColumn>
+                                <CommonStylesForTables.ControlWrapper
+                                  onClick={onEditUser(id)}
+                                >
                                   <Icon type="edit" />
-                                </Styled.ControlWrapper>
-                              </Styled.ControlColumn>
-                              <Styled.ControlColumn>
-                                <Styled.ControlWrapper
+                                </CommonStylesForTables.ControlWrapper>
+                              </CommonStylesForTables.ControlColumn>
+                              <CommonStylesForTables.ControlColumn>
+                                <CommonStylesForTables.ControlWrapper
                                   onClick={handleDeleteUser}
                                 >
                                   <Icon type="bin" />
-                                </Styled.ControlWrapper>
-                              </Styled.ControlColumn>
-                              <CommonStyled.DataColumn
+                                </CommonStylesForTables.ControlWrapper>
+                              </CommonStylesForTables.ControlColumn>
+                              <CommonStylesForTables.DataColumn
                                 isEditable
                                 onDoubleClick={onEditUser(id)}
                               >
-                                <Styled.InputWrapper>
+                                <CommonStylesForTables.InputWrapper>
                                   <TextField
                                     type="text"
                                     value={name || ''}
@@ -204,14 +212,14 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                       !isEditable && nameError ? '-' : ''
                                     }
                                   />
-                                </Styled.InputWrapper>
-                              </CommonStyled.DataColumn>
-                              <CommonStyled.DataColumn
+                                </CommonStylesForTables.InputWrapper>
+                              </CommonStylesForTables.DataColumn>
+                              <CommonStylesForTables.DataColumn
                                 isBigBox
                                 isEditable
                                 onDoubleClick={onEditUser(id)}
                               >
-                                <Styled.InputWrapper>
+                                <CommonStylesForTables.InputWrapper>
                                   <TextField
                                     type="text"
                                     value={email || ''}
@@ -227,8 +235,8 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                       !isEditable && emailError ? '-' : ''
                                     }
                                   />
-                                </Styled.InputWrapper>
-                              </CommonStyled.DataColumn>
+                                </CommonStylesForTables.InputWrapper>
+                              </CommonStylesForTables.DataColumn>
                               <SelectColumn
                                 existingTrainerGroups={groups}
                                 group={group || ''}
@@ -238,7 +246,7 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                                 handleUserActive={handleUserActive}
                                 formikRef={formikRef}
                               />
-                            </CommonStyled.DataRow>
+                            </CommonStylesForTables.DataRow>
                           );
                         }
                       );
@@ -247,9 +255,9 @@ export const InvitationTable = (props: IInvitationTableProps) => {
                 );
               }}
             </Formik>
-          </CommonStyled.DataWrapper>
-        </CommonStyled.Table>
-      </CommonStyled.TableWrapper>
+          </CommonStylesForTables.DataWrapper>
+        </CommonStylesForTables.Table>
+      </CommonStylesForTables.InnerTableWrapper>
       <Styled.SelectedUsersCount>
         {selectedUsersCount} selected
       </Styled.SelectedUsersCount>
@@ -269,6 +277,6 @@ export const InvitationTable = (props: IInvitationTableProps) => {
           isDisabled={isDisabled || !selectedUsersCount}
         />
       </Styled.ControlPanel>
-    </CommonStyled.Wrapper>
+    </CommonStylesForTables.InnerWrapper>
   );
 };

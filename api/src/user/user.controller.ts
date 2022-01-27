@@ -168,4 +168,28 @@ export class UserController {
   public async resetPasswordRequest(@Body() body: { email: string }) {
     return await this.userService.updatePasswordRequest(body);
   }
+
+  @Post(USER_ROUTES.getAllUsersCsv)
+  @ApiOperation({ summary: USER_ROUTES.getAllUsersCsv })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getAllUsersCsv,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async getAllUsersCsv() {
+    return this.userService.getAllUsersCsv();
+  }
+
+  @Post(USER_ROUTES.getAllStudentsByTrainerCsv)
+  @ApiOperation({ summary: USER_ROUTES.getAllStudentsByTrainerCsv })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getAllStudentsByTrainerCsv,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['trainerAdmin']))
+  public async getAllStudentsByTrainerCsv(@User('id') id: string) {
+    return this.userService.getAllStudentsByTrainerCsv(id);
+  }
 }

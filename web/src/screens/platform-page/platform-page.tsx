@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Header } from '@components/header';
 import { Dashboard } from './components/dashboard';
 import { Invitation } from './components/invitation';
+import { ManageUsers } from './components/manage-users/manage-users';
 import { NavigationBar } from './components/navigation-bar';
 import { Profile } from './components/profile';
 import { Trainer } from './components/trainer';
@@ -27,6 +28,7 @@ export const PlatformPage: React.FC = () => {
           <Route path={ROUTES.profile} component={Profile} />
           <Route path={ROUTES.trainer} component={Trainer} />
           <Route path={ROUTES.invitation} component={Invitation} />
+          <Route path={ROUTES.manageUser} component={ManageUsers} />
           <Route path={ROUTES.platform} component={Dashboard} />
         </Switch>
       </Styled.Wrapper>

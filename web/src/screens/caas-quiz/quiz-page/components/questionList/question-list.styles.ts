@@ -20,7 +20,7 @@ export const QuestionListStyles = {
   `,
 
   Item: styled.div`
-    border-bottom: 1px solid ${COLORS.greenLite};
+    border-bottom: 1px solid ${COLORS.greenLight};
     margin-bottom: 40px;
   `,
 

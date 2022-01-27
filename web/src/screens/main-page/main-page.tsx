@@ -60,14 +60,14 @@ export const MainPage: React.FC = () => {
                 isIconRight
                 iconType="next"
                 onClick={redirectToCaasQuiz}
-                color={COLORS.greenLite}
+                color={COLORS.greenLight}
               />
               <Button
                 title={STRINGS.button.quizCooperation}
                 iconType="next"
                 isIconRight
                 onClick={redirectToCaasCooperationQuiz}
-                color={COLORS.greenLite}
+                color={COLORS.greenLight}
               />
               <Button
                 title={'Go to Career Canvas'}

@@ -44,8 +44,8 @@ export const PopUpStyles = {
     `}
   `,
   Title: styled.div`
-    border-top: 2px solid ${COLORS.greenLite};
-    border-bottom: 2px solid ${COLORS.greenLite};
+    border-top: 2px solid ${COLORS.greenLight};
+    border-bottom: 2px solid ${COLORS.greenLight};
     margin: 40px 0 30px;
 
     ${Media.xsMobile`

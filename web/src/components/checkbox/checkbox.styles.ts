@@ -35,12 +35,12 @@ export const CheckboxStyles = {
     border: 1px solid
       ${({ isChecked, isMonoColor }) =>
         isChecked && !isMonoColor
-          ? COLORS.greenLite
+          ? COLORS.greenLight
           : isMonoColor
           ? COLORS.grey
           : COLORS.default};
     background-color: ${({ isChecked, isMonoColor }) =>
-      isChecked && !isMonoColor ? COLORS.greenLite : COLORS.white};
+      isChecked && !isMonoColor ? COLORS.greenLight : COLORS.white};
   `,
 
   Label: styled.span`

@@ -10,7 +10,7 @@ interface IDropBoxStyles {
 
 const getColor = (props: IDropBoxStyles) => {
   if (props.isDragAccept) {
-    return COLORS.greenLite;
+    return COLORS.greenLight;
   }
   if (props.isDragReject) {
     return COLORS.red;

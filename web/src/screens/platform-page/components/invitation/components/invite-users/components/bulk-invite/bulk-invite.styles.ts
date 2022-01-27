@@ -1,11 +1,19 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
-import { IDataColumnPropsStyles, IDataRowPropsStyles } from './bulk-invite.typings';
-
+export interface IBulkInviteData {
+  name: string;
+  email: string;
+  id: string;
+  typeOfInvitation: TInvitationType;
+  isSelected: boolean;
+  error?: string;
+  group?: string;
+  isEditable?: boolean;
+}
 export const BulkInviteStyled = {
   Wrapper: styled.div`
     padding: 20px 60px;
@@ -26,18 +34,7 @@ export const BulkInviteStyled = {
       padding: 20px 0;
     `}
   `,
-  TableWrapper: styled.div`
-    max-width: 1100px;
-    padding: 20px 40px;
 
-    ${Media.tablet`
-     padding: 20px;
-   `}
-
-    ${Media.mobile`
-     padding: 20px 0;
-   `}
-  `,
   Title: styled.h3`
     color: ${COLORS.lightBlue};
     font-weight: 900;
@@ -86,7 +83,7 @@ export const BulkInviteStyled = {
 
     span {
       margin-left: 5px;
-      color: ${COLORS.greenLite};
+      color: ${COLORS.greenLight};
       font-size: ${FONTS.sizes[14]};
     }
 
@@ -95,7 +92,7 @@ export const BulkInviteStyled = {
       height: 10px;
 
       path {
-        stroke: ${COLORS.greenLite};
+        stroke: ${COLORS.greenLight};
         stroke-width: 2px;
       }
     }
@@ -146,206 +143,5 @@ export const BulkInviteStyled = {
       color: ${COLORS.grey};
       text-decoration: underline;
     }
-  `,
-};
-
-export const InvitationTableCommonStyled = {
-  Wrapper: styled.div`
-    max-width: 100%;
-    margin-bottom: 20px;
-  `,
-  TableShadow: styled.div`
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.3);
-    border: 2px solid ${COLORS.white};
-    box-shadow: 0px 20px 70px rgba(86, 89, 146, 0.1);
-    border-radius: 20px;
-    margin-left: 50px;
-
-    ${Media.landscapeWreck`
-      margin-left: 0;
-    `}
-  `,
-  TableWrapper: styled.div`
-    overflow-x: auto;
-  `,
-  Table: styled.div`
-    min-width: 700px;
-
-    ${Media.smallLandscape`
-      min-width: 575px;
-    `}
-  `,
-  DataWrapper: styled.div`
-    overflow-y: auto;
-    max-height: 500px;
-    min-height: 140px;
-
-    span + div {
-      > div > :first-child {
-        max-height: 120px;
-        box-shadow: 0px 0px 0px 5px rgb(0 174 239 / 20%);
-      }
-    }
-
-    > :last-child span + div {
-      top: -70px;
-      transform: translateY(0);
-
-      > div > div {
-        top: 100%;
-        transform: translateY(-100%);
-      }
-    }
-
-    > :first-child span + div {
-      top: 10px;
-      transform: translateY(0);
-
-      > div > div {
-        top: 0;
-        transform: translateY(0);
-      }
-    }
-  `,
-  HeaderRow: styled.div`
-    display: flex;
-    border-bottom: 3px solid ${COLORS.lightBlue};
-    margin-bottom: 5px;
-
-    > :first-child {
-      margin-left: 0;
-    }
-  `,
-  HeaderColumn: styled.div<{ isBigBox?: boolean }>`
-    display: flex;
-    align-items: center;
-    width: 20%;
-    min-width: 160px;
-    background: rgba(0, 174, 239, 0.2);
-    border-radius: 7px 7px 0px 0px;
-    margin-left: 5px;
-    padding: 10px 5px 10px 20px;
-    text-transform: uppercase;
-    font-family: ${FONTS.family.frutigerBold};
-    font-size: ${FONTS.sizes[14]};
-
-    ${Media.smallLandscape(css`
-      font-size: ${FONTS.sizes[11]};
-      min-width: 140px;
-      padding: 10px 10px 7px;
-    `)}
-
-    ${({ isBigBox }) =>
-      isBigBox &&
-      css`
-        flex: 1;
-      `}
-  `,
-
-  DataRow: styled.div<IDataRowPropsStyles>`
-    display: flex;
-    background-color: ${({ isActive, isSelected }) =>
-      isActive
-        ? 'rgba(0,174,239,0.2)'
-        : isSelected
-        ? COLORS.authBg
-        : COLORS.white};
-
-    > :first-child {
-      margin-left: 0;
-    }
-
-    ${({ error, isResultsTable, isEditable }) =>
-      error &&
-      !isResultsTable &&
-      css`
-        padding-bottom: 10px;
-
-        ${Media.smallLandscape`
-          padding-bottom: 15px;
-        `}
-
-        ${!isEditable &&
-        css`
-          color: ${COLORS.red};
-
-          input {
-            color: ${COLORS.red};
-            ::placeholder {
-              color: ${COLORS.red};
-            }
-          }
-
-          svg {
-            path {
-              stroke: ${COLORS.red} !important;
-            }
-          }
-        `}
-      `}
-
-    ${({ error, isResultsTable }) =>
-      error &&
-      isResultsTable &&
-      css`
-        color: ${COLORS.red};
-      `}
-  `,
-
-  DataColumn: styled.div<IDataColumnPropsStyles>`
-    display: flex;
-    position: relative;
-    align-items: center;
-    width: 20%;
-    min-width: 160px;
-    font-family: ${FONTS.family.frutigerNormal};
-    font-size: ${FONTS.sizes[14]};
-    padding: 22px 5px 22px 25px;
-    word-break: break-word;
-    margin-left: 5px;
-
-    ${({ isBigBox }) =>
-      isBigBox &&
-      css`
-        flex: 1;
-      `}
-
-    ${({ isCapitalized }) =>
-      isCapitalized &&
-      css`
-        text-transform: capitalize;
-      `}
-
-    ${Media.smallLandscape(css`
-      font-size: ${FONTS.sizes[12]};
-      min-width: 140px;
-    `)}
-
-
-    ${({ isEditable }) =>
-      isEditable
-        ? css`
-            padding: 0;
-          `
-        : css`
-            ${Media.smallLandscape(css`
-              padding: 2px 10px;
-            `)}
-          `}
-
-    ${({ isErrorColumn, isError }) =>
-      isErrorColumn &&
-      isError &&
-      css`
-        & {
-          font-size: ${FONTS.sizes[12]};
-
-          ${Media.smallLandscape(css`
-            font-size: ${FONTS.sizes[10]};
-            min-width: 140px;
-          `)}
-        }
-      `}
   `,
 };
