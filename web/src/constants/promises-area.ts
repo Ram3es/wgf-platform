@@ -1,4 +1,4 @@
-import { getUsersByTrainer } from '../services/trainer.service';
+
 
 export const PROMISES_AREA = {
   printCaasPdf: 'get-caas-pdf',
@@ -18,8 +18,6 @@ export const PROMISES_AREA = {
   printCareerCanvasPdf: 'print-career-canvas-pdf',
   bulkInvite: 'bulk-invite',
   getAllUsers: 'get-all-users',
-  getUsersByTrainer: 'get-users-by-trainer',
   getInvitations: 'get-invitations',
   getAllUsersCsv: 'get-all-users-csv',
-  getAllStudentsByTrainerCsv: 'get-all-students-by-trainer-csv',
 };

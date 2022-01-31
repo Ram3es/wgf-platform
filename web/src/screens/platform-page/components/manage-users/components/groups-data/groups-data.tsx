@@ -2,14 +2,12 @@ import { FC, useState } from 'react';
 
 import { Icon } from '@components/icon';
 
-import { useManageUsersTableState } from '../manage-user-table/manage-users-table.state';
-
 import { GroupsDataStyles as Styled } from './groups-data.styles';
 
 export const GroupsData: FC<{
   groups: IGroupForUser[];
-}> = ({ groups }) => {
-  const { allUsers } = useManageUsersTableState();
+  allUsers: IUserExistingAndInvited[];
+}> = ({ groups, allUsers }) => {
   const [showGroups, setShowGroups] = useState(false);
   const toggleShowModal = () => {
     setShowGroups((prev) => !prev);

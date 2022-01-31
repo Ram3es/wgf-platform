@@ -66,11 +66,16 @@ export const createCsvUsers = async (users: IUserCsv[]) => {
     const groups = user.groups?.length
       ? user.groups
           ?.map((group) => {
-            return `${group.name}(${group.trainerName})`;
+            if (group.trainerName) {
+              return `${group.name}(${group.trainerName})`;
+            }
+            return `${group.name}`;
           })
           .join(';')
       : user.group
-      ? `${user.group.name}(${user.group.trainerName})`
+      ? user.group?.trainerName
+        ? `${user.group.name}(${user.group.trainerName})`
+        : `${user.group.name}`
       : '-';
 
     const registered = user?.created

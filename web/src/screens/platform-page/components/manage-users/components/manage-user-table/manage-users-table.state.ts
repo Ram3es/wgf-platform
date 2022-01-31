@@ -26,15 +26,6 @@ export const useManageUsersTableState = () => {
   }, []);
 
   useEffect(() => {
-    if (user.role === ROLES.superAdmin) {
-      getUsers();
-    }
-    if (user.role === ROLES.trainerAdmin) {
-      getStudents();
-    }
-  }, []);
-
-  useEffect(() => {
     if (allUsers.filter((user) => user.isSelected).length === allUsers.length) {
       setAllSelected(true);
     }
@@ -82,6 +73,15 @@ export const useManageUsersTableState = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (user.role === ROLES.superAdmin) {
+      getUsers();
+    }
+    if (user.role === ROLES.trainerAdmin) {
+      getStudents();
+    }
+  }, [getAllUsers, getStudents]);
 
   const onSelectAll = () => {
     setAllSelected((prev) => !prev);
@@ -313,7 +313,7 @@ export const useManageUsersTableState = () => {
       try {
         const { data } = await trackPromise(
           getAllStudentsByTrainerCsv({ trainerId: user.id }),
-          PROMISES_AREA.getAllStudentsByTrainerCsv
+          PROMISES_AREA.getAllUsersCsv
         );
         downloadMessage(
           `data:application/csv;base64,${data.file}`,
