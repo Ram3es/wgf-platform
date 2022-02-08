@@ -12,7 +12,5 @@ export const sendMail = async (message: IMessage) => {
     SES: { ses, aws },
   });
 
-  const email = await transporter.sendMail(message);
-
-  console.log(email, 'Email');
+  await transporter.sendMail(message);
 };
