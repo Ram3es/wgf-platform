@@ -9,9 +9,7 @@ export interface IResultProgressProps {
 
 export const ResultProgress = (props: IResultProgressProps) => {
   const { value, color, maxValue = 10, circleSize = 12 } = props;
-
   const numberValue = isNaN(value) ? 0 : value;
-
   const percent = (numberValue / maxValue) * 100;
   const offset = percent > 100 ? 100 : percent < 0 ? 0 : percent;
   const circleTop = (circleSize - 6) / 2;

@@ -69,24 +69,28 @@ export const MySkills: FC<IMySkillsProps> = (props) => {
               <Styled.HeaderTitle>{item}</Styled.HeaderTitle>
               <Styled.HeaderRightBlock />
             </Styled.Row>
-            {questionListForCategories[item].map((question) => {
-              const options =
-                question.answerOptions?.map((item) => item.text) || [];
-              const value = question.answers[0]?.value || '';
-              return (
-                <Styled.Row key={question.id}>
-                  <Styled.Label>{question.title}</Styled.Label>
-                  <Styled.ValueItem>
-                    <SelectQuestion
-                      id={question.id}
-                      onChangeAnswer={onChangeAnswer}
-                      options={options}
-                      value={value}
-                    />
-                  </Styled.ValueItem>
-                </Styled.Row>
-              );
-            })}
+            {questionListForCategories[item]
+              .sort((prev, next) =>
+                prev.title > next.title ? 1 : prev.title === next.title ? 0 : -1
+              )
+              .map((question) => {
+                const options =
+                  question.answerOptions?.map((item) => item.text) || [];
+                const value = question.answers[0]?.value || '';
+                return (
+                  <Styled.Row key={question.id}>
+                    <Styled.Label>{question.title}</Styled.Label>
+                    <Styled.ValueItem>
+                      <SelectQuestion
+                        id={question.id}
+                        onChangeAnswer={onChangeAnswer}
+                        options={options}
+                        value={value}
+                      />
+                    </Styled.ValueItem>
+                  </Styled.Row>
+                );
+              })}
           </div>
         ))}
       </Styled.Content>

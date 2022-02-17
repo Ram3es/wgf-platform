@@ -9,11 +9,12 @@ export const DashboardStyles = {
   Wrapper: styled.div`
     position: relative;
     display: flex;
-    width: calc(100% - 260px);
+    width: 100%;
     min-height: calc(100vh - 95px);
     padding: 35px 0;
     border-top-left-radius: 20px;
     overflow: hidden;
+    margin-left: 10px;
 
     ${Media.tablet`
       border-top-left-radius: 0;

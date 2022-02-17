@@ -298,9 +298,11 @@ export class InvitationService {
       },
     });
 
-    requests.forEach(async (request) => {
-      await this.acceptRequestTrainer({ token: request.id });
-    });
+    await Promise.all(
+      requests.map(async (request) => {
+        await this.acceptRequestTrainer({ token: request.id });
+      })
+    );
 
     return {
       message: 'Success',
@@ -429,9 +431,11 @@ export class InvitationService {
   }
 
   async deleteInvitations(body: { invitationIds: string[] }) {
-    body.invitationIds.forEach(async (invitationId) => {
-      await this.invitationRepository.delete(invitationId);
-    });
+    await Promise.all(
+      body.invitationIds.map(async (invitationId) => {
+        await this.invitationRepository.delete(invitationId);
+      })
+    );
     return {
       message: 'Success',
     };

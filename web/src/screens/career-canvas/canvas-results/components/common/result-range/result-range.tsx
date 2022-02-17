@@ -1,6 +1,7 @@
+import { IResultProgressProps, ResultProgress } from './progress';
+
 import { IMAGES } from '@constants/images';
 
-import { IResultProgressProps, ResultProgress } from './progress';
 import { Styled } from './result-range.styles';
 
 interface IResultRangeProps extends IResultProgressProps {
@@ -9,7 +10,6 @@ interface IResultRangeProps extends IResultProgressProps {
 
 export const ResultRange = (props: IResultRangeProps) => {
   const { title, ...progressProps } = props;
-
   const imgSrc = IMAGES[title];
 
   return (

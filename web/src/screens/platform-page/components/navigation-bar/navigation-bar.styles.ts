@@ -13,8 +13,6 @@ interface IStyledNavLink {
 
 export const NavigationBarStyles = {
   Wrapper: styled.div<{ isActiveMenu: boolean }>`
-    position: fixed;
-    left: 0;
     width: 250px;
     background: ${COLORS.authBg};
     border-top-right-radius: 20px;

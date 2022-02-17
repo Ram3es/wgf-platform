@@ -44,7 +44,9 @@ export class QuizService {
       body.quizId
     );
 
-    return this.quizRepository
+    const newResultId = resultId || lastResult?.id;
+
+    return await this.quizRepository
       .createQueryBuilder('quiz')
       .leftJoinAndSelect('quiz.questions', 'question')
       .leftJoinAndSelect('question.answerOptions', 'answerOption')
@@ -53,9 +55,10 @@ export class QuizService {
         'answer',
         'answer.resultId = (:resultId)',
         {
-          resultId: resultId || lastResult?.id,
+          resultId: newResultId,
         }
       )
+      .leftJoinAndSelect('answer.result', 'result')
       .where('quiz.id = (:quizId)', { quizId: body.quizId })
       .getOne();
   }
@@ -131,9 +134,9 @@ export class QuizService {
 
     const { data } = await this.httpService.get(fullUrl).toPromise();
 
-    // if (!data) {
-    //   throw new HttpException(ERRORS.pdf, HttpStatus.NOT_FOUND);
-    // }
+    if (!data) {
+      throw new HttpException(ERRORS.pdf, HttpStatus.NOT_FOUND);
+    }
 
     const payload = quizMessage[quiz.title](user, data);
 

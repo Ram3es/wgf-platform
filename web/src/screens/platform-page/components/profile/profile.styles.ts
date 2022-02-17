@@ -6,7 +6,8 @@ import { Media } from '@styles/media';
 
 export const ProfileStyles = {
   Wrapper: styled.div`
-    width: calc(100% - 260px);
+    width: 100%;
+    margin-left: 10px;
 
     ${Media.tablet`
       width: 100%;

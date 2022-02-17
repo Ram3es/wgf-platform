@@ -404,9 +404,11 @@ export class UserService {
       trainerId: trainer.id,
     });
 
-    groups.forEach(async (group) => {
-      await this.groupService.deleteGroup({ groupId: group.id });
-    });
+    await Promise.all(
+      groups.map(async (group) => {
+        await this.groupService.deleteGroup({ groupId: group.id });
+      })
+    );
 
     return trainer;
   }

@@ -11,7 +11,6 @@ import {
 export const PlatformPageStyles = {
   Wrapper: styled.div`
     display: flex;
-    justify-content: flex-end;
 
     ${Media.tablet`
       display: block;
@@ -26,11 +25,12 @@ export const PlatformPageStyles = {
 export const CommonStylesForPages = {
   Wrapper: styled.div`
     position: relative;
-    width: calc(100% - 260px);
+    width: 100%;
     padding: 35px 0;
     border-top-left-radius: 20px;
     overflow: hidden;
     min-height: calc(100vh - 95px);
+    margin-left: 10px;
 
     ${Media.desktop1600`
     padding: 70px 0;

@@ -42,21 +42,25 @@ export class AnswerService {
       status: body.status,
     });
 
-    body.answers.forEach(async (answer) => {
-      const question = await this.questionRepository.findOne(answer.questionId);
+    await Promise.all(
+      body.answers.map(async (answer) => {
+        const question = await this.questionRepository.findOne(
+          answer.questionId
+        );
 
-      if (!quiz || !question) {
-        throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
-      }
+        if (!quiz || !question) {
+          throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+        }
 
-      await this.answerRepository.save({
-        value: answer.value,
-        user,
-        question,
-        quiz,
-        result,
-      });
-    });
+        await this.answerRepository.save({
+          value: answer.value,
+          user,
+          question,
+          quiz,
+          result,
+        });
+      })
+    );
 
     return {
       message: 'Success',
