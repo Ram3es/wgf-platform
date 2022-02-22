@@ -31,6 +31,7 @@ export const IMAGES: Record<string, string> = {
   users: require('../assets/img/section-users.svg').default,
   userProfile: require('../assets/img/user.png').default,
   CareerFlex: require('../assets/img/career-flex.png').default,
+  ['CareerFlex+']: require('../assets/img/career-flex.png').default,
   ['Career Design Game']: require('../assets/img/career-design-game.png')
     .default,
   ['My Career Adventure']: require('../assets/img/career-design-canvas.png')

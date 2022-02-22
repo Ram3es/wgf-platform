@@ -6,9 +6,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Header } from '@components/header';
+import { Icon } from '@components/icon';
 import { TextField } from '@components/text-field';
+import { loginUser } from '@store/reducers/user.slice';
 import { COLORS } from '@styles/colors';
 
+import { useAppDispatch } from '@services/hooks/redux';
+import { storageService } from '@services/storage/storage';
 import { updateResetedPassword } from '@services/user.service';
 
 import { errorMessage } from '@constants/pop-up-messages';
@@ -16,8 +20,7 @@ import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 import { Toast } from '@constants/toasts';
 import {
-  UpdatePasswordFormSchema,
-  updatePasswordInitial,
+    UpdatePasswordFormSchema, updatePasswordInitial
 } from './update-reseted-password.constants';
 
 import { FormStyles } from '@styles/components/form.styles';
@@ -27,6 +30,9 @@ import { UpdateResetedPasswordStyles as Styled } from './update-reseted-password
 export const UpdateResetedPassword: React.FC = () => {
   const query = new URLSearchParams(useLocation().search);
   const { replace } = useHistory();
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!query.get('token')) {
@@ -38,23 +44,40 @@ export const UpdateResetedPassword: React.FC = () => {
     updatePasswordInitial
   );
 
-  const redirectToSignIn = () => {
+  const redirect = () => {
     replace(ROUTES.main);
+  };
+
+  const toggleShowPassword = () => {
+    setIsPasswordShown((prev) => !prev);
+  };
+
+  const toggleShowConfirmPassword = () => {
+    setIsConfirmPasswordShown((prev) => !prev);
   };
 
   const resetPasswordHandler = async () => {
     try {
-      await updateResetedPassword({
+      const { data } = await updateResetedPassword({
         newPassword: updatePasswordData.newPassword,
         token: query.get('token') || '',
       });
 
+      dispatch(loginUser(data.user));
+
+      storageService.setToken(data.token, false);
+
       Toast.fire({
         icon: 'success',
         title: 'Password was changed',
+      }).finally(() => {
+        Toast.fire({
+          icon: 'success',
+          title: 'Signed in successfully',
+        });
       });
 
-      return redirectToSignIn();
+      return redirect();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return errorMessage(error?.response?.data.message).fire();
@@ -107,7 +130,7 @@ export const UpdateResetedPassword: React.FC = () => {
                   <FormStyles.Form>
                     <FormStyles.Item>
                       <TextField
-                        type="password"
+                        type={isPasswordShown ? 'text' : 'password'}
                         name="newPassword"
                         placeholder={STRINGS.input.newPassword}
                         onChange={handlePasswordChange}
@@ -122,10 +145,24 @@ export const UpdateResetedPassword: React.FC = () => {
                         }
                         isFullWidth
                       />
+                      {updatePasswordData.newPassword.length ? (
+                        <Styled.IconWrapper
+                          onClick={toggleShowPassword}
+                          error={
+                            touched.newPassword && errors.newPassword
+                              ? errors.newPassword
+                              : ''
+                          }
+                        >
+                          <Icon type={isPasswordShown ? 'eye' : 'eyeBlocked'} />
+                        </Styled.IconWrapper>
+                      ) : (
+                        <></>
+                      )}
                     </FormStyles.Item>
                     <FormStyles.Item>
                       <TextField
-                        type="password"
+                        type={isConfirmPasswordShown ? 'text' : 'password'}
                         name="confirmPassword"
                         placeholder={STRINGS.input.confirmPassword}
                         onChange={handlePasswordChange}
@@ -140,6 +177,22 @@ export const UpdateResetedPassword: React.FC = () => {
                         }
                         isFullWidth
                       />
+                      {updatePasswordData.confirmPassword.length ? (
+                        <Styled.IconWrapper
+                          error={
+                            touched.confirmPassword && errors.confirmPassword
+                              ? errors.confirmPassword
+                              : ''
+                          }
+                          onClick={toggleShowConfirmPassword}
+                        >
+                          <Icon
+                            type={isConfirmPasswordShown ? 'eye' : 'eyeBlocked'}
+                          />
+                        </Styled.IconWrapper>
+                      ) : (
+                        <></>
+                      )}
                     </FormStyles.Item>
                   </FormStyles.Form>
                   <Styled.Footer>
@@ -152,7 +205,7 @@ export const UpdateResetedPassword: React.FC = () => {
                     />
                     <Button
                       title={STRINGS.button.cancel}
-                      onClick={redirectToSignIn}
+                      onClick={redirect}
                       variant="cancel"
                       color={COLORS.lightBlue}
                     />

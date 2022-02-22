@@ -19,6 +19,9 @@ export const useHeaderState = () => {
   const [isLogined, setIsLogined] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const [selected, setSelected] = useState('');
+  const [isAboutModalShown, setIsAboutModalShown] = useState<boolean>(false);
+  const [isModalWGFFrameworkOpen, setIsModalWGFFrameworkOpen] =
+    useState<boolean>(false);
 
   const token = storageService.getToken();
 
@@ -75,7 +78,15 @@ export const useHeaderState = () => {
   const loginHandler = () => {
     push(ROUTES.signUp);
   };
-
+  const handleMouseEnter = () => {
+    setIsModalWGFFrameworkOpen(true);
+  };
+  const handleMouseLeave = () => {
+    setIsModalWGFFrameworkOpen(false);
+  };
+  const aboutModalHandler = () => {
+    setIsAboutModalShown((prev) => !prev);
+  };
   return {
     isLogined,
     isDropdownActive,
@@ -84,5 +95,10 @@ export const useHeaderState = () => {
     handleDpopdownActive,
     openDpopdown,
     selectedChange,
+    isAboutModalShown,
+    handleMouseEnter,
+    isModalWGFFrameworkOpen,
+    handleMouseLeave,
+    aboutModalHandler,
   };
 };

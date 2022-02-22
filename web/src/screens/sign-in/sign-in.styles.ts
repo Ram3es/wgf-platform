@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 
 export const SignInStyles = {
@@ -17,6 +18,30 @@ export const SignInStyles = {
       font-size: ${FONTS.sizes[14]};
     }
   `,
+
+  IconWrapper: styled.div<{ error?: string }>`
+    position: relative;
+    svg {
+      position: absolute;
+      z-index: 5;
+      top: -60px;
+      right: 20px;
+      width: 20px;
+
+      ${({ error }) =>
+        error
+          ? css`
+              path {
+                fill: ${COLORS.red};
+              }
+            `
+          : css`
+              path {
+                fill: ${COLORS.grey};
+              }
+            `}
+    }
+  `,
   FormLabel: styled.p`
     font-size: ${FONTS.sizes[14]};
     margin-bottom: 10px;
@@ -25,6 +50,7 @@ export const SignInStyles = {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 8px;
     margin-bottom: 20px;
 
     & > * {

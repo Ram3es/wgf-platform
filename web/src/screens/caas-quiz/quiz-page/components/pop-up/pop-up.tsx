@@ -40,7 +40,7 @@ export const PopUp: React.FC<IPopUpProps> = (props) => {
     });
     setState({ isShowModal: false });
     dispatch(updateUserJobStatus({ jobStatus }));
-    history.push(ROUTES.results);
+    history.push(ROUTES.careerFlexResults);
   };
 
   const closeModal = () => setState({ isShowModal: false });

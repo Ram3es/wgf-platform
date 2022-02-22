@@ -1,5 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -17,7 +17,7 @@ import { AuthService } from './auth.service';
     JwtModule.register({}),
     PassportModule.register({}),
     ConfigModule,
-    UserModule,
+    forwardRef(() => UserModule),
     HttpModule,
   ],
   controllers: [AuthController],

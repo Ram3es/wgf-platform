@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -29,6 +29,8 @@ export const useSignInState = () => {
 
   const { state, updateState } =
     useUpdateState<ISignInState>(initialSignInState);
+
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const checkboxHandler = () => {
     updateState((prev) => ({
@@ -94,12 +96,18 @@ export const useSignInState = () => {
     replace(ROUTES.resetPassword);
   };
 
+  const toggleShowPassword = () => {
+    setIsPasswordShown((prev) => !prev);
+  };
+
   return {
     onChangeSignInData,
     signInHandler,
     redirectToSignUp,
     checkboxHandler,
     redirectToResetPassword,
+    isPasswordShown,
+    toggleShowPassword,
     ...state,
   };
 };

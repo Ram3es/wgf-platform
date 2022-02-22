@@ -14,6 +14,8 @@ import { ReactComponent as dropBox } from '@assets/img/drop-box.svg';
 import { ReactComponent as edit } from '@assets/img/edit.svg';
 import { ReactComponent as envelopeCancel } from '@assets/img/envelope-cancel.svg';
 import { ReactComponent as envelopeReminder } from '@assets/img/envelope-reminder.svg';
+import { ReactComponent as eyeBlocked } from '@assets/img/eye-blocked.svg';
+import { ReactComponent as eye } from '@assets/img/eye.svg';
 import { ReactComponent as facebook } from '@assets/img/facebook-icon.svg';
 import { ReactComponent as file } from '@assets/img/file.svg';
 import { ReactComponent as google } from '@assets/img/google-icon.svg';
@@ -83,6 +85,8 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   arrowDown,
   triangle,
   search,
+  eye,
+  eyeBlocked,
 };
 
 export const Icon = (props: { type: string }) => {

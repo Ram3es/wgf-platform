@@ -19,9 +19,9 @@ import { ROUTES } from '@constants/routes';
 export const AppRouter: React.FC = () => (
   <Switch>
     <Route exact path={ROUTES.main} component={MainPage} />
-    <PrivateRoute exact path={ROUTES.quiz} component={QuizPage} />
+    <PrivateRoute exact path={ROUTES.careerFlex} component={QuizPage} />
     <PrivateRoute path={ROUTES.platform} component={PlatformPage} />
-    <Route exact path={ROUTES.results} component={ResultPage} />
+    <Route exact path={ROUTES.careerFlexResults} component={ResultPage} />
     <Route exact path={ROUTES.signIn} component={SignIn} />
     <Route exact path={ROUTES.signUp} component={SignUp} />
     <Route exact path={ROUTES.errorPage} component={ErrorPage} />
@@ -36,6 +36,7 @@ export const AppRouter: React.FC = () => (
       path={ROUTES.careerDesignCanvasResults}
       component={CanvasResults}
     />
+
     <Route
       exact
       path={ROUTES.updatePassword}

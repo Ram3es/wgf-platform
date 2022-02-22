@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { BurgerNavbar } from '@components/burger-navbar/burger-navbar';
 import { Button } from '@components/button';
 import { Header } from '@components/header';
 import { COLORS } from '@styles/colors';
@@ -8,6 +9,7 @@ import { Container } from '@styles/components/container';
 
 import { storageService } from '@services/storage/storage';
 
+import { FLEX_QUIZ } from '@constants/flex-quiz';
 import { IMAGES } from '@constants/images';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
@@ -17,30 +19,39 @@ import { MainPageStyles as Styled } from './main-page.styles';
 
 export const MainPage: React.FC = () => {
   const { push } = useHistory();
+  const [isActiveBurger, setisActiveBurger] = useState<boolean>(false);
 
-  const redirectToCaasCooperationQuiz = () => {
-    storageService.setQuiz({
-      id: 'bd4bc467-78a5-4ea9-975b-16d1eebef55d',
-      title: 'caas-cooperation-quiz',
-    });
-    push(ROUTES.quiz);
+  const redirectToFlexCooperationQuiz = () => {
+    storageService.setQuiz(FLEX_QUIZ.careerFlexPlus);
+    push(ROUTES.careerFlex);
   };
 
-  const redirectToCaasQuiz = () => {
-    storageService.setQuiz({
-      id: 'bf4bc167-78a5-4ea9-975b-16d1eebef55d',
-      title: 'caas-quiz',
-    });
-    push(ROUTES.quiz);
+  const redirectToFlexQuiz = () => {
+    storageService.setQuiz(FLEX_QUIZ.careerFlex);
+    push(ROUTES.careerFlex);
   };
 
   const redirectToCareerCanvasQuiz = () => {
     push(ROUTES.careerDesignCanvas);
   };
+  const toogleActive = () => setisActiveBurger((prev) => !prev);
 
   return (
     <>
       <Header />
+      <Styled.BurgerMenuWrapper>
+        <Styled.BurgerMenu>
+          <Styled.LineWrapper onClick={toogleActive}>
+            <Styled.LineTop isActiveMenu={isActiveBurger} />
+            <Styled.LineMiddle isActiveMenu={isActiveBurger} />
+            <Styled.LineBottom isActiveMenu={isActiveBurger} />
+          </Styled.LineWrapper>
+        </Styled.BurgerMenu>
+        <Styled.Wrapper isActiveMenu={isActiveBurger}>
+          <BurgerNavbar isActiveMenu={isActiveBurger} />
+        </Styled.Wrapper>
+      </Styled.BurgerMenuWrapper>
+
       <Container>
         <Styled.Banner>
           <Styled.BannerDescription>
@@ -59,18 +70,18 @@ export const MainPage: React.FC = () => {
                 title={STRINGS.button.quizCaas}
                 isIconRight
                 iconType="next"
-                onClick={redirectToCaasQuiz}
+                onClick={redirectToFlexQuiz}
                 color={COLORS.greenLight}
               />
               <Button
                 title={STRINGS.button.quizCooperation}
                 iconType="next"
                 isIconRight
-                onClick={redirectToCaasCooperationQuiz}
+                onClick={redirectToFlexCooperationQuiz}
                 color={COLORS.greenLight}
               />
               <Button
-                title={'Go to Career Canvas'}
+                title={'Career Canvas'}
                 iconType="next"
                 isIconRight
                 onClick={redirectToCareerCanvasQuiz}

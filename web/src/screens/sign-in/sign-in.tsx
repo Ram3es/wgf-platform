@@ -5,6 +5,7 @@ import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Checkbox } from '@components/checkbox';
 import { Header } from '@components/header';
+import { Icon } from '@components/icon';
 import { Loader } from '@components/loader';
 import { SocialAuth } from '@components/social-auth';
 import { TextField } from '@components/text-field';
@@ -29,7 +30,10 @@ export const SignIn: React.FC = () => {
     redirectToResetPassword,
     signInData,
     isRemember,
+    isPasswordShown,
+    toggleShowPassword,
   } = useSignInState();
+
   return (
     <>
       <Header />
@@ -86,7 +90,7 @@ export const SignIn: React.FC = () => {
                     </FormStyles.Item>
                     <FormStyles.Item>
                       <TextField
-                        type="password"
+                        type={isPasswordShown ? 'text' : 'password'}
                         name="password"
                         placeholder={STRINGS.input.password}
                         onChange={handleUserChange}
@@ -101,6 +105,33 @@ export const SignIn: React.FC = () => {
                         }
                         isFullWidth
                       />
+                      {signInData.password.length ? (
+                        isPasswordShown ? (
+                          <Styled.IconWrapper
+                            error={
+                              touched.password && errors.password
+                                ? errors.password
+                                : ''
+                            }
+                            onClick={toggleShowPassword}
+                          >
+                            <Icon type="eye" />
+                          </Styled.IconWrapper>
+                        ) : (
+                          <Styled.IconWrapper
+                            error={
+                              touched.password && errors.password
+                                ? errors.password
+                                : ''
+                            }
+                            onClick={toggleShowPassword}
+                          >
+                            <Icon type="eyeBlocked" />
+                          </Styled.IconWrapper>
+                        )
+                      ) : (
+                        <></>
+                      )}
                     </FormStyles.Item>
                   </FormStyles.Form>
                   <Loader area={PROMISES_AREA.auth}>

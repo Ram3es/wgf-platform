@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ export const useSignUpState = () => {
   const { user } = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   useEffect(() => {
     const token = storageService.getToken();
@@ -74,11 +75,16 @@ export const useSignUpState = () => {
       [name]: ['email', 'password'].includes(name) ? value.trim() : value,
     });
   };
+  const toggleShowPassword = () => {
+    setIsPasswordShown((prev) => !prev);
+  };
 
   return {
     onChangeUser,
     signUpHandler,
     redirectToSignIn,
     state,
+    isPasswordShown,
+    toggleShowPassword,
   };
 };

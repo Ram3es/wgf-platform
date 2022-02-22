@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Header } from '@components/header';
+import { CareerDesignGame } from '@screens/career-design';
 import { Dashboard } from './components/dashboard';
 import { Invitation } from './components/invitation';
 import { ManageUsers } from './components/manage-users/manage-users';
@@ -29,6 +30,11 @@ export const PlatformPage: React.FC = () => {
           <Route path={ROUTES.trainer} component={Trainer} />
           <Route path={ROUTES.invitation} component={Invitation} />
           <Route path={ROUTES.manageUser} component={ManageUsers} />
+          <Route
+            exact
+            path={ROUTES.careerDesignGame}
+            component={CareerDesignGame}
+          />
           <Route path={ROUTES.platform} component={Dashboard} />
         </Switch>
       </Styled.Wrapper>

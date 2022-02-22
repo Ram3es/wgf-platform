@@ -3,7 +3,7 @@ import { deserialize, serialize } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,6 +14,7 @@ import { ROLES } from 'src/constants/roles';
 import { GroupEntity } from 'src/group/entities/group.entity';
 import { sendMail } from 'src/shared/utils/email';
 import { resetPasswordMail } from 'src/shared/utils/messages';
+import { AuthService } from '../auth/auth.service';
 import { GroupService } from '../group/group.service';
 import { createCsvUsers, IUserCsv } from '../shared/utils/csv-format';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
@@ -40,7 +41,9 @@ export class UserService {
     @InjectRepository(ResetPasswordEntity)
     private readonly resetPasswordRepository: Repository<ResetPasswordEntity>,
     private configService: ConfigService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    @Inject(forwardRef(() => AuthService))
+    private authService: AuthService
   ) {}
 
   async getUserById(id: string) {
@@ -171,8 +174,13 @@ export class UserService {
 
     await this.resetPasswordRepository.delete(resetPassModel.id);
 
+    const updatedUser = await this.getUserById(user.id);
+
+    const userToken = await this.authService.createToken(updatedUser);
+
     return {
-      message: 'Success',
+      user: await this.userSerializer(updatedUser),
+      token: userToken,
     };
   }
 

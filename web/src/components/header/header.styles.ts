@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
@@ -91,6 +91,7 @@ export const HeaderStyles = {
       print-color-adjust: exact;
     }
   `,
+
   LoginDropdown: styled.div`
     position: absolute;
     width: 100%;
@@ -102,5 +103,117 @@ export const HeaderStyles = {
     span {
       font-size: ${FONTS.sizes[16]};
     }
+  `,
+
+  NavLinkWrapper: styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-left: auto;
+    margin-right: 50px;
+    ${Media.landscape`
+      width:60%;
+    `}
+    ${Media.smallLandscape(css`
+      margin-right: 10px;
+    `)}
+    ${Media.tablet`
+      display: none;
+    `}
+    ${Media.mobile`
+    display: none;
+    `}
+  `,
+
+  NavLink: styled.a`
+    display: flex;
+    text-decoration: none;
+    color: ${COLORS.grey} !important;
+    font-family: ${FONTS.family.absideSmooth};
+    font-size: ${FONTS.sizes[16]};
+    font-weight: 500;
+    cursor: pointer;
+    height: 51px;
+    align-items: center;
+    ${Media.smallLandscape(css`
+      font-size: ${FONTS.sizes[13]};
+      max-width: 100px;
+      margin-left: 10px;
+    `)}
+    :hover {
+      opacity: 0.7;
+      color: ${COLORS.grey};
+    }
+  `,
+
+  About: styled.div`
+    display: flex;
+    position: relative;
+    color: ${COLORS.grey};
+    font-family: ${FONTS.family.absideSmooth};
+    font-size: ${FONTS.sizes[16]};
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+    height: 51px;
+    align-items: center;
+    ${Media.smallLandscape(css`
+      font-size: ${FONTS.sizes[14]};
+    `)}
+    :hover {
+      color: ${COLORS.grey};
+    }
+  `,
+
+  AboutModal: styled.div`
+    position: absolute;
+    background-color: ${COLORS.white};
+    width: 210px;
+    top: 40px;
+    left: 0px;
+    border-radius: 5px;
+    font-family: ${FONTS.family.frutigerNormal};
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  `,
+  AboutOptions: styled.div`
+    padding: 10px 15px 10px 15px;
+    font-size: ${FONTS.sizes[16]};
+    align-items: center;
+    line-height: 1.5;
+    opacity: 1;
+    ${Media.smallLandscape(css`
+      font-size: ${FONTS.sizes[14]};
+    `)}
+    :hover {
+      opacity: 1;
+      background-color: ${COLORS.greyLight};
+      color: ${COLORS.black};
+      transition: 0.3s;
+    }
+    a {
+      text-decoration: none;
+      color: ${COLORS.grey} !important;
+      font-family: ${FONTS.family.frutigerNormal};
+      font-size: ${FONTS.sizes[16]};
+      font-weight: 500;
+      cursor: pointer;
+      ${Media.smallLandscape(css`
+        font-size: ${FONTS.sizes[14]};
+      `)}
+      :hover {
+        opacity: 1;
+        color: ${COLORS.black} !important;
+      }
+    }
+  `,
+  ModalWGF: styled.div`
+    position: absolute;
+    background-color: ${COLORS.white};
+    width: 210px;
+    top: 0px;
+    left: 210px;
+    border-radius: 5px;
+    font-family: ${FONTS.family.frutigerNormal};
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
   `,
 };

@@ -24,6 +24,10 @@ const ASSESSMENT_TABS = [
     route: ROUTES.careerFlex,
   },
   {
+    title: 'CareerFlex+',
+    route: ROUTES.careerFlex,
+  },
+  {
     title: 'Career Design Game',
     route: ROUTES.careerDesignGame,
   },

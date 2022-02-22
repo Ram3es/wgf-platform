@@ -4,6 +4,7 @@ import React from 'react';
 import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Header } from '@components/header';
+import { Icon } from '@components/icon';
 import { Loader } from '@components/loader';
 import { SocialAuth } from '@components/social-auth';
 import { TextField } from '@components/text-field';
@@ -20,8 +21,14 @@ import { TitleStyles } from '@styles/components/title-styles';
 import { SignUpStyles as Styled } from './sign-up.styles';
 
 export const SignUp: React.FC = () => {
-  const { onChangeUser, signUpHandler, redirectToSignIn, state } =
-    useSignUpState();
+  const {
+    onChangeUser,
+    signUpHandler,
+    redirectToSignIn,
+    state,
+    isPasswordShown,
+    toggleShowPassword,
+  } = useSignUpState();
 
   return (
     <>
@@ -113,7 +120,7 @@ export const SignUp: React.FC = () => {
                     </FormStyles.Item>
                     <FormStyles.Item>
                       <TextField
-                        type="password"
+                        type={isPasswordShown ? 'text' : 'password'}
                         name="password"
                         placeholder={STRINGS.input.password}
                         onChange={handleUserChange}
@@ -128,6 +135,20 @@ export const SignUp: React.FC = () => {
                         }
                         isFullWidth
                       />
+                      {state.password.length ? (
+                        <Styled.IconWrapper
+                          error={
+                            touched.password && errors.password
+                              ? errors.password
+                              : ''
+                          }
+                          onClick={toggleShowPassword}
+                        >
+                          <Icon type={isPasswordShown ? 'eye' : 'eyeBlocked'} />
+                        </Styled.IconWrapper>
+                      ) : (
+                        <></>
+                      )}
                     </FormStyles.Item>
                   </FormStyles.Form>
                   <Loader area={PROMISES_AREA.auth}>

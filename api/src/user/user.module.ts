@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -7,6 +7,7 @@ import { InvitationEntity } from 'src/ invitation/entities/ invitation.entity';
 import { AnswerEntity } from 'src/answer/entities/answer.entity';
 import { ResultEntity } from 'src/answer/entities/result.entity';
 import { GroupEntity } from 'src/group/entities/group.entity';
+import { AuthModule } from '../auth/auth.module';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { GroupModule } from '../group/group.module';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
@@ -28,6 +29,7 @@ import { UserService } from './user.service';
     PassportModule.register({}),
     ConfigModule,
     GroupModule,
+    forwardRef(() => AuthModule),
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],

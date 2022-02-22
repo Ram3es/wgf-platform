@@ -181,7 +181,7 @@ export const useQuizState = () => {
         );
 
         if (user.isSubscriber) {
-          push(ROUTES.results);
+          push(ROUTES.careerDesignCanvasResults);
         } else {
           updateState({
             isShowModal: true,
