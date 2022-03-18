@@ -15,6 +15,7 @@ import { DatabaseConfig } from './shared/configs/database.config';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { UserModule } from './user/user.module';
 import { LimitsModule } from './limits/limits.module';
+import { SainaModule } from './saina/saina.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { LimitsModule } from './limits/limits.module';
     GoogleAuthModule,
     FacebookAuthModule,
     LimitsModule,
+    SainaModule,
   ],
   providers: [
     {

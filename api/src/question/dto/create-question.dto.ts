@@ -14,6 +14,10 @@ export class CreateQuestionDto {
   @IsOptional()
   subcategory: string;
 
+  @ApiProperty({ example: 'Section_1' })
+  @IsOptional()
+  section: string;
+
   @ApiProperty({ example: 'E.g. text' })
   @IsOptional()
   placeholder: string;
@@ -25,12 +29,16 @@ export class CreateQuestionDto {
   @ApiProperty({ example: 1 })
   order: number;
 
-  @ApiProperty({ example: 'single/options' })
+  @ApiProperty({ example: 'single/options/test' })
   type: QuestionType;
 
   @ApiProperty({ example: 'string[]' })
   @IsOptional()
   answerOptionsId: string[];
+
+  @ApiProperty({ example: 'string[]' })
+  @IsOptional()
+  answerTestIds: string[];
 
   @ApiProperty({ example: 'string[]' })
   quizesId: string[];

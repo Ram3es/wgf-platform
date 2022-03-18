@@ -3,7 +3,13 @@ import { deserialize, serialize } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,7 +31,10 @@ import { UserIdDto } from './dto/user-by-id.dto';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
 
-import { INVITATION_STATUS, INVITATION_TYPE } from 'src/ invitation/invitation.constants';
+import {
+  INVITATION_STATUS,
+  INVITATION_TYPE,
+} from 'src/ invitation/invitation.constants';
 import { UNASSIGNED_GROUP } from 'src/group/group.constants';
 
 @Injectable()

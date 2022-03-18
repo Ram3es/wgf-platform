@@ -8,12 +8,18 @@ import { ROLES } from 'src/constants/roles';
 import { GroupEntity } from 'src/group/entities/group.entity';
 import { sendMail } from 'src/shared/utils/email';
 import {
-    adminToUserMail, studentToTrainerMail, trainerToExistingStudentMail, trainerToStudentMail
+  adminToUserMail,
+  studentToTrainerMail,
+  trainerToExistingStudentMail,
+  trainerToStudentMail,
 } from 'src/shared/utils/messages';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { GroupService } from '../group/group.service';
-import { adminToExistingTrainerMail, adminToTrainerMail } from '../shared/utils/messages';
+import {
+  adminToExistingTrainerMail,
+  adminToTrainerMail,
+} from '../shared/utils/messages';
 import { CreateInvitationDto } from './dto/create-invitation.dto';
 import { InvitationEntity } from './entities/ invitation.entity';
 

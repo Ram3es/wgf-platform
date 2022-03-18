@@ -3,4 +3,5 @@ export const QUESTION_ROUTES = {
   create: 'create',
   createAnswerOption: 'create-answer-option',
   addToQuiz: 'add-to-quiz',
+  createTestAnswer: 'create-test-answer',
 };

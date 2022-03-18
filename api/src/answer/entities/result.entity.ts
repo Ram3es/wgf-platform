@@ -1,5 +1,10 @@
 import {
-    Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';

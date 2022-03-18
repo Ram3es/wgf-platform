@@ -1,4 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { CreateTestAnswerDto } from './dto/create-test-answer.dto';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RoleGuard } from '../shared/guards/role.guard';
 import { AddQuestionToQuizDto } from './dto/add-question-quiz.dto';
@@ -23,9 +33,9 @@ export class QuestionController {
     type: QuestionEntity,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(new RoleGuard(['superAdmin']))
+  // @UseGuards(new RoleGuard(['superAdmin']))
   public async createQuestion(@Body() body: CreateQuestionDto) {
-    return this.questionService.createQuestion(body);
+    return await this.questionService.createQuestion(body);
   }
 
   @Post(QUESTION_ROUTES.addToQuiz)
@@ -53,5 +63,23 @@ export class QuestionController {
   @UseGuards(new RoleGuard(['superAdmin']))
   public async createAnswerOption(@Body() body: CreateAnswerOptionDto) {
     return this.questionService.createAnswerOption(body);
+  }
+  @Post(QUESTION_ROUTES.createTestAnswer)
+  @ApiOperation({ summary: QUESTION_ROUTES.createTestAnswer })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: QUESTION_ROUTES.createTestAnswer,
+    isArray: true,
+    type: QuestionEntity,
+  })
+  @HttpCode(HttpStatus.OK)
+  async createTestAnswer(@Body() dto: CreateTestAnswerDto) {
+    return await this.questionService.createTestAnswer(dto);
+  }
+  @Get(':id')
+  async getQuestionById(@Param('id') id: string) {
+    console.log(id);
+
+    return await this.questionService.getQuestion(id);
   }
 }

@@ -1,3 +1,4 @@
+import { AnswerTestEntity } from './entities/answer-test.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { QuizEntity } from 'src/quiz/entities/quiz.entity';
@@ -8,7 +9,12 @@ import { QuestionService } from './question.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([QuestionEntity, AnswerOptionEntity, QuizEntity]),
+    TypeOrmModule.forFeature([
+      QuestionEntity,
+      AnswerOptionEntity,
+      QuizEntity,
+      AnswerTestEntity,
+    ]),
   ],
   controllers: [QuestionController],
   providers: [QuestionService],

@@ -1,7 +1,12 @@
 import { Exclude } from 'class-transformer';
 import {
-    Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn,
-    UpdateDateColumn
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 import { ApiProperty } from '@nestjs/swagger';
