@@ -1,6 +1,5 @@
 import { AnswerTestEntity } from './entities/answer-test.entity';
 import { Repository } from 'typeorm';
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QuizEntity } from 'src/quiz/entities/quiz.entity';
@@ -37,7 +36,7 @@ export class QuestionService {
       ...body,
       quizes,
       answerOptions,
-      // testAnswers: testAnswersOption
+      testAnswers: testAnswersOption,
     });
   }
 
@@ -67,6 +66,7 @@ export class QuestionService {
   async createTestAnswer(dto: CreateTestAnswerDto) {
     return await this.answerTestRepository.save({ ...dto });
   }
+
   async getQuestion(id: string) {
     const question = await this.questionRepository
       .createQueryBuilder('question')
