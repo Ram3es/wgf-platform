@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
@@ -199,5 +191,17 @@ export class UserController {
   @UseGuards(new RoleGuard(['trainerAdmin']))
   public async getAllStudentsByTrainerCsv(@User('id') id: string) {
     return this.userService.getAllStudentsByTrainerCsv(id);
+  }
+
+  @Post(USER_ROUTES.getUserHasPassword)
+  @ApiOperation({ summary: USER_ROUTES.getUserHasPassword })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getUserHasPassword,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthenticationGuard)
+  public async getUserHasPassword(@User('id') id: string) {
+    return this.userService.getUserHasPassword(id);
   }
 }

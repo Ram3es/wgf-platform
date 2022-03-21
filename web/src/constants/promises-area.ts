@@ -1,5 +1,3 @@
-
-
 export const PROMISES_AREA = {
   printCaasPdf: 'get-caas-pdf',
   getCaasQuestionList: 'get-caas-questions',
@@ -20,4 +18,6 @@ export const PROMISES_AREA = {
   getAllUsers: 'get-all-users',
   getInvitations: 'get-invitations',
   getAllUsersCsv: 'get-all-users-csv',
+  getUserHasPassword: 'has-password',
+  sendEmailWithCode: 'send-code',
 };

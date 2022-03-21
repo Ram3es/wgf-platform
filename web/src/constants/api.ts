@@ -7,4 +7,5 @@ export const ENDPOINTS = {
   invitation: 'invitation',
   facebook: 'facebook',
   google: 'google',
+  verification: 'verification',
 };

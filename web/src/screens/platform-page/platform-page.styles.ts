@@ -44,7 +44,11 @@ export const CommonStylesForPages = {
     width: 100%;
     min-height: calc(100vh - 135px);
     border-top-left-radius: 0;
+    margin-left: 0px;
   `}
+  ${Media.sMobile`
+    margin-left: 0px;
+    `}
   `,
   Content: styled.div`
     position: relative;

@@ -39,3 +39,21 @@ export const updateProfilePassword = (data: IUpdateProfilePassword) =>
 
 export const updateUser = (data: IUserUpdate) =>
   UPDATE<IUser, IUserUpdate>(`${ENDPOINTS.user}/update`, data);
+
+export const sendEmailVerification = (body: {
+  email: string;
+  userName: string;
+}) =>
+  POST<{ message: string }, { email: string; userName: string }>(
+    `${ENDPOINTS.verification}/send-code`,
+    body
+  );
+
+export const verifyCode = (body: { codeToSend: number; newEmail: string }) =>
+  POST<{ message: string }, { codeToSend: number; newEmail: string }>(
+    `${ENDPOINTS.verification}/verify-code`,
+    body
+  );
+
+export const getUserHasPassword = () =>
+  POST<{ password: boolean }>(`${ENDPOINTS.user}/has-password`);

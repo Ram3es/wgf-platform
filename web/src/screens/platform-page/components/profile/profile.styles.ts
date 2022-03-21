@@ -1,18 +1,44 @@
 import styled, { css } from 'styled-components';
 
+import { Backdrop } from '@components/backdrop';
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
+import { Z_INDEX } from '@styles/z-indexes';
 
 export const ProfileStyles = {
+  Backdrop: styled.div`
+    opacity: 0.6;
+    background-color: ${COLORS.grey};
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 100%;
+    z-index: ${Z_INDEX.low};
+  `,
+
+  FormControl: styled.div`
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  `,
+
   Wrapper: styled.div`
+    position: relative;
     width: 100%;
     margin-left: 10px;
 
     ${Media.tablet`
       width: 100%;
+      margin-left: 0px;
     `}
+    ${Media.sMobile`
+      margin-left: 0px;
+      `}
   `,
+
   ContentWrapper: styled.div`
     display: flex;
     justify-content: center;
@@ -62,7 +88,6 @@ export const ProfileStyles = {
     height: 130px;
     border-radius: 50%;
     overflow: hidden;
-
     img {
       width: 100%;
       height: auto;

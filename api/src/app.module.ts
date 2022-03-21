@@ -9,13 +9,14 @@ import { AuthModule } from './auth/auth.module';
 import { FacebookAuthModule } from './auth/facebook-auth/facebook-auth.module';
 import { GoogleAuthModule } from './auth/google-auth/google-auth.module';
 import { GroupModule } from './group/group.module';
+import { LimitsModule } from './limits/limits.module';
 import { QuestionModule } from './question/question.module';
 import { QuizModule } from './quiz/quiz.module';
+import { SainaModule } from './saina/saina.module';
 import { DatabaseConfig } from './shared/configs/database.config';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { UserModule } from './user/user.module';
-import { LimitsModule } from './limits/limits.module';
-import { SainaModule } from './saina/saina.module';
+import { VerificationModule } from './verification/verification.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { SainaModule } from './saina/saina.module';
     FacebookAuthModule,
     LimitsModule,
     SainaModule,
+    VerificationModule,
   ],
   providers: [
     {

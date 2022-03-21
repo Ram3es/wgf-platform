@@ -19,4 +19,5 @@ export const USER_ROUTES = {
   deleteTrainer: 'delete-trainer',
   getAllUsersCsv: 'get-all-users-csv',
   getAllStudentsByTrainerCsv: 'get-all-students-by-trainer-csv',
+  getUserHasPassword: 'has-password',
 };

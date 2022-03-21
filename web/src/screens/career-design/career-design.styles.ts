@@ -7,6 +7,7 @@ import { Z_INDEX } from '@styles/z-indexes';
 
 export const CareerDesignStyles = {
   Wrapper: styled.div`
+    margin-left: 10px;
     position: relative;
     width: calc(100% - 260px);
     padding: 70px 90px;
@@ -26,6 +27,7 @@ export const CareerDesignStyles = {
       width: 100%;
       min-height: calc(100vh - 135px);
       border-top-left-radius: 0;
+      margin-left: 0px;
     `}
   `,
 

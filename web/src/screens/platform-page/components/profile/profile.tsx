@@ -5,6 +5,7 @@ import { Icon } from '@components/icon';
 import { ImagePicker } from '@components/image-picker';
 import { COLORS } from '@styles/colors';
 import { AccountForm } from './components/account-form';
+import { ModalCode } from './components/modal-code/modal-code';
 import { ProfileForm } from './components/profile-form';
 
 import { useProfileState } from './profile.state';
@@ -36,12 +37,36 @@ export const Profile: React.FC = () => {
     handleSubmitAccountForm,
     editAccountClick,
     updateSelectedCountry,
+    code,
+    handleSubmit,
+    showEmailCodeModal,
+    setCode,
+    hasPassword,
+    emailToChange,
+    handleModalClose,
+    sendEmailWithCode,
+    setShowEmailCodeModal,
   } = useProfileState();
 
   const countryOptions = useMemo(() => countryList().getLabels(), []);
 
   return (
     <Styled.Wrapper>
+      {showEmailCodeModal && (
+        <>
+          <Styled.Backdrop></Styled.Backdrop>
+          <ModalCode
+            handleModalClose={handleModalClose}
+            handleSubmit={handleSubmit}
+            sendEmailWithCode={sendEmailWithCode}
+            emailToChange={emailToChange}
+            setShowEmailCodeModal={setShowEmailCodeModal}
+            code={code}
+            setCode={setCode}
+          />
+        </>
+      )}
+
       <Styled.ContentWrapper>
         <Styled.AvatarColumn>
           <Styled.NameTitle>
@@ -85,22 +110,26 @@ export const Profile: React.FC = () => {
               countryList={countryOptions}
             />
           </Styled.SectionProfile>
-          <Styled.ProfileTitle>
-            <TitleStyles.h3 textAlign="left">
-              {STRINGS.profile.accountTitle}
-            </TitleStyles.h3>
-            <Styled.EditButton onClick={editAccountClick}>
-              {!isAccountEdit && <Icon type="edit" />}
-            </Styled.EditButton>
-          </Styled.ProfileTitle>
-          <Styled.Line />
-          {isAccountEdit && (
-            <AccountForm
-              cancelEditAccount={cancelEditAccount}
-              accountChange={accountChange}
-              accountData={accountData!}
-              accountFormSubmit={handleSubmitAccountForm}
-            />
+          {hasPassword && (
+            <>
+              <Styled.ProfileTitle>
+                <TitleStyles.h3 textAlign="left">
+                  {STRINGS.profile.accountTitle}
+                </TitleStyles.h3>
+                <Styled.EditButton onClick={editAccountClick}>
+                  {!isAccountEdit && <Icon type="edit" />}
+                </Styled.EditButton>
+              </Styled.ProfileTitle>
+              <Styled.Line />
+              {isAccountEdit && (
+                <AccountForm
+                  cancelEditAccount={cancelEditAccount}
+                  accountChange={accountChange}
+                  accountData={accountData!}
+                  accountFormSubmit={handleSubmitAccountForm}
+                />
+              )}
+            </>
           )}
         </Styled.ProfileColumn>
       </Styled.ContentWrapper>

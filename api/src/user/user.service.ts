@@ -3,13 +3,7 @@ import { deserialize, serialize } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import {
-  forwardRef,
-  HttpException,
-  HttpStatus,
-  Inject,
-  Injectable,
-} from '@nestjs/common';
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,10 +25,7 @@ import { UserIdDto } from './dto/user-by-id.dto';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
 
-import {
-  INVITATION_STATUS,
-  INVITATION_TYPE,
-} from 'src/ invitation/invitation.constants';
+import { INVITATION_STATUS, INVITATION_TYPE } from 'src/ invitation/invitation.constants';
 import { UNASSIGNED_GROUP } from 'src/group/group.constants';
 
 @Injectable()
@@ -133,11 +124,13 @@ export class UserService {
 
   async updateProfilePassword(id: string, body: UpdatePassWordDTO) {
     const user = await this.getUserById(id);
-
-    if (
-      !user.password ||
-      !(await bcrypt.compare(body.password, user.password))
-    ) {
+    if (!user.password) {
+      throw new HttpException(
+        ERRORS.user.loggedInBySocials,
+        HttpStatus.FORBIDDEN
+      );
+    }
+    if (!(await bcrypt.compare(body.password, user.password))) {
       throw new HttpException(ERRORS.user.wrongPassword, HttpStatus.FORBIDDEN);
     }
 
@@ -442,5 +435,13 @@ export class UserService {
     return {
       file: await createCsvUsers(users as IUserCsv[]),
     };
+  }
+
+  async getUserHasPassword(id: string) {
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
+    }
+    return Boolean(user.password);
   }
 }

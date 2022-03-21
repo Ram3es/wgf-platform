@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 
 import { Button } from '@components/button';
 import { DropDown } from '@components/drop-down';
+import { Loader } from '@components/loader';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
 
+import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
 import { ProfileFormItems, ProfileFormSchema, profileLabels } from './profile-form.constants';
 
@@ -118,22 +120,24 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
                 </Styled.FormWrapper>
                 {isProfileEdit && (
                   <Styled.FormControl>
-                    <Button
-                      color={COLORS.lightBlue}
-                      title={STRINGS.button.save}
-                      onClick={handleSubmit}
-                      type="submit"
-                      isDisabled={
-                        !isValid ||
-                        (!dirty &&
-                          initialProfileData.country === profileData.country)
-                      }
-                    />
-                    <Button
-                      variant="cancel"
-                      title={STRINGS.button.cancel}
-                      onClick={cancelEditProfile}
-                    />
+                    <Loader area={PROMISES_AREA.sendEmailWithCode}>
+                      <Button
+                        color={COLORS.lightBlue}
+                        title={STRINGS.button.save}
+                        onClick={handleSubmit}
+                        type="submit"
+                        isDisabled={
+                          !isValid ||
+                          (!dirty &&
+                            initialProfileData.country === profileData.country)
+                        }
+                      />
+                      <Button
+                        variant="cancel"
+                        title={STRINGS.button.cancel}
+                        onClick={cancelEditProfile}
+                      />
+                    </Loader>
                   </Styled.FormControl>
                 )}
               </>

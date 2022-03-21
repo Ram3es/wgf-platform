@@ -222,6 +222,26 @@ export const adminToExistingTrainerMail = (
     `Accept and Sign in`
   ),
 });
+export const emailVerificationMail = (
+  email: string,
+  userName: string,
+  emailSecret: number
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: email,
+  bcc: email,
+  subject: 'Verification for changing email',
+  html: createEmailTemplateWithoutButtonHtml(
+    ` <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    This is your verification code for changing email address in your profile <strong>${emailSecret}</strong>.
+    </p>
+    `,
+    userName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
+  ),
+});
 
 export const adminToTrainerMail = (
   email: string,
@@ -433,3 +453,118 @@ ${buttonText}
   </body>
   </html>
   `;
+const createEmailTemplateWithoutButtonHtml = (
+  emailBody: string,
+  name: string,
+  imageRow?: string
+) => `<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="format-detection" content="telephone=no">
+<style>
+@media only screen and (max-width:500px) {
+  table[class=body] p,
+  table[class=body] ul,
+  table[class=body] ol,
+  table[class=body] td,
+  table[class=body] span,
+  table[class=body] a {
+    font-size: 15px !important;
+  }
+
+  table[class=body] .content_wrapper {
+    padding: 20px !important;
+  }
+
+  table[class=body] .button_mobile {
+    padding: 13px 30px !important;
+  }
+
+  table[class=body] .logo {
+    text-align: center !important;
+  }
+}
+@media only screen and (max-width:700px) {
+  table[class=body] .container {
+    width: 100% !important;
+  }
+
+  table[class=body] .main {
+    border-left-width: 0 !important;
+    border-radius: 0 !important;
+    border-right-width: 0 !important;
+  }
+
+  table[class=body] .mobile_paragraph {
+    width: 90% !important;
+  }
+}
+</style>
+</head>
+<body style="background-color: #f6f6f6; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family: 'Arial', sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+<td class="container" style="font-size: 14px; vertical-align: top; display: block; max-width: 600px; width: 600px; margin: 0 auto;" width="600" valign="top">
+<div class="content" style="box-sizing:border-box;display:block;margin:0 auto;max-width:600px; padding:10px;background:#F7F8FB">
+<table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">
+<table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%; background: #f1f1f2; background: linear-gradient(90deg, rgba(0,174,239,0.07) 0%, rgba(239,96,163,0.07) 50%, rgba(141,198,63,0.07) 100%); box-sizing: border-box;" width="100%">
+<tr style="box-sizing: border-box;">
+<th style="box-sizing: border-box; font-size: 0; padding: 0 20px; width: 50%; padding: 30px 20px;" class="logo">
+<img alt="T@" src="https://i.ibb.co/6RrhGTj/WGF-Logo.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+</th>
+${imageRow}
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding: 40px; width: 100%; max-width: 100%;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">
+<p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph"> 
+Hi <strong>${name}</strong>,
+</p>
+${emailBody}
+<p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px; padding-top: 30px;" class="mobile_paragraph">
+Thank you!
+</p>
+<p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+Jac at Wit Grit Fit  
+</p>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; padding: 10px 0;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">
+<a style="margin-right:10px;text-decoration:none" href="${WEB_BASE_URL}">
+<img alt="website" src="https://i.ibb.co/StLpw9x/website.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; undefined: display; undefined: inline-block; height: 20px; width: 20px;" width="20" height="20">
+</a>
+<a style="margin-right:10px;text-decoration:none" href="https://www.facebook.com/avidadventures/">
+<img alt="facebook" src="https://i.ibb.co/QcqHRDC/facebook.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; undefined: display; undefined: inline-block; height: 20px; width: 20px;" width="20" height="20">
+</a>
+<a style="margin-right:10px;text-decoration:none" href="https://sg.linkedin.com/company/witgritfit">
+<img alt="linkedin" src="https://i.ibb.co/kySWwh6/linkedin.png" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%; undefined: display; undefined: inline-block; height: 20px; width: 20px;" width="20" height="20">
+</a>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 30px 0;" width="100%">
+<tr>
+<td style="font-size: 14px; vertical-align: top;" valign="top">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+</tr>
+</table>
+</body>
+</html>
+`;

@@ -1,15 +1,20 @@
 import axios from 'axios';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
 import { updateUserAvatar, updateUserProfile } from '@store/reducers/user.slice';
 
 import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { updateProfilePassword, updateUser } from '@services/user.service';
+import {
+    getUserHasPassword, sendEmailVerification, updateProfilePassword, updateUser, verifyCode
+} from '@services/user.service';
 
 import { DATE_TIME_OPTIONS } from '@constants/date';
 import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
+import { PROMISES_AREA } from '@constants/promises-area';
+import { ROUTES } from '@constants/routes';
 import { Toast } from '@constants/toasts';
 import { initialAccountData, initialProfileState } from './profile.constants';
 
@@ -19,14 +24,22 @@ export const useProfileState = () => {
   const { replace, push } = useHistory();
 
   const { user } = useAppSelector((state) => state);
-
+  const { state, updateState } =
+    useUpdateState<IProfileInitialState>(initialProfileState);
   const dispatch = useAppDispatch();
+  const [showEmailCodeModal, setShowEmailCodeModal] = useState<boolean>(false);
+
+  const [hasPassword, setHasPassword] = useState<{ password: boolean }>({
+    password: false,
+  });
+  const [code, setCode] = useState<string>('');
+  const [emailToChange, setEmailToChange] = useState<string>('');
 
   useEffect(() => {
     if (!user) {
       return replace('/');
     }
-
+    userHasPassword();
     const created = new Date(user.created).toLocaleString(
       'en-US',
       DATE_TIME_OPTIONS
@@ -50,9 +63,13 @@ export const useProfileState = () => {
     });
   }, []);
 
-  const { state, updateState } =
-    useUpdateState<IProfileInitialState>(initialProfileState);
-
+  const userHasPassword = async () => {
+    const { data } = await trackPromise(
+      getUserHasPassword(),
+      PROMISES_AREA.getUserHasPassword
+    );
+    setHasPassword(data);
+  };
   const handleImageChange = (value: string) => {
     if (value !== user?.avatar) {
       updateState({
@@ -70,11 +87,8 @@ export const useProfileState = () => {
         created: user.created,
         avatar: avatar || user.avatar,
       };
-
       await updateUser(payload);
-
       dispatch(updateUserProfile(payload));
-
       Toast.fire({
         icon: 'success',
         title: 'Profile updated successfully',
@@ -86,9 +100,7 @@ export const useProfileState = () => {
             .fire()
             .finally(() => push('/sign-in'));
         }
-
         errorMessage(error?.response?.data.message).fire();
-
         return 'error';
       }
     }
@@ -153,18 +165,46 @@ export const useProfileState = () => {
   };
 
   const handleSubmitProfileForm = async () => {
-    const data = await updateUserApi();
+    if (
+      state.profileData?.email &&
+      state.profileData?.email !== state.initialProfileData?.email
+    ) {
+      const newEmail = state.profileData?.email;
+      sendEmailWithCode(newEmail);
+      setEmailToChange(newEmail);
+    } else {
+      const data = await updateUserApi();
+      if (data === 'error') {
+        return;
+      }
 
-    if (data === 'error') {
-      return;
+      updateState({
+        initialProfileData: state.profileData,
+        isProfileEdit: false,
+      });
+
+      dispatch(updateUserProfile(state.profileData!));
     }
+  };
 
-    updateState({
-      initialProfileData: state.profileData,
-      isProfileEdit: false,
-    });
-
-    dispatch(updateUserProfile(state.profileData!));
+  const sendEmailWithCode = async (email: string) => {
+    const userName = `${user.firstName} ${user.lastName}`;
+    try {
+      await trackPromise(
+        sendEmailVerification({ email, userName }),
+        PROMISES_AREA.sendEmailWithCode
+      );
+      setShowEmailCodeModal(true);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push(ROUTES.signIn));
+        }
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
   };
 
   const updateSelectedCountry = (selected: string) => {
@@ -174,6 +214,41 @@ export const useProfileState = () => {
         country: selected,
       },
     }));
+  };
+
+  const handleSubmit = async () => {
+    handleModalClose();
+    try {
+      const codeToSend = parseInt(code, 10);
+      const newEmail = state.profileData?.email || '';
+      await verifyCode({ codeToSend, newEmail });
+      updateState({
+        initialProfileData: state.profileData,
+        isProfileEdit: false,
+      });
+
+      const payload = {
+        ...user,
+        ...state.profileData!,
+      };
+      dispatch(updateUserProfile(payload));
+      Toast.fire({
+        icon: 'success',
+        title: 'Email changed successfully',
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          return unAutorizedError()
+            .fire()
+            .finally(() => push(ROUTES.signIn));
+        }
+
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    } finally {
+      setCode('');
+    }
   };
 
   const handleSubmitAccountForm = async () => {
@@ -200,11 +275,12 @@ export const useProfileState = () => {
       }
     }
   };
-
+  const handleModalClose = () => {
+    setShowEmailCodeModal(false);
+  };
   return {
     ...state,
     handleImageChange,
-    updateUserApi,
     profileChange,
     sendAvatar,
     updateState,
@@ -217,5 +293,14 @@ export const useProfileState = () => {
     handleSubmitAccountForm,
     updateSelectedCountry,
     user,
+    code,
+    setCode,
+    handleSubmit,
+    showEmailCodeModal,
+    hasPassword,
+    emailToChange,
+    handleModalClose,
+    sendEmailWithCode,
+    setShowEmailCodeModal,
   };
 };
