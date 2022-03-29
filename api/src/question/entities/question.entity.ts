@@ -17,6 +17,7 @@ export enum QuestionType {
   single = 'single',
   options = 'options',
   test = 'test',
+  select = 'select',
 }
 
 @Entity('question')

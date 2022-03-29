@@ -16,6 +16,10 @@ export class AnswerEntity {
   @ApiProperty({ example: 'CaasQuiz' })
   value: string;
 
+  @Column({ default: false })
+  @ApiProperty({ example: false })
+  isCorrect: boolean;
+
   @ManyToOne(() => UserEntity, (data) => data.answers, {
     onDelete: 'CASCADE',
   })

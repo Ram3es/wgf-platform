@@ -48,6 +48,7 @@ export class UserService {
 
   async getUserById(id: string) {
     const user = await this.userRepository.findOne(id);
+
     if (!user) {
       throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }

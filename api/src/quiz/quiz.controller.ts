@@ -13,7 +13,6 @@ import { getQuizDto } from './dto/get-quiz.dto';
 import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
 import { QuizService } from './quiz.service';
-
 import { QUIZ_ROUTES } from './quiz.constants';
 
 @ApiTags(QUIZ_ROUTES.main)

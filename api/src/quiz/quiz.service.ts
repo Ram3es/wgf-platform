@@ -53,6 +53,7 @@ export class QuizService {
       .createQueryBuilder('quiz')
       .leftJoinAndSelect('quiz.questions', 'question')
       .leftJoinAndSelect('question.answerOptions', 'answerOption')
+      .leftJoinAndSelect('question.testAnswers', 'testAnswers')
       .leftJoinAndSelect(
         'question.answers',
         'answer',

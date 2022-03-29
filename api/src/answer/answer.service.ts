@@ -54,6 +54,7 @@ export class AnswerService {
 
         await this.answerRepository.save({
           value: answer.value,
+          isCorrect: answer.isCorrect,
           user,
           question,
           quiz,

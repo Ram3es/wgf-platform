@@ -1,6 +1,7 @@
+import { getResultDto } from './../quiz/dto/get-result-quiz.dto';
 import { SAINA_ROUTES } from './constants';
 import { CreateStreamDto } from './dto/create-stream.dto';
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { SainaService } from './saina.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 
@@ -18,8 +19,8 @@ export class SainaController {
     return await this.sainaService.createSubject(dto);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.sainaService.findOneById(id);
+  @Post(SAINA_ROUTES.getSainaResult)
+  async getTotalResult(@Body() body: getResultDto) {
+    return await this.sainaService.getAllSainaResult(body);
   }
 }
