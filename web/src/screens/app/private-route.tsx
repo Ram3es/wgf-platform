@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ComponentType, FunctionComponent } from 'react';
-import { Redirect, Route, RouteComponentProps, RouteProps, useHistory } from 'react-router';
+import {
+  Redirect,
+  Route,
+  RouteComponentProps,
+  RouteProps,
+  useHistory,
+} from 'react-router';
 
 import { storageService } from '@services/storage/storage';
 
@@ -23,7 +29,7 @@ export const PrivateRoute: FunctionComponent<IPrivateRouteProps> = ({
       <Redirect
         push
         to={{
-          pathname: ROUTES.signIn,
+          pathname: ROUTES.signUp,
           state: { from: location },
         }}
       />
