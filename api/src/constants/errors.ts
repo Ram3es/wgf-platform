@@ -34,4 +34,4 @@ export const ERRORS = {
   pdf: 'Error download, try again',
   alreadySentInvite:
     "You've already sent a request to this user within 24 hours.",
-};
+} as const;

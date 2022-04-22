@@ -9,23 +9,21 @@ import { ModalStyles as Styled } from './modal.styles';
 
 export const Modal: React.FC<IModalProps> = ({
   withBackdrop,
-  setIsOpen,
   width,
   children,
+  onClose,
 }) => {
-  const closeModal = () => setIsOpen(false);
-
   return (
     <>
       <Styled.Wrapper width={width}>
         <Styled.Content>
-          <Styled.CloseIcon onClick={closeModal}>
+          <Styled.CloseIcon onClick={onClose}>
             <img src={IMAGES.close} alt={STRINGS.altLogo} />
           </Styled.CloseIcon>
           {children}
         </Styled.Content>
       </Styled.Wrapper>
-      {withBackdrop && <Styled.BackDrop onClick={closeModal} />}
+      {withBackdrop && <Styled.BackDrop onClick={onClose} />}
     </>
   );
 };

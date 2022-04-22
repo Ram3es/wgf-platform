@@ -15,6 +15,8 @@ import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
+
+import { GameButton } from './components';
 import { MainPageStyles as Styled } from './main-page.styles';
 
 export const MainPage: React.FC = () => {
@@ -87,6 +89,7 @@ export const MainPage: React.FC = () => {
                 onClick={redirectToCareerCanvasQuiz}
                 color={COLORS.yellow}
               />
+              <GameButton />
             </Styled.ButtonContainer>
           </Styled.BannerDescription>
           <Styled.BannerImage>
