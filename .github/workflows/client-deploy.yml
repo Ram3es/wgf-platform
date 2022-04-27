@@ -54,6 +54,7 @@ jobs:
           envkey_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           envkey_REACT_APP_GOOGLE_AUTH_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_AUTH_CLIENT_ID }}
           envkey_REACT_APP_FACEBOOK_AUTH_APP_ID: ${{ secrets.REACT_APP_FACEBOOK_AUTH_APP_ID }}
+          envkey_REACT_APP_GAME: ${{ secrets.REACT_APP_GAME }}
           file_name: web/.env
       - name: Login to Amazon ECR
         id: login-ecr

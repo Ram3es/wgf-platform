@@ -16,7 +16,7 @@ export const GameButtonElement = () => {
   const { isModalOpen, onClick } = useGameButton();
 
   const ModalElement = isModalOpen && (
-    <Modal withBackdrop width={400}>
+    <Modal withBackdrop width={380}>
       <ModalText>
         {"Don't close the browser tab while authorizing..."}
       </ModalText>
