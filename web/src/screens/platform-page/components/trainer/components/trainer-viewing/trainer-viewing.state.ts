@@ -4,10 +4,7 @@ import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
 
 import { useAppSelector } from '@services/hooks/redux';
-import {
-  disconnectTrainer,
-  getTrainersByUser,
-} from '@services/student.service';
+import { disconnectTrainer, getTrainersByUser } from '@services/student.service';
 
 import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';

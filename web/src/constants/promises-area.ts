@@ -20,5 +20,4 @@ export const PROMISES_AREA = {
   getAllUsersCsv: 'get-all-users-csv',
   getUserHasPassword: 'has-password',
   sendEmailWithCode: 'send-code',
-  authGameAdmin: 'auth-game-admin',
 };

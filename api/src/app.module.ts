@@ -8,7 +8,6 @@ import { AnswerModule } from './answer/answer.module';
 import { AuthModule } from './auth/auth.module';
 import { FacebookAuthModule } from './auth/facebook-auth/facebook-auth.module';
 import { GoogleAuthModule } from './auth/google-auth/google-auth.module';
-import { GameModule } from './game';
 import { GroupModule } from './group/group.module';
 import { LimitsModule } from './limits/limits.module';
 import { QuestionModule } from './question/question.module';
@@ -41,7 +40,6 @@ import { VerificationModule } from './verification/verification.module';
     LimitsModule,
     SainaModule,
     VerificationModule,
-    GameModule,
   ],
   providers: [
     {

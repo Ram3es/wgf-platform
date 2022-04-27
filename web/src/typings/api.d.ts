@@ -221,8 +221,3 @@ interface IFacebookAuth {
   token: string;
   avatar?: string;
 }
-
-interface IAuthGameAdmin {
-  token: string;
-  displayName: string;
-}
