@@ -102,7 +102,7 @@ export const TrainerViewing: React.FC = () => {
         </Loader>
       </Styled.Wrapper>
       {isActivePopUpDisconnect && (
-        <Modal onClose={closeDisconnectPopUp} withBackdrop width={410}>
+        <Modal setIsOpen={closeDisconnectPopUp} withBackdrop width={410}>
           <PopUpStyled.Header>
             <Icon type="disconnect" />
             <TitleStyles.h2 color={COLORS.grey}>

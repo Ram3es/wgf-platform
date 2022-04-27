@@ -21,6 +21,3 @@ export const getUsersByTrainer = (body: { trainerId: string }) =>
 
 export const getAllStudentsByTrainerCsv = (body: { trainerId: string }) =>
   POST<{ file: string }>(`${ENDPOINTS.user}/get-all-students-by-trainer-csv`);
-
-export const authGameAdmin = () =>
-  POST<IAuthGameAdmin>(`${ENDPOINTS.game}/auth-admin`);
