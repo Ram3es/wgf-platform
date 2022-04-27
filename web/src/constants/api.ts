@@ -8,4 +8,5 @@ export const ENDPOINTS = {
   facebook: 'facebook',
   google: 'google',
   verification: 'verification',
+  game: 'game',
 };

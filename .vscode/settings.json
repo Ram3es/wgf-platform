@@ -60,5 +60,5 @@
 	"html.format.wrapLineLength": 80,
 	"files.autoSave": "onFocusChange",
 	"bracketPairColorizer.depreciation-notice": false,
-	"window.zoomLevel": 1
+	"window.zoomLevel": 0
 }

@@ -23,6 +23,8 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
 
   const modalOpen = () => setIsOpen(true);
 
+  const modalClose = () => setIsOpen(false);
+
   useEffect(() => {
     const body = document.querySelector('body');
 
@@ -45,7 +47,7 @@ export const ResultSummary: React.FC<IResultSummaryProps> = ({
           </ResultSummaryStyles.ArchetypesIcon>
         )}
         {isOpen && (
-          <Modal setIsOpen={setIsOpen} withBackdrop width={400}>
+          <Modal onClose={modalClose} withBackdrop width={400}>
             <TitleStyles.h2 color={COLORS.grey} mb={20}>
               {STRINGS.archetypesModal.title}
             </TitleStyles.h2>

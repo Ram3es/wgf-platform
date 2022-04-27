@@ -9,7 +9,11 @@ import { COLORS } from '@styles/colors';
 import { useHeaderState } from './header.state';
 
 import { IMAGES } from '@constants/images';
-import { ABOUT_NAVBAR_OPTIONS, NAVBAR_MENU, WGF_NAVBAR_OPTIONS } from '@constants/navbar';
+import {
+  ABOUT_NAVBAR_OPTIONS,
+  NAVBAR_MENU,
+  WGF_NAVBAR_OPTIONS,
+} from '@constants/navbar';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
