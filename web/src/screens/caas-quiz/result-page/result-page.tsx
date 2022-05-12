@@ -29,7 +29,6 @@ export const ResultPage: React.FC = () => {
 
   return (
     <>
-      <Header />
       <HeaderQuiz />
       <BannerImage />
       <Container>

@@ -8,7 +8,11 @@ import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getPdf, getResults } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
-import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
+import {
+  downloadMessage,
+  errorMessage,
+  unAutorizedError,
+} from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { initialResultState } from './result-page.constants';
 
@@ -69,6 +73,7 @@ export const useResultState = () => {
 
   const getPdfFile = async () => {
     if (!filePdf) {
+      console.log(state.user.id, state.quiz.id, 'data track promise');
       try {
         const { data } = await trackPromise(
           getPdf({
