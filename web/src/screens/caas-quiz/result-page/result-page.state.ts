@@ -73,7 +73,6 @@ export const useResultState = () => {
 
   const getPdfFile = async () => {
     if (!filePdf) {
-      console.log(state.user.id, state.quiz.id, 'data track promise');
       try {
         const { data } = await trackPromise(
           getPdf({
