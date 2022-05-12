@@ -6,28 +6,33 @@ import { Z_INDEX } from '@styles/z-indexes';
 export const HeaderStyles = {
   Wrapper: styled.div`
     padding: 40px 60px;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 
     ${Media.landscapeWreck`
       padding: 60px 60px 40px;
+     
     `}
 
     ${Media.landscape`
       padding: 60px 25px 40px;
+     
     `}
 
     ${Media.smallLandscape`
       flex-direction: column-reverse;
       align-items: center;
       padding: 40px 0 0;
+      
     `}
 
     ${Media.mobile`
       flex-direction: column-reverse;
       align-items: center;
       padding: 60px 0 0;
+      
     `}
 
     @media print {

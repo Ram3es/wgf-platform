@@ -22,12 +22,14 @@ import { ROUTES } from '@constants/routes';
 import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
+import { Header } from '@components/header';
 
 export const ResultPage: React.FC = () => {
   const { user, results, quiz, generatePdf } = useResultState();
 
   return (
     <>
+      <Header />
       <HeaderQuiz />
       <BannerImage />
       <Container>

@@ -26,6 +26,10 @@ export const HeaderStyles = {
       padding: 22px 20px;
     `}
 
+    @media print {
+      display: none;
+    }
+
     button {
       padding: 1px 3px;
       color: ${COLORS.white};

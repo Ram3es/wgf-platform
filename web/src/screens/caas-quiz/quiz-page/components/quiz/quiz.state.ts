@@ -8,7 +8,11 @@ import { useUpdateState } from '@services/hooks/useUpdateState';
 import { getCaasCsv, getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
 
-import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
+import {
+  downloadMessage,
+  errorMessage,
+  unAutorizedError,
+} from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { initialState } from './quiz.constants';
@@ -181,7 +185,7 @@ export const useQuizState = () => {
         );
 
         if (user.isSubscriber) {
-          push(ROUTES.careerDesignCanvasResults);
+          push(ROUTES.careerFlexResults);
         } else {
           updateState({
             isShowModal: true,
