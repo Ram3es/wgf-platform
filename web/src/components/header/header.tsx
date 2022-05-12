@@ -35,6 +35,7 @@ export const Header: React.FC = () => {
     isModalWGFFrameworkOpen,
     handleMouseLeave,
     aboutModalHandler,
+    pathname,
   } = useHeaderState();
 
   return (
@@ -121,11 +122,13 @@ export const Header: React.FC = () => {
             )}
           </Styled.LoginedWrapper>
         ) : (
-          <Button
-            onClick={loginHandler}
-            color={COLORS.grey}
-            title={STRINGS.button.logIn}
-          />
+          pathname !== '/sign-in' && (
+            <Button
+              onClick={loginHandler}
+              color={COLORS.grey}
+              title={STRINGS.button.logIn}
+            />
+          )
         )}
       </Loader>
     </Styled.Wrapper>

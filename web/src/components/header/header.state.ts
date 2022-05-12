@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { clearUser } from '@store/reducers/user.slice';
 
@@ -22,6 +22,7 @@ export const useHeaderState = () => {
   const [isAboutModalShown, setIsAboutModalShown] = useState<boolean>(false);
   const [isModalWGFFrameworkOpen, setIsModalWGFFrameworkOpen] =
     useState<boolean>(false);
+  const { pathname } = useLocation<Location>();
 
   const token = storageService.getToken();
 
@@ -76,7 +77,7 @@ export const useHeaderState = () => {
   };
 
   const loginHandler = () => {
-    push(ROUTES.signUp);
+    push(ROUTES.signIn);
   };
   const handleMouseEnter = () => {
     setIsModalWGFFrameworkOpen(true);
@@ -100,5 +101,6 @@ export const useHeaderState = () => {
     isModalWGFFrameworkOpen,
     handleMouseLeave,
     aboutModalHandler,
+    pathname,
   };
 };

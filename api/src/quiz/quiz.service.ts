@@ -159,7 +159,7 @@ export class QuizService {
 
     return `${this.configService.get(
       'WEB_BASE_URL'
-    )}caas-quiz/results?${QUERIES.join('&')}`;
+    )}career-flex/results?${QUERIES.join('&')}`;
   }
 
   async getCaasCsv(body: { quizId: string }) {
