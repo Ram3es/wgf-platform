@@ -112,7 +112,7 @@ export const useResultState = () => {
         <p>A pdf file report was sent to your email.</p>
       `;
     downloadMessage(
-      `data:application/pdf;base64,${data!.file}`,
+      `data:application/octet-stream;base64,${data!.file}`,
       data!.name,
       html
     ).fire();
