@@ -6,7 +6,6 @@ import { Z_INDEX } from '@styles/z-indexes';
 export const HeaderStyles = {
   Wrapper: styled.div`
     padding: 40px 60px;
-    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
