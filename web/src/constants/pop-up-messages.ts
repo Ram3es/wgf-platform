@@ -115,7 +115,7 @@ export const downloadMessage = (
     ${html || ''}
     <p>Do you want to download the file?</p>
     `,
-    footer: `<a href="${file}" download="${fileName}">Download</a>`,
+    footer: `<a href="${file}" download="${fileName}" style="cursor: pointer;" >Download</a>`,
     showConfirmButton: false,
     showCloseButton: true,
   });
