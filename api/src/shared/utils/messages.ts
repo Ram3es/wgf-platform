@@ -40,7 +40,9 @@ export const caasQuizResultMessage = (
     user.firstName,
     `<th style="box-sizing: border-box;text-align: right; width: 50%">
     <img alt="T@" src="https://i.ibb.co/fXq9Zwv/career-flex.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    `${WEB_BASE_URL}sign-in`,
+    `Sign in`
   ),
 
   attachments: [
