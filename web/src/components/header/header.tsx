@@ -122,13 +122,12 @@ export const Header: React.FC = () => {
             )}
           </Styled.LoginedWrapper>
         ) : (
-          pathname !== '/sign-in' && (
-            <Button
-              onClick={loginHandler}
-              color={COLORS.grey}
-              title={STRINGS.button.logIn}
-            />
-          )
+          <Button
+            onClick={loginHandler}
+            color={COLORS.grey}
+            title={STRINGS.button.logIn}
+            isHide={pathname === '/sign-in'}
+          />
         )}
       </Loader>
     </Styled.Wrapper>

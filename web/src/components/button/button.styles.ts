@@ -6,7 +6,7 @@ import { FONTS } from '@styles/fonts';
 import { IButtonStylesProps } from './button.typings';
 
 export const ButtonStyles = styled.button<IButtonStylesProps>`
-  display: flex;
+  display: ${({ isHide }) => (isHide ? 'none' : 'flex')};
   flex-direction: ${({ isIconRight }) => (isIconRight ? 'row-reverse' : 'row')};
   align-items: center;
   justify-content: center;
