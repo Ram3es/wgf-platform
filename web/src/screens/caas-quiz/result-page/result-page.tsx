@@ -23,12 +23,14 @@ import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { Header } from '@components/header';
+import { ResultPageStyles as Styled } from './result-page.styles';
 
 export const ResultPage: React.FC = () => {
   const { user, results, quiz, generatePdf } = useResultState();
 
   return (
     <>
+      <Styled.PrintItem />
       <Header />
       <HeaderQuiz />
       <BannerImage />
