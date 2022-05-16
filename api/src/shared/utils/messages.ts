@@ -73,7 +73,9 @@ export const ccQuizResultMessage = (
     user.firstName,
     `<th style="box-sizing: border-box;text-align: right; width: 50%; padding: 10px 20px;">
     <img alt="T@" src="https://i.ibb.co/vcnCq0h/career-canvas.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    `${WEB_BASE_URL}sign-in`,
+    `Sign in`
   ),
 
   attachments: [

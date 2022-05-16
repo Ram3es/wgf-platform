@@ -9,7 +9,11 @@ import { IResultQuestion } from './canvas-results.typing';
 import { useAppSelector } from '@services/hooks/redux';
 import { getPdf, getQuestions } from '@services/quiz.service';
 
-import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
+import {
+  downloadMessage,
+  errorMessage,
+  unAutorizedError,
+} from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { canvasQuiz } from '../career-canvas.constants';
@@ -129,7 +133,7 @@ export const useCanvasResults = () => {
         <p>A pdf file report was sent to your email.</p>
       `;
     downloadMessage(
-      `data:application/pdf;base64,${data!.file}`,
+      `data:application/octet-stream;base64,${data!.file}`,
       data!.name,
       html
     ).fire();
