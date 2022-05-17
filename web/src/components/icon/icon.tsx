@@ -42,6 +42,7 @@ import { ReactComponent as shape } from '@assets/img/shape.svg';
 import { ReactComponent as submitPhoto } from '@assets/img/submit-photo.svg';
 import { ReactComponent as Trainer } from '@assets/img/trainer.svg';
 import { ReactComponent as triangle } from '@assets/img/triangle.svg';
+import { ReactComponent as triangleBreacket } from '@assets/img/bread-crumb-path.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -87,6 +88,7 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   search,
   eye,
   eyeBlocked,
+  triangleBreacket,
 };
 
 export const Icon = (props: { type: string }) => {

@@ -5,7 +5,9 @@ import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 
 import {
-    IDataColumnPropsStyles, IDataRowPropsStyles, IHeaderColumnPropsStyles
+  IDataColumnPropsStyles,
+  IDataRowPropsStyles,
+  IHeaderColumnPropsStyles,
 } from './platform-page.typings';
 
 export const PlatformPageStyles = {

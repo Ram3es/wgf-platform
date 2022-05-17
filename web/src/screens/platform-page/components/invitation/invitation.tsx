@@ -10,6 +10,7 @@ import { ROUTES } from '@constants/routes';
 import { ROLES } from '@constants/user-roles';
 
 import { CommonStylesForPages as CommonStyled } from '../../platform-page.styles';
+import { BreadCrumb } from '@components/bread-crumb';
 
 export const Invitation: React.FC = () => {
   const { user } = useAppSelector((state) => state);
@@ -26,6 +27,7 @@ export const Invitation: React.FC = () => {
     <CommonStyled.Wrapper>
       <Backdrop />
       <CommonStyled.Content>
+        <BreadCrumb />
         <InviteUsers />
       </CommonStyled.Content>
     </CommonStyled.Wrapper>
