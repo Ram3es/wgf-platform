@@ -72,19 +72,6 @@ export const CommonStylesForPages = {
       font-weight: 400;
     }
   `,
-  ArrowWrapper: styled.div`
-    display: flex;
-    width: 48px;
-    height: 48px;
-    background-color: ${COLORS.authBg};
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    margin-top: 15px;
-    margin-bottom: 30px;
-    margin-left: auto;
-    cursor: pointer;
-  `,
 };
 
 export const CommonStylesForTables = {
@@ -169,16 +156,6 @@ export const CommonStylesForTables = {
       margin-left: 0;
     }
   `,
-  HeaderRowTrainersTable: styled.div`
-    display: flex;
-    width: 1850px;
-    border-bottom: 3px solid ${COLORS.lightBlue};
-    margin-bottom: 5px;
-
-    > :first-child {
-      margin-left: 0;
-    }
-  `,
   ControlColumn: styled.div`
     display: flex;
     align-items: center;
@@ -201,10 +178,8 @@ export const CommonStylesForTables = {
   HeaderColumn: styled.div<IHeaderColumnPropsStyles>`
     display: flex;
     align-items: center;
-    height: 40px;
     width: 20%;
     min-width: 160px;
-    color: ${({ fontColor }) => fontColor};
     background: rgba(0, 174, 239, 0.2);
     background-color: ${({ color }) => color};
     border-radius: 7px 7px 0px 0px;
@@ -217,7 +192,6 @@ export const CommonStylesForTables = {
     ${Media.smallLandscape(css`
       font-size: ${FONTS.sizes[11]};
       min-width: 140px;
-      height: 35px;
       padding: 10px 10px 7px;
     `)}
     ${({ isSmallBox }) =>

@@ -61,13 +61,4 @@ export const IMAGES: Record<string, string> = {
   fitResultLogo: require('../assets/img/fit-result.png').default,
   avidAdventures: require('../assets/img/avid-adventures-logo.png').default,
   facebook: require('../assets/img/facebook-icon.svg').default,
-  ['CareerFlexBetterQuality']:
-    require('../assets/img/careerFlexBetterQuality.png').default,
-  ['CareerDesignGameBetterQuality']:
-    require('../assets/img/сareer-design-game-better-quality.png').default,
-  ['CareerDesignCanvasBetterQuality']:
-    require('../assets/img/career-design-canvas-better-quality.png').default,
-  ['MyCareerAdventureBetterQuality']:
-    require('../assets/img/career-adventury-better-quality.png').default,
-  emailFooter: require('../assets/img/email-footer.png').default,
 };

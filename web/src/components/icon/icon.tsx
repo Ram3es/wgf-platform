@@ -1,9 +1,4 @@
-import React, {
-  FC,
-  FunctionComponent,
-  MouseEventHandler,
-  SVGProps,
-} from 'react';
+import React, { FunctionComponent, SVGProps } from 'react';
 
 import { ReactComponent as arrowBottom } from '@assets/img/arrow-bottom.svg';
 import { ReactComponent as arrowDownload } from '@assets/img/arrow-download.svg';
@@ -33,7 +28,6 @@ import { ReactComponent as linkedin } from '@assets/img/linkedin-icon.svg';
 import { ReactComponent as logout } from '@assets/img/logout.svg';
 import { ReactComponent as manageGroup } from '@assets/img/manage-group.svg';
 import { ReactComponent as manageTrainers } from '@assets/img/manage-trainers.svg';
-import { ReactComponent as manageTrainersIcon } from '@assets/img/manage-trainers-icon.svg';
 import { ReactComponent as manageUsersIcon } from '@assets/img/manage-users-icon.svg';
 import { ReactComponent as manageUsers } from '@assets/img/manage-users.svg';
 import { ReactComponent as microsoft } from '@assets/img/microsoft-icon.svg';
@@ -49,12 +43,6 @@ import { ReactComponent as submitPhoto } from '@assets/img/submit-photo.svg';
 import { ReactComponent as Trainer } from '@assets/img/trainer.svg';
 import { ReactComponent as triangle } from '@assets/img/triangle.svg';
 import { ReactComponent as triangleBreacket } from '@assets/img/bread-crumb-path.svg';
-import { ReactComponent as setting } from '@assets/img/setting.svg';
-import { ReactComponent as editFormInert } from '@assets/img/edit-form-inert.svg';
-import { ReactComponent as editFormActive } from '@assets/img/edit-form-active.svg';
-import { ReactComponent as deleteAccount } from '@assets/img/delete-account.svg';
-import { ReactComponent as facebookFooter } from '@assets/img/facebook-footer.svg';
-import { ReactComponent as linkedinFooter } from '@assets/img/linkedin-footer.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -101,25 +89,14 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   eye,
   eyeBlocked,
   triangleBreacket,
-  manageTrainersIcon,
-  setting,
-  editFormInert,
-  editFormActive,
-  deleteAccount,
-  facebookFooter,
-  linkedinFooter,
 };
-interface IIconProps {
-  type: string;
-  onClick?: MouseEventHandler<SVGSVGElement>;
-}
 
-export const Icon: FC<IIconProps> = (props) => {
+export const Icon = (props: { type: string }) => {
   const NewIcon = ICONS[props.type];
 
   if (!NewIcon) {
     return null;
   }
 
-  return <NewIcon {...props} />;
+  return <NewIcon />;
 };

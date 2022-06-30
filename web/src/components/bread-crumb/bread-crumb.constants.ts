@@ -8,5 +8,4 @@ export const BreadCrumbTitle: { [key: string]: string } = {
   'manage-user': 'Manage Users',
   'manage-trainers': 'Manage Trainers',
   'manage-group': 'Manage Group',
-  delete: 'Delete Account',
 };

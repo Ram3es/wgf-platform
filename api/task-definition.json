@@ -9,7 +9,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/wgf-web-dev-task",
+          "awslogs-group": "/ecs/run-wgf-api",
           "awslogs-region": "us-east-2",
           "awslogs-stream-prefix": "ecs"
         }
@@ -19,7 +19,7 @@
         {
           "hostPort": 80,
           "protocol": "tcp",
-          "containerPort": 80
+          "containerPort": 8080
         }
       ],
       "command": null,
@@ -37,7 +37,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "341515358415.dkr.ecr.us-east-2.amazonaws.com/wgf-web-dev-repo",
+      "image": "341515358415.dkr.ecr.us-east-2.amazonaws.com/wgf-api:latest",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -54,15 +54,18 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "wgf-web-dev-container"
+      "name": "wgf-api-container"
     }
   ],
   "placementConstraints": [],
   "memory": null,
   "taskRoleArn": null,
-  "compatibilities": ["EXTERNAL", "EC2"],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:341515358415:task-definition/wgf-web-dev-task:1",
-  "family": "wgf-web-dev-task",
+  "compatibilities": [
+    "EXTERNAL",
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:341515358415:task-definition/run-wgf-api:1",
+  "family": "run-wgf-api",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -84,9 +87,10 @@
     }
   ],
   "pidMode": null,
-  "requiresCompatibilities": ["EC2"],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
   "networkMode": null,
-  "runtimePlatform": null,
   "cpu": null,
   "revision": 1,
   "status": "ACTIVE",

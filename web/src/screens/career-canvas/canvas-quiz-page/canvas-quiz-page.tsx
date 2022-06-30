@@ -21,7 +21,6 @@ import { QUESTION_SECTIONS } from './canvas-quiz-page.constants';
 import { TQuestionSections } from './canvas-quiz-page.typings';
 
 import { CanvasQuizPageStyled as Styled } from './canvas-quiz-page.styles';
-import { Footer } from '@components/footer';
 
 export const CanvasQuizPage: FC = () => {
   const {
@@ -82,7 +81,6 @@ export const CanvasQuizPage: FC = () => {
           </Styled.SectionWrapper>
         </Styled.Wrapper>
       </Styled.Container>
-      <Footer />
     </>
   );
 };

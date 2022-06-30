@@ -1,6 +1,5 @@
 import { ENDPOINTS } from '@constants/api';
-import { IInitialLimitsState } from '@screens/platform-page/components/edit-page/game-info/game-limits-form';
-import { POST, GET } from './api';
+import { POST } from './api';
 
 export const postAnswers = (data: ICreateResult) =>
   POST<{ message: string }, ICreateResult>(
@@ -33,13 +32,3 @@ export const getCareerCanvasCsv = (data: { quizId: string }) =>
     `${ENDPOINTS.quiz}/get-career-canvas-csv`,
     data
   );
-
-export const getLimitTrainer = (id: string) =>
-  GET<IInitialLimitsState>(`${ENDPOINTS.game}/get-limits/${id}`);
-
-export const setLimitTrainer = (data: Partial<IInitialLimitsState>) => {
-  return POST<void, Partial<IInitialLimitsState>>(
-    `${ENDPOINTS.game}/set-limits`,
-    data
-  );
-};

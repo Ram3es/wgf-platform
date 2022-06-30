@@ -104,16 +104,6 @@ export const fileError = {
   }),
 };
 
-export const deleteAccount = Swal.mixin({
-  icon: 'question',
-  text: 'Are you sure you want to delete this user ?',
-  confirmButtonColor: `${COLORS.lightBlue}`,
-  confirmButtonText: 'Confirm',
-  showCancelButton: true,
-  showCloseButton: true,
-  cancelButtonColor: `${COLORS.grey}`,
-});
-
 export const downloadMessage = (
   file: string,
   fileName: string,

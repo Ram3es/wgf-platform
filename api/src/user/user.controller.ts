@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Put,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/decorators/user';
 import JwtAuthenticationGuard from 'src/shared/guards/auth.guard';
@@ -48,7 +39,7 @@ export class UserController {
   })
   @HttpCode(HttpStatus.OK)
   public async getUserById(@Body() body: UserIdDto) {
-    return await this.userService.getUserByIdWithResult(body.userId);
+    return await this.userService.getUserById(body.userId);
   }
 
   @Post(USER_ROUTES.getUserByToken)
@@ -188,17 +179,6 @@ export class UserController {
   @UseGuards(new RoleGuard(['superAdmin']))
   public async getAllUsersCsv() {
     return this.userService.getAllUsersCsv();
-  }
-  @Get(USER_ROUTES.getAllTrainersCsv)
-  @ApiOperation({ summary: USER_ROUTES.getAllTrainersCsv })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: USER_ROUTES.getAllUsersCsv,
-  })
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(new RoleGuard(['superAdmin']))
-  public async getAllTrainersCsv() {
-    return this.userService.getAllTrainersCsv();
   }
 
   @Post(USER_ROUTES.getAllStudentsByTrainerCsv)

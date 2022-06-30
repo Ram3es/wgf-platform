@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { Backdrop } from '@components/backdrop';
 import { COLORS } from '@styles/colors';
@@ -8,12 +8,8 @@ import { CommonStylesForPages as CommonStyled } from '@screens/platform-page/pla
 import { TitleStyles } from '@styles/components/title-styles';
 import { ManageUsersStyles as Styled } from './manage-users.styles';
 import { BreadCrumb } from '@components/bread-crumb';
-import { animateScroll } from 'react-scroll';
 
 export const ManageUsers: FC = () => {
-  useEffect(() => {
-    animateScroll.scrollToTop();
-  }, []);
   return (
     <CommonStyled.Wrapper>
       <Backdrop />

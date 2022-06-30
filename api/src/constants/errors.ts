@@ -23,7 +23,7 @@ export const ERRORS = {
     alreadyExistsTrainer: 'This trainer already exists',
   },
   student: {
-    trainerNotExist: 'That user is not with trainer role.',
+    trainerNotExist: 'Sorry pls check the email as this user doesn’t exist.',
     alreadyExist: 'This trainer has already been added to you.',
   },
   trainer: {

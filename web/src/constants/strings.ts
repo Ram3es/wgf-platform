@@ -222,7 +222,6 @@ export const STRINGS = {
   profile: {
     profileTitle: 'Profile',
     accountTitle: 'Account',
-    accountPassword: 'Password',
   },
 
   trainer: {

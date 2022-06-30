@@ -22,8 +22,4 @@ export const ROUTES = {
   manageGroup: '/platform/manage-group',
   manageTrainers: '/platform/manage-trainers',
   errorPage: '/error',
-  editUser: '/platform/manage-user/:userId',
-  editTrainer: '/platform/manage-trainers/:userId',
-  deleteUserAccount: '/platform/manage-user/:userId/delete',
-  deleteTrainerAccount: '/platform/manage-trainers/:userId/delete',
 };

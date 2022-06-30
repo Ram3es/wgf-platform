@@ -15,7 +15,6 @@ import { STRINGS } from '@constants/strings';
 
 import { TitleStyles } from '@styles/components/title-styles';
 import { ProfileStyles as Styled } from './profile.styles';
-import { SubscriptionForm } from './components/subscription-form';
 
 export const Profile: React.FC = () => {
   const {
@@ -111,22 +110,11 @@ export const Profile: React.FC = () => {
               countryList={countryOptions}
             />
           </Styled.SectionProfile>
-          {user.role === 'trainerAdmin' && (
-            <>
-              <Styled.ProfileTitle>
-                <TitleStyles.h3 textAlign="left">
-                  {STRINGS.profile.accountTitle}
-                </TitleStyles.h3>
-              </Styled.ProfileTitle>
-              <Styled.Line />
-              <SubscriptionForm />
-            </>
-          )}
           {hasPassword && (
             <>
               <Styled.ProfileTitle>
                 <TitleStyles.h3 textAlign="left">
-                  {STRINGS.profile.accountPassword}
+                  {STRINGS.profile.accountTitle}
                 </TitleStyles.h3>
                 <Styled.EditButton onClick={editAccountClick}>
                   {!isAccountEdit && <Icon type="edit" />}
