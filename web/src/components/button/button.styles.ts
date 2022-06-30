@@ -89,7 +89,10 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
     `}
 
   span {
-    padding: 0 10px;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   img {

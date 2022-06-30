@@ -20,6 +20,7 @@ import { LoginFormSchema } from './sign-in.constants';
 import { TitleStyles } from '@styles/components/title-styles';
 import { FormStyles } from '../../styles/components/form.styles';
 import { SignInStyles as Styled } from './sign-in.styles';
+import { Footer } from '@components/footer';
 
 export const SignIn: React.FC = () => {
   const {
@@ -176,6 +177,7 @@ export const SignIn: React.FC = () => {
           );
         }}
       </Formik>
+      <Footer />
     </>
   );
 };

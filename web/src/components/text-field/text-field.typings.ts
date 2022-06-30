@@ -14,6 +14,8 @@ export interface ITextFieldStylesProps {
   labelFontSize?: string;
   maxLength?: number;
   isTableReadOnly?: boolean;
+  colorGrey?: boolean;
+  isEditMode?: boolean;
 }
 
 export interface ITextFieldProps extends ITextFieldStylesProps {
@@ -30,4 +32,7 @@ export interface ITextFieldProps extends ITextFieldStylesProps {
   autoCapitalize?: string;
   onClick?(): void;
   variant?: 'textarea' | 'input';
+  showSelect?: (param: Record<string, boolean>) => void;
+  isShowSelect?: Record<string, boolean>;
+  setUnlimited?: (name: string) => void;
 }

@@ -1,5 +1,3 @@
-
-
 export const initialProfileData = {
   firstName: '',
   lastName: '',
@@ -25,4 +23,10 @@ export const initialProfileState = {
   isProfileEdit: false,
   isAccountEdit: false,
   avatar: null,
+};
+
+export const initialSubscriptionData = {
+  date: '',
+  duration: '',
+  expiration: '',
 };

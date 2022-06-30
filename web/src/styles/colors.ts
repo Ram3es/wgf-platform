@@ -33,7 +33,6 @@ export const COLORS = {
   ocean: '#00ACC5',
   sectionBg: '#F6F6F6',
   inputRange: '#e2e6de',
-
   levelResult: {
     Low: '#F664C5',
     Moderate: '#FBB040',

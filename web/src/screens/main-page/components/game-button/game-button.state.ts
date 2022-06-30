@@ -30,7 +30,7 @@ export const useGameButton = () => {
   const { push } = useHistory();
 
   const onClick = async () => {
-    if (state.isLoading || state.isAuthorized) {
+    if (state.isLoading) {
       return;
     }
 

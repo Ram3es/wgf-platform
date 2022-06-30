@@ -42,9 +42,9 @@ export const TextFieldStyled = {
       flex: 0 1 30%;
       margin-right: 20px;
       font-size: ${({ labelFontSize }) => labelFontSize || FONTS.sizes[15]};
-      color: ${({ isValue, isSelect, isReadOnly, error }) =>
+      color: ${({ isValue, isSelect, isReadOnly, error, colorGrey }) =>
         (isValue && isSelect) || !isReadOnly
-          ? COLORS.default
+          ? (colorGrey && COLORS.grey) || COLORS.default
           : error
           ? COLORS.red
           : COLORS.grey};

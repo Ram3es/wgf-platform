@@ -1,14 +1,17 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-
 import { useAppSelector } from '@services/hooks/redux';
 import { getAllUsers, getAllUsersCsv } from '@services/super-admin.service';
-import { getAllStudentsByTrainerCsv, getUsersByTrainer } from '@services/trainer.service';
+import {
+  getAllStudentsByTrainerCsv,
+  getUsersByTrainer,
+} from '@services/trainer.service';
 
 import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROLES } from '@constants/user-roles';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 export const useManageUsersTableState = () => {
   const { user } = useAppSelector((state) => state);
@@ -17,6 +20,9 @@ export const useManageUsersTableState = () => {
   const [showSortByModal, setShowSortByModal] = useState(false);
   const [chosenFilter, setChosenFilter] = useState('');
   const sortByModalRef = useRef<HTMLDivElement>(null);
+
+  const { push } = useHistory();
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     document.addEventListener('click', onBackdropClick);
@@ -52,6 +58,7 @@ export const useManageUsersTableState = () => {
         getAllUsers(),
         PROMISES_AREA.getAllUsers
       );
+
       setAllUsers(data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -326,6 +333,8 @@ export const useManageUsersTableState = () => {
       }
     }
   };
+  const editHandler = (user: IUserExistingAndInvited) => () =>
+    push(`${url}/${user.id}`, user);
 
   return {
     allUsers,
@@ -343,5 +352,6 @@ export const useManageUsersTableState = () => {
     setAllUsers,
     handleCsvDownload,
     sortByModalRef,
+    editHandler,
   };
 };

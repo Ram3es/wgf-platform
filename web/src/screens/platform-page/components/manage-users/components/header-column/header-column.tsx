@@ -7,12 +7,14 @@ export const HeaderColumn: FC<{
   isSmallBox?: boolean;
   isMiddleBox?: boolean;
   color?: string;
-}> = ({ text, isSmallBox, isMiddleBox, color }) => {
+  fontColor?: string;
+}> = ({ text, isSmallBox, isMiddleBox, color, fontColor }) => {
   return (
     <CommonStylesForTables.HeaderColumn
       isSmallBox={isSmallBox}
       isMiddleBox={isMiddleBox}
       color={color}
+      fontColor={fontColor}
     >
       {text}
     </CommonStylesForTables.HeaderColumn>

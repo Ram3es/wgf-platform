@@ -31,6 +31,7 @@ export const ManageUsersTable: FC = () => {
     handleDescending,
     handleCsvDownload,
     sortByModalRef,
+    editHandler,
   } = useManageUsersTableState();
 
   return (
@@ -112,10 +113,10 @@ export const ManageUsersTable: FC = () => {
                   )}
                 </Styled.SortByTextIcon>
                 <Styled.ArrowSortByDiv>
-                  <Styled.ArrowsForSort onClick={handleDescending}>
+                  <Styled.ArrowsForSort onClick={handleAscending}>
                     <Icon type="arrowUp" />
                   </Styled.ArrowsForSort>
-                  <Styled.ArrowsForSort onClick={handleAscending}>
+                  <Styled.ArrowsForSort onClick={handleDescending}>
                     <Icon type="arrowDown" />
                   </Styled.ArrowsForSort>
                 </Styled.ArrowSortByDiv>
@@ -210,7 +211,9 @@ export const ManageUsersTable: FC = () => {
                       </CommonStylesForTables.ControlColumn>
                       <CommonStylesForTables.ControlColumn>
                         <CommonStylesForTables.ControlWrapper>
-                          <Icon type="edit" />
+                          {item.role && (
+                            <Icon type="edit" onClick={editHandler(item)} />
+                          )}
                         </CommonStylesForTables.ControlWrapper>
                       </CommonStylesForTables.ControlColumn>
 

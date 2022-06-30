@@ -6,6 +6,7 @@ import { BannerImage } from '../components/banner-image';
 import { HeaderQuiz } from '../components/header-quiz';
 import { Banner } from './components/banner';
 import { Quiz } from './components/quiz';
+import { Footer } from '@components/footer';
 
 export const QuizPage: React.FC = () => (
   <>
@@ -16,5 +17,6 @@ export const QuizPage: React.FC = () => (
       <Banner />
       <Quiz />
     </Container>
+    <Footer />
   </>
 );

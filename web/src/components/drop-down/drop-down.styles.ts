@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { COLORS } from '@styles/colors';
 import { Z_INDEX } from '@styles/z-indexes';
+import { Media } from '@styles/media';
 
 export const DropDownStyled = {
   Wrapper: styled.div<{ isFullWidth?: boolean; maxWidth?: string }>`
@@ -29,6 +30,20 @@ export const DropDownStyled = {
     padding: 5px 10px;
     cursor: pointer;
     transition: 0.3s;
+
+    ${Media.mobile`
+      height: 25px;
+      padding:0;
+      overflow: hidden;
+
+      span{
+        dislay:flex;
+        font-size: 14px;
+        padding: 5px
+      }
+      
+     
+    `}
 
     & > svg {
       width: 12px;

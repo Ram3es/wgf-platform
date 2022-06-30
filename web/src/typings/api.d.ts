@@ -226,3 +226,23 @@ interface IAuthGameAdmin {
   token: string;
   displayName: string;
 }
+interface ITrainerExisiting {
+  id: string;
+  avatar?: string;
+  country?: null;
+  created?: Date;
+  email?: string;
+  firstName?: string;
+  isSubscriber?: boolean;
+  jobStatus?: string;
+  lastName?: string;
+  mobileNumber?: string;
+  occupation?: string;
+  organizationName?: string;
+  role?: TRole;
+  status?: TInvitationStatus;
+  to?: string;
+  type?: TInvitationType;
+  isSelected?: boolean;
+  name?: string;
+}

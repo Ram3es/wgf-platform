@@ -21,4 +21,5 @@ export interface IHeaderColumnPropsStyles {
   isMiddleBox?: boolean;
   isSmallBox?: boolean;
   color?: string;
+  fontColor?: string;
 }

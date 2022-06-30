@@ -8,14 +8,14 @@ export const BreadCrumbStyles = {
     height: 20px;
     margin-bottom: 15px;
   `,
-  CrumbWraper: styled.div`
+  CrumbWraper: styled.div<{ isLast?: boolean }>`
     display: flex;
-    cursor: pointer;
+    cursor: ${({ isLast }) => (isLast ? null : 'pointer')};
   `,
-  Crumb: styled.div`
-    color: ${COLORS.grey};
+  Crumb: styled.div<{ last: boolean }>`
+    color: ${({ last }) => (last ? `${COLORS.grey}` : `${COLORS.default}`)};
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 20px;
     font-style: normal;
   `,

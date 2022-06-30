@@ -15,6 +15,9 @@ export const UPDATE = async <T, B = undefined>(
 ): Promise<AxiosResponse<T>> =>
   getInstance().put(`${BASE_URL}${endPoint}`, data);
 
+export const GET = async <T>(endpoint: string): Promise<AxiosResponse<T>> =>
+  getInstance().get(`${BASE_URL}${endpoint}`);
+
 const getInstance = () => {
   const instance = axios.create({
     baseURL: BASE_URL,
@@ -22,14 +25,13 @@ const getInstance = () => {
   });
   instance.interceptors.request.use((config) => {
     const token = storageService.getToken();
+
     if (!token) {
       return config;
     }
     config = {
       ...config,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     };
     return config;
   });

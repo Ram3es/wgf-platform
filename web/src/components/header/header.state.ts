@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Location } from 'history';
 
 import { clearUser } from '@store/reducers/user.slice';
 

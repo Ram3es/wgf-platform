@@ -18,6 +18,7 @@ import { TitleStyles } from '@styles/components/title-styles';
 
 import { GameButton } from './components';
 import { MainPageStyles as Styled } from './main-page.styles';
+import { Footer } from '@components/footer';
 
 export const MainPage: React.FC = () => {
   const { push } = useHistory();
@@ -97,6 +98,7 @@ export const MainPage: React.FC = () => {
           </Styled.BannerImage>
         </Styled.Banner>
       </Container>
+      <Footer />
     </>
   );
 };

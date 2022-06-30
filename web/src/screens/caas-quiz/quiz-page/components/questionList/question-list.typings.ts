@@ -1,5 +1,4 @@
 import { TUpdateStateData } from '@services/hooks/useUpdateState';
-
 import { IQuizState } from '../quiz/quiz.typings';
 
 export interface IQuestionListProps {
