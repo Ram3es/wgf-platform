@@ -1,3 +1,4 @@
+import { getLimitTrainer, setLimitTrainer } from '@services/quiz.service';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { trackPromise } from 'react-promise-tracker';
@@ -7,6 +8,9 @@ import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { authGameAdmin } from '@services/trainer.service';
+import { useAppSelector } from '@services/hooks/redux';
+import { IInitialLimitsState } from '@screens/platform-page/components/edit-page/game-info/game-limits-form';
+import { ROLES } from '@constants/user-roles';
 
 interface IState {
   isLoading: boolean;
@@ -22,16 +26,58 @@ const INIT_STATE: IState = {
 
 const GAME_LINK = process.env.REACT_APP_GAME;
 
+const unlimitedLimits = {
+  numberOfGames: 'unlimited',
+  playersPerGame: 'unlimited',
+  gameDuration: 'unlimited',
+  expirationDate: 'unlimited',
+  gamesUsed: 0,
+};
+
 export const useGameButton = () => {
   const [state, setState] = useState(INIT_STATE);
+
+  const [limits, setLimits] = useState<Partial<IInitialLimitsState> | null>(
+    null
+  );
+
+  const user = useAppSelector((state) => state.user);
 
   const onMessageRef = useRef<(event: MessageEvent) => void>();
 
   const { push } = useHistory();
 
   const onClick = async () => {
-    if (state.isLoading || state.isAuthorized) {
+    if (state.isLoading) {
       return;
+    }
+
+    if (user.role === ROLES.superAdmin) {
+      try {
+        const { data } = await trackPromise(
+          getLimitTrainer(user.id),
+          PROMISES_AREA.getLimitSetting
+        );
+        data && setLimits(data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          return errorMessage(error?.response?.data.message).fire();
+        }
+      }
+
+      if (!limits) {
+        try {
+          await trackPromise(
+            setLimitTrainer({ ...unlimitedLimits, userId: user.id }),
+            PROMISES_AREA.getLimitSetting
+          );
+          setLimits(unlimitedLimits);
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            return errorMessage(error?.response?.data.message).fire();
+          }
+        }
+      }
     }
 
     setState((prev) => ({ ...prev, isLoading: true, isModalOpen: true }));

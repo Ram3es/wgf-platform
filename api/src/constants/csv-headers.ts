@@ -80,3 +80,14 @@ export const allUsersHeaders = [
   'Career Flex Cooperation',
   'Career Design Canvas',
 ];
+
+export const allTrainersHeaders = [
+  'Name',
+  'School/Organisation',
+  'Registered',
+  'No of games',
+  'Subscription Expiration',
+  'Email',
+  'Payment',
+  'Accreditation',
+];

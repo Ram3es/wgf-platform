@@ -5,9 +5,10 @@ import { storageService } from './storage/storage';
 
 export const POST = async <T, B = undefined>(
   endPoint: string,
-  data?: B
+  data?: B,
+  responseTimeout?: number
 ): Promise<AxiosResponse<T>> =>
-  getInstance().post(`${BASE_URL}${endPoint}`, data);
+  getInstance(responseTimeout).post(`${BASE_URL}${endPoint}`, data);
 
 export const UPDATE = async <T, B = undefined>(
   endPoint: string,
@@ -15,21 +16,23 @@ export const UPDATE = async <T, B = undefined>(
 ): Promise<AxiosResponse<T>> =>
   getInstance().put(`${BASE_URL}${endPoint}`, data);
 
-const getInstance = () => {
+export const GET = async <T>(endpoint: string): Promise<AxiosResponse<T>> =>
+  getInstance().get(`${BASE_URL}${endpoint}`);
+
+const getInstance = (responseTimeout?: number) => {
   const instance = axios.create({
     baseURL: BASE_URL,
-    timeout: 20000,
+    timeout: responseTimeout || 20000,
   });
   instance.interceptors.request.use((config) => {
     const token = storageService.getToken();
+
     if (!token) {
       return config;
     }
     config = {
       ...config,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     };
     return config;
   });

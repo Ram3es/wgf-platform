@@ -17,6 +17,7 @@ export const TextField: React.FC<ITextFieldProps> = (props) => {
     isLabelTop,
     variant = 'input',
     labelFontSize,
+    colorGrey,
   } = props;
 
   if (!label) {
@@ -31,6 +32,7 @@ export const TextField: React.FC<ITextFieldProps> = (props) => {
         error={error}
         isLabelTop={isLabelTop}
         labelFontSize={labelFontSize}
+        colorGrey={colorGrey}
       >
         <span>{label}</span>
         {variant === 'input' ? <Input {...props} /> : <TextArea {...props} />}

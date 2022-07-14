@@ -21,4 +21,8 @@ export const PROMISES_AREA = {
   getUserHasPassword: 'has-password',
   sendEmailWithCode: 'send-code',
   authGameAdmin: 'auth-game-admin',
+  getAllTrainers: 'get-all-trainers',
+  getAllTrainersCsv: 'get-all-trainers-csv',
+  getLimitSetting: 'get-limits/:id',
+  setLimitsTrainer: 'set-limits',
 };

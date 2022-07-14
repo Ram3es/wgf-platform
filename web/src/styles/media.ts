@@ -10,6 +10,7 @@ export const SIZE = {
   smallLandscape: '998px',
   landscape: '1180px',
   landscapeWreck: '1350px',
+  inspector15: '1425px',
   desktop: '1500px',
   desktop1600: '1600px',
 };
@@ -61,6 +62,12 @@ export const Media = {
   desktop: (payload: CSS) =>
     css`
       @media (min-width: ${SIZE.desktop}) {
+        ${payload};
+      }
+    `,
+  inspector15: (payload: CSS) =>
+    css`
+      @media (max-width: ${SIZE.inspector15}) {
         ${payload};
       }
     `,

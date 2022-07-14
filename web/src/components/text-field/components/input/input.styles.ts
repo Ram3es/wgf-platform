@@ -54,7 +54,7 @@ export const InputStyled = {
     font-family: ${FONTS.family.frutigerBold};
     width: 100%;
     height: ${({ height }) => height || 'auto'};
-    color: ${COLORS.default};
+    color: ${({ isEditMode }) => (isEditMode ? COLORS.grey : COLORS.default)};
     transition: 0.3s;
     box-shadow: 1.8px 5.4px 14.4px rgba(45, 45, 55, 0.1);
     padding: ${({ type }) =>
@@ -77,12 +77,17 @@ export const InputStyled = {
         color: ${COLORS.red};
       `}
 
-    ${({ isReadOnly, isSelect }) =>
+    ${({ isReadOnly, isSelect, isEditMode }) =>
       isReadOnly &&
       !isSelect &&
       css`
         border: 1px solid ${COLORS.grey};
         color: ${COLORS.grey};
+        ${!isEditMode &&
+        css`
+          border: none;
+          outline: none;
+        `}
       `}
 
     ${Media.mobile(css`

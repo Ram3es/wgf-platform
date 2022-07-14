@@ -1,0 +1,92 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+      - development
+    paths:
+      - web/**
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set env vars (common)
+        run: |
+          echo "REACT_APP_GOOGLE_AUTH_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_AUTH_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "REACT_APP_FACEBOOK_AUTH_APP_ID=${{ secrets.REACT_APP_FACEBOOK_AUTH_APP_ID }}" >> $GITHUB_ENV
+
+      - name: Set env vars (development)
+        if: endsWith(github.ref, '/development')
+        run: |
+          echo "branch=development & env=development"
+          echo "REACT_APP_API_URL=${{ secrets.API_BASE_URL_DEV }}" >> $GITHUB_ENV
+          echo "REACT_APP_GAME=${{ secrets.REACT_APP_GAME_DEV }}" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY=wgf-web-dev-repo" >> $GITHUB_ENV
+          echo "ECS_SERVICE=wgf-web-dev-service" >> $GITHUB_ENV
+          echo "ECS_CLUSTER=wgf-web-dev-cluster" >> $GITHUB_ENV
+          echo "CONTAINER_NAME=wgf-web-dev-container" >> $GITHUB_ENV
+          echo "ECS_TASK_DEFINITION=web/deploy/task-definition-dev.json" >> $GITHUB_ENV
+      - name: Set env vars (production)
+        if: endsWith(github.ref, '/main')
+        run: |
+          echo "branch=main & env=production"
+          echo "REACT_APP_API_URL=${{ secrets.API_BASE_URL }}" >> $GITHUB_ENV
+          echo "REACT_APP_GAME=${{ secrets.REACT_APP_GAME_PROD }}" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY=wgf-client" >> $GITHUB_ENV
+          echo "ECS_SERVICE=run-wgf-client" >> $GITHUB_ENV
+          echo "ECS_CLUSTER=wgf-client" >> $GITHUB_ENV
+          echo "CONTAINER_NAME=wgf-client-container" >> $GITHUB_ENV
+          echo "ECS_TASK_DEFINITION=web/deploy/task-definition.json" >> $GITHUB_ENV
+      - name: Create env file
+        run: |
+          echo REACT_APP_GOOGLE_AUTH_CLIENT_ID=$REACT_APP_GOOGLE_AUTH_CLIENT_ID >> web/.env
+          echo REACT_APP_FACEBOOK_AUTH_APP_ID=$REACT_APP_FACEBOOK_AUTH_APP_ID >> web/.env
+          echo REACT_APP_GAME=$REACT_APP_GAME >> web/.env
+          echo REACT_APP_API_URL=$REACT_APP_API_URL >> web/.env
+          cat web/.env
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG web
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true

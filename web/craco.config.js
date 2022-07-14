@@ -14,6 +14,7 @@ module.exports = {
           '@services': './src/services',
           '@store': './src/store',
           '@screens': './src/screens',
+          '@regexp': './src/constants/regexp.ts',
         },
       },
     },

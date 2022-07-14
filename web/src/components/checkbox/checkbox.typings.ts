@@ -1,7 +1,7 @@
 type TFlexContent = 'flex-start' | 'flex-end' | 'center';
 
 export interface ICheckboxProps {
-  onChange(): void;
+  onChange: () => void;
   isChecked: boolean;
   label: string;
   boxHeight?: number;

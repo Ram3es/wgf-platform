@@ -1,0 +1,124 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+      - development
+    paths:
+      - api/**
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set env vars (common)
+        run: |
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> $GITHUB_ENV
+          echo "PORT=8080" >> $GITHUB_ENV
+          echo "AWS_REGION=us-east-2" >> $GITHUB_ENV
+          echo "EMAIL_ADRESS_FROM=${{ secrets.EMAIL_ADRESS_FROM }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_CHROME_LAMBDA=${{ secrets.AWS_CHROME_LAMBDA }}" >> $GITHUB_ENV
+          echo "GOOGLE_AUTH_CLIENT_ID=${{ secrets.GOOGLE_AUTH_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "GOOGLE_AUTH_CLIENT_SECRET=${{ secrets.GOOGLE_AUTH_CLIENT_SECRET }}" >> $GITHUB_ENV
+      - name: Set env vars (development)
+        if: endsWith(github.ref, '/development')
+        run: |
+          echo "branch=development & env=development"
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST_DEV }}" >> $GITHUB_ENV
+          echo "POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE_DEV }}" >> $GITHUB_ENV
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> $GITHUB_ENV
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD_DEV }}" >> $GITHUB_ENV
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER_DEV }}" >> $GITHUB_ENV
+          echo "WEB_BASE_URL=${{ secrets.WEB_BASE_URL_DEV }}" >> $GITHUB_ENV
+          echo "API_BASE_URL=${{ secrets.API_BASE_URL_DEV }}" >> $GITHUB_ENV
+          echo "FIREBASE_SERVICE_FILE=${{ secrets.FIREBASE_SERVICE_FILE_DEV }}" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY=wgf-api-dev-repo" >> $GITHUB_ENV
+          echo "ECS_SERVICE=wgf-api-dev-service" >> $GITHUB_ENV
+          echo "ECS_CLUSTER=wgf-api-dev-cluster" >> $GITHUB_ENV
+          echo "CONTAINER_NAME=wgf-api-dev-container" >> $GITHUB_ENV
+          echo "ECS_TASK_DEFINITION=api/deploy/task-definition-dev.json" >> $GITHUB_ENV
+      - name: Set env vars (production)
+        if: endsWith(github.ref, '/main')
+        run: |
+          echo "branch=main & env=production"
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> $GITHUB_ENV
+          echo "POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }}" >> $GITHUB_ENV
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> $GITHUB_ENV
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> $GITHUB_ENV
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> $GITHUB_ENV
+          echo "WEB_BASE_URL=${{ secrets.WEB_BASE_URL }}" >> $GITHUB_ENV
+          echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> $GITHUB_ENV
+          echo "FIREBASE_SERVICE_FILE=${{ secrets.FIREBASE_SERVICE_FILE_PROD }}" >> $GITHUB_ENV
+          echo "ECR_REPOSITORY=wgf-api" >> $GITHUB_ENV
+          echo "ECS_SERVICE=run-wgf-api" >> $GITHUB_ENV
+          echo "ECS_CLUSTER=wgf-api" >> $GITHUB_ENV
+          echo "CONTAINER_NAME=wgf-api-container" >> $GITHUB_ENV
+          echo "ECS_TASK_DEFINITION=api/deploy/task-definition.json" >> $GITHUB_ENV
+      - name: Create env file
+        run: |
+          echo JWT_SECRET=$JWT_SECRET >> api/.env
+          echo PORT=$PORT >> api/.env
+          echo EMAIL_ADRESS_FROM=$EMAIL_ADRESS_FROM >> api/.env
+          echo AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID >> api/.env
+          echo AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY >> api/.env
+          echo AWS_CHROME_LAMBDA=$AWS_CHROME_LAMBDA >> api/.env
+          echo GOOGLE_AUTH_CLIENT_ID=$GOOGLE_AUTH_CLIENT_ID >> api/.env
+          echo GOOGLE_AUTH_CLIENT_SECRET=$GOOGLE_AUTH_CLIENT_SECRET >> api/.env
+          echo FIREBASE_SERVICE_FILE=$FIREBASE_SERVICE_FILE >> api/.env
+          echo FIREBASE_SERVICE_PRIVATE_KEY=$FIREBASE_SERVICE_PRIVATE_KEY >> api/.env
+          echo FIREBASE_SERVICE_PROJECT_ID=$FIREBASE_SERVICE_PROJECT_ID >> api/.env
+          echo API_BASE_URL=$API_BASE_URL >> api/.env
+          echo WEB_BASE_URL=$WEB_BASE_URL >> api/.env
+          echo POSTGRES_HOST=$POSTGRES_HOST >> api/.env
+          echo POSTGRES_DATABASE=$POSTGRES_DATABASE >> api/.env
+          echo POSTGRES_PORT=$POSTGRES_PORT >> api/.env
+          echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> api/.env
+          echo POSTGRES_USER=$POSTGRES_USER >> api/.env
+          cat api/.env
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG api
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true

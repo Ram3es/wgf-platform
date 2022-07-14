@@ -19,6 +19,7 @@ import { UserFormSchema } from './sign-up.constants';
 import { FormStyles } from '@styles/components/form.styles';
 import { TitleStyles } from '@styles/components/title-styles';
 import { SignUpStyles as Styled } from './sign-up.styles';
+import { Footer } from '@components/footer';
 
 export const SignUp: React.FC = () => {
   const {
@@ -176,6 +177,7 @@ export const SignUp: React.FC = () => {
           );
         }}
       </Formik>
+      <Footer />
     </>
   );
 };

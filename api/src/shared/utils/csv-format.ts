@@ -1,5 +1,9 @@
 import { writeToBuffer } from '@fast-csv/format';
-import { baseHeaders, CareerCanvasQuestionsHeaders } from 'src/constants/csv-headers';
+import {
+  allTrainersHeaders,
+  baseHeaders,
+  CareerCanvasQuestionsHeaders,
+} from 'src/constants/csv-headers';
 import { DATE_OPTIONS, DATE_TIME_OPTIONS } from 'src/constants/date';
 import { ROLES } from 'src/constants/roles';
 import { GroupEntity } from 'src/group/entities/group.entity';
@@ -7,7 +11,10 @@ import { QuestionEntity } from 'src/question/entities/question.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { allUsersHeaders } from '../../constants/csv-headers';
 
-import { INVITATION_STATUS, INVITATION_TYPE } from 'src/ invitation/invitation.constants';
+import {
+  INVITATION_STATUS,
+  INVITATION_TYPE,
+} from 'src/ invitation/invitation.constants';
 
 interface IUsersCareerCanvasCsvData {
   user: UserEntity;
@@ -46,6 +53,24 @@ export interface IUserCsv {
   type?: INVITATION_TYPE;
 }
 
+export interface ITrainerCsv {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  created?: Date;
+  email?: string;
+  results?: IUserGamesResults[];
+  role?: ROLES;
+  from?: string;
+  group?: IGroupForUser;
+  inviteDate?: Date;
+  name?: string;
+  status?: INVITATION_STATUS;
+  to?: string;
+  type?: INVITATION_TYPE;
+  organizationName?: string;
+}
+
 interface IUserGamesResults {
   id: string;
   status: string;
@@ -58,6 +83,37 @@ interface IGroupForUser extends GroupEntity {
   trainerId: string;
   trainerName: string;
 }
+
+export const createCsvTrainers = async (trainers: ITrainerCsv[]) => {
+  const headers = [...allTrainersHeaders];
+  const rows = trainers.map((trainer) => {
+    const name = trainer.name || `${trainer.firstName} ${trainer.lastName}`;
+    const organisation = trainer.organizationName || '';
+    const registered = trainer.created
+      ? new Date(trainer.created).toLocaleString('en-US', DATE_OPTIONS)
+      : trainer?.status
+      ? trainer.status.toLowerCase()
+      : '';
+    const numberOfGames = '';
+    const subscriptionExp = '';
+    const email = trainer.email || trainer.to;
+    const payment = '';
+    const accreditation = '';
+
+    return [
+      name,
+      organisation,
+      registered,
+      numberOfGames,
+      subscriptionExp,
+      email,
+      payment,
+      accreditation,
+    ];
+  });
+  const data = await writeToBuffer(rows, { headers });
+  return data.toString('base64');
+};
 
 export const createCsvUsers = async (users: IUserCsv[]) => {
   const headers = [...allUsersHeaders];

@@ -3,7 +3,13 @@ import { deserialize, serialize } from 'class-transformer';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,7 +22,12 @@ import { sendMail } from 'src/shared/utils/email';
 import { resetPasswordMail } from 'src/shared/utils/messages';
 import { AuthService } from '../auth/auth.service';
 import { GroupService } from '../group/group.service';
-import { createCsvUsers, IUserCsv } from '../shared/utils/csv-format';
+import {
+  createCsvTrainers,
+  createCsvUsers,
+  ITrainerCsv,
+  IUserCsv,
+} from '../shared/utils/csv-format';
 import { CreateTrainerAdminDto } from './dto/create-trainer-admin.dto';
 import { ResetPassWordDTO } from './dto/reset-password.dto';
 import { UpdatePassWordDTO } from './dto/update-password.dto';
@@ -25,7 +36,10 @@ import { UserIdDto } from './dto/user-by-id.dto';
 import { ResetPasswordEntity } from './entities/reset-password.entity';
 import { UserEntity } from './entities/user.entity';
 
-import { INVITATION_STATUS, INVITATION_TYPE } from 'src/ invitation/invitation.constants';
+import {
+  INVITATION_STATUS,
+  INVITATION_TYPE,
+} from 'src/ invitation/invitation.constants';
 import { UNASSIGNED_GROUP } from 'src/group/group.constants';
 
 @Injectable()
@@ -48,6 +62,19 @@ export class UserService {
 
   async getUserById(id: string) {
     const user = await this.userRepository.findOne(id);
+
+    if (!user) {
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
+    }
+    return user;
+  }
+  async getUserByIdWithResult(id: string) {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where({ id })
+      .leftJoinAndSelect('user.results', 'result')
+      .leftJoinAndSelect('result.quiz', 'quiz')
+      .getOne();
 
     if (!user) {
       throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
@@ -429,6 +456,11 @@ export class UserService {
     return {
       file: await createCsvUsers(users as IUserCsv[]),
     };
+  }
+  async getAllTrainersCsv() {
+    const trainers = await this.getAllTrainers();
+
+    return { file: await createCsvTrainers(trainers as ITrainerCsv[]) };
   }
 
   async getAllStudentsByTrainerCsv(id: string) {
