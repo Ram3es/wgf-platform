@@ -1,5 +1,6 @@
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
+import { Media } from '@styles/media';
 import { Z_INDEX } from '@styles/z-indexes';
 import styled from 'styled-components';
 export const CalendarStyles = {
@@ -10,9 +11,13 @@ export const CalendarStyles = {
     margin: auto;
     padding: 10px;
     border-radius: 20px;
-    z-index: ${Z_INDEX.high};
-    top: 60px;
-    left: 18px;
+    z-index: ${Z_INDEX.low};
+    top: 75px;
+    right: 0px;
+
+    ${Media.mobile`
+   right:-10%;
+    `}
 
     .react-calendar {
       width: 330px;

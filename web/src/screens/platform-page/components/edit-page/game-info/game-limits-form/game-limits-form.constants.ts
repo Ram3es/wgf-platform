@@ -13,7 +13,7 @@ export const InitialLimitsState = {
   numberOfGames: '20',
   playersPerGame: '10',
   gamesUsed: '0',
-  gameDuration: '23:59:00',
+  gameDuration: '1d 3h 20m',
   remainingGames: '-',
   expirationDate: exp30days(),
 };
@@ -25,7 +25,7 @@ export const limitLabels = {
   playersPerGame: 'Max. No. of Players per Game',
   remainingGames: 'No. of Games Remaining',
   gamesUsed: 'No. of Game(s) Used:',
-  gameDuration: 'Max. Duration per Game (24hr)',
+  gameDuration: 'Max. Duration per Game',
   expirationDate: 'Game Expiration',
 };
 
@@ -49,7 +49,7 @@ export const LimitsFormSchema = Yup.object().shape({
     .trim()
     .required('This field is required ')
     .matches(
-      REGEXPS.time,
-      'Please enter valid format time. Example (23:59:59)'
+      REGEXPS.dayHoursMinute,
+      'Please enter valid format time. Example: 1d 2h 5m'
     ),
 });

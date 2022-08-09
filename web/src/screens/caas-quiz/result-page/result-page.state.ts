@@ -36,7 +36,7 @@ export const useResultState = () => {
     const quizTitle =
       storageService.getQuiz()?.title || query.get('quizTitle')!;
     const quizId = storageService.getQuiz()?.id || query.get('quizId')!;
-    const userId = userInfo?.id || query.get('userId')!;
+    const userId = query.get('userId')! || userInfo?.id;
 
     if (!quizId || !quizTitle) {
       return replace('/');
@@ -44,7 +44,8 @@ export const useResultState = () => {
 
     const user = {
       id: userId,
-      firstName: userInfo?.firstName || query.get('userName')!,
+      firstName: query.get('userName')! || userInfo?.firstName,
+      role: userInfo.role,
     };
 
     updateState({ quiz: { id: quizId, title: quizTitle }, user });

@@ -118,6 +118,7 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                     value={limitData.gameDuration || ''}
                     type="text"
                     name="gameDuration"
+                    placeholder="Example: 1d 4h 20m"
                     onChange={handleUserChange}
                     height="38px"
                     label={limitLabels.gameDuration}
@@ -164,13 +165,6 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                     isAutoCompleteOff
                     onClick={toggleCalendar}
                   />
-                  {isEditMode && isShowCalendar && (
-                    <CalendarForm
-                      calendarHandler={calendarHandler}
-                      toggleCalendar={toggleCalendar}
-                      calendarRef={calendarRef}
-                    />
-                  )}
                 </Styled.InputStyled>
               </Styled.FormItem>
               {isEditMode && (
@@ -182,6 +176,13 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                     onClick={handleSubmit}
                   />
                 </Styled.ButtonWraper>
+              )}
+              {isEditMode && isShowCalendar && (
+                <CalendarForm
+                  calendarHandler={calendarHandler}
+                  toggleCalendar={toggleCalendar}
+                  calendarRef={calendarRef}
+                />
               )}
             </>
           );

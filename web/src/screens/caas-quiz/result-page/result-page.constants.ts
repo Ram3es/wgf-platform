@@ -30,5 +30,6 @@ export const initialResultState: IResultState = {
   user: {
     id: '',
     firstName: '',
+    role: '',
   },
 };

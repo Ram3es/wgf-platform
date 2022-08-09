@@ -1,4 +1,3 @@
-import { TIME_OPTIONS } from '@constants/date';
 import { ITrainerId } from './../game-limits-form/game-limits-form.typing';
 import { ChangeEvent, useEffect, useState, useCallback, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -13,6 +12,10 @@ import { PROMISES_AREA } from '@constants/promises-area';
 import axios from 'axios';
 import { errorMessage } from '@constants/pop-up-messages';
 import { Toast } from '@constants/toasts';
+import {
+  convertToDayHourMinutes,
+  parseTimeInputValue,
+} from '@services/utils/date-time.utils';
 
 export const useGameLimitsState = () => {
   const [limitData, setlimitData] =
@@ -63,10 +66,7 @@ export const useGameLimitsState = () => {
 
       const formatedData = {
         ...data,
-        gameDuration: new Date(+data.gameDuration * 1000).toLocaleString(
-          'UTC',
-          TIME_OPTIONS
-        ),
+        gameDuration: convertToDayHourMinutes(data.gameDuration),
       };
       data && setlimitData((prev) => ({ ...prev, ...formatedData }));
       data && setIsShowForm(true);
@@ -79,9 +79,10 @@ export const useGameLimitsState = () => {
 
   const setLimitSetting = async (values: IInitialLimitsState) => {
     const { remainingGames, ...rest } = values;
+
     const formatValues: Partial<IInitialLimitsState> = {
       ...rest,
-      gameDuration: values.gameDuration
+      gameDuration: parseTimeInputValue(values.gameDuration)
         .split(':')
         .reduce((acc, time) => String(60 * +acc + +time)),
     };

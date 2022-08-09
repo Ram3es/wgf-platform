@@ -116,6 +116,7 @@ export const InputStyled = {
       color: ${({ error }) => (error ? COLORS.red : COLORS.grey)};
       font-weight: 400;
       font-family: ${FONTS.family.frutigerNormal};
+      opacity: 0.5;
     }
 
     ${({ isTableReadOnly, error }) =>

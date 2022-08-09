@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const GameLimitsStyles = {
   FormWrapper: styled.div`
     display: grid;
+    position: relative;
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: 5em;
 

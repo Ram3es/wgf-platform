@@ -1,26 +1,50 @@
 export interface INAME_OF_QUIZ {
-  quizes: Record<string, string>[];
-  title: Record<string, string>;
+  quizes: Record<string, TQuiz>[];
 }
+export type TQuiz = { imgName: string; quizNameDB: string; pathResult: string };
+
 export interface IResultUser {
   created: Date;
-  quiz: { title: string };
+  quiz: Record<'title' | 'id', string>;
   status: string;
 }
 
 export const NAME_OF_QUIZ: INAME_OF_QUIZ = {
   quizes: [
-    { CareerFlex: 'CareerFlexBetterQuality' },
-    { 'Career Flex Cooperation': 'CareerFlexBetterQuality' },
-    { 'Career Design Canvas': 'CareerDesignCanvasBetterQuality' },
-    { 'Career Design Game': 'CareerDesignGameBetterQuality' },
-    { 'My Career Adventure': 'MyCareerAdventureBetterQuality' },
+    {
+      CareerFlex: {
+        imgName: 'CareerFlexBetterQuality',
+        quizNameDB: 'caas-quiz',
+        pathResult: '/career-flex/results',
+      },
+    },
+    {
+      'Career Flex Cooperation': {
+        imgName: 'CareerFlexBetterQuality',
+        quizNameDB: 'caas-cooperation-quiz',
+        pathResult: '/career-flex/results',
+      },
+    },
+    {
+      'Career Design Canvas': {
+        imgName: 'CareerDesignCanvasBetterQuality',
+        quizNameDB: 'career-canvas',
+        pathResult: '/career-canvas/results',
+      },
+    },
+    {
+      'Career Design Game': {
+        imgName: 'CareerDesignGameBetterQuality',
+        quizNameDB: 'N/A',
+        pathResult: '',
+      },
+    },
+    {
+      'My Career Adventure': {
+        imgName: 'MyCareerAdventureBetterQuality',
+        quizNameDB: 'N/A',
+        pathResult: '',
+      },
+    },
   ],
-  title: {
-    CareerFlex: 'caas-quiz',
-    'Career Flex Cooperation': 'caas-cooperation-quiz',
-    'Career Design Canvas': 'career-canvas',
-    'Career Design Game': 'aaaaaaa',
-    'My Career Adventure': 'aaaaaaaaaaa',
-  },
 };

@@ -391,11 +391,40 @@ export class UserService {
   }
 
   async getAllTrainers() {
-    return this.userRepository.find({
-      where: {
-        role: ROLES.trainerAdmin,
-      },
-    });
+    const trainers = await this.userRepository
+      .createQueryBuilder('trainer')
+      .where('trainer.role = (:role)', { role: ROLES.trainerAdmin })
+      .select([
+        'trainer.id as id',
+        'trainer.role as role',
+        'trainer.organizationName as organization',
+        'trainer.email as email',
+        'CONCAT(trainer.firstName,\' \',trainer."lastName") as name',
+        'trainer.created as created',
+        'trainer.avatar as avatar',
+      ])
+      .getRawMany();
+
+    const invitedTrainers = await this.invitationRepository
+      .createQueryBuilder('invitation')
+      .where('invitation.type IN (:...types)', {
+        types: [INVITATION_TYPE.requestTrainer, INVITATION_TYPE.trainer],
+      })
+      .andWhere('invitation.status IN (:...statuses)', {
+        statuses: [
+          INVITATION_STATUS.pending,
+          INVITATION_STATUS.registrationPending,
+        ],
+      })
+      .select([
+        'invitation.id as id',
+        'invitation.to as email',
+        'invitation.status as status',
+        'invitation.name as name',
+        'invitation.inviteDate as "inviteDate"',
+      ])
+      .getRawMany();
+    return [...invitedTrainers, ...trainers];
   }
 
   async getTrainersByUser(id: string) {

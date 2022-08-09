@@ -38,7 +38,7 @@ export const useEditUserState = () => {
 
   const breadCrumbTitle =
     userState &&
-    `${capitalize(userState.role as string)} / ${userState.lastName}`;
+    `${capitalize(userState.role as string)} / ${userState.firstName}`;
 
   useEffect(() => {
     animateScroll.scrollToTop();

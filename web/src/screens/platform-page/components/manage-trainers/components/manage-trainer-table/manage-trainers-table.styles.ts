@@ -192,6 +192,7 @@ export const ManageTrainersTableStyles = {
   `,
   DataRowTrainersTable: styled.div<IDataRowPropsStyles>`
     display: flex;
+    min-height: 41px;
     width: 1850px;
     background-color: ${({ isActive, isSelected }) =>
       isActive

@@ -8,11 +8,15 @@ import { inviteTrainer, inviteUser } from '@services/super-admin.service';
 import { getGroupsByTrainer, inviteStudent } from '@services/trainer.service';
 
 import {
-    errorMessage, studentInviteSuccessMessage, trainerInviteSuccessMessage, userInviteSuccessMessage
+  errorMessage,
+  studentInviteSuccessMessage,
+  trainerInviteSuccessMessage,
+  userInviteSuccessMessage,
 } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROLES } from '@constants/user-roles';
 import { initialIndividualInviteState } from './individual-invite.constants';
+import { TReset } from './individual-invite.typings';
 
 export const useIndividualInviteState = () => {
   const { state, updateState } = useUpdateState(initialIndividualInviteState);
@@ -60,7 +64,7 @@ export const useIndividualInviteState = () => {
 
   const assignGroupsOptions = groups.map((item) => item.name);
 
-  const handleSubmitInviteFromTrainer = async () => {
+  const handleSubmitInviteFromTrainer = async (resetForm: TReset) => {
     try {
       const payload = {
         name: `${state.firstName} ${state.lastName}`,
@@ -76,18 +80,21 @@ export const useIndividualInviteState = () => {
       if (axios.isAxiosError(error)) {
         return errorMessage(error?.response?.data.message).fire();
       }
+    } finally {
+      updateState(initialIndividualInviteState);
+      resetForm();
     }
   };
 
-  const handleSubmitInviteFromSuperAdmin = async () => {
+  const handleSubmitInviteFromSuperAdmin = async (resetForm: TReset) => {
     if (state.groupType === 'User') {
-      return await handleInviteUser();
+      return await handleInviteUser(resetForm);
     }
 
-    await handleInviteTrainer();
+    await handleInviteTrainer(resetForm);
   };
 
-  const handleInviteUser = async () => {
+  const handleInviteUser = async (resetForm: TReset) => {
     try {
       const payload = {
         name: `${state.firstName} ${state.lastName}`,
@@ -104,10 +111,13 @@ export const useIndividualInviteState = () => {
       if (axios.isAxiosError(error)) {
         return errorMessage(error?.response?.data.message).fire();
       }
+    } finally {
+      updateState(initialIndividualInviteState);
+      resetForm();
     }
   };
 
-  const handleInviteTrainer = async () => {
+  const handleInviteTrainer = async (resetForm: TReset) => {
     try {
       const payload = {
         name: `${state.firstName} ${state.lastName}`,
@@ -124,6 +134,9 @@ export const useIndividualInviteState = () => {
       if (axios.isAxiosError(error)) {
         return errorMessage(error?.response?.data.message).fire();
       }
+    } finally {
+      updateState({ ...initialIndividualInviteState, groupType: 'Trainer' });
+      resetForm();
     }
   };
 

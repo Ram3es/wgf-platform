@@ -2,35 +2,51 @@ import { DATE_TIME_OPTIONS } from '@constants/date';
 import { IMAGES } from '@constants/images';
 import { STRINGS } from '@constants/strings';
 import { FC } from 'react';
-import { IResultUser, NAME_OF_QUIZ } from '../user-progres.constants';
+import { useHistory } from 'react-router-dom';
+import { IEditUserProps } from '../../edit-table-info';
+import { IResultUser, TQuiz } from '../user-progres.constants';
 import { QuizesTileStyles as Styled } from './quizes-tile.styles';
 
 interface IQuizTileProps {
-  title: { [key: string]: string };
+  quize: Record<string, TQuiz>;
   lastResult: (IResultUser | undefined)[];
+  user: IEditUserProps;
 }
-export const QuizesTile: FC<IQuizTileProps> = ({ title, lastResult }) => {
-  const key = Object.keys(title).join();
-  const value = Object.values(title).join();
-  const quizName = NAME_OF_QUIZ.title[key];
+export const QuizesTile: FC<IQuizTileProps> = ({ quize, lastResult, user }) => {
+  const { push } = useHistory();
+
+  const title = Object.keys(quize).join();
+  const imgName = quize[title].imgName;
+  const quizName = quize[title].quizNameDB;
 
   const [renderResult] = lastResult.filter((res) =>
     res?.quiz?.title?.includes(quizName)
   );
 
+  const handleViewReport = () => {
+    const url = quize[title].pathResult;
+    const id = renderResult?.quiz.id;
+    const name = user.lastName;
+    push(
+      `${url}?quizTitle=${title}&quizId=${id}&userId=${user.id}&userName=${name}`
+    );
+  };
+
   return (
     <>
       <Styled.WrapperQuiz>
         <Styled.QuizShadow>
-          <img src={IMAGES[value]} alt={STRINGS.altLogo} />
-          <Styled.QuizName>{key}</Styled.QuizName>
+          <img src={IMAGES[imgName]} alt={STRINGS.altLogo} />
+          <Styled.QuizName>{title}</Styled.QuizName>
           <Styled.Outlines>
             <Styled.BlackText>Status</Styled.BlackText>
             <Styled.InfoText>
               {renderResult?.status === 'Completed' ? (
                 <Styled.StatusFlex>
                   {renderResult?.status}
-                  <Styled.Button dark>View Report</Styled.Button>
+                  <Styled.Button onClick={handleViewReport} dark>
+                    View Report
+                  </Styled.Button>
                 </Styled.StatusFlex>
               ) : (
                 renderResult?.status && (
@@ -44,7 +60,9 @@ export const QuizesTile: FC<IQuizTileProps> = ({ title, lastResult }) => {
                         0,
                         renderResult?.status.length - 1
                       )}
-                      onChange={() => ''}
+                      onChange={() => {
+                        return;
+                      }}
                       id="myRange"
                     />
                     <Styled.Button>View Status</Styled.Button>

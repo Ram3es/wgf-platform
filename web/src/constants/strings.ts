@@ -109,6 +109,7 @@ export const STRINGS = {
 
   resultPage: {
     userTitle: 'Hello',
+    titleForSA_TA: 'Report by student : ',
     resourcesTextBlock: {
       title: 'Resources and References',
       textList: [

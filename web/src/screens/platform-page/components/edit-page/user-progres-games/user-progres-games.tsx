@@ -8,7 +8,6 @@ export const UserProgresGames: FC<IEditTableProps> = ({ user }) => {
   const quizes = user.results?.map((item) =>
     Object.values(item.quiz.title).join('')
   );
-
   const uniqueQuizes = Array.from(new Set(quizes));
 
   const lastResults = uniqueQuizes.map((quiz) => {
@@ -22,10 +21,10 @@ export const UserProgresGames: FC<IEditTableProps> = ({ user }) => {
   });
 
   const renderTiles = useMemo(() => {
-    return NAME_OF_QUIZ.quizes.map((title, idx) => (
-      <QuizesTile key={idx} title={title} lastResult={lastResults} />
+    return NAME_OF_QUIZ.quizes.map((quiz, idx) => (
+      <QuizesTile key={idx} quize={quiz} lastResult={lastResults} user={user} />
     ));
-  }, [NAME_OF_QUIZ, user]);
+  }, [user]);
 
   return (
     <>

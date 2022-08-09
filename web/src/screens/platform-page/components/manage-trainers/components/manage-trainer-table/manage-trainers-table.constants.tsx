@@ -1,8 +1,8 @@
 export const MANAGE_TRAINERS = {
   filterOptions: [
-    { firstName: 'Name' },
+    { name: 'Name' },
     { email: 'Email' },
-    { organizationName: 'School/Organization' },
+    { organization: 'School/Organization' },
     { created: 'Registered On' },
     // 'No. of Games',
     // 'Subscription Expiration',

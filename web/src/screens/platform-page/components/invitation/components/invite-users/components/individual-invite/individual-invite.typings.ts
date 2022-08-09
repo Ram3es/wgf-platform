@@ -5,3 +5,5 @@ export interface IInitialIndividualInviteState {
   groupType: string;
   assignGroup: string;
 }
+
+export type TReset = () => void;

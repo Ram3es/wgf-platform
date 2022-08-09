@@ -14,8 +14,11 @@ import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
 import { ROLES } from '@constants/user-roles';
 import {
-    groupTypeOptions, individualInviteFormItems, IndividualInviteFormSchema, individualInviteLabels,
-    initialIndividualInviteState
+  groupTypeOptions,
+  individualInviteFormItems,
+  IndividualInviteFormSchema,
+  individualInviteLabels,
+  initialIndividualInviteState,
 } from './individual-invite.constants';
 
 import { IInitialIndividualInviteState } from './individual-invite.typings';
@@ -43,11 +46,11 @@ export const IndividualInvite: React.FC = () => {
       <Formik
         initialValues={initialIndividualInviteState}
         validateOnChange
-        onSubmit={
+        onSubmit={(_, { resetForm }) => {
           user.role === ROLES.superAdmin
-            ? handleSubmitInviteFromSuperAdmin
-            : handleSubmitInviteFromTrainer
-        }
+            ? handleSubmitInviteFromSuperAdmin(resetForm)
+            : handleSubmitInviteFromTrainer(resetForm);
+        }}
         validationSchema={IndividualInviteFormSchema}
       >
         {({

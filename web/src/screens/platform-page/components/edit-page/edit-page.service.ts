@@ -11,14 +11,14 @@ export const useServiceEditInfo = (): ISelectionOption => {
 
   return {
     user: [
-      { 'Email User': () => console.log('skdnvjsndv') },
+      // { 'Email User': () =>{} },
       { 'Delete Account': deleteAccount },
-      { 'Request Payment': () => console.log('skdnvjsndv') },
+      // { 'Request Payment': () =>{}},
     ],
     trainerAdmin: [
-      { 'Email Trainer': () => console.log('skdnvjsndv') },
+      // { 'Email Trainer': () => {} },
       { 'Delete Account': deleteAccount },
-      { 'Request Payment': () => console.log('skdnvjsndv') },
+      // { 'Request Payment': () => {} },
     ],
   };
 };

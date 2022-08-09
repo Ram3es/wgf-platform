@@ -74,8 +74,7 @@ export const ManageTrainersTable: FC = () => {
                     {selectedTrainers +
                       (selectedTrainers === 1
                         ? ' trainer selected'
-                        : ' trainers selected')}{' '}
-                    {}
+                        : ' trainers selected')}
                   </Styled.TextTable>
                 </Styled.CheckboxDiv>
                 {/* <Icon type="line" />
@@ -173,9 +172,12 @@ export const ManageTrainersTable: FC = () => {
                       </CommonStylesForTables.ControlColumn>
                       <CommonStylesForTables.ControlColumn>
                         <CommonStylesForTables.ControlWrapper>
-                          <Icon type="edit" onClick={editHandler(item.id)} />
+                          {item.role && (
+                            <Icon type="edit" onClick={editHandler(item.id)} />
+                          )}
                         </CommonStylesForTables.ControlWrapper>
                       </CommonStylesForTables.ControlColumn>
+
                       <DataColumn text={fullName} />
                       <DataColumn text={organization} />
                       {registerDate === 'pending' ||

@@ -24,6 +24,7 @@ import { STRINGS } from '@constants/strings';
 import { TitleStyles } from '@styles/components/title-styles';
 import { Header } from '@components/header';
 import { ResultPageStyles as Styled } from './result-page.styles';
+import { ROLES } from '@constants/user-roles';
 
 export const ResultPage: React.FC = () => {
   const { user, results, quiz, generatePdf } = useResultState();
@@ -37,7 +38,9 @@ export const ResultPage: React.FC = () => {
       <Container>
         <BannerResult withBackground />
         <TitleStyles.h3 mb={20}>
-          {STRINGS.resultPage.userTitle} {user.firstName}
+          {user.role !== ROLES.user
+            ? `${STRINGS.resultPage.titleForSA_TA} ${user.firstName}`
+            : `${STRINGS.resultPage.userTitle} ${user.firstName}`}
         </TitleStyles.h3>
         <Loader area={PROMISES_AREA.getCaasResult}>
           <ResultSummary

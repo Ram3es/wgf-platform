@@ -55,7 +55,7 @@ export const useCanvasResults = () => {
   const { push, replace } = useHistory();
 
   const quizId = canvasQuiz.id || query.get('quizId')!;
-  const userId = user.id || query.get('userId')!;
+  const userId = query.get('userId')! || user.id;
 
   useEffect(() => {
     const request = async () => {

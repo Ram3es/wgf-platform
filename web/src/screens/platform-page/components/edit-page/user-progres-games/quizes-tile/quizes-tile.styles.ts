@@ -1,3 +1,4 @@
+import { Z_INDEX } from '@styles/z-indexes';
 import { COLORS } from '@styles/colors';
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
@@ -88,6 +89,7 @@ export const QuizesTileStyles = {
     color: ${COLORS.grey};
     cursor: pointer;
     font-weight: 700;
+    z-index: ${Z_INDEX.low};
     ${({ dark }) =>
       dark &&
       css`
@@ -95,6 +97,6 @@ export const QuizesTileStyles = {
         color: ${COLORS.white};
         border: 1px solid ${COLORS.grey};
         cursor: pointer;
-      `}
+      `};
   `,
 };

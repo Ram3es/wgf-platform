@@ -38,9 +38,6 @@ export const EditTableInfo: FC<IEditTableProps> = ({ user }) => {
             const key = Object.keys(title).join(' ') as K;
             let value = user[key];
 
-            if (typeof value === 'undefined') {
-              value = ' - ';
-            }
             if (key === 'created') {
               value = new Date(user[key]).toLocaleString(
                 'en-US',
@@ -51,7 +48,7 @@ export const EditTableInfo: FC<IEditTableProps> = ({ user }) => {
               <React.Fragment key={key}>
                 <Styled.RowWrapper>
                   <Styled.Text>{title[key]}</Styled.Text>
-                  <Styled.TextBold>{value}</Styled.TextBold>
+                  <Styled.TextBold>{value || '-'}</Styled.TextBold>
                 </Styled.RowWrapper>
               </React.Fragment>
             );
@@ -63,7 +60,7 @@ export const EditTableInfo: FC<IEditTableProps> = ({ user }) => {
                 <React.Fragment key={key}>
                   <Styled.RowWrapper>
                     <Styled.Text> {title[key]}</Styled.Text>
-                    <Styled.TextBold>{user[key] || key} </Styled.TextBold>
+                    <Styled.TextBold>{user[key] || 'N/A'} </Styled.TextBold>
                     <Icon type="edit" />
                     <Styled.IconWrapper></Styled.IconWrapper>
                   </Styled.RowWrapper>

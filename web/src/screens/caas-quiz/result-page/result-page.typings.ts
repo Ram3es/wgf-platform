@@ -4,5 +4,6 @@ export interface IResultState {
   user: {
     id: string;
     firstName: string;
+    role: string;
   };
 }
