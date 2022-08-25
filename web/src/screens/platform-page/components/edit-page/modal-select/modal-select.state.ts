@@ -11,8 +11,8 @@ export const useModalSelectState = () => {
     };
   }, []);
 
-  const toggleModal = () => {
-    setShowModal((state) => !state);
+  const toggleModal = (value?: string) => {
+    setShowModal((state) => (value ? false : !state));
   };
   const onBackdropClick = (event: MouseEvent): void => {
     if (!refModal.current?.contains(event.target as HTMLDivElement)) {

@@ -14,6 +14,8 @@ import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
 import { QuizService } from './quiz.service';
 import { QUIZ_ROUTES } from './quiz.constants';
+import { User } from 'src/decorators/user';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 @ApiTags(QUIZ_ROUTES.main)
 @Controller(QUIZ_ROUTES.main)
@@ -63,9 +65,12 @@ export class QuizController {
     description: QUIZ_ROUTES.getCaasCsv,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(new RoleGuard(['superAdmin']))
-  public async getCaasCsv(@Body() body: { quizId: string }) {
-    return this.quizService.getCaasCsv(body);
+  @UseGuards(new RoleGuard(['superAdmin', 'trainerAdmin']))
+  public async getCaasCsv(
+    @Body() body: { quizId: string },
+    @User() admin: UserEntity
+  ) {
+    return this.quizService.getCaasCsv(body, admin);
   }
 
   @Post(QUIZ_ROUTES.getCareerCanvasCsv)
@@ -75,8 +80,11 @@ export class QuizController {
     description: QUIZ_ROUTES.getCareerCanvasCsv,
   })
   @HttpCode(HttpStatus.OK)
-  @UseGuards(new RoleGuard(['superAdmin']))
-  public async getCareerCanvasCsv(@Body() body: { quizId: string }) {
-    return this.quizService.getCareerCanvasCsv(body);
+  @UseGuards(new RoleGuard(['superAdmin', 'trainerAdmin']))
+  public async getCareerCanvasCsv(
+    @Body() body: { quizId: string },
+    @User() admin: UserEntity
+  ) {
+    return this.quizService.getCareerCanvasCsv(body, admin);
   }
 }

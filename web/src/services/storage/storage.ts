@@ -1,3 +1,5 @@
+import { IInitialLimitsState } from '@screens/platform-page/components/edit-page/game-info/game-limits-form';
+
 const TOKEN_STORAGE_KEY = 'token';
 
 export const SESSION_STORAGE = {
@@ -8,6 +10,7 @@ export const SESSION_STORAGE = {
   currentPage: 'currentPage',
   results: 'results',
   isLatestAnswers: 'isLatestAnswers',
+  trainerLimits: 'trainerLimits',
 };
 
 class StorageService {
@@ -219,6 +222,17 @@ class StorageService {
 
   public clearSessionStorage = () => {
     return sessionStorage.clear();
+  };
+
+  public setTrainerLimits = (limits: IInitialLimitsState) =>
+    sessionStorage.setItem(
+      SESSION_STORAGE.trainerLimits,
+      JSON.stringify(limits)
+    );
+
+  public getTrainerLimits = () => {
+    const data = sessionStorage.getItem(SESSION_STORAGE.trainerLimits);
+    return data ? JSON.parse(data) : null;
   };
 }
 

@@ -7,12 +7,16 @@ import { COLORS } from '@styles/colors';
 import { useGameButton } from './game-button.state';
 import { storageService } from '@services/storage/storage';
 import { useAppSelector } from '@services/hooks/redux';
+import { FC } from 'react';
 
 const ModalText = styled.p`
   text-align: center;
 `;
+interface IGameButtonProps {
+  title?: string;
+}
 
-export const GameButtonElement = () => {
+export const GameButtonElement: FC<IGameButtonProps> = ({ title }) => {
   const { isModalOpen, onClick } = useGameButton();
 
   const ModalElement = isModalOpen && (
@@ -27,7 +31,7 @@ export const GameButtonElement = () => {
     <>
       {ModalElement}
       <Button
-        title={'Career Game'}
+        title={title || 'Career Game'}
         iconType="next"
         isIconRight
         onClick={onClick}
@@ -37,12 +41,12 @@ export const GameButtonElement = () => {
   );
 };
 
-export const GameButton = () => {
+export const GameButton: FC<IGameButtonProps> = (props) => {
   const token = storageService.getToken();
   const userRole = useAppSelector((state) => state.user.role);
 
   const isDisplay =
     token && (userRole === 'trainerAdmin' || userRole === 'superAdmin');
 
-  return isDisplay ? <GameButtonElement /> : null;
+  return isDisplay ? <GameButtonElement {...props} /> : null;
 };

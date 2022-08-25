@@ -14,7 +14,7 @@ export const ROUTES = {
   careerFlex: '/career-flex',
   careerFlexPlus: '/career-flex-plus',
   careerFlexResults: '/career-flex/results',
-  careerDesignGame: '/career-design-game',
+  careerDesignGame: '/platform/career-design-game',
   careerDesignCanvas: '/career-canvas',
   careerDesignCanvasResults: '/career-canvas/results',
   myCareerAdventure: '/my-career-adventure',

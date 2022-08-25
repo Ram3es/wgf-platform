@@ -9,8 +9,8 @@ export const CareerDesignStyles = {
   Wrapper: styled.div`
     margin-left: 10px;
     position: relative;
-    width: calc(100% - 260px);
-    padding: 70px 90px;
+    width: 100%;
+    padding-top: 35px;
     border-top-left-radius: 20px;
     overflow: hidden;
     min-height: calc(100vh - 95px);
@@ -29,6 +29,9 @@ export const CareerDesignStyles = {
       border-top-left-radius: 0;
       margin-left: 0px;
     `}
+  `,
+  WrapContent: styled.div`
+    padding: 0 30px;
   `,
 
   Content: styled.div`
@@ -56,6 +59,7 @@ export const CareerDesignStyles = {
     text-indent: 30px;
     text-align: justify;
     margin-bottom: 70px;
+    padding: 0 90px;
 
     a {
       font-family: ${FONTS.family.absideSmooth};
@@ -63,5 +67,9 @@ export const CareerDesignStyles = {
     ${Media.smallLandscape(css`
       font-size: ${FONTS.sizes[18]};
     `)}
+  `,
+  BtnWrapper: styled.div`
+    display: flex;
+    justify-content: space-around;
   `,
 };

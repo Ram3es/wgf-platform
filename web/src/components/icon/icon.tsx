@@ -55,6 +55,9 @@ import { ReactComponent as editFormActive } from '@assets/img/edit-form-active.s
 import { ReactComponent as deleteAccount } from '@assets/img/delete-account.svg';
 import { ReactComponent as facebookFooter } from '@assets/img/facebook-footer.svg';
 import { ReactComponent as linkedinFooter } from '@assets/img/linkedin-footer.svg';
+import { ReactComponent as careerDesignLogo } from '@assets/img/career-design-large.svg';
+import { ReactComponent as shevron } from '@assets/img/vector-shevron.svg';
+import { ReactComponent as shevronRight } from '@assets/img/shevron-right.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -108,6 +111,9 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   deleteAccount,
   facebookFooter,
   linkedinFooter,
+  careerDesignLogo,
+  shevron,
+  shevronRight,
 };
 interface IIconProps {
   type: string;

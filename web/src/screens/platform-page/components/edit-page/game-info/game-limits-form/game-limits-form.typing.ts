@@ -17,6 +17,7 @@ export interface IGameLimitsFormProps {
   unlimitedHandler: (name: string) => void;
   calendarHandler?: (param: string) => void;
   calendarRef: RefObject<HTMLDivElement>;
+  returnPrevSettings: (key: keyof IInitialLimitsState) => void;
 }
 
 export interface IInitialLimitsState {

@@ -7,6 +7,7 @@ export const ERRORS = {
   alreadyExist: 'Already exist',
   notExist: 'Not exist',
   notFound: 'Not found',
+  notFoundUser: 'Not found any users',
   emailUsed: 'Sorry this email already exists',
   wrongCode: 'The code is wrong',
   codeExpired: 'Code expired',

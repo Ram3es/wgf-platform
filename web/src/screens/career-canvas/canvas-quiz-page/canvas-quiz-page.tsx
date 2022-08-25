@@ -55,17 +55,18 @@ export const CanvasQuizPage: FC = () => {
       <Header />
       <Styled.Container>
         <Styled.CsvButtonContainer>
-          {user.role === ROLES['superAdmin'] && (
-            <Loader area={PROMISES_AREA.getCareerCanvasCsv}>
-              <Button
-                title={STRINGS.button.downloadCsv}
-                onClick={downloadCsv}
-                color={
-                  QUESTION_SECTIONS[activeSection as TQuestionSections].color
-                }
-              />
-            </Loader>
-          )}
+          {user.role === ROLES['superAdmin'] ||
+            (user.role === ROLES['trainerAdmin'] && (
+              <Loader area={PROMISES_AREA.getCareerCanvasCsv}>
+                <Button
+                  title={STRINGS.button.downloadCsv}
+                  onClick={downloadCsv}
+                  color={
+                    QUESTION_SECTIONS[activeSection as TQuestionSections].color
+                  }
+                />
+              </Loader>
+            ))}
         </Styled.CsvButtonContainer>
         <Styled.Wrapper>
           <QuestionsNavigation

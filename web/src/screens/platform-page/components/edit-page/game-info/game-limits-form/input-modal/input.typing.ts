@@ -1,3 +1,5 @@
+import { IInit } from './input-modal';
+
 export interface ITextFieldStylesProps {
   error?: string;
   minWidth?: number;
@@ -16,21 +18,11 @@ export interface ITextFieldStylesProps {
   isTableReadOnly?: boolean;
   colorGrey?: boolean;
   isEditMode?: boolean;
-  inputFullWidth?: boolean;
 }
 
-export interface ITextFieldProps extends ITextFieldStylesProps {
-  value: string | number;
-  type: string;
-  name: string;
-  tabIndex?: number;
-  onChange?(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void;
-  onBlur?(
-    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void;
-  autoCapitalize?: string;
-  onClick?(): void;
-  variant?: 'textarea' | 'input';
+export interface IInputModalProps {
+  children?: React.ReactNode;
+  references: React.ForwardedRef<HTMLInputElement>;
+  onChange: (e: React.MouseEvent, name: keyof IInit) => void;
+  isChecked: boolean;
 }

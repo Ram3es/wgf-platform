@@ -1,44 +1,72 @@
+import { COLORS } from '@styles/colors';
+import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 import styled from 'styled-components';
 
 export const FormStyles = {
-  FormItem: styled.div`
-    flex: 0 1 100%;
-    & > * {
-      margin: 2px 0 25px;
-    }
+  Container: styled.div`
+    position: relative;
+  `,
+  FormWrapper: styled.div`
+    width: 75%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 5em 5em 5em;
+    gap: 0 150px;
+
+    margin: 25px 75px 20px 75px;
+    align-content: center;
+    justify-content: center;
+
+    ${Media.mobile`
+  margin: 25px 25px;
+  grid-gap: 15px;
+
+  span {
+    height:28px
+  }
+
+  `};
+  `,
+  TextLabel: styled.div`
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    font-size: 16px;
+    color: ${COLORS.violet};
   `,
 
   InputStyled: styled.div`
+    display: block;
     position: relative;
-    margin-bottom: 20px;
-
-    svg {
-      left: 62%;
-      position: absolute;
-      top: 40%;
-
-      ${Media.landscape`
-      top: 40%;
-      left: 60%;
-    `}
-      ${Media.smallLandscape`
-      top: 40%;
-      left: 55%;
-    `}
-
-      ${Media.tablet`
-      top: 40%;
-      left: 55%;
-    `}
-
-      ${Media.mobile`
-      top: 50%;
-      left: 70%;
-    `}
+    z-index: 1;
+    label {
+      margin: 0;
     }
   `,
+  Select: styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 28px;
+    position: absolute;
+    background-color: ${COLORS.white};
+    border-radius: 5px;
+    top: 60px;
+    z-index: -1;
+  `,
+  CheckboxWrapper: styled.div`
+    width: 100%;
+    padding: 2px 14px;
+    span {
+      font: ${FONTS.family.frutigerNormal};
+      font-size: ${FONTS.sizes[14]};
+      color: ${COLORS.grey};
+    }
+  `,
+
   SelectWrapper: styled.div`
+    border: 1px solid blue;
     position: absolute;
     width: 70%;
     top: 74px;
@@ -49,7 +77,7 @@ export const FormStyles = {
    `};
   `,
   ButtonWraper: styled.div`
-    margin-top: 5px;
+    margin: 0 0 25px 75px;
 
     ${Media.mobile`
   margin-left: calc(50% - 65px);

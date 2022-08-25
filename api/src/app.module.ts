@@ -1,3 +1,4 @@
+import { AppController } from './app.controller';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
@@ -43,6 +44,7 @@ import { VerificationModule } from './verification/verification.module';
     VerificationModule,
     GameModule,
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_FILTER,

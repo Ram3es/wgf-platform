@@ -12,7 +12,12 @@ export const ModalSelect: FC<IModalProps> = ({ selectOption, children }) => {
   const { showModal, refModal, toggleModal } = useModalSelectState();
   return (
     <Styled.SortByDiv>
-      <Styled.SortByTextIcon ref={refModal} onClick={toggleModal}>
+      <Styled.SortByTextIcon
+        ref={refModal}
+        onClick={() => {
+          toggleModal();
+        }}
+      >
         {children}
         {showModal && (
           <Styled.ModalSortBy>

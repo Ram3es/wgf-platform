@@ -8,7 +8,7 @@ export const CheckboxStyles = {
   Wrapper: styled.div<ICheckboxStyles>`
     display: flex;
     align-items: ${({ alignItems }) => alignItems || 'flex-start'};
-    margin-bottom: 20px;
+    margin-bottom: ${({ noMargin }) => (noMargin ? '0' : '20px')};
 
     svg {
       width: ${({ boxWidth }) => (boxWidth ? `${boxWidth - 6}px` : '16px')};

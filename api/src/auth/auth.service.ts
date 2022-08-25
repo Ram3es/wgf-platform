@@ -16,7 +16,10 @@ import { InvitationEntity } from 'src/ invitation/entities/ invitation.entity';
 import { ERRORS } from 'src/constants/errors';
 import { EXPIRE_JWT_TIME } from 'src/constants/etc';
 import { sendMail } from 'src/shared/utils/email';
-import { registrationMessage } from 'src/shared/utils/messages';
+import {
+  registrationMessage,
+  userWasRegistered,
+} from 'src/shared/utils/messages';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -70,6 +73,20 @@ export class AuthService {
       publicKey,
       password: newPassword,
     });
+
+    const inviteFromAdmin = await this.invitationRepository.find({
+      to: newUser.email,
+    });
+
+    if (inviteFromAdmin.length) {
+      inviteFromAdmin.forEach(async (admin) => {
+        const [adminInitiator] = await this.userRepository.find({
+          id: admin.from,
+        });
+        const payload = userWasRegistered(newUser, adminInitiator);
+        sendMail(payload);
+      });
+    }
 
     const token = await this.createToken(newUser);
 

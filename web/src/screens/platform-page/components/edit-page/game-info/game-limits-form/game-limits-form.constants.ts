@@ -1,3 +1,4 @@
+import { IInitialLimitsState } from './game-limits-form.typing';
 import { exp30days } from '@constants/date';
 import { REGEXPS } from '@constants/regexp';
 import * as Yup from 'yup';
@@ -9,7 +10,7 @@ export const SelectState = {
   expirationDate: false,
 };
 
-export const InitialLimitsState = {
+export const initialLimitsState: IInitialLimitsState = {
   numberOfGames: '20',
   playersPerGame: '10',
   gamesUsed: '0',
@@ -18,15 +19,15 @@ export const InitialLimitsState = {
   expirationDate: exp30days(),
 };
 
-export const GameLimitsFormItems = Object.keys(InitialLimitsState);
+export const GameLimitsFormItems = Object.keys(initialLimitsState);
 
 export const limitLabels = {
   numberOfGames: 'Total No. of Games',
   playersPerGame: 'Max. No. of Players per Game',
-  remainingGames: 'No. of Games Remaining',
   gamesUsed: 'No. of Game(s) Used:',
   gameDuration: 'Max. Duration per Game',
-  expirationDate: 'Game Expiration',
+  remainingGames: 'No. of Games Remaining',
+  expirationDate: 'Game Limit Expiration Date',
 };
 
 export const LimitsFormSchema = Yup.object().shape({

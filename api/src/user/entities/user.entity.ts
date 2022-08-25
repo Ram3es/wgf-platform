@@ -102,12 +102,15 @@ export class UserEntity {
   @ApiProperty()
   occupation: string;
 
-  @OneToMany(() => AnswerEntity, (data) => data.user)
+  @OneToMany(() => AnswerEntity, (data) => data.user, { onDelete: 'CASCADE' })
   answers: AnswerEntity[];
 
-  @OneToMany(() => ResultEntity, (data) => data.user)
+  @OneToMany(() => ResultEntity, (data) => data.user, { onDelete: 'CASCADE' })
   results: ResultEntity[];
 
-  @ManyToMany(() => GroupEntity, (data) => data.users, { eager: false })
+  @ManyToMany(() => GroupEntity, (data) => data.users, {
+    eager: false,
+    onDelete: 'CASCADE',
+  })
   groups: GroupEntity[];
 }

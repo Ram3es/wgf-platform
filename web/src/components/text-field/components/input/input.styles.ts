@@ -12,10 +12,10 @@ export const InputStyled = {
     position: relative;
     margin-bottom: 20px;
 
-    ${({ label }) =>
+    ${({ label, inputFullWidth }) =>
       label &&
       css`
-        flex: 0 1 70%;
+        flex: ${inputFullWidth ? '0 1 100%' : '0 1 70%'};
         margin-bottom: 0;
       `}
 
@@ -58,7 +58,7 @@ export const InputStyled = {
     transition: 0.3s;
     box-shadow: 1.8px 5.4px 14.4px rgba(45, 45, 55, 0.1);
     padding: ${({ type }) =>
-      type === 'password' ? '13px 13px 13px 37px' : '13px 28px 13px 13px'};
+      type === 'password' ? '13px 13px 13px 37px' : '13px 18px 13px 13px'};
     cursor: ${({ isSelect }) => (isSelect ? 'pointer' : 'text')};
 
     :-webkit-autofill,

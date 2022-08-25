@@ -96,7 +96,7 @@ export const quizMessage = {
 export const registrationMessage = (user: UserEntity): IMessage => ({
   from: `Avid Adventures <${EMAIL_FROM}>`,
 
-  to: `${user.firstName} ${user.lastName}<${user.email}>`,
+  to: user.email,
   bcc: user.email,
 
   subject: 'Registration',
@@ -116,6 +116,30 @@ export const registrationMessage = (user: UserEntity): IMessage => ({
     </th>`,
     `${WEB_BASE_URL}sign-in`,
     `Sign in`
+  ),
+});
+
+export const userWasRegistered = (user: UserEntity, admin: UserEntity) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+
+  to: admin.email,
+  bcc: admin.email,
+
+  subject: 'User was registered',
+
+  html: createEmailTemplateWithoutButtonHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+      User <b>${user.firstName}  ${user.lastName} </b> successfully registered with Wit Grit Fit by Avid Adventures.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You can see him/her in your Manage Users section now.
+    </p>
+  `,
+    admin.firstName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%">
+    <img alt="T@" src="https://i.ibb.co/bzbgC2j/wgf-home.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`
   ),
 });
 

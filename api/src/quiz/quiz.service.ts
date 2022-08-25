@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
@@ -20,6 +20,8 @@ import { getResultDto } from './dto/get-result-quiz.dto';
 import { QuizEntity } from './entities/quiz.entity';
 
 import { categoryLevelPercent, ICategoryObj } from './quiz.constants';
+import { GroupEntity } from 'src/group/entities/group.entity';
+import { ROLES } from 'src/constants/roles';
 
 @Injectable()
 export class QuizService {
@@ -28,6 +30,8 @@ export class QuizService {
     private readonly quizRepository: Repository<QuizEntity>,
     @InjectRepository(ResultEntity)
     private readonly resultRepository: Repository<ResultEntity>,
+    @InjectRepository(GroupEntity)
+    private readonly groupRepository: Repository<GroupEntity>,
     private readonly answerService: AnswerService,
     private readonly userService: UserService,
     private readonly configService: ConfigService,
@@ -162,8 +166,21 @@ export class QuizService {
     )}career-flex/results?${QUERIES.join('&')}`;
   }
 
-  async getCaasCsv(body: { quizId: string }) {
-    const data = await this.getUsersWithCompletedQuiz(body.quizId);
+  async getCaasCsv(body: { quizId: string }, admin: UserEntity) {
+    let data: ResultEntity[];
+
+    if (admin.role === ROLES.trainerAdmin) {
+      const usersId = await this.getUserIdsFromTrainerGroup(admin.id);
+      if (!usersId.length) {
+        throw new HttpException(ERRORS.notFoundUser, HttpStatus.NOT_FOUND);
+      }
+      data = await this.getUsersFromTrainerGroupWithResult(
+        body.quizId,
+        usersId
+      );
+    }
+    admin.role === ROLES.superAdmin &&
+      (data = await this.getUsersWithCompletedQuiz(body.quizId));
 
     if (!data) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
@@ -210,9 +227,21 @@ export class QuizService {
     };
   }
 
-  async getCareerCanvasCsv(body: { quizId: string }) {
-    const data = await this.getUsersWithCompletedQuiz(body.quizId);
+  async getCareerCanvasCsv(body: { quizId: string }, admin: UserEntity) {
+    let data: ResultEntity[];
+    if (admin.role === ROLES.trainerAdmin) {
+      const usersId = await this.getUserIdsFromTrainerGroup(admin.id);
+      if (!usersId.length) {
+        throw new HttpException(ERRORS.notFoundUser, HttpStatus.NOT_FOUND);
+      }
+      data = await this.getUsersFromTrainerGroupWithResult(
+        body.quizId,
+        usersId
+      );
+    }
 
+    admin.role === ROLES.superAdmin &&
+      (data = await this.getUsersWithCompletedQuiz(body.quizId));
     if (!data) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
@@ -255,5 +284,30 @@ export class QuizService {
       },
       relations: ['user'],
     });
+  }
+  async getUsersFromTrainerGroupWithResult(quizId: string, usersId: string[]) {
+    return this.resultRepository.find({
+      where: {
+        quiz: {
+          id: quizId,
+        },
+        user: {
+          id: In(usersId),
+        },
+      },
+      relations: ['user'],
+    });
+  }
+
+  private async getUserIdsFromTrainerGroup(trainerId: string) {
+    const usersInGroups = await this.groupRepository
+      .createQueryBuilder('group')
+      .leftJoinAndSelect('group.users', 'user')
+      .where('group.trainerId = :id', { id: trainerId })
+      .andWhere('user.id IS NOT NULL')
+      .select(['user.id as "userId"'])
+      .getRawMany();
+
+    return usersInGroups.map((obj) => obj.userId);
   }
 }

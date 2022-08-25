@@ -7,6 +7,7 @@ export const BreadCrumbTitle: { [key: string]: string } = {
   invitation: 'Invite Users',
   'manage-user': 'Manage Users',
   'manage-trainers': 'Manage Trainers',
+  'career-design-game': 'Career Design',
   'manage-group': 'Manage Group',
   delete: 'Delete Account',
 };

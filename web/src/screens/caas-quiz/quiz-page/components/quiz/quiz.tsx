@@ -41,17 +41,18 @@ export const Quiz: React.FC = () => {
 
   return (
     <Styled.Wrapper>
-      {user.role === ROLES['superAdmin'] && (
-        <Loader area={PROMISES_AREA.getCaasCsv}>
-          <Styled.DownloadButton>
-            <Button
-              title={STRINGS.button.downloadCsv}
-              onClick={downloadCsv}
-              color={COLORS.greenLight}
-            />
-          </Styled.DownloadButton>
-        </Loader>
-      )}
+      {user.role === ROLES['superAdmin'] ||
+        (user.role === ROLES['trainerAdmin'] && (
+          <Loader area={PROMISES_AREA.getCaasCsv}>
+            <Styled.DownloadButton>
+              <Button
+                title={STRINGS.button.downloadCsv}
+                onClick={downloadCsv}
+                color={COLORS.greenLight}
+              />
+            </Styled.DownloadButton>
+          </Loader>
+        ))}
       <TitleStyles.h2>
         {STRINGS.form.title} {user.firstName}
       </TitleStyles.h2>
