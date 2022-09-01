@@ -1,5 +1,7 @@
 # WitGritFit
 
+Status of last deployment:<br>
+<img src="https://github.com/WITGRITFIT/wgf-platform/workflows/Deploy to Amazon ESC/badge.svg?branch=main"><br>
 1. [General](#general)
 2. [Tech stack](#tech-stack)
 3. [Running applications locally](#running-applications-locally)
