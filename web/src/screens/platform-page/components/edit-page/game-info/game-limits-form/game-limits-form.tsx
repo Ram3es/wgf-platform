@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { Formik } from 'formik';
 import { limitLabels, LimitsFormSchema } from './game-limits-form.constants';
 import { FormStyles as Styled } from './game-limits-form.styles';
@@ -35,6 +35,7 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
     isChecked,
     setCheckedCheckbox,
     setNotCheckedCheckbox,
+    hideAllModalFields,
   } = useInputModal();
 
   const { gameDuration, numberOfGames, playersPerGame } = isShowModal;
@@ -56,6 +57,7 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
   };
 
   const handleSubmit = (values: IInitialLimitsState) => {
+    hideAllModalFields();
     editMode();
     setLimitSetting(values);
   };
@@ -72,6 +74,15 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
       hideInputModal(name);
     }
   };
+  const remainingValue = useMemo(() => {
+    if (limitData?.numberOfGames === 'unlimited') {
+      return 'unlimited';
+    }
+    if (!limitData.numberOfGames || Number.isNaN(+limitData.numberOfGames)) {
+      return '0';
+    }
+    return String(+limitData.numberOfGames - +limitData.gamesUsed);
+  }, [limitData?.numberOfGames]);
 
   return (
     <>
@@ -114,9 +125,10 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                       withBorder={isEditMode}
                       isReadOnly={!isEditMode}
                       isEditMode={isEditMode}
-                      error={errors['numberOfGames']}
+                      error={isEditMode ? errors['numberOfGames'] : undefined}
                       isAutoCompleteOff
                       inputFullWidth
+                      maxLength={9}
                     />
                     {!errors['numberOfGames'] && numberOfGames && (
                       <InputModal
@@ -146,9 +158,10 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                       isReadOnly={!isEditMode}
                       colorGrey
                       withBorder={isEditMode}
-                      error={errors['playersPerGame']}
+                      error={isEditMode ? errors['playersPerGame'] : undefined}
                       isAutoCompleteOff
                       inputFullWidth
+                      maxLength={9}
                     />
                     {!errors['playersPerGame'] && playersPerGame && (
                       <InputModal
@@ -181,9 +194,10 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                       isEditMode={isEditMode}
                       withBorder={isEditMode}
                       colorGrey
-                      error={errors['gameDuration']}
+                      error={isEditMode ? errors['gameDuration'] : undefined}
                       isAutoCompleteOff
                       inputFullWidth
+                      maxLength={12}
                     />
                     {gameDuration && !errors['gameDuration'] && (
                       <InputModal
@@ -196,9 +210,7 @@ export const GameLimitsForm: FC<IGameLimitsFormProps> = ({
                     )}
                   </Styled.InputStyled>
 
-                  <Styled.TextLabel>{`No. of Games Remaining:   ${
-                    +limitData.numberOfGames - +limitData.gamesUsed || '0'
-                  }`}</Styled.TextLabel>
+                  <Styled.TextLabel>{`No. of Games Remaining:   ${remainingValue}`}</Styled.TextLabel>
                   <Styled.InputStyled>
                     <TextField
                       value={limitData.expirationDate || ''}

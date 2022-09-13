@@ -74,20 +74,6 @@ export class AuthService {
       password: newPassword,
     });
 
-    const inviteFromAdmin = await this.invitationRepository.find({
-      to: newUser.email,
-    });
-
-    if (inviteFromAdmin.length) {
-      inviteFromAdmin.forEach(async (admin) => {
-        const [adminInitiator] = await this.userRepository.find({
-          id: admin.from,
-        });
-        const payload = userWasRegistered(newUser, adminInitiator);
-        sendMail(payload);
-      });
-    }
-
     const token = await this.createToken(newUser);
 
     const payload = registrationMessage(newUser);
@@ -97,6 +83,7 @@ export class AuthService {
     const invitation = await this.invitationRepository.findOne({
       where: {
         to: email,
+        status: INVITATION_STATUS.registrationPending,
       },
       relations: ['group'],
     });

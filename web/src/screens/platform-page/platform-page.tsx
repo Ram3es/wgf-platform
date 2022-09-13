@@ -15,6 +15,7 @@ import { ManageTrainers } from './components/manage-trainers/manage-trainers';
 import { EditUser } from './components/edit-page';
 import { DeletePage } from './components/edit-page/delete-page';
 import { Footer } from '@components/footer';
+import { ManageGroup } from './components/manage-group';
 
 export const PlatformPage: React.FC = () => {
   const { user } = useAppSelector((state) => state);
@@ -51,6 +52,7 @@ export const PlatformPage: React.FC = () => {
             path={ROUTES.careerDesignGame}
             component={CareerDesignGame}
           />
+          <Route exact path={ROUTES.manageGroup} component={ManageGroup} />
           <Route path={ROUTES.platform} component={Dashboard} />
           <Redirect to={ROUTES.platform} />
         </Switch>

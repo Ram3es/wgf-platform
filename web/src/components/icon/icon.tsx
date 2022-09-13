@@ -35,6 +35,7 @@ import { ReactComponent as manageGroup } from '@assets/img/manage-group.svg';
 import { ReactComponent as manageTrainers } from '@assets/img/manage-trainers.svg';
 import { ReactComponent as manageTrainersIcon } from '@assets/img/manage-trainers-icon.svg';
 import { ReactComponent as manageUsersIcon } from '@assets/img/manage-users-icon.svg';
+import { ReactComponent as manageUsersSmall } from '@assets/img/manage-user-smal.svg';
 import { ReactComponent as manageUsers } from '@assets/img/manage-users.svg';
 import { ReactComponent as microsoft } from '@assets/img/microsoft-icon.svg';
 import { ReactComponent as next } from '@assets/img/next-arrow.svg';
@@ -58,6 +59,8 @@ import { ReactComponent as linkedinFooter } from '@assets/img/linkedin-footer.sv
 import { ReactComponent as careerDesignLogo } from '@assets/img/career-design-large.svg';
 import { ReactComponent as shevron } from '@assets/img/vector-shevron.svg';
 import { ReactComponent as shevronRight } from '@assets/img/shevron-right.svg';
+import { ReactComponent as plus } from '@assets/img/plus.svg';
+import { ReactComponent as triangleBracketRight } from '@assets/img/triangle-bracket-right.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -94,6 +97,7 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   bin,
   bulkInvite,
   manageUsersIcon,
+  manageUsersSmall,
   line,
   envelopeReminder,
   envelopeCancel,
@@ -114,6 +118,8 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   careerDesignLogo,
   shevron,
   shevronRight,
+  plus,
+  triangleBracketRight,
 };
 interface IIconProps {
   type: string;

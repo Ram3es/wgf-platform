@@ -42,10 +42,7 @@ export const STRINGS = {
       concern: {
         title: 'Optimistic Planner',
         description: [
-          `<b>Optimistic Planners</b> realize that their choices today shape their future.  To grow in this area, do consider what educational and career choices are ahead of you and work out how to make the most of these.  There are also often career guidance services that could be helpful.  If you are a Singapore resident, you can visit ${createLink(
-            LINKS.careersConnect.href,
-            LINKS.careersConnect.label
-          )} by WSG to access helpful career services. `,
+          `<b>Optimistic Planners</b> realize that their choices today shape their future.  To grow in this area, do consider what educational and career choices are ahead of you and work out how to make the most of these.  There are also often career guidance services that could be helpful.`,
           `You may also want to consider taking part in a ${createLink(
             LINKS.careerDesignWorkshop.href,
             LINKS.careerDesignWorkshop.label
@@ -59,7 +56,13 @@ export const STRINGS = {
           `The ${createLink(
             LINKS.careerDesignCanvas.href,
             LINKS.careerDesignCanvas.label
-          )} by Avid Adventures can help you understand your preferences and interests better.`,
+          )} by Avid Adventures can help you understand your preferences and interests better.</br></br>Apart from the ${createLink(
+            LINKS.careerDesignCanvas.href,
+            LINKS.careerDesignCanvas.label
+          )} , the free ${createLink(
+            LINKS.careerAdventure.href,
+            LINKS.careerAdventure.label
+          )} by Avid Adventures can give you a better idea on what skill sets are required for jobs you are interested in.`,
         ],
       },
       curiosity: {

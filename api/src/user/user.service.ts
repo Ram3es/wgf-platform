@@ -19,7 +19,11 @@ import { EXPIRE_LINK_TIME } from 'src/constants/etc';
 import { ROLES } from 'src/constants/roles';
 import { GroupEntity } from 'src/group/entities/group.entity';
 import { sendMail } from 'src/shared/utils/email';
-import { resetPasswordMail } from 'src/shared/utils/messages';
+import {
+  adminChangedRole,
+  resetPasswordMail,
+  userWasRegistered,
+} from 'src/shared/utils/messages';
 import { AuthService } from '../auth/auth.service';
 import { GroupService } from '../group/group.service';
 import {
@@ -41,6 +45,7 @@ import {
   INVITATION_TYPE,
 } from 'src/ invitation/invitation.constants';
 import { UNASSIGNED_GROUP } from 'src/group/group.constants';
+import { UpdateRolesDTO } from './dto/update-role.dto';
 
 @Injectable()
 export class UserService {
@@ -262,6 +267,7 @@ export class UserService {
           groupId: invitation.group.id,
           userIds: [user.id],
         });
+
         await this.invitationRepository.update(invitation.id, {
           status: INVITATION_STATUS.accepted,
         });
@@ -272,6 +278,11 @@ export class UserService {
         });
         break;
     }
+    const adminInitiator = await this.userRepository.findOne({
+      where: { id: invitation.from },
+    });
+    const payload = userWasRegistered(user, adminInitiator);
+    sendMail(payload);
   }
 
   async getUsersByTrainer(trainerId: string) {
@@ -374,8 +385,30 @@ export class UserService {
       .leftJoinAndSelect('invitation.group', 'group')
       .getMany();
 
+    const asyncFilterexcludeAcceptedInvite = async (arr, predicate) => {
+      const result = await Promise.all(arr.map(predicate));
+      return arr.filter((item, idx) => result[idx]);
+    };
+
+    const excludeAcceptedInvite = await asyncFilterexcludeAcceptedInvite(
+      invitedUsers,
+      async (invite) => {
+        if (!invite.group) {
+          const alreadyAccepted = await this.invitationRepository.findOne({
+            where: {
+              to: invite.to,
+              status: INVITATION_STATUS.accepted,
+            },
+          });
+          return !alreadyAccepted;
+        } else {
+          return true;
+        }
+      }
+    );
+
     const invitedUsersWithGroups = await Promise.all(
-      invitedUsers.map(async (invite) => {
+      excludeAcceptedInvite.map(async (invite) => {
         if (!invite.group) {
           return invite;
         }
@@ -424,7 +457,7 @@ export class UserService {
         'invitation.inviteDate as "inviteDate"',
       ])
       .getRawMany();
-    return [...invitedTrainers, ...trainers];
+    return [...trainers, ...invitedTrainers];
   }
 
   async getTrainersByUser(id: string) {
@@ -505,5 +538,37 @@ export class UserService {
       throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
     }
     return Boolean(user.password);
+  }
+  async getUserByEmail(payload: string) {
+    const email = payload.toLowerCase();
+    return this.userRepository.findOne({ where: { email } });
+  }
+
+  async changeRole(body: UpdateRolesDTO) {
+    const user = await this.userRepository.findOne(body.id);
+    if (!user) {
+      throw new HttpException(ERRORS.user.notExist, HttpStatus.NOT_FOUND);
+    }
+
+    if (user.role === ROLES.trainerAdmin) {
+      const groups = await this.groupRepository.find({
+        where: { trainerId: body.id },
+      });
+      groups.length &&
+        (await Promise.all(
+          groups.map(
+            async (group) => await this.groupRepository.delete(group.id)
+          )
+        ));
+    }
+    if (user.role === ROLES.user) {
+      await this.createTrainerAdmin({ email: user.email });
+    }
+    await this.userRepository.save({ ...user, role: body.role });
+
+    const userName = `${user.firstName} ${user.lastName}`;
+    sendMail(adminChangedRole(user.email, userName, body.role));
+
+    return { status: 'Success' };
   }
 }

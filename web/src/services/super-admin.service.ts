@@ -1,7 +1,8 @@
 import { IUserIdProps } from './../screens/platform-page/components/edit-page/delete-page/delete-page';
 import { ENDPOINTS } from '@constants/api';
 import { IEditUserProps } from '@screens/platform-page/components/edit-page/edit-table-info';
-import { POST, GET } from './api';
+import { POST, GET, UPDATE } from './api';
+import { IUpdateRole } from './service-types/service-types';
 
 export const inviteUser = (body: IInvitationReq) =>
   POST<IInvitation, IInvitationReq>(
@@ -10,7 +11,7 @@ export const inviteUser = (body: IInvitationReq) =>
   );
 
 export const inviteTrainer = (body: IInvitationReq) =>
-  POST<IInvitation, IInvitationReq>(
+  POST<IUserExistingAndInvited, IInvitationReq>(
     `${ENDPOINTS.invitation}/invite-trainer`,
     body
   );
@@ -40,3 +41,11 @@ export const getUserById = (body: { userId: string }) =>
 export const deleteUserById = (body: IUserIdProps) => {
   return POST<{}, IUserIdProps>(`${ENDPOINTS.user}/delete-user`, body);
 };
+export const getUserByEmail = (email: string) =>
+  GET<IUserExistingAndInvited>(`${ENDPOINTS.user}/get-user-by-email/${email}`);
+
+export const changeRole = (body: IUpdateRole) =>
+  UPDATE<{ status: 'Success' }, IUpdateRole>(
+    `${ENDPOINTS.user}/change-role`,
+    body
+  );

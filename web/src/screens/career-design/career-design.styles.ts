@@ -29,9 +29,16 @@ export const CareerDesignStyles = {
       border-top-left-radius: 0;
       margin-left: 0px;
     `}
+    ${Media.mobile`
+       padding: 20px 0;
+    `}
   `,
   WrapContent: styled.div`
     padding: 0 30px;
+
+    ${Media.mobile`
+       padding: 0 20px;
+    `}
   `,
 
   Content: styled.div`
@@ -50,6 +57,9 @@ export const CareerDesignStyles = {
         font-size: ${FONTS.sizes[20]};
       `)}
     }
+    ${Media.mobile`
+       padding: 0;
+    `}
   `,
 
   Text: styled.div`
@@ -67,9 +77,27 @@ export const CareerDesignStyles = {
     ${Media.smallLandscape(css`
       font-size: ${FONTS.sizes[18]};
     `)}
+
+    ${Media.mobile`
+       padding: 0 10px;
+    `}
   `,
   BtnWrapper: styled.div`
     display: flex;
     justify-content: space-around;
+
+    ${Media.mobile`
+    display: block;
+    /* align-items: center; */
+    justify-content: center;
+    button {
+      margin: auto;
+    }
+    > * {
+     &:first-child {
+      margin-bottom:15px ;
+    }
+  }
+    `}
   `,
 };

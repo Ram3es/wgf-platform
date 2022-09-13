@@ -6,6 +6,10 @@ import styled from 'styled-components';
 export const FormStyles = {
   Container: styled.div`
     position: relative;
+
+    ${Media.mobile`
+   display: block;
+    `}
   `,
   FormWrapper: styled.div`
     width: 75%;
@@ -19,8 +23,9 @@ export const FormStyles = {
     justify-content: center;
 
     ${Media.mobile`
-  margin: 25px 25px;
-  grid-gap: 15px;
+    width: 90%;
+    margin:auto;
+    grid-gap: 15px;
 
   span {
     height:28px

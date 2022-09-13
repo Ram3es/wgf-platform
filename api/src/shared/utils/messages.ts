@@ -15,6 +15,10 @@ export interface IMessage {
     [key: string]: string;
   }[];
 }
+const ROLES_TITLE = {
+  trainerAdmin: 'Trainer Admin',
+  user: 'User',
+};
 
 export const caasQuizResultMessage = (
   user: UserEntity,
@@ -125,21 +129,23 @@ export const userWasRegistered = (user: UserEntity, admin: UserEntity) => ({
   to: admin.email,
   bcc: admin.email,
 
-  subject: 'User was registered',
+  subject: 'Here comes a new user!',
 
-  html: createEmailTemplateWithoutButtonHtml(
+  html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      User <b>${user.firstName}  ${user.lastName} </b> successfully registered with Wit Grit Fit by Avid Adventures.
+    Congratulations! The user  <b>${user.firstName}  ${user.lastName} </b> has signed up for a WITGRITFIT account.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    You can see him/her in your Manage Users section now.
+    You can view him/her in your Manage Users section.
     </p>
   `,
     admin.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%">
     <img alt="T@" src="https://i.ibb.co/bzbgC2j/wgf-home.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
-    </th>`
+    </th>`,
+    `${WEB_BASE_URL}sign-in`,
+    `Log in`
   ),
 });
 
@@ -147,11 +153,11 @@ export const resetPasswordMail = (user: UserEntity, token: string) => ({
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: user.email,
   bcc: user.email,
-  subject: 'Update password link',
+  subject: 'Reset your WITGRITFIT password',
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      We have received a request to reset your password for your Wit Grit Fit account.
+      We have received a request to reset your password for your WITGRITFIT account.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
       Click the button below to reset your password.
@@ -177,7 +183,7 @@ export const trainerToExistingStudentMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: user.email,
   bcc: user.email,
-  subject: 'Invitation from Trainer',
+  subject: `You're invited to a group!`,
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
@@ -192,7 +198,7 @@ export const trainerToExistingStudentMail = (
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
     `${API_BASE_URL}invitation/accept-invitation-trainer-to-existing-student/${token}`,
-    `Accept and Sign in`
+    `Accept`
   ),
 });
 
@@ -205,11 +211,11 @@ export const trainerToStudentMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: email,
   bcc: email,
-  subject: 'Invitation from Trainer',
+  subject: `You're invited to set up an account!`,
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    You received an invite from <strong>${trainerName}</strong> to to set up an account with Wit Grit Fit by Avid Adventures and join his/her group.
+    You received an invite from <strong>${trainerName}</strong> to create an account and join his/her group.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
     Click the button below to accept the invite. 
@@ -220,7 +226,7 @@ export const trainerToStudentMail = (
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
     `${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}`,
-    `Sign up and Accept`
+    `Sign up`
   ),
 });
 
@@ -232,11 +238,11 @@ export const adminToExistingTrainerMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: user.email,
   bcc: user.email,
-  subject: 'Invitation from Super Admin',
+  subject: `You're invited to be a WITGRITFIT Trainer Admin!`,
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    You received an invite from <strong>${superAdminName}</strong> to become trainer admin with Wit Grit Fit by Avid Adventures.
+    You received an invite from <strong>${superAdminName}</strong> to become a Trainer Admin with WITGRITFIT.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
     Click the buttom below to accept the invite. 
@@ -247,7 +253,7 @@ export const adminToExistingTrainerMail = (
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
     `${API_BASE_URL}invitation/accept-invitation-existing-trainer/${token}`,
-    `Accept and Sign in`
+    `Register`
   ),
 });
 export const emailVerificationMail = (
@@ -258,10 +264,13 @@ export const emailVerificationMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: email,
   bcc: email,
-  subject: 'Verification for changing email',
+  subject: 'Changing your email?',
   html: createEmailTemplateWithoutButtonHtml(
     ` <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    This is your verification code for changing email address in your profile <strong>${emailSecret}</strong>.
+    We have received a request to change your email address linked to your WITGRITFIT account.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Please type in your verification code on the login screen: <strong>${emailSecret}</strong>
     </p>
     `,
     userName,
@@ -280,14 +289,14 @@ export const adminToTrainerMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: email,
   bcc: email,
-  subject: 'Invitation from Super Admin',
+  subject: `You're invited to be a WITGRITFIT Trainer Admin!`,
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    You received an invite from <strong>${superAdminName}</strong> to set up an account as a trainer admin with Wit Grit Fit by Avid Adventures.
+    You received an invite from <strong>${superAdminName}</strong> to become a Trainer Admin with WITGRITFIT.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click the button below to accept the invite and set up the account. 
+    Click the link below to accept the invite. 
     </p>
   `,
     userName,
@@ -295,7 +304,7 @@ export const adminToTrainerMail = (
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
     `${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}`,
-    `Sign up and Accept`
+    `Register`
   ),
 });
 
@@ -307,14 +316,14 @@ export const studentToTrainerMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: trainer.email,
   bcc: trainer.email,
-  subject: 'Request from Student',
+  subject: `You've received a request from a student!`,
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    You received a trainer request from student: ${studentName}
+    You received a trainer request from student <strong>${studentName}</strong>
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-    Click the buttom below to accept the request. 
+    Click the button below to accept the request. 
     </p>
   `,
     trainer.firstName,
@@ -322,7 +331,7 @@ export const studentToTrainerMail = (
     <img alt="T@" src="https://i.ibb.co/S7NvtDF/action-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
     `${API_BASE_URL}invitation/accept-request-trainer/${token}`,
-    `Accept and Sign in`
+    `Accept`
   ),
 });
 
@@ -335,14 +344,14 @@ export const adminToUserMail = (
   from: `Avid Adventures <${EMAIL_FROM}>`,
   to: email,
   bcc: email,
-  subject: 'Request to set up an account with Wit Grit Fit by Avid Adventures',
+  subject: 'Begin your career design journey!',
   html: createEmailTemplateHtml(
     `
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      You received an invite from <strong>${adminName}</strong> to set up an account with Wit Grit Fit by Avid Adventures.
+    You received an invitation from<strong>${adminName}</strong> to sign up for an account with WITGRITFIT.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Click the button below to accept the invite. 
+      Click the button below to accept the invite! 
     </p>
   `,
     userName,
@@ -350,7 +359,33 @@ export const adminToUserMail = (
     <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
     `${API_BASE_URL}invitation/accept-invitation-not-exist-user/${token}`,
-    `Sign up and Accept`
+    `Sign up `
+  ),
+});
+export const adminChangedRole = (
+  email: string,
+  userName: string,
+  userRole: string
+) => ({
+  from: `Avid Adventures <${EMAIL_FROM}>`,
+  to: email,
+  bcc: email,
+  subject: 'You have a new role',
+  html: createEmailTemplateHtml(
+    `
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You have a new role as <strong>${ROLES_TITLE[userRole]}</strong> assigned to your WITGRITFIT account.
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Click the button below to sign in with your new status.  
+    </p>
+  `,
+    userName,
+    `<th style="box-sizing: border-box;text-align: center; width: 50%; padding: 30px 20px 0;">
+    <img alt="T@" src="https://i.ibb.co/8YQBs7H/super-admin-image.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    </th>`,
+    `${WEB_BASE_URL}sign-in`,
+    `Log in`
   ),
 });
 
@@ -431,6 +466,16 @@ const createEmailTemplateHtml = (
   Hi <strong>${name}</strong>,
   </p>
   ${emailBody}
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 45px 0;" width="100%">
+  <tr>
+  <td style="font-size: 14px; vertical-align: top;" valign="top">
+  <a class="button_mobile" href="${redirectPath}" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
+  ${buttonText}
+  </a>
+  </td>
+  </tr>
+  </table>
+  
   <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px; padding-top: 30px;" class="mobile_paragraph">
   Thank you!
   </p>
@@ -452,15 +497,7 @@ const createEmailTemplateHtml = (
 </td>
 </tr>
 </table>
-<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 45px 0;" width="100%">
-<tr>
-<td style="font-size: 14px; vertical-align: top;" valign="top">
-<a class="button_mobile" href="${redirectPath}" style="display:block;background-color:#00AEEF;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
-${buttonText}
-</a>
-</td>
-</tr>
-</table>
+
   <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 30px 0;" width="100%">
   <tr>
   <td style="font-size: 14px; vertical-align: top;" valign="top">

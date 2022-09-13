@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Put,
   UseGuards,
@@ -18,8 +19,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserIdDto } from './dto/user-by-id.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserService } from './user.service';
-
 import { USER_ROUTES } from './user.constants';
+import { UpdateRolesDTO } from './dto/update-role.dto';
 
 @ApiTags(USER_ROUTES.main)
 @Controller(USER_ROUTES.main)
@@ -223,5 +224,29 @@ export class UserController {
   @UseGuards(JwtAuthenticationGuard)
   public async getUserHasPassword(@User('id') id: string) {
     return this.userService.getUserHasPassword(id);
+  }
+
+  @Get(USER_ROUTES.getUserByEmail)
+  @ApiOperation({ summary: USER_ROUTES.getUserByEmail })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.getUserByEmail,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async getUserByEmail(@Param('email') email: string) {
+    return this.userService.getUserByEmail(email);
+  }
+
+  @Put(USER_ROUTES.changeRole)
+  @ApiOperation({ summary: USER_ROUTES.changeRole })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: USER_ROUTES.changeRole,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin']))
+  public async changeRoleUser(@Body() body: UpdateRolesDTO) {
+    return this.userService.changeRole(body);
   }
 }

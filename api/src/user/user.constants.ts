@@ -21,4 +21,6 @@ export const USER_ROUTES = {
   getAllTrainersCsv: 'get-all-trainers-csv',
   getAllStudentsByTrainerCsv: 'get-all-students-by-trainer-csv',
   getUserHasPassword: 'has-password',
+  getUserByEmail: 'get-user-by-email/:email',
+  changeRole: 'change-role',
 };

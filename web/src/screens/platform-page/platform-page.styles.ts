@@ -161,9 +161,13 @@ export const CommonStylesForTables = {
 
   HeaderRowUsersTable: styled.div`
     display: flex;
+    position: sticky;
+    top: 0;
     width: 2000px;
     border-bottom: 3px solid ${COLORS.lightBlue};
     margin-bottom: 5px;
+    background-color: ${COLORS.white};
+    z-index: 1;
 
     > :first-child {
       margin-left: 0;
@@ -171,9 +175,13 @@ export const CommonStylesForTables = {
   `,
   HeaderRowTrainersTable: styled.div`
     display: flex;
+    position: sticky;
+    top: 0;
     width: 1850px;
     border-bottom: 3px solid ${COLORS.lightBlue};
     margin-bottom: 5px;
+    background-color: ${COLORS.white};
+    z-index: 1;
 
     > :first-child {
       margin-left: 0;

@@ -10,7 +10,7 @@ export const Dashboard: React.FC = () => (
     <Backdrop />
     <Styled.Content>
       <BreadCrumb />
-      <p>Coming soon.</p>
+      <p>Coming soon...</p>
     </Styled.Content>
   </Styled.Wrapper>
 );

@@ -171,6 +171,7 @@ export class QuizService {
 
     if (admin.role === ROLES.trainerAdmin) {
       const usersId = await this.getUserIdsFromTrainerGroup(admin.id);
+
       if (!usersId.length) {
         throw new HttpException(ERRORS.notFoundUser, HttpStatus.NOT_FOUND);
       }
@@ -182,7 +183,7 @@ export class QuizService {
     admin.role === ROLES.superAdmin &&
       (data = await this.getUsersWithCompletedQuiz(body.quizId));
 
-    if (!data) {
+    if (!data || !data.length) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
 
@@ -242,7 +243,7 @@ export class QuizService {
 
     admin.role === ROLES.superAdmin &&
       (data = await this.getUsersWithCompletedQuiz(body.quizId));
-    if (!data) {
+    if (!data || !data.length) {
       throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
     }
 

@@ -90,6 +90,11 @@ export const TrainerPageStyles = {
     display: flex;
     margin-top: 70px;
     justify-content: space-between;
+
+    ${Media.mobile`
+    margin-top: 140px;
+    justify-content: center;
+    `}
   `,
   InfoTabletsWrap: styled.div`
     position: relative;
@@ -118,6 +123,10 @@ export const TrainerPageStyles = {
       color: ${COLORS.grey};
       font-family: ${FONTS.family.frutigerNormal};
     }
+    ${Media.mobile`
+    left: -30px;
+    top: -120px;
+    `}
   `,
   Tablet2: styled.div`
     position: absolute;
@@ -139,6 +148,10 @@ export const TrainerPageStyles = {
       font-size: ${FONTS.sizes[30]};
       color: ${COLORS.red};
     }
+    ${Media.mobile`
+    left: 150px;
+    top: -120px;
+    `}
   `,
   Warning: styled.div`
     display: flex;

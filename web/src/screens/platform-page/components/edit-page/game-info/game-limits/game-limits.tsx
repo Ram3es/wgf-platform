@@ -16,7 +16,6 @@ export const GameLimits: FC = () => {
     toggleEditMode,
     setLimitSetting,
     unlimitedHandler,
-
     toggleCalendar,
     isShowCalendar,
     calendarHandler,

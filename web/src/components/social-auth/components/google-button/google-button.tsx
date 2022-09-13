@@ -1,4 +1,9 @@
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import {
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from 'react-google-login';
+
 import { trackPromise } from 'react-promise-tracker';
 
 import { Icon } from '@components/icon';

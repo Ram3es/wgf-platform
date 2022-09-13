@@ -37,17 +37,20 @@ export const useInputModal = () => {
   const hideInputModal = (field: keyof IInit) => {
     setShowModal((state) => ({ ...state, [field]: false }));
   };
+  const hideAllModalFields = () => {
+    setShowModal((state: IInit) => {
+      let key: keyof typeof state;
+      for (key in state) {
+        state[key] = false;
+      }
+
+      return { ...state };
+    });
+  };
 
   const onBackdropClick = (event: MouseEvent): void => {
     if (!refModal.current?.contains(event.target as HTMLDivElement)) {
-      setShowModal((state: IInit) => {
-        let key: keyof typeof state;
-        for (key in state) {
-          state[key] = false;
-        }
-
-        return { ...state };
-      });
+      hideAllModalFields();
     }
   };
 
@@ -60,5 +63,6 @@ export const useInputModal = () => {
     isChecked,
     setCheckedCheckbox,
     setNotCheckedCheckbox,
+    hideAllModalFields,
   };
 };

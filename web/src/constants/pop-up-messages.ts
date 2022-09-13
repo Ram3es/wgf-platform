@@ -63,6 +63,12 @@ export const trainerInviteSuccessMessage = Swal.mixin({
   text: `Your invitation has been sent to the trainer.`,
   confirmButtonColor: `${COLORS.lightBlue}`,
 });
+export const roleChangedToUserSuccessMessage = Swal.mixin({
+  icon: 'success',
+  title: 'Role has been changed Successfuly',
+  text: `Notification has been sent to the User.`,
+  confirmButtonColor: `${COLORS.lightBlue}`,
+});
 
 export const errorMessage = (text: string) =>
   Swal.mixin({
@@ -113,6 +119,33 @@ export const deleteAccount = Swal.mixin({
   showCloseButton: true,
   cancelButtonColor: `${COLORS.grey}`,
 });
+
+export const changeRoleToTrainer = (email?: string) =>
+  Swal.mixin({
+    icon: 'question',
+    html: ` <p>This email <b>${email}</b> has role User.</p><br>
+    <p>Do you want changing role to Trainer?</p>
+    `,
+    text: `This email ${email} has role User. Do you want changing role to Trainer`,
+    confirmButtonColor: `${COLORS.lightBlue}`,
+    confirmButtonText: 'Confirm',
+    showCancelButton: true,
+    showCloseButton: true,
+    cancelButtonColor: `${COLORS.grey}`,
+  });
+export const changeRoleFromTrainerToUser = (email?: string) =>
+  Swal.mixin({
+    icon: 'question',
+    html: ` <p>This email <b>${email}</b> has role Trainer.</p><br>
+      <p>Do you want changing role to User?</p>
+      `,
+    text: `This email ${email} has role Trainer. Do you want changing role to User`,
+    confirmButtonColor: `${COLORS.lightBlue}`,
+    confirmButtonText: 'Confirm',
+    showCancelButton: true,
+    showCloseButton: true,
+    cancelButtonColor: `${COLORS.grey}`,
+  });
 
 export const downloadMessage = (
   file: string,

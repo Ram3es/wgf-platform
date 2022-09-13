@@ -4,11 +4,19 @@ import { trackPromise } from 'react-promise-tracker';
 
 import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { inviteTrainer, inviteUser } from '@services/super-admin.service';
+import {
+  inviteTrainer,
+  inviteUser,
+  changeRole,
+  getUserByEmail,
+} from '@services/super-admin.service';
 import { getGroupsByTrainer, inviteStudent } from '@services/trainer.service';
 
 import {
+  changeRoleFromTrainerToUser,
+  changeRoleToTrainer,
   errorMessage,
+  roleChangedToUserSuccessMessage,
   studentInviteSuccessMessage,
   trainerInviteSuccessMessage,
   userInviteSuccessMessage,
@@ -96,11 +104,20 @@ export const useIndividualInviteState = () => {
 
   const handleInviteUser = async (resetForm: TReset) => {
     try {
+      const { data } = await trackPromise(getUserByEmail(state.email));
+
+      if (data.role === ROLES.trainerAdmin) {
+        const { value } = await changeRoleFromTrainerToUser(data.email).fire();
+        value && requestChangeRole(data.id, ROLES.user);
+        return;
+      }
+
       const payload = {
         name: `${state.firstName} ${state.lastName}`,
         to: state.email,
         type: 'user',
       };
+
       await trackPromise(
         inviteUser(payload),
         PROMISES_AREA.inviteFromSuperAdmin
@@ -119,11 +136,20 @@ export const useIndividualInviteState = () => {
 
   const handleInviteTrainer = async (resetForm: TReset) => {
     try {
+      const { data } = await trackPromise(getUserByEmail(state.email));
+
+      if (data.role === ROLES.user) {
+        const { value } = await changeRoleToTrainer(data.email).fire();
+        value && requestChangeRole(data.id, ROLES.trainerAdmin);
+        return;
+      }
+
       const payload = {
         name: `${state.firstName} ${state.lastName}`,
         to: state.email,
         type: 'trainer',
       };
+
       await trackPromise(
         inviteTrainer(payload),
         PROMISES_AREA.inviteFromSuperAdmin
@@ -138,6 +164,11 @@ export const useIndividualInviteState = () => {
       updateState({ ...initialIndividualInviteState, groupType: 'Trainer' });
       resetForm();
     }
+  };
+
+  const requestChangeRole = async (id: string, role: string) => {
+    await trackPromise(changeRole({ id, role }));
+    roleChangedToUserSuccessMessage.fire();
   };
 
   return {
