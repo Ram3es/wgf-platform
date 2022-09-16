@@ -1,6 +1,6 @@
 import { config } from 'src/constants/config';
 import { UserEntity } from 'src/user/entities/user.entity';
-
+import { MAIL_CONTENT, ILink, LINK, TLinkBtn } from './messages.constants';
 const WEB_BASE_URL = config().urls.webUrl;
 const EMAIL_FROM = config().transport.transport.auth.user;
 const API_BASE_URL = config().urls.apiUrl;
@@ -29,24 +29,20 @@ export const caasQuizResultMessage = (
   to: `${user.firstName} ${user.lastName}<${user.email}>`,
   bcc: user.email,
 
-  subject: 'Quiz Completion',
+  subject: 'Your Career Flex results are in!',
 
-  html: createEmailTemplateHtml(
+  html: createTemplateQuizCompetitionWithoutBtn(
     `<p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Thanks for competing the Career Flex quiz.
+    The results of your Career Flex are in! You can download the attachment below or view your results by logging into your account <a href=${WEB_BASE_URL}sign-in>here</a>.
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      You are all set! You can identify your career adaptability superpowers, and shows you how you could flex your career, bringing it to the next level!
-    </p>
-    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Please refer to the attachment to view your result or log in to your account.
+    You have identified your career adaptability superpowers and are now ready take your career to the next level!
     </p>`,
     user.firstName,
     `<th style="box-sizing: border-box;text-align: right; width: 50%">
     <img alt="T@" src="https://i.ibb.co/fXq9Zwv/career-flex.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    `${WEB_BASE_URL}sign-in`,
-    `Sign in`
+    MAIL_CONTENT.aboutCanvasParagraph
   ),
 
   attachments: [
@@ -67,19 +63,22 @@ export const ccQuizResultMessage = (
   to: `${user.firstName} ${user.lastName}<${user.email}>`,
   bcc: user.email,
 
-  subject: 'Quiz Completion',
+  subject: 'Your Career Canvas is ready!',
 
-  html: createEmailTemplateHtml(
-    `
-    <p>Thanks for completing The Career Canvas quiz</p>
-    <p>You’re all set! Please refer to the attachment to view your result or log in to your account..</p>
+  html: createCanvasResultTemplate(
+    `<p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    Thank you for completing your Career Canvas. You're on your way to designing a career that you love! 
+    </p>
+    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+    You can download the attachment below or view your results by logging into your account <a href=${WEB_BASE_URL}sign-in>here</a>.
+    </p>
   `,
     user.firstName,
     `<th style="box-sizing: border-box;text-align: right; width: 50%; padding: 10px 20px;">
-    <img alt="T@" src="https://i.ibb.co/vcnCq0h/career-canvas.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
+    <img alt="T@" src="https://i.ibb.co/9shhb94/Canvas-Logo.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    `${WEB_BASE_URL}sign-in`,
-    `Sign in`
+    MAIL_CONTENT.aboutFlexParagraph,
+    LINK.takeFlex
   ),
 
   attachments: [
@@ -103,23 +102,23 @@ export const registrationMessage = (user: UserEntity): IMessage => ({
   to: user.email,
   bcc: user.email,
 
-  subject: 'Registration',
+  subject: 'Begin your career journey with confidence!',
 
-  html: createEmailTemplateHtml(
-    `
-    <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      You have successfully registered with Wit Grit Fit by Avid Adventures.
+  html: templateHtmlRegistration(
+    `<p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
+   Welcome to WITGRITFIT! 
     </p>
     <p style="font-weight: normal; margin: 0; margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph">
-      Please log in by clicking the button below and complete your assessments to get your results.
+    We are excited to help you embark on your career design journey. Now that you've signed up for an account, you can now log in to access our Career Tools.
     </p>
   `,
     user.firstName,
     `<th style="box-sizing: border-box;text-align: center; width: 50%">
     <img alt="T@" src="https://i.ibb.co/bzbgC2j/wgf-home.png" style="box-sizing: border-box; border: none; -ms-interpolation-mode: bicubic; max-width: 100%;">
     </th>`,
-    `${WEB_BASE_URL}sign-in`,
-    `Sign in`
+    MAIL_CONTENT.aboutCanvasParagraph,
+    LINK,
+    MAIL_CONTENT.aboutFlexParagraph
   ),
 });
 
@@ -633,3 +632,424 @@ Jac at Wit Grit Fit
 </body>
 </html>
 `;
+
+const createTemplateQuizCompetitionWithoutBtn = (
+  firstParagraf: string,
+  firstName: string,
+  imageRow: string,
+  aboutCanvasParagraph: string
+) => `
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="format-detection" content="telephone=no">
+<style>
+  @media only screen and (max-width:500px) {
+    table[class=body] p,
+    table[class=body] ul,
+    table[class=body] ol,
+    table[class=body] td,
+    table[class=body] span,
+    table[class=body] a {
+      font-size: 15px !important;
+    }
+
+    table[class=body] .content_wrapper {
+      padding: 20px !important;
+    }
+
+    table[class=body] .button_mobile {
+      padding: 13px 30px !important;
+    }
+
+    table[class=body] .logo {
+      text-align: center !important;
+    }
+  }
+  @media only screen and (max-width:700px) {
+    table[class=body] .container {
+      width: 100% !important;
+    }
+
+    table[class=body] .main {
+      border-left-width: 0 !important;
+      border-radius: 0 !important;
+      border-right-width: 0 !important;
+    }
+
+    table[class=body] .mobile_paragraph {
+      width: 90% !important;
+    }
+   
+  }
+   </style>
+  </head>
+  <body style="background-color: #f6f6f6";-webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family: 'Arial', sans-serif;">
+   <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+   <tr>
+    <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+    <td class="container" style="font-size: 14px; vertical-align: top; display: block; max-width: 600px; width: 600px; margin: 0 auto;" width="600" valign="top">
+     <div class="content" style="box-sizing:border-box;display:block;margin:0 auto;max-width:600px; padding:10px;background:#F7F8FB">
+      <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+       <tr>
+        <td style="font-size: 14px; vertical-align: top;" valign="top">
+         <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%; background: #f1f1f2; background: linear-gradient(90deg, rgba(0,174,239,0.07) 0%, rgba(239,96,163,0.07) 50%, rgba(141,198,63,0.07) 100%); box-sizing: border-box;" width="100%">
+          <tr style="box-sizing: border-box;">
+           <th style="box-sizing: border-box; font-size: 0; padding: 0 20px; width: 50%; padding: 30px 20px;" class="logo">
+           ${MAIL_CONTENT.logoImg}
+           </th>
+           ${imageRow}
+         </tr>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding: 40px 67.4px; width: 100%; max-width: 100%;" width="100%">
+         <tr>
+         <td style="font-size: 14px; vertical-align: top;" valign="top">
+          <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph"> 
+           Hi <strong>${firstName}</strong>,
+         </p>
+         ${firstParagraf}
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:40px 0; width: 100%;  max-width: 100%;" width="100%">
+          <tr style="box-sizing: border-box;">
+           <th style="box-sizing: border-box; font-size: 0; padding: 0 12px; width: 100%; ">
+            <a href='#' style="cursor: default;">
+            <img alt="T@"  src="https://i.ibb.co/j5sJ9XJ/Man-With-Lap-Top.png" style="box-sizing: border-box; border: none; border="0"; -ms-interpolation-mode: bicubic; max-width: 100%;">
+            </a>
+           </th>
+          </tr>
+         </table>
+         ${aboutCanvasParagraph}
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:0; width: 100%; max-width: 100%;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <td style="box-sizing: border-box; font-size: 0; padding: 30px 0; width: 100%;">
+          ${MAIL_CONTENT.dividerImg}
+          </td>
+         </tr>
+        </table>
+        <p style="font-weight: normal; margin: 0; margin-bottom: 15px;margin-top: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">${MAIL_CONTENT.footerMail}
+        </p>
+        <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">${MAIL_CONTENT.footerLink}</p>
+        <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%;  box-sizing: border-box;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <td style="font-size: 16px; vertical-align: top;  width: 50%; valign="top">
+          <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">Until next time!</p>
+          <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">The WITGRITFIT Team</p>
+           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; padding: 10px 0;" width="100%">
+            <tr>
+            ${MAIL_CONTENT.socialLinks}
+          </tr>
+          </table>
+          </td>
+          <th style="box-sizing: border-box; width: 50%;">
+          ${MAIL_CONTENT.footerImg}
+          </th>
+         </tr>
+        </table>
+         </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </td>
+   <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+  </tr>  
+ </table>
+</body>
+</html>`;
+
+const createCanvasResultTemplate = (
+  firstParagraf: string,
+  firstName: string,
+  imageRow: string,
+  aboutFlexParagraph: string,
+  link: TLinkBtn
+) => `
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="format-detection" content="telephone=no">
+<style>
+  @media only screen and (max-width:500px) {
+    table[class=body] p,
+    table[class=body] ul,
+    table[class=body] ol,
+    table[class=body] td,
+    table[class=body] span,
+    table[class=body] a {
+      font-size: 15px !important;
+    }
+
+    table[class=body] .content_wrapper {
+      padding: 20px !important;
+    }
+
+    table[class=body] .button_mobile {
+      padding: 13px 30px !important;
+    }
+
+    table[class=body] .logo {
+      text-align: center !important;
+    }
+  }
+  @media only screen and (max-width:700px) {
+    table[class=body] .container {
+      width: 100% !important;
+    }
+
+    table[class=body] .main {
+      border-left-width: 0 !important;
+      border-radius: 0 !important;
+      border-right-width: 0 !important;
+    }
+
+    table[class=body] .mobile_paragraph {
+      width: 90% !important;
+    }
+   
+  }
+   </style>
+  </head>
+  <body style="background-color: #f6f6f6";-webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family: 'Arial', sans-serif;">
+   <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+   <tr>
+    <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+    <td class="container" style="font-size: 14px; vertical-align: top; display: block; max-width: 600px; width: 600px; margin: 0 auto;" width="600" valign="top">
+     <div class="content" style="box-sizing:border-box;display:block;margin:0 auto;max-width:600px; padding:10px;background:#F7F8FB">
+      <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+       <tr>
+        <td style="font-size: 14px; vertical-align: top;" valign="top">
+         <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%; background: #f1f1f2; background: linear-gradient(90deg, rgba(0,174,239,0.07) 0%, rgba(239,96,163,0.07) 50%, rgba(141,198,63,0.07) 100%); box-sizing: border-box;" width="100%">
+          <tr style="box-sizing: border-box;">
+           <th style="box-sizing: border-box; font-size: 0; padding: 0 20px; width: 50%; padding: 30px 20px;" class="logo">
+           ${MAIL_CONTENT.logoImg}
+           </th>
+           ${imageRow}
+         </tr>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding: 40px 67.4px; width: 100%; max-width: 100%;" width="100%">
+         <tr>
+         <td style="font-size: 14px; vertical-align: top;" valign="top">
+          <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph"> 
+           Hi <strong>${firstName}</strong>,
+         </p>
+         ${firstParagraf}
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:30px 0; width: 100%;  max-width: 100%;" width="100%">
+          <tr style="box-sizing: border-box;">
+           <th style="box-sizing: border-box; font-size: 0; padding: 0; width: 100%; ">
+           ${MAIL_CONTENT.laptopImg}
+           </th>
+          </tr>
+         </table>
+         ${aboutFlexParagraph}
+         <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 20px 0 20px;" width="100%">
+          <tr>
+           <td style="font-size: 14px; vertical-align: top;" valign="top">
+             <a class="button_mobile" href="${link.path}career-flex" style="display:block;background-color:#9ACA3C;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold; font-size: 16px; line-height: 16px;text-decoration:none; width:max-content">
+              ${link.nameBtn}
+              </a>
+           </td>
+         </tr>
+         </table>
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:0; width: 100%; max-width: 100%;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <td style="box-sizing: border-box; font-size: 0; padding: 20px 0; width: 100%;">
+          ${MAIL_CONTENT.dividerImg}
+          </td>
+         </tr>
+        </table>
+        <p style="font-weight: normal; margin: 0; margin-bottom: 15px;margin-top: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">${MAIL_CONTENT.footerMail}
+        </p>
+        <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">${MAIL_CONTENT.footerLink}
+        </p>
+        <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%;  box-sizing: border-box;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <td style="font-size: 16px; vertical-align: top;  width: 50%; valign="top">
+          <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">Until next time!</p>
+          <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">The WITGRITFIT Team</p>
+           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; padding: 10px 0;" width="100%">
+            <tr>
+            <td style="font-size: 14px; vertical-align: top;" valign="top">
+            ${MAIL_CONTENT.socialLinks}
+          </td>
+          </tr>
+          </table>
+          </td>
+          <th style="box-sizing: border-box; width: 50%;">
+        ${MAIL_CONTENT.footerImg}
+          </th>
+         </tr>
+        </table>
+         </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </td>
+   <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+  </tr>  
+ </table>
+</body>
+</html>`;
+
+const templateHtmlRegistration = (
+  firstParagraf: string,
+  firstName: string,
+  imageRow: string,
+  aboutCanvasParagraph: string,
+  link: ILink,
+  aboutFlexParagraph: string
+) => `
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="format-detection" content="telephone=no">
+<style>
+  @media only screen and (max-width:500px) {
+    table[class=body] p,
+    table[class=body] ul,
+    table[class=body] ol,
+    table[class=body] td,
+    table[class=body] span,
+    table[class=body] a {
+      font-size: 15px !important;
+    }
+
+    table[class=body] .content_wrapper {
+      padding: 20px !important;
+    }
+
+    table[class=body] .button_mobile {
+      padding: 13px 30px !important;
+    }
+
+    table[class=body] .logo {
+      text-align: center !important;
+    }
+  }
+  @media only screen and (max-width:700px) {
+    table[class=body] .container {
+      width: 100% !important;
+    }
+
+    table[class=body] .main {
+      border-left-width: 0 !important;
+      border-radius: 0 !important;
+      border-right-width: 0 !important;
+    }
+
+    table[class=body] .mobile_paragraph {
+      width: 90% !important;
+    }
+   
+  }
+   </style>
+  </head>
+  <body style="background-color: #f6f6f6";-webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; font-family: 'Arial', sans-serif;">
+   <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+   <tr>
+    <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+    <td class="container" style="font-size: 14px; vertical-align: top; display: block; max-width: 600px; width: 600px; margin: 0 auto;" width="600" valign="top">
+     <div class="content" style="box-sizing:border-box;display:block;margin:0 auto;max-width:600px; padding:10px;background:#F7F8FB">
+      <table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+       <tr>
+        <td style="font-size: 14px; vertical-align: top;" valign="top">
+         <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%; background: #f1f1f2; background: linear-gradient(90deg, rgba(0,174,239,0.07) 0%, rgba(239,96,163,0.07) 50%, rgba(141,198,63,0.07) 100%); box-sizing: border-box;" width="100%">
+          <tr style="box-sizing: border-box;">
+           <th style="box-sizing: border-box; font-size: 0; padding: 0 20px; width: 50%; padding: 30px 20px;" class="logo">
+            ${MAIL_CONTENT.logoImg}
+           </th>
+           ${imageRow}
+         </tr>
+        </table>
+        <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding: 40px 67.4px; width: 100%; max-width: 100%;" width="100%">
+         <tr>
+         <td style="font-size: 14px; vertical-align: top;" valign="top">
+          <p style="font-weight: normal; margin: 0; Margin-bottom: 15px; font-size: 16px; line-height: 25px;" class="mobile_paragraph"> 
+           Hi <strong>${firstName}</strong>,
+         </p>
+         ${firstParagraf}
+          <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 20px 0;" width="100%">
+           <tr>
+            <td style="font-size: 14px; vertical-align: top;" valign="top">
+             <a class="button_mobile" href="${link.loginBtn.path}" style="display:block;background-color:#00AEEF;border-radius:25px; font-size: 16px; line-height: 16px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
+             ${link.loginBtn.nameBtn}
+             </a>
+            </td>
+           </tr>
+         </table>
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:40px 0; width: 100%;  max-width: 100%;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <th style="box-sizing: border-box; font-size: 0; padding: 0 12px; width: 100%; ">
+           ${MAIL_CONTENT.phoneImg}
+          </th>
+         </tr>
+        </table>
+         ${aboutCanvasParagraph}
+         <div style="width:100%; background:#888281 ; border:1px solid #888281; margin:25px 0" />
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:30px 0; width: 100%;  max-width: 100%;" width="100%">
+          <tr style="box-sizing: border-box;">
+           <th style="box-sizing: border-box; font-size: 0; padding: 0; width: 100%; ">
+            ${MAIL_CONTENT.laptopImg}
+           </th>
+          </tr>
+         </table>
+         ${aboutFlexParagraph}
+
+         <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 20px 0 20px;" width="100%">
+          <tr>
+           <td style="font-size: 14px; vertical-align: top;" valign="top">
+             <a class="button_mobile" href="${link.takeFlex.path}career-flex" style="display:block;background-color:#9ACA3C;border-radius:25px;padding:12px 50px;color:#ffffff;font-weight:bold; font-size: 16px; line-height: 16px;text-decoration:none; width:max-content">
+              ${link.takeFlex.nameBtn}
+              </a>
+           </td>
+         </tr>
+         </table>
+         <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:0; width: 100%; max-width: 100%;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <td style="box-sizing: border-box; font-size: 0; padding: 20px 0; width: 100%;">
+           ${MAIL_CONTENT.dividerImg}
+          </td>
+         </tr>
+        </table>
+        <p style="font-weight: normal; margin: 0; margin-bottom: 15px;margin-top: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">${MAIL_CONTENT.footerMail}
+        </p>
+        <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">${MAIL_CONTENT.footerLink}
+        </p>
+        <table border="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; max-width: 100%; min-width: 100%;  box-sizing: border-box;" width="100%">
+         <tr style="box-sizing: border-box;">
+          <td style="font-size: 16px; vertical-align: top;  width: 50%; valign="top">
+          <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">Until next time!</p>
+          <p style="font-weight: normal; margin: 0; margin-bottom: 15px;   font-size: 16px; line-height: 25px;" class="mobile_paragraph">The WITGRITFIT Team</p>
+           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; padding: 10px 0;" width="100%">
+            <tr>
+            ${MAIL_CONTENT.socialLinks}
+            </tr>
+          </table>
+          </td>
+          <th style="box-sizing: border-box; width: 50%;">
+          ${MAIL_CONTENT.footerImg}
+          </th>
+         </tr>
+        </table>
+         </td>
+         </tr>
+        </table>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </td>
+   <td style="font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+  </tr>  
+ </table>
+</body>
+</html>`;

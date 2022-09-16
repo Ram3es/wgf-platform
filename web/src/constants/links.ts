@@ -29,7 +29,7 @@ export const LINKS = {
   },
   careerDesignCanvas: {
     label: 'WIT GRIT FIT Career Design Canvas',
-    href: 'https://witgritfit.com/career-canvas/',
+    href: 'https://platform.witgritfit.com/career-canvas/',
   },
   careerAdventure: {
     label: 'Career Adventure tools',
