@@ -977,7 +977,7 @@ const templateHtmlRegistration = (
            Hi <strong>${firstName}</strong>,
          </p>
          ${firstParagraf}
-          <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 20px 0;" width="100%">
+          <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate;background: #ffffff mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; margin: 20px 0;" width="100%">
            <tr>
             <td style="font-size: 14px; vertical-align: top;" valign="top">
              <a class="button_mobile" href="${link.loginBtn.path}" style="display:block;background-color:#00AEEF;border-radius:25px; font-size: 16px; line-height: 16px;padding:12px 50px;color:#ffffff;font-weight:bold;text-decoration:none;width:max-content">
@@ -994,7 +994,7 @@ const templateHtmlRegistration = (
          </tr>
         </table>
          ${aboutCanvasParagraph}
-         <div style="width:100%; background:#888281 ; border:1px solid #888281; margin:25px 0" />
+         <div style="width:100%; background: #ffffff ; border:none; margin:25px 0" />
          <table border="0" cellpadding="0" cellspacing="0" class="content_wrapper" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; padding:30px 0; width: 100%;  max-width: 100%;" width="100%">
           <tr style="box-sizing: border-box;">
            <th style="box-sizing: border-box; font-size: 0; padding: 0; width: 100%; ">

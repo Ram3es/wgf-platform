@@ -1,24 +1,24 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
-import { QuizPage } from '@screens/caas-quiz/quiz-page';
-import { ResultPage } from '@screens/caas-quiz/result-page';
-import { CanvasQuizPage } from '@screens/career-canvas/canvas-quiz-page';
-import { CanvasResults } from '@screens/career-canvas/canvas-results';
-import { ErrorPage } from '@screens/error-page';
-import { MainPage } from '@screens/main-page';
-import { PlatformPage } from '@screens/platform-page';
-import { ResetPassword } from '@screens/reset-password';
+import { ROUTES } from '@constants/routes';
 import { SignIn } from '@screens/sign-in';
 import { SignUp } from '@screens/sign-up';
+import { MainPage } from '@screens/main-page';
+import { ErrorPage } from '@screens/error-page';
+import { PlatformPage } from '@screens/platform-page';
+import { QuizPage } from '@screens/caas-quiz/quiz-page';
+import { ResultPage } from '@screens/caas-quiz/result-page';
+import { ResetPassword } from '@screens/reset-password';
+import { CanvasQuizPage } from '@screens/career-canvas/canvas-quiz-page';
+import { CanvasResults } from '@screens/career-canvas/canvas-results';
+import { RedirectToGame } from '@screens/career-design/link-redirect-game';
 import { UpdateResetedPassword } from '@screens/update-reseted-password';
 import { PrivateRoute } from './private-route';
-
-import { ROUTES } from '@constants/routes';
 
 export const AppRouter: React.FC = () => (
   <Switch>
     <Route exact path={ROUTES.main} component={MainPage} />
+    <PrivateRoute exact path={ROUTES.careerDesign} component={RedirectToGame} />
     <Route exact path={ROUTES.careerFlexResults} component={ResultPage} />
     <PrivateRoute exact path={ROUTES.careerFlex} component={QuizPage} />
     <PrivateRoute path={ROUTES.platform} component={PlatformPage} />

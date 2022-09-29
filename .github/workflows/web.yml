@@ -28,6 +28,7 @@ jobs:
         run: |
           echo "branch=development & env=development"
           echo "REACT_APP_API_URL=${{ secrets.API_BASE_URL_DEV }}" >> $GITHUB_ENV
+          echo "REACT_APP_ADMIN_GAME=${{ secrets.REACT_APP_ADMIN_GAME_DEV }}" >> $GITHUB_ENV
           echo "REACT_APP_GAME=${{ secrets.REACT_APP_GAME_DEV }}" >> $GITHUB_ENV
           echo "ECR_REPOSITORY=wgf-web-dev-repo" >> $GITHUB_ENV
           echo "ECS_SERVICE=wgf-web-dev-service" >> $GITHUB_ENV
@@ -39,6 +40,7 @@ jobs:
         run: |
           echo "branch=main & env=production"
           echo "REACT_APP_API_URL=${{ secrets.API_BASE_URL }}" >> $GITHUB_ENV
+          echo "REACT_APP_ADMIN_GAME=${{ secrets.REACT_APP_ADMIN_GAME_PROD }}" >> $GITHUB_ENV
           echo "REACT_APP_GAME=${{ secrets.REACT_APP_GAME_PROD }}" >> $GITHUB_ENV
           echo "ECR_REPOSITORY=wgf-client" >> $GITHUB_ENV
           echo "ECS_SERVICE=run-wgf-client" >> $GITHUB_ENV
@@ -49,6 +51,7 @@ jobs:
         run: |
           echo REACT_APP_GOOGLE_AUTH_CLIENT_ID=$REACT_APP_GOOGLE_AUTH_CLIENT_ID >> web/.env
           echo REACT_APP_FACEBOOK_AUTH_APP_ID=$REACT_APP_FACEBOOK_AUTH_APP_ID >> web/.env
+          echo REACT_APP_ADMIN_GAME=$REACT_APP_ADMIN_GAME >> web/.env
           echo REACT_APP_GAME=$REACT_APP_GAME >> web/.env
           echo REACT_APP_API_URL=$REACT_APP_API_URL >> web/.env
           cat web/.env

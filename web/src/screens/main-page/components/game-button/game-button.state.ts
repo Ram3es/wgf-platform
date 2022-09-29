@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
-
 import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
@@ -24,7 +23,7 @@ const INIT_STATE: IState = {
   isAuthorized: false,
 };
 
-const GAME_LINK = process.env.REACT_APP_GAME;
+const GAME_LINK = process.env.REACT_APP_ADMIN_GAME;
 
 const unlimitedLimits = {
   numberOfGames: 'unlimited',

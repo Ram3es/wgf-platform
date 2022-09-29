@@ -12,6 +12,7 @@ export const ROUTES = {
   invitation: '/platform/invitation',
   trainer: '/platform/trainer',
   careerFlex: '/career-flex',
+  careerDesign: '/game',
   careerFlexPlus: '/career-flex-plus',
   careerFlexResults: '/career-flex/results',
   careerDesignGame: '/platform/career-design-game',
