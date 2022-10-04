@@ -1,20 +1,15 @@
 import React from 'react';
-
 import { Button } from '@components/button';
 import { Loader } from '@components/loader';
 import { ProgressBar } from '@components/progress-bar';
-import { COLORS } from '@styles/colors';
-import { PopUp } from '../pop-up';
-import { QuestionList } from '../questionList';
-
-import { storageService } from '@services/storage/storage';
-import { useQuizState } from './quiz.state';
-
-import { PROMISES_AREA } from '@constants/promises-area';
 import { STRINGS } from '@constants/strings';
-import { ROLES } from '@constants/user-roles';
-
+import { PROMISES_AREA } from '@constants/promises-area';
+import { COLORS } from '@styles/colors';
 import { TitleStyles } from '@styles/components/title-styles';
+import { storageService } from '@services/storage/storage';
+import { PopUp } from '../pop-up';
+import { useQuizState } from './quiz.state';
+import { QuestionList } from '../questionList';
 import { QuizStyles as Styled } from './quiz.styles';
 
 export const Quiz: React.FC = () => {
@@ -30,7 +25,6 @@ export const Quiz: React.FC = () => {
     errorRef,
     isShowModal,
     isLastPage,
-    downloadCsv,
     isShowLatestResult,
     quiz,
   } = useQuizState();
@@ -41,18 +35,6 @@ export const Quiz: React.FC = () => {
 
   return (
     <Styled.Wrapper>
-      {user.role === ROLES['superAdmin'] ||
-        (user.role === ROLES['trainerAdmin'] && (
-          <Loader area={PROMISES_AREA.getCaasCsv}>
-            <Styled.DownloadButton>
-              <Button
-                title={STRINGS.button.downloadCsv}
-                onClick={downloadCsv}
-                color={COLORS.greenLight}
-              />
-            </Styled.DownloadButton>
-          </Loader>
-        ))}
       <TitleStyles.h2>
         {STRINGS.form.title} {user.firstName}
       </TitleStyles.h2>

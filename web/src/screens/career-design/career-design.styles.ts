@@ -53,6 +53,7 @@ export const CareerDesignStyles = {
       font-size: ${FONTS.sizes[35]};
       color: ${COLORS.grey};
       font-family: ${FONTS.family.absideSmooth};
+
       ${Media.smallLandscape(css`
         font-size: ${FONTS.sizes[20]};
       `)}
@@ -64,11 +65,11 @@ export const CareerDesignStyles = {
 
   Text: styled.div`
     color: ${COLORS.grey};
-    line-height: 2;
-    font-size: ${FONTS.sizes[24]};
+    line-height: 24px;
+    font-size: ${FONTS.sizes[18]};
     text-indent: 30px;
-    text-align: justify;
-    margin-bottom: 70px;
+    text-align: center;
+    margin-bottom: 60px;
     padding: 0 90px;
 
     a {

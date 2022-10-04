@@ -1,5 +1,6 @@
-import { Media } from '@styles/media';
 import styled from 'styled-components';
+
+import { Media } from '@styles/media';
 import { FONTS } from '@styles/fonts';
 import { COLORS } from '@styles/colors';
 

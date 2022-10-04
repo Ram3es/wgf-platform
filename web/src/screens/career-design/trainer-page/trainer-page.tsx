@@ -1,17 +1,20 @@
 import React, { FC } from 'react';
+
+import { PROMISES_AREA } from '@constants/promises-area';
+import { Icon } from '@components/icon';
+import { Loader } from '@components/loader';
 import { Backdrop } from '@components/backdrop';
 import { BreadCrumb } from '@components/bread-crumb';
-import { CommonStylesForPages as CommonStyled } from '@screens/platform-page/platform-page.styles';
-import { TrainerPageStyles as Styled } from './trainer-page.styles';
-import { Icon } from '@components/icon';
-import { TitleStyles } from '@styles/components/title-styles';
+
 import { COLORS } from '@styles/colors';
-import { GridInfo } from './grid-info';
-import { useTrainerPageState } from './trainer-page.state';
-import { ShevronIcons } from './shevron-icons';
+import { TitleStyles } from '@styles/components/title-styles';
 import { GameButton } from '@screens/main-page/components';
-import { Loader } from '@components/loader';
-import { PROMISES_AREA } from '@constants/promises-area';
+import { CommonStylesForPages as CommonStyled } from '@screens/platform-page/platform-page.styles';
+
+import { GridInfo } from './grid-info';
+import { ShevronIcons } from './shevron-icons';
+import { useTrainerPageState } from './trainer-page.state';
+import { TrainerPageStyles as Styled } from './trainer-page.styles';
 
 interface TrainerPageProps {
   trainerId: string;
@@ -49,7 +52,7 @@ export const TrainerPage: FC<TrainerPageProps> = ({ trainerId }) => {
             ) : (
               <>
                 <Loader area={PROMISES_AREA.getLimitSetting}>
-                  <Styled.Warning>No any Limits yet</Styled.Warning>
+                  <Styled.Warning>No limits set</Styled.Warning>
                 </Loader>
               </>
             )}

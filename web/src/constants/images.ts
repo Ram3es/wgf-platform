@@ -34,9 +34,9 @@ export const IMAGES: Record<string, string> = {
   ['CareerFlex+']: require('../assets/img/career-flex.png').default,
   ['Career Design Game']: require('../assets/img/career-design-game.png')
     .default,
-  ['My Career Adventure']: require('../assets/img/career-design-canvas.png')
+  ['My Career Adventure']: require('../assets/img/my-career-adventure.png')
     .default,
-  ['Career Design Canvas']: require('../assets/img/my-career-adventure.png')
+  ['Career Design Canvas']: require('../assets/img/career-design-canvas.png')
     .default,
   sectionLogo: require('../assets/img/logo-section.png').default,
   word: require('../assets/img/word-icon.png').default,
@@ -70,4 +70,5 @@ export const IMAGES: Record<string, string> = {
   ['MyCareerAdventureBetterQuality']:
     require('../assets/img/career-adventury-better-quality.png').default,
   emailFooter: require('../assets/img/email-footer.png').default,
+  canvasMedium: require('../assets/img/canvas-title-medium.png').default,
 };

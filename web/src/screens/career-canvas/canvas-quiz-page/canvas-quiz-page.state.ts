@@ -1,21 +1,20 @@
-import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
-
 import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { getCareerCanvasCsv, getQuestions, postAnswers } from '@services/quiz.service';
+import { getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
-
-import { downloadMessage, errorMessage, unAutorizedError } from '@constants/pop-up-messages';
+import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { canvasQuiz } from '../career-canvas.constants';
-import { categoriesListForSection, initialQuestionsState } from './canvas-quiz-page.constants';
 import {
-    QUESTION_SECTION_TITLES
-} from './components/questions-navigation/questions-navigation.constants';
+  categoriesListForSection,
+  initialQuestionsState,
+} from './canvas-quiz-page.constants';
+import { QUESTION_SECTION_TITLES } from './components/questions-navigation/questions-navigation.constants';
 
 export const useCanvasQuizState = () => {
   const { state, updateState } = useUpdateState(initialQuestionsState);
@@ -245,32 +244,6 @@ export const useCanvasQuizState = () => {
     [state.questionList, activeSection]
   );
 
-  const downloadCsv = async () => {
-    try {
-      const { data } = await trackPromise(
-        getCareerCanvasCsv({
-          quizId: canvasQuiz.id,
-        }),
-        PROMISES_AREA.getCareerCanvasCsv
-      );
-
-      downloadMessage(
-        `data:application/csv;base64,${data.file}`,
-        `${canvasQuiz.title}.csv`
-      ).fire();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          return unAutorizedError()
-            .fire()
-            .finally(() => push(ROUTES.signIn));
-        }
-
-        return errorMessage(error?.response?.data.message).fire();
-      }
-    }
-  };
-
   return {
     ...state,
     updateState,
@@ -281,6 +254,5 @@ export const useCanvasQuizState = () => {
     onSubmitSection,
     onChangeAnswer,
     questionListForSection,
-    downloadCsv,
   };
 };

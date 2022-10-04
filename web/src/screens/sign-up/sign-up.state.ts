@@ -1,15 +1,12 @@
 import axios from 'axios';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, useLocation } from 'react-router-dom';
 import { loginUser } from '@store/reducers/user.slice';
-
 import { useAppDispatch, useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
 import { storageService } from '@services/storage/storage';
 import { signUp } from '@services/user.service';
-
 import { errorMessage, UserErrorMessages } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
@@ -19,6 +16,7 @@ import { initialSignUpState } from './sign-up.constants';
 export const useSignUpState = () => {
   const { state, updateState } = useUpdateState(initialSignUpState);
   const { replace, goBack, length } = useHistory();
+  const location = useLocation<ILocationState>();
 
   const { user } = useAppSelector((state) => state);
 
@@ -29,14 +27,16 @@ export const useSignUpState = () => {
     const token = storageService.getToken();
 
     if (token && user) {
-      if (length > 2) return goBack();
-
-      return replace('/');
+      return location.state
+        ? replace(location.state?.from.pathname)
+        : length > 2
+        ? goBack()
+        : replace(ROUTES.main);
     }
   }, [user]);
 
   const redirectToSignIn = () => {
-    replace(ROUTES.signIn);
+    replace(ROUTES.signIn, location.state);
   };
 
   const signUpHandler = async () => {

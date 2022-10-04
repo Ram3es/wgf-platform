@@ -40,6 +40,28 @@ const ASSESSMENT_TABS = [
     route: ROUTES.myCareerAdventure,
   },
 ];
+const ASSESSMENT_TABS_ADMIN = [
+  {
+    title: 'CareerFlex',
+    route: ROUTES.careerFlexAdmin,
+  },
+  {
+    title: 'CareerFlex+',
+    route: ROUTES.careerFlexPlusAdmin,
+  },
+  {
+    title: 'Career Design Game',
+    route: ROUTES.careerDesignGame,
+  },
+  {
+    title: 'Career Design Canvas',
+    route: ROUTES.careerCanvasAdmin,
+  },
+  {
+    title: 'My Career Adventure',
+    route: ROUTES.myCareerAdventure,
+  },
+];
 
 export const navigationRoles: INavigationRoles = {
   user: [
@@ -82,7 +104,7 @@ export const navigationRoles: INavigationRoles = {
     },
     {
       title: 'Assessment',
-      items: ASSESSMENT_TABS,
+      items: ASSESSMENT_TABS_ADMIN,
     },
   ],
   superAdmin: [
@@ -113,7 +135,7 @@ export const navigationRoles: INavigationRoles = {
     },
     {
       title: 'Assessment',
-      items: ASSESSMENT_TABS,
+      items: ASSESSMENT_TABS_ADMIN,
     },
   ],
 };

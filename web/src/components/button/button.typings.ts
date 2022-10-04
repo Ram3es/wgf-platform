@@ -10,6 +10,7 @@ export interface IButtonStylesProps {
   isIconRight?: boolean;
   borderRadius?: string;
   isHide?: boolean;
+  textColor?: string;
 }
 
 export interface IButtonProps extends IButtonStylesProps {

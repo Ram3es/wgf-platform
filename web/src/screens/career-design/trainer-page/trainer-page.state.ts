@@ -1,11 +1,13 @@
-import { PROMISES_AREA } from './../../../constants/promises-area';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { trackPromise } from 'react-promise-tracker';
+
 import { errorMessage } from '@constants/pop-up-messages';
-import { IInitialLimitsState } from '@screens/platform-page/components/edit-page/game-info/game-limits-form';
+import { PROMISES_AREA } from '@constants/promises-area';
+
 import { getLimitTrainer } from '@services/quiz.service';
 import { convertToDayHourMinutes } from '@services/utils/date-time.utils';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { trackPromise } from 'react-promise-tracker';
+import { IInitialLimitsState } from '@screens/platform-page/components/edit-page/game-info/game-limits-form';
 
 export const useTrainerPageState = (trainerId: string) => {
   const [isShowShevron, setShowShevron] = useState(false);

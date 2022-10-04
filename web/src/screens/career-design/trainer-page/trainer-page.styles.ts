@@ -1,7 +1,8 @@
+import styled from 'styled-components';
+
 import { FONTS } from '@styles/fonts';
 import { Media } from '@styles/media';
 import { COLORS } from '@styles/colors';
-import styled from 'styled-components';
 
 export const TrainerPageStyles = {
   HeaderWrapper: styled.div`
@@ -73,9 +74,8 @@ export const TrainerPageStyles = {
     display: flex;
     padding: 0 15px;
     align-items: center;
-
-    /*  */
   `,
+
   TbaleSettings: styled.div`
     width: 100%;
     height: auto;

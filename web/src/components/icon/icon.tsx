@@ -61,6 +61,8 @@ import { ReactComponent as shevron } from '@assets/img/vector-shevron.svg';
 import { ReactComponent as shevronRight } from '@assets/img/shevron-right.svg';
 import { ReactComponent as plus } from '@assets/img/plus.svg';
 import { ReactComponent as triangleBracketRight } from '@assets/img/triangle-bracket-right.svg';
+import { ReactComponent as uploadCsv } from '@assets/img/upload-csv.svg';
+import { ReactComponent as nextBlack } from '@assets/img/next-arrow-black.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -120,6 +122,8 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   shevronRight,
   plus,
   triangleBracketRight,
+  uploadCsv,
+  nextBlack,
 };
 interface IIconProps {
   type: string;

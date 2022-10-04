@@ -1,6 +1,8 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+
 import { ROUTES } from '@constants/routes';
+
 import { SignIn } from '@screens/sign-in';
 import { SignUp } from '@screens/sign-up';
 import { MainPage } from '@screens/main-page';
@@ -9,10 +11,12 @@ import { PlatformPage } from '@screens/platform-page';
 import { QuizPage } from '@screens/caas-quiz/quiz-page';
 import { ResultPage } from '@screens/caas-quiz/result-page';
 import { ResetPassword } from '@screens/reset-password';
+import { CareerAdventure } from '@screens/career-adventure';
 import { CanvasQuizPage } from '@screens/career-canvas/canvas-quiz-page';
 import { CanvasResults } from '@screens/career-canvas/canvas-results';
 import { RedirectToGame } from '@screens/career-design/link-redirect-game';
 import { UpdateResetedPassword } from '@screens/update-reseted-password';
+
 import { PrivateRoute } from './private-route';
 
 export const AppRouter: React.FC = () => (
@@ -42,6 +46,7 @@ export const AppRouter: React.FC = () => (
       path={ROUTES.updatePassword}
       component={UpdateResetedPassword}
     />
+    <Route exact path={ROUTES.myCareerAdventure} component={CareerAdventure} />
     <Redirect to={ROUTES.main} />
   </Switch>
 );

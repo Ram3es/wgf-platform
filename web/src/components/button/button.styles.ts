@@ -24,11 +24,13 @@ export const ButtonStyles = styled.button<IButtonStylesProps>`
         ? color
         : 'transparent'
     }`};
-  color: ${({ variant, color }) =>
+  color: ${({ variant, color, textColor }) =>
     variant === 'cancel'
       ? COLORS.grey
       : variant === 'underline'
       ? color
+      : textColor
+      ? textColor
       : COLORS.white};
   font-size: ${FONTS.sizes[18]};
   font-weight: 700;

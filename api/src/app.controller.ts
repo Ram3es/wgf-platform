@@ -11,6 +11,6 @@ export class AppController {
       .toString()
       .trim();
 
-    return `Receipt Hub API: Running ${process.env.NODE_ENV} version, last commit: ${commitHash}`;
+    return `Avid Platform API: Running ${process.env.NODE_ENV} version, last commit: ${commitHash}`;
   }
 }

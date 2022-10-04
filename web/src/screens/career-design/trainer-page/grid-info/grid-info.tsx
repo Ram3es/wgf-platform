@@ -1,8 +1,8 @@
+import React, { FC } from 'react';
 import {
   IInitialLimitsState,
   limitLabels,
 } from '@screens/platform-page/components/edit-page/game-info/game-limits-form';
-import React, { FC } from 'react';
 import { GridInfoStyles as Styled } from './grid-info.styles';
 
 interface IGridInfoProps {

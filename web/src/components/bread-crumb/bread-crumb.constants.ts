@@ -9,5 +9,8 @@ export const BreadCrumbTitle: { [key: string]: string } = {
   'manage-trainers': 'Manage Trainers',
   'career-design-game': 'Career Design',
   'manage-group': 'Manage Group',
+  'career-flex-admin': 'CareerFlex',
+  'career-flex-plus-admin': 'CareerFlex+',
+  'career-canvas-admin': 'Career Canvas',
   delete: 'Delete Account',
 };

@@ -1,6 +1,7 @@
-import { Icon } from '@components/icon';
 import React, { FC } from 'react';
 import styled from 'styled-components';
+
+import { Icon } from '@components/icon';
 
 const IconWrapper = styled.div`
   display: flex;

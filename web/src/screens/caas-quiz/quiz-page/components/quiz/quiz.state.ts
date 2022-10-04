@@ -2,17 +2,11 @@ import axios from 'axios';
 import { createRef, useCallback, useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory } from 'react-router-dom';
-
 import { useAppSelector } from '@services/hooks/redux';
 import { useUpdateState } from '@services/hooks/useUpdateState';
-import { getCaasCsv, getQuestions, postAnswers } from '@services/quiz.service';
+import { getQuestions, postAnswers } from '@services/quiz.service';
 import { storageService } from '@services/storage/storage';
-
-import {
-  downloadMessage,
-  errorMessage,
-  unAutorizedError,
-} from '@constants/pop-up-messages';
+import { errorMessage, unAutorizedError } from '@constants/pop-up-messages';
 import { PROMISES_AREA } from '@constants/promises-area';
 import { ROUTES } from '@constants/routes';
 import { initialState } from './quiz.constants';
@@ -229,32 +223,6 @@ export const useQuizState = () => {
       currentPage: --state.currentPage,
     });
 
-  const downloadCsv = async () => {
-    try {
-      const { data } = await trackPromise(
-        getCaasCsv({
-          quizId: storageService.getQuiz()?.id || '',
-        }),
-        PROMISES_AREA.getCaasCsv
-      );
-
-      downloadMessage(
-        `data:application/csv;base64,${data.file}`,
-        `${storageService.getQuiz()?.title || 'quiz'}.csv`
-      ).fire();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 401) {
-          return unAutorizedError()
-            .fire()
-            .finally(() => push('/sign-in'));
-        }
-
-        return errorMessage(error?.response?.data.message).fire();
-      }
-    }
-  };
-
   return {
     ...state,
     updateState,
@@ -263,7 +231,6 @@ export const useQuizState = () => {
     decrementPage,
     errorRef,
     isLastPage,
-    downloadCsv,
     user,
     quiz,
   };
