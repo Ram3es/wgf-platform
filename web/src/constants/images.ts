@@ -71,4 +71,12 @@ export const IMAGES: Record<string, string> = {
     require('../assets/img/career-adventury-better-quality.png').default,
   emailFooter: require('../assets/img/email-footer.png').default,
   canvasMedium: require('../assets/img/canvas-title-medium.png').default,
+  backdropDesign: require('../assets/img/backdrop-design-game.png').default,
+  twoMobiles: require('../assets/img/two-mobile-phone.png').default,
+  careerFlexSlide: require('../assets/img/career-flex-slide.png').default,
+  canvasSlide: require('../assets/img/canvas-slide.png').default,
+  canvasGif: require('../assets/img/canvas-slide.gif').default,
+  phonesMain: require('../assets/img/phones-main.png').default,
+  girlMain: require('../assets/img/girl-main.png').default,
+  phoneFlex: require('../assets/img/phoneFlex-main.png').default,
 };

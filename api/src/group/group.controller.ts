@@ -1,3 +1,4 @@
+import { RenameGroupDto } from './dto/rename-group.dto';
 import {
   Body,
   Controller,
@@ -38,6 +39,19 @@ export class GroupController {
   @UseGuards(new RoleGuard(['superAdmin', 'trainerAdmin']))
   public async createGroup(@Body() body: CreateGroupDto) {
     return this.groupService.createGroup(body);
+  }
+
+  @Post(GROUP_ROUTES.rename)
+  @ApiOperation({ summary: QUESTION_ROUTES.rename })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: QUESTION_ROUTES.rename,
+    type: GroupEntity,
+  })
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(new RoleGuard(['superAdmin', 'trainerAdmin']))
+  public async renameGroup(@Body() body: RenameGroupDto) {
+    return this.groupService.renameGroup(body);
   }
 
   @Post(GROUP_ROUTES.assignUsers)

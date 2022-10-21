@@ -201,6 +201,13 @@ interface IGroup {
   created: Date;
   name: string;
   trainerId: string;
+  isActive?: boolean;
+  users?: IUserExistingAndInvited[];
+}
+interface IChangeGroupBody {
+  userIds: string[];
+  newGroupId: string;
+  trainerId: string;
 }
 
 interface ILocationState {

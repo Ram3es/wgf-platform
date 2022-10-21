@@ -1,25 +1,24 @@
 import { Formik } from 'formik';
 import React from 'react';
 
+import { STRINGS } from '@constants/strings';
+import { PROMISES_AREA } from '@constants/promises-area';
+
 import { Backdrop } from '@components/backdrop';
 import { Button } from '@components/button';
 import { Header } from '@components/header';
+import { Footer } from '@components/footer';
 import { Icon } from '@components/icon';
 import { Loader } from '@components/loader';
 import { SocialAuth } from '@components/social-auth';
 import { TextField } from '@components/text-field';
 import { COLORS } from '@styles/colors';
-
-import { useSignUpState } from './sign-up.state';
-
-import { PROMISES_AREA } from '@constants/promises-area';
-import { STRINGS } from '@constants/strings';
-import { UserFormSchema } from './sign-up.constants';
-
 import { FormStyles } from '@styles/components/form.styles';
 import { TitleStyles } from '@styles/components/title-styles';
+
+import { useSignUpState } from './sign-up.state';
+import { UserFormSchema } from './sign-up.constants';
 import { SignUpStyles as Styled } from './sign-up.styles';
-import { Footer } from '@components/footer';
 
 export const SignUp: React.FC = () => {
   const {

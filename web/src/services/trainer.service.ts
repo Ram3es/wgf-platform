@@ -7,6 +7,15 @@ export const getGroupsByTrainer = (body: { trainerId: string }) =>
     body
   );
 
+export const createGroup = (body: Partial<IGroup>) =>
+  POST<IGroup, Partial<IGroup>>(`${ENDPOINTS.group}/create`, body);
+
+export const renameTrainerGroup = (body: Partial<IGroup>) =>
+  POST<IGroup, Partial<IGroup>>(`${ENDPOINTS.group}/rename`, body);
+
+export const deleteGroup = (body: { groupId: string }) =>
+  POST<IGroup, { groupId: string }>(`${ENDPOINTS.group}/delete-group`, body);
+
 export const inviteStudent = (body: IInvitationReq) =>
   POST<IInvitation, IInvitationReq>(
     `${ENDPOINTS.invitation}/invite-student-from-trainer`,
@@ -18,6 +27,9 @@ export const getUsersByTrainer = (body: { trainerId: string }) =>
     `${ENDPOINTS.user}/get-users-by-trainer`,
     body
   );
+
+export const changeGroupForUser = (body: IChangeGroupBody) =>
+  POST(`${ENDPOINTS.group}/change-group-for-users`, body);
 
 export const getAllStudentsByTrainerCsv = (body: { trainerId: string }) =>
   POST<{ file: string }>(`${ENDPOINTS.user}/get-all-students-by-trainer-csv`);

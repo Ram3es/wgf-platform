@@ -63,6 +63,13 @@ import { ReactComponent as plus } from '@assets/img/plus.svg';
 import { ReactComponent as triangleBracketRight } from '@assets/img/triangle-bracket-right.svg';
 import { ReactComponent as uploadCsv } from '@assets/img/upload-csv.svg';
 import { ReactComponent as nextBlack } from '@assets/img/next-arrow-black.svg';
+import { ReactComponent as googleLogin } from '@assets/img/google-login-new.svg';
+import { ReactComponent as facebookLogin } from '@assets/img/facebook-login-new.svg';
+import { ReactComponent as changeGroup } from '@assets/img/change-group.svg';
+import { ReactComponent as tick } from '@assets/img/tick.svg';
+import { ReactComponent as close } from '@assets/img/close-with-bacdrop.svg';
+import { ReactComponent as trashBasket } from '@assets/img/trash-basket.svg';
+import { ReactComponent as chain } from '@assets/img/chain.svg';
 
 const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   Dashboard,
@@ -124,6 +131,13 @@ const ICONS: Record<string, FunctionComponent<SVGProps<SVGSVGElement>>> = {
   triangleBracketRight,
   uploadCsv,
   nextBlack,
+  googleLogin,
+  facebookLogin,
+  changeGroup,
+  tick,
+  close,
+  trashBasket,
+  chain,
 };
 interface IIconProps {
   type: string;

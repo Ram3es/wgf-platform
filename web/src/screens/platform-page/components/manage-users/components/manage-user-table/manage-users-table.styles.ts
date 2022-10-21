@@ -122,17 +122,28 @@ export const ManageUsersTableStyles = {
 
   ReminderDiv: styled.div`
     display: flex;
+    margin-left: 15px;
+    align-items: center;
+
+    ${Media.mobile`
+    margin-left: 6px;
+    `}
   `,
 
   TextTable: styled.p`
     color: ${COLORS.iconBlack};
     font-size: ${FONTS.sizes[13]};
     margin-right: 20px;
+
+    ${Media.mobile`
+    margin-right: 8px;
+    `}
   `,
   TextIcon: styled.div`
     width: 60px;
     color: ${COLORS.iconBlack};
     font-size: ${FONTS.sizes[9]};
+    margin-left: 8px;
   `,
 
   SortByDiv: styled.div`
@@ -247,5 +258,34 @@ export const ManageUsersTableStyles = {
         }
       }
     }
+  `,
+  WrapIcon: styled.div`
+    cursor: pointer;
+  `,
+  ButtonGroup: styled.div<{ isActive?: boolean }>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 100px;
+    font-size: ${FONTS.sizes[14]};
+    border-radius: 12px;
+    background-color: ${({ isActive }) =>
+      isActive ? ` ${COLORS.lightBlue}` : ` ${COLORS.grey}`};
+
+    color: ${COLORS.white};
+    svg {
+      margin: 0 5px 0 0;
+    }
+    :hover {
+      cursor: ${({ isActive }) => (isActive ? 'pointer' : ' not-allowed')};
+      opacity: ${({ isActive }) => isActive && '0.7'};
+      transition: 0.3s;
+    }
+
+    ${Media.mobile`
+    width: 80px;
+    margin-right:10px;
+    `}
   `,
 };

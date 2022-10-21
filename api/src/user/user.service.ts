@@ -79,6 +79,7 @@ export class UserService {
       .where({ id })
       .leftJoinAndSelect('user.results', 'result')
       .leftJoinAndSelect('result.quiz', 'quiz')
+      .leftJoinAndSelect('user.groups', 'group')
       .getOne();
 
     if (!user) {

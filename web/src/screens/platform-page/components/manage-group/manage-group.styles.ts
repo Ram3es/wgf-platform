@@ -1,6 +1,7 @@
+import styled from 'styled-components';
+
 import { FONTS } from '@styles/fonts';
 import { COLORS } from '@styles/colors';
-import styled from 'styled-components';
 import { Media } from '@styles/media';
 
 export const ManageGroupStyles = {
@@ -24,7 +25,7 @@ export const ManageGroupStyles = {
   ContainerButton: styled.div`
     display: flex;
     align-items: center;
-    margin-top: 40px;
+    margin: 40px 0;
   `,
   IconWrap: styled.div`
     display: flex;
@@ -33,33 +34,47 @@ export const ManageGroupStyles = {
   `,
   GroupButtonWrap: styled.div`
     display: flex;
-    max-width: 630px;
+    max-width: 725px;
     overflow-x: hidden;
+    align-items: center;
+    height: 50px;
 
     ${Media.mobile`
-    max-width: 252px;
+    max-width: 300px;
     `}
   `,
-  GroupButton: styled.div`
+  GroupButton: styled.div<{ isActive: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     height: 38px;
-    min-width: 111px;
+    min-width: 130px;
     border-radius: 7px;
-    border: 1px solid ${COLORS.lightBlue};
+    border: ${({ isActive }) =>
+      isActive ? 'none' : `1px solid ${COLORS.lightBlue}`};
     font-size: 14px;
-    color: ${COLORS.grey};
+    color: ${({ isActive }) =>
+      isActive ? `${COLORS.default}` : `${COLORS.grey}`};
     margin-right: 15px;
+    padding: 0 10px;
+    background: ${({ isActive }) => isActive && `${COLORS.white}`};
     cursor: pointer;
+    transition: 0.3s;
+
+    :hover {
+      box-shadow: ${({ isActive }) =>
+        !isActive && '0px 2px 5px rgba(0, 0, 0, 0.4)'};
+    }
   `,
-  ArrowWrap: styled.div<{ isHide: boolean }>`
+  ArrowWrap: styled.div<{ isHide: boolean; left?: boolean }>`
     height: 15px;
     width: 10px;
     display: ${({ isHide }) => !isHide && 'none'};
     align-items: center;
     padding-left: 10px;
     cursor: pointer;
+    transform: ${({ left }) => left && 'rotate(180deg)'};
 
     :hover {
       svg {

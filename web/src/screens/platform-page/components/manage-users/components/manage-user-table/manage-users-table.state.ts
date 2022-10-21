@@ -1,17 +1,24 @@
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { trackPromise } from 'react-promise-tracker';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+
+import { ROLES } from '@constants/user-roles';
+import { PROMISES_AREA } from '@constants/promises-area';
+import {
+  downloadMessage,
+  errorMessage,
+  selectGroup,
+} from '@constants/pop-up-messages';
+
 import { useAppSelector } from '@services/hooks/redux';
 import { getAllUsers, getAllUsersCsv } from '@services/super-admin.service';
 import {
+  changeGroupForUser,
   getAllStudentsByTrainerCsv,
+  getGroupsByTrainer,
   getUsersByTrainer,
 } from '@services/trainer.service';
-
-import { downloadMessage, errorMessage } from '@constants/pop-up-messages';
-import { PROMISES_AREA } from '@constants/promises-area';
-import { ROLES } from '@constants/user-roles';
-import { useHistory, useRouteMatch } from 'react-router-dom';
 
 export const useManageUsersTableState = () => {
   const { user } = useAppSelector((state) => state);
@@ -19,17 +26,33 @@ export const useManageUsersTableState = () => {
   const [isAllSelected, setAllSelected] = useState(false);
   const [showSortByModal, setShowSortByModal] = useState(false);
   const [chosenFilter, setChosenFilter] = useState('');
+
+  const [trainerGroups, setTrainerGroups] = useState<IGroup[]>([]);
+
   const sortByModalRef = useRef<HTMLDivElement>(null);
 
   const { push } = useHistory();
   const { url } = useRouteMatch();
 
-  useEffect(() => {
-    document.addEventListener('click', onBackdropClick);
-    return () => {
-      document.removeEventListener('click', onBackdropClick);
-    };
-  }, []);
+  const assignUserToGroup = async () => {
+    const userIds = allUsers
+      .filter(
+        (user) =>
+          user.isSelected === true &&
+          !['Pending', 'Registration Pending'].includes(user?.status as string)
+      )
+      .map((user) => user.id);
+
+    const obj = trainerGroups.reduce((acc, item) => {
+      return { ...acc, [item.id]: item.name };
+    }, {});
+
+    const { value: newGroupId } = await selectGroup(obj);
+    if (newGroupId) {
+      await changeGroup({ userIds, newGroupId, trainerId: user.id });
+      getStudents();
+    }
+  };
 
   useEffect(() => {
     if (allUsers.filter((user) => user.isSelected).length === allUsers.length) {
@@ -81,6 +104,29 @@ export const useManageUsersTableState = () => {
     }
   }, []);
 
+  const getGroupsTrainer = useCallback(async () => {
+    try {
+      const { data } = await trackPromise(
+        getGroupsByTrainer({ trainerId: user.id })
+      );
+      setTrainerGroups((state) => [...state, ...data]);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
+  }, []);
+
+  const changeGroup = useCallback(async (params: IChangeGroupBody) => {
+    try {
+      await trackPromise(changeGroupForUser(params), PROMISES_AREA.getAllUsers);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return errorMessage(error?.response?.data.message).fire();
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (user.role === ROLES.superAdmin) {
       getUsers();
@@ -88,7 +134,7 @@ export const useManageUsersTableState = () => {
     if (user.role === ROLES.trainerAdmin) {
       getStudents();
     }
-  }, [getAllUsers, getStudents]);
+  }, []);
 
   const onSelectAll = () => {
     setAllSelected((prev) => !prev);
@@ -336,6 +382,14 @@ export const useManageUsersTableState = () => {
   const editHandler = (user: IUserExistingAndInvited) => () =>
     push(`${url}/${user.id}`, user);
 
+  useEffect(() => {
+    document.addEventListener('click', onBackdropClick);
+    getGroupsTrainer();
+
+    return () => {
+      document.removeEventListener('click', onBackdropClick);
+    };
+  }, []);
   return {
     allUsers,
     onSelectAll,
@@ -353,5 +407,6 @@ export const useManageUsersTableState = () => {
     handleCsvDownload,
     sortByModalRef,
     editHandler,
+    assignUserToGroup,
   };
 };

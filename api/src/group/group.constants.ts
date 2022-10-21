@@ -1,6 +1,7 @@
 export const GROUP_ROUTES = {
   main: 'group',
   create: 'create',
+  rename: 'rename',
   assignUsers: 'assign-users',
   getUsersByGroup: 'get-users-by-group',
   getGroupsByTrainer: 'get-groups-by-trainer',

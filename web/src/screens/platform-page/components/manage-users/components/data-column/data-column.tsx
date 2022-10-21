@@ -7,14 +7,17 @@ export const DataColumn: FC<{
   isSmallBox?: boolean;
   isMiddleBox?: boolean;
   isWarning?: boolean;
-}> = ({ text, isSmallBox, isMiddleBox, isWarning }) => {
+  onClick?: () => void;
+  isLink?: boolean;
+}> = ({ text, isSmallBox, isMiddleBox, isWarning, isLink, onClick }) => {
   return (
     <CommonStylesForTables.DataColumn
       isSmallBox={isSmallBox}
       isMiddleBox={isMiddleBox}
       isWarning={isWarning}
+      isLink={isLink}
     >
-      {text}
+      <span onClick={onClick}>{text}</span>
     </CommonStylesForTables.DataColumn>
   );
 };

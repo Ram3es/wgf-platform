@@ -2,6 +2,7 @@ export const PROMISES_AREA = {
   printCaasPdf: 'get-caas-pdf',
   getCaasQuestionList: 'get-caas-questions',
   auth: 'sign-in',
+  authSignUp: 'sign-up',
   logOut: 'log-out',
   getCaasResult: 'get-caas-results',
   sendCaasAnswers: 'send-caas-answers',
@@ -25,4 +26,7 @@ export const PROMISES_AREA = {
   getAllTrainersCsv: 'get-all-trainers-csv',
   getLimitSetting: 'get-limits/:id',
   setLimitsTrainer: 'set-limits',
+  createGroup: 'create',
+  renameGroup: 'rename',
+  deleteGroup: 'delete-group',
 };

@@ -129,7 +129,7 @@ export const navigationRoles: INavigationRoles = {
         },
         {
           title: 'Manage Group',
-          route: ROUTES.manageGroup,
+          route: ROUTES.manageGroupSA,
         },
       ],
     },

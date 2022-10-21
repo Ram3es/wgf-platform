@@ -7,6 +7,7 @@ export interface IDataColumnPropsStyles {
   isErrorColumn?: boolean;
   isError?: boolean;
   isWarning?: boolean;
+  isLink?: boolean;
 }
 
 export interface IDataRowPropsStyles {

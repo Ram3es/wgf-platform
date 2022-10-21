@@ -1,12 +1,15 @@
-import { errorMessage } from '@constants/pop-up-messages';
-import { ROUTES } from '@constants/routes';
-import { useCapitalLetter } from '@services/hooks/useCapitalLetter';
-import { getUserById } from '@services/super-admin.service';
-import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import { animateScroll } from 'react-scroll';
 import { trackPromise } from 'react-promise-tracker';
 import { useHistory, useParams } from 'react-router-dom';
-import { animateScroll } from 'react-scroll';
+
+import { ROUTES } from '@constants/routes';
+import { errorMessage } from '@constants/pop-up-messages';
+
+import { useCapitalLetter } from '@services/hooks/useCapitalLetter';
+import { getUserById } from '@services/super-admin.service';
+
 import { IEditUserProps } from './edit-table-info/edit-table-info';
 
 export const useEditUserState = () => {
@@ -21,6 +24,7 @@ export const useEditUserState = () => {
   const getUser = useCallback(async () => {
     try {
       const { data } = await trackPromise(getUserById(params));
+
       setUserState(data);
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -46,7 +46,7 @@ export const GoogleButton = () => {
       cookiePolicy={'single_host_origin'}
       render={(renderProps) => (
         <StyledIcon {...renderProps}>
-          <Icon type="google" />
+          <Icon type="googleLogin" />
         </StyledIcon>
       )}
     />

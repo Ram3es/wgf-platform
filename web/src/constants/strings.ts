@@ -151,9 +151,14 @@ export const STRINGS = {
   },
 
   signUp: {
-    title: 'Let’s Get Started!',
+    title: 'Start your career adventure!',
     label: 'Let’s set up your account.',
   },
+  sliderSignup: { title: 'Want to experience the world of work?' },
+  sliderCareerFlex: {
+    title: 'How adaptable are you to the changing jobs world?',
+  },
+  sliderCanvas: { title: 'Looking to understand yourself more?' },
 
   resetPassword: {
     title: 'Reset Password',

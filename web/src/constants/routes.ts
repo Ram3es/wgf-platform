@@ -1,5 +1,6 @@
 export const ROUTES = {
   main: '/',
+  welcome: '/welcome',
   platform: '/platform',
   pdf: '/caas-quiz/pdf',
   signIn: '/sign-in',
@@ -24,6 +25,7 @@ export const ROUTES = {
   myCareerAdventure: '/my-career-adventure',
   manageUser: '/platform/manage-user',
   manageGroup: '/platform/manage-group',
+  manageGroupSA: '/platform/manage-group-super-admin',
   manageTrainers: '/platform/manage-trainers',
   errorPage: '/error',
   editUser: '/platform/manage-user/:userId',

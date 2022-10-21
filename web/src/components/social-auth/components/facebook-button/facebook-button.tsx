@@ -1,5 +1,6 @@
 import FacebookLogin, {
-    ReactFacebookFailureResponse, ReactFacebookLoginInfo
+  ReactFacebookFailureResponse,
+  ReactFacebookLoginInfo,
 } from 'react-facebook-login';
 import { trackPromise } from 'react-promise-tracker';
 import styled from 'styled-components';
@@ -73,7 +74,7 @@ export const FacebookButton = () => {
           position: 'relative',
           backgroundColor: 'transparent',
           border: 0,
-          width: 33,
+          width: 330,
           height: 33,
           padding: 0,
           zIndex: Z_INDEX.medium,
@@ -81,7 +82,7 @@ export const FacebookButton = () => {
         redirectUri={window.location.href}
       />
       <StyledIconWrapper>
-        <Icon type="facebook" />
+        <Icon type="facebookLogin" />
       </StyledIconWrapper>
     </StyledIcon>
   );

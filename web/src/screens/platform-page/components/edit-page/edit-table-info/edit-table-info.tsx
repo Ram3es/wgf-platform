@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
+
 import { Icon } from '@components/icon';
 import { DATE_TIME_OPTIONS } from '@constants/date';
+
 import { CommonStylesForTables } from '@screens/platform-page/platform-page.styles';
 import { IResultUser } from '../user-progres-games/user-progres.constants';
 import { EditTableInfoRow } from './edit-table-info.constants';
@@ -23,7 +25,7 @@ export interface IEditUserProps {
   occupation?: string;
   organizationName?: string;
   role: string;
-  groups?: string;
+  groups?: IGroup[];
   results?: IResultUser[];
 }
 
@@ -43,6 +45,9 @@ export const EditTableInfo: FC<IEditTableProps> = ({ user }) => {
                 'en-US',
                 DATE_TIME_OPTIONS
               );
+            }
+            if (key === 'groups') {
+              value = user[key]?.map(({ name }) => name).join(' ');
             }
             return (
               <React.Fragment key={key}>

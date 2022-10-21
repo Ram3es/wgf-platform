@@ -13,6 +13,7 @@ import { RemoveUsersFromGroupDto } from './dto/remove-users-from-group.dto';
 import { GroupEntity } from './entities/group.entity';
 
 import { UNASSIGNED_GROUP } from './group.constants';
+import { RenameGroupDto } from './dto/rename-group.dto';
 
 @Injectable()
 export class GroupService {
@@ -35,10 +36,22 @@ export class GroupService {
     });
 
     if (group) {
-      return new HttpException(ERRORS.alreadyExist, HttpStatus.FORBIDDEN);
+      throw new HttpException(ERRORS.alreadyExist, HttpStatus.FORBIDDEN);
     }
 
     return this.groupRepository.save(body);
+  }
+
+  async renameGroup(body: RenameGroupDto) {
+    const group = await this.groupRepository.findOne(body.groupId);
+
+    if (!group) {
+      throw new HttpException(ERRORS.notExist, HttpStatus.NOT_FOUND);
+    }
+    if (group.name === body.name) {
+      throw new HttpException(ERRORS.alreadyExist, HttpStatus.FORBIDDEN);
+    }
+    return this.groupRepository.save({ ...group, name: body.name });
   }
 
   async assignUsersToGroup(body: AssignUsersToGroupDto) {
@@ -57,11 +70,15 @@ export class GroupService {
       users: [...(group.users || []), ...users],
     });
 
-    return this.groupRepository.findOne(body.groupId);
+    return this.groupRepository.findOne(body.groupId, { relations: ['users'] });
   }
 
   async removeUserFromTrainer(body: GetUserFromTrainerDto) {
     const group = await this.getUserInGroup(body);
+
+    if (!group) {
+      throw new HttpException(ERRORS.notFound, HttpStatus.NOT_FOUND);
+    }
 
     const users = (
       await this.groupRepository.findOne(group.id, { relations: ['users'] })
@@ -91,9 +108,11 @@ export class GroupService {
   }
 
   async changeGroupForUsers(body: ChangeGroupDto) {
-    body.userIds.forEach(async (userId) => {
-      await this.removeUserFromTrainer({ userId, trainerId: body.trainerId });
-    });
+    await Promise.all(
+      body.userIds.map(async (userId) => {
+        await this.removeUserFromTrainer({ userId, trainerId: body.trainerId });
+      })
+    );
 
     return this.assignUsersToGroup({
       userIds: body.userIds,
@@ -162,6 +181,7 @@ export class GroupService {
       where: {
         trainerId: body.trainerId,
       },
+      relations: ['users'],
     });
   }
 

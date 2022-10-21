@@ -388,6 +388,20 @@ export const CommonStylesForTables = {
     padding: 22px 5px 22px 25px;
     word-break: break-word;
     margin-left: 5px;
+
+    ${({ isLink }) =>
+      isLink &&
+      css`
+        span {
+          cursor: pointer;
+          :hover {
+            color: ${COLORS.grey};
+            transform: scale(1.1);
+            transition: 0.3s;
+          }
+        }
+      `}
+
     ${({ isWarning }) =>
       isWarning &&
       css`

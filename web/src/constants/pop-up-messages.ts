@@ -162,3 +162,16 @@ export const downloadMessage = (
     showConfirmButton: false,
     showCloseButton: true,
   });
+
+export const selectGroup = (obj: Record<string, string>) => {
+  return Swal.fire({
+    title: 'Select Group for User',
+    input: 'select',
+    inputOptions: obj,
+    inputPlaceholder: 'select group',
+    showCancelButton: true,
+    confirmButtonColor: `${COLORS.lightBlue}`,
+    cancelButtonColor: `${COLORS.grey}`,
+    confirmButtonText: 'Confirm',
+  });
+};

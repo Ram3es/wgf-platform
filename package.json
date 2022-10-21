@@ -17,5 +17,6 @@
 	"bugs": {
 		"url": "https://github.com/jacphua/wgf-platform/issues"
 	},
-	"homepage": "https://github.com/jacphua/wgf-platform#readme"
+	"homepage": "https://github.com/jacphua/wgf-platform#readme",
+	"dependencies": {}
 }

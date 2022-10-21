@@ -24,6 +24,17 @@ export const PrivateRoute: FunctionComponent<IPrivateRouteProps> = ({
 
   const isToken = storageService.getToken();
 
+  if (!isToken && location.pathname === ROUTES.main) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: ROUTES.welcome,
+          state: { from: location },
+        }}
+      />
+    );
+  }
   if (!isToken) {
     return (
       <Redirect

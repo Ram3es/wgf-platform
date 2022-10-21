@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { BurgerNavbar } from '@components/burger-navbar/burger-navbar';
-import { Button } from '@components/button';
+import { ROUTES } from '@constants/routes';
+import { FLEX_QUIZ } from '@constants/flex-quiz';
+
 import { Header } from '@components/header';
-import { COLORS } from '@styles/colors';
-import { Container } from '@styles/components/container';
+import { Footer } from '@components/footer';
+import { BurgerNavbar } from '@components/burger-navbar/burger-navbar';
 
 import { storageService } from '@services/storage/storage';
 
-import { FLEX_QUIZ } from '@constants/flex-quiz';
-import { IMAGES } from '@constants/images';
-import { ROUTES } from '@constants/routes';
-import { STRINGS } from '@constants/strings';
-
-import { TitleStyles } from '@styles/components/title-styles';
-
-import { GameButton } from './components';
-import { MainPageStyles as Styled } from './main-page.styles';
-import { Footer } from '@components/footer';
+import { MainPageStyles as Styled } from './components/main-page/main-page.styles';
+import { MainPageNew } from './main-page-new';
 
 export const MainPage: React.FC = () => {
   const { push } = useHistory();
@@ -39,6 +32,12 @@ export const MainPage: React.FC = () => {
   };
   const toogleActive = () => setisActiveBurger((prev) => !prev);
 
+  const props = {
+    redirectToFlexCooperationQuiz,
+    redirectToFlexQuiz,
+    redirectToCareerCanvasQuiz,
+  };
+
   return (
     <>
       <Header />
@@ -54,50 +53,7 @@ export const MainPage: React.FC = () => {
           <BurgerNavbar isActiveMenu={isActiveBurger} />
         </Styled.Wrapper>
       </Styled.BurgerMenuWrapper>
-
-      <Container>
-        <Styled.Banner>
-          <Styled.BannerDescription>
-            <TitleStyles.h1 color={COLORS.grey} textAlign="left">
-              {STRINGS.mainPage.title}
-            </TitleStyles.h1>
-            <Styled.BannerText>
-              <div>
-                {STRINGS.mainPage.bannerText.map((item, i) => (
-                  <p key={i}>{item}</p>
-                ))}
-              </div>
-            </Styled.BannerText>
-            <Styled.ButtonContainer>
-              <Button
-                title={STRINGS.button.quizCaas}
-                isIconRight
-                iconType="next"
-                onClick={redirectToFlexQuiz}
-                color={COLORS.greenLight}
-              />
-              <Button
-                title={STRINGS.button.quizCooperation}
-                iconType="next"
-                isIconRight
-                onClick={redirectToFlexCooperationQuiz}
-                color={COLORS.greenLight}
-              />
-              <Button
-                title={'Career Canvas'}
-                iconType="next"
-                isIconRight
-                onClick={redirectToCareerCanvasQuiz}
-                color={COLORS.yellow}
-              />
-              <GameButton />
-            </Styled.ButtonContainer>
-          </Styled.BannerDescription>
-          <Styled.BannerImage>
-            <img src={IMAGES.mainPage} alt={STRINGS.altLogo} />
-          </Styled.BannerImage>
-        </Styled.Banner>
-      </Container>
+      <MainPageNew {...props} />
       <Footer />
     </>
   );
